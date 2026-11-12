@@ -75,6 +75,85 @@
 @media(max-width:600px){#page-dashboard>header{height:66px;padding:9px 12px!important}#page-dashboard>.flex-1{padding:16px 13px 28px!important}#section-dashboard-home>div:first-child{min-height:165px;padding:22px!important}#section-dashboard-home>div:nth-child(2){padding:16px!important}#section-dashboard-home>div:nth-child(2) .grid{grid-template-columns:1fr!important}#section-dashboard-home>div:nth-child(2) .grid>div{display:flex;align-items:center;gap:12px;text-align:left;padding:12px!important}#section-dashboard-home>div:nth-child(2) .grid i{margin:0!important}#section-dashboard-home>div:nth-child(3){gap:10px!important}#section-dashboard-home>div:nth-child(3)>div{padding:14px!important;min-height:132px}#section-dashboard-home>div:nth-child(3)>div p{font-size:10px!important}#section-dashboard-home>div:nth-child(4){align-items:flex-start}#sidebar-drawer{width:min(84vw,300px)!important}#page-dashboard .p-5{padding:18px!important}}
 </style>
 
+<style id="fridgeloop-all-sections-v2">
+/* FRIDGELOOP — COMPLETE UI POLISH v2 */
+:root{--pine:#174b38;--pine-deep:#103829;--leaf:#3d9a60;--leaf-soft:#e9f4e9;--cream:#f6f8f4;--ink:#17251d;--muted:#718078;--line:#e5ebe5;--amber:#e9a34b;--card-shadow:0 12px 32px rgba(24,57,38,.075)}
+body{background:var(--cream)!important;color:var(--ink)!important}
+#page-dashboard{background:linear-gradient(180deg,#f8faf7 0%,#f2f6f0 100%)!important}
+#page-dashboard>header{position:sticky;top:0;z-index:25;backdrop-filter:blur(16px);background:rgba(255,255,255,.9)!important;border-bottom:1px solid rgba(31,76,51,.09)!important}
+#sidebar-drawer{background:linear-gradient(165deg,#194f39 0%,#103628 100%)!important}
+#sidebar-drawer nav button{min-height:46px;font-size:13px!important;letter-spacing:.005em}
+#sidebar-drawer nav button:focus-visible,#page-dashboard button:focus-visible{outline:3px solid #e8b66d;outline-offset:2px}
+#page-dashboard>.flex-1{scrollbar-color:#b9d0bd transparent}
+#page-dashboard>.flex-1>div[id^="section-"]{animation:sectionIn .28s ease both}
+@keyframes sectionIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+/* Common surfaces */
+#page-dashboard .bg-white{border-color:var(--line)!important;box-shadow:var(--card-shadow)!important}
+#page-dashboard input,#page-dashboard select,#page-dashboard textarea{background:#fbfdfb!important;color:var(--ink)!important;border:1px solid #dce6dc!important;box-shadow:inset 0 1px 2px rgba(20,50,30,.025);transition:border-color .2s,box-shadow .2s}
+#page-dashboard input:focus,#page-dashboard select:focus,#page-dashboard textarea:focus{border-color:#6da77a!important;box-shadow:0 0 0 4px rgba(61,154,96,.12)!important;outline:0}
+#page-dashboard button{font-weight:650;letter-spacing:.005em}
+#page-dashboard button:not(:disabled):hover{filter:brightness(1.025)}
+#page-dashboard .text-gray-500,#page-dashboard .text-gray-600{color:#718078!important}
+/* Dashboard cards */
+#section-dashboard-home>div:first-child{position:relative;overflow:hidden;background:linear-gradient(112deg,#153f30 0%,#276d49 58%,#91bd76 100%)!important}
+#section-dashboard-home>div:first-child:after{content:'🌿';position:absolute;right:5%;bottom:-28px;font-size:clamp(90px,14vw,170px);opacity:.18;transform:rotate(-18deg);pointer-events:none}
+#section-dashboard-home>div:nth-child(2) .grid>div{background:linear-gradient(145deg,#fff,#f7faf6)!important;border:1px solid #edf1eb!important;transition:transform .2s,box-shadow .2s}
+#section-dashboard-home>div:nth-child(2) .grid>div:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(24,57,38,.08)}
+#section-dashboard-home>div:nth-child(3)>div{overflow:hidden;position:relative}
+#section-dashboard-home>div:nth-child(3)>div:nth-child(1){background:linear-gradient(140deg,#f3eefe,#fff)!important}
+#section-dashboard-home>div:nth-child(3)>div:nth-child(2){background:linear-gradient(140deg,#e8f7eb,#fff)!important}
+#section-dashboard-home>div:nth-child(3)>div:nth-child(3){background:linear-gradient(140deg,#fff0df,#fff)!important}
+#section-dashboard-home>div:nth-child(3)>div:nth-child(4){background:linear-gradient(140deg,#edf5df,#fff)!important}
+/* Each app section gets a generous, consistent canvas */
+#section-scansiona,#section-catalogo,#section-ricette,#section-vicino,#section-spesa,#section-account{max-width:1120px!important;padding:4px 0 22px!important}
+#section-scansiona>div,#section-catalogo>div,#section-ricette>div,#section-vicino>div,#section-spesa>div,#section-account>div{border:1px solid #e6ece5!important;border-radius:26px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 14px 36px rgba(26,58,39,.07)!important;padding:clamp(18px,2.4vw,30px)!important}
+#section-scansiona h3,#section-catalogo h3,#section-ricette h3,#section-vicino h3,#section-spesa h3,#section-account h3{font-size:clamp(19px,2.2vw,24px)!important;letter-spacing:-.035em;line-height:1.2}
+#section-scansiona h3 i,#section-catalogo h3 i,#section-ricette h3 i,#section-vicino h3 i,#section-spesa h3 i{width:42px;height:42px;border-radius:14px;background:#edf6ed;display:inline-flex;align-items:center;justify-content:center}
+/* Scan area */
+#section-scansiona .bg-white{background:linear-gradient(180deg,#fff,#fbfdfb)!important}
+#section-scansiona .bg-gray-100{background:#f0f4ef!important}
+#section-scansiona .border-dashed{border:2px dashed #b9d2bd!important;border-radius:20px!important;background:linear-gradient(145deg,#f5faf4,#fff)!important}
+#section-scansiona .fa-receipt,#section-scansiona .fa-barcode{filter:drop-shadow(0 5px 8px rgba(23,75,56,.12))}
+/* Catalog: tabs and product rows */
+#section-catalogo>div:first-child{overflow:hidden}
+#section-catalogo .flex.bg-gray-100{padding:5px!important;border-radius:16px!important;background:#eff4ee!important;gap:4px}
+#section-catalogo .flex.bg-gray-100 button{min-height:42px;border-radius:12px!important}
+#catalog-products-container{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important}
+#catalog-products-container>div{min-height:94px;margin:0!important;padding:15px!important;border-radius:18px!important;background:linear-gradient(145deg,#fff,#fafcf9)!important;border:1px solid #e8eee7!important;box-shadow:0 5px 15px rgba(24,57,38,.035)!important;transition:transform .2s,box-shadow .2s}
+#catalog-products-container>div:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(24,57,38,.08)!important}
+#catalog-products-container>div>div:first-child{min-width:0;gap:12px!important}
+#catalog-products-container h4{font-size:14px!important;letter-spacing:-.015em;margin-bottom:4px}
+#catalog-products-container p{font-size:11px!important;line-height:1.5}
+#catalog-products-container>div>div:last-child button{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:12px!important}
+#catalog-products-container input[type=date]{min-height:34px!important}
+/* Recipes */
+#section-ricette #recipe-ai-content>div:first-child{padding:24px!important;border-radius:22px!important;background:linear-gradient(125deg,#f0f8e9,#fff7e9)!important;border:1px solid #e5eedc!important}
+#section-ricette #generated-recipes-list>div{border:1px solid #e7ece5!important;border-radius:20px!important;padding:18px!important;background:linear-gradient(145deg,#fff,#fafcf9)!important;box-shadow:0 8px 22px rgba(24,57,38,.055)!important}
+/* Community */
+#section-vicino .h-40{height:230px!important;border-radius:22px!important;background:radial-gradient(circle at 20% 30%,#d6ebd1,transparent 35%),radial-gradient(circle at 80% 70%,#d8e9d8,transparent 38%),linear-gradient(135deg,#eff7ed,#e7f0e4)!important;border:1px solid #dce9d9!important}
+#section-vicino .h-40>div:not(.absolute){z-index:1}
+#section-vicino #neighbors-annunci-list>div{border:1px solid #e7ede5!important;background:linear-gradient(145deg,#fff,#f8fbf7)!important;box-shadow:0 6px 16px rgba(24,57,38,.04)!important;border-radius:18px!important;padding:16px!important}
+/* Shopping list */
+#section-spesa form{padding:8px;background:#f1f6f0;border:1px solid #e4ece2;border-radius:17px}
+#section-spesa form input{background:#fff!important;border:0!important;box-shadow:none!important}
+#section-spesa form button{min-height:44px;border-radius:13px!important;padding-inline:18px!important}
+#family-members-container{border:1px solid #dfebdc!important;border-radius:17px!important;background:linear-gradient(100deg,#eff7ec,#f9fbf7)!important;padding:14px 16px!important}
+#spesa-items-container{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important}
+#spesa-items-container>div{min-height:62px;border:1px solid #e7ede5!important;border-radius:16px!important;background:#fff!important;box-shadow:0 5px 14px rgba(24,57,38,.035)!important;display:flex;align-items:center;justify-content:space-between;padding:13px 15px!important}
+#spesa-items-container>div:has(input:checked){background:#f1f7ef!important;opacity:.78}
+/* Account */
+#section-account #account-page-avatar{width:66px!important;height:66px!important;border:4px solid #edf5eb;box-shadow:0 7px 18px rgba(24,57,38,.12)!important}
+#section-account form{background:#f8faf7;border:1px solid #e8eee7;border-radius:20px;padding:20px!important}
+/* Modals */
+#app-container [id$="-modal"]>div{border-radius:26px!important;box-shadow:0 24px 70px rgba(9,35,20,.22)!important;border:1px solid rgba(255,255,255,.75)}
+#app-container [id$="-modal"] input,#app-container [id$="-modal"] select{min-height:46px}
+/* Toasts and motion */
+#toast-container>div{border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(12px)}
+@media(max-width:760px){#page-dashboard>.flex-1{padding:15px 13px 30px!important}#section-scansiona,#section-catalogo,#section-ricette,#section-vicino,#section-spesa,#section-account{padding:0 0 18px!important}#section-scansiona>div,#section-catalogo>div,#section-ricette>div,#section-vicino>div,#section-spesa>div,#section-account>div{padding:18px!important;border-radius:22px!important}#catalog-products-container,#spesa-items-container{grid-template-columns:1fr}#section-vicino .h-40{height:190px!important}#section-dashboard-home>div:nth-child(3){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:420px){#section-dashboard-home>div:nth-child(3)>div{min-height:124px;padding:13px!important}#section-dashboard-home>div:nth-child(3)>div h4{font-size:12px!important}#catalog-products-container>div{padding:12px!important}#section-spesa form{flex-wrap:wrap}#section-spesa form>div{flex-basis:100%}#section-spesa form button{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+</style>
 </head>
 <body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
 
