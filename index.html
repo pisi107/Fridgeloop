@@ -3,813 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - App Smart AI Anti-Spreco Alimentare</title>
-    <!-- Tailwind CSS -->
+    <title>FoodWise - Smart AI Anti-Spreco</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
                     colors: {
-                        fw: {
-                            green: '#16a34a',
-                            greenDark: '#15803d',
-                            greenDeep: '#14532d',
-                            greenLight: '#dcfce7',
-                            orange: '#f97316',
-                            orangeDark: '#ea580c',
-                            orangeLight: '#ffedd5',
-                        }
+                        brandGreen: '#166534',
+                        brandLightGreen: '#22c55e',
+                        brandOrange: '#f97316',
+                        brandDarkOrange: '#c2410c'
                     }
                 }
             }
         }
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Animazione laser per lo scanner scontrino */
-        @keyframes scanLaser {
-            0% { top: 4%; opacity: 0.85; }
-            50% { top: 93%; opacity: 1; }
-            100% { top: 4%; opacity: 0.85; }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { top: 95%; opacity: 0.8; }
         }
-        .laser-line {
-            animation: scanLaser 2.2s infinite ease-in-out;
-            box-shadow: 0 0 16px 4px rgba(249, 115, 22, 0.85);
+        .scanner-laser {
+            animation: scan 2s infinite ease-in-out;
         }
-
-        /* Animazione leggera fluttuazione logo nella schermata iniziale */
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-        .logo-float {
-            animation: floatSlow 4s ease-in-out infinite;
-        }
-
-        /* Transizioni fluide */
-        .fade-in {
-            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-emerald-50/60 via-white to-orange-50/50 text-stone-800 font-sans antialiased min-h-screen">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
-
-    <!-- =========================================================================
-         0. SCHERMATA INIZIALE DI BENVENUTO (LANDING / WELCOME SCREEN)
-         ========================================================================= -->
-    <div id="welcome-screen" class="fixed inset-0 z-40 bg-gradient-to-br from-emerald-100/90 via-white to-orange-100/90 flex flex-col items-center justify-center p-6 text-center overflow-y-auto transition-all duration-500">
-        
-        <!-- Decorazioni morbide di sfondo verde e arancione -->
-        <div class="absolute top-10 left-10 w-64 h-64 bg-fw-green/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-10 right-10 w-72 h-72 bg-fw-orange/15 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative z-10 max-w-xl w-full flex flex-col items-center space-y-6 my-auto py-4">
+    <!-- SCHERMATA DI BENVENUTO INIZIALE CON IL LOGO DI SVEVA -->
+    <div id="welcome-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-green-900 via-brandGreen to-brandOrange flex flex-col items-center justify-center p-6 text-white text-center">
+        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20 max-w-lg w-full flex flex-col items-center">
             
-            <!-- Saluto in alto -->
-            <div class="space-y-2 fade-in">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-fw-green/30 text-fw-greenDark font-bold text-xs sm:text-sm shadow-sm">
-                    <span class="w-2 h-2 rounded-full bg-fw-orange animate-ping"></span>
-                    Progetto Smart AI Anti-Spreco
-                </span>
-                <h1 class="text-3xl sm:text-5xl font-black text-fw-greenDeep tracking-tight pt-1">
-                    Ciao Sveva! 👋
-                </h1>
-                <p class="text-sm sm:text-base text-stone-600 font-medium max-w-md mx-auto">
-                    La tua dispensa intelligente contro lo spreco alimentare: scansiona, cucina con l'IA e condividi col vicinato.
-                </p>
+            <div class="bg-white p-3 rounded-2xl shadow-lg mb-6 w-44 h-44 flex items-center justify-center overflow-hidden">
+                <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="Logo Ufficiale" class="w-full h-full object-contain rounded-xl">
             </div>
 
-            <!-- LOGO UFFICIALE FOODWISE (IMMAGINE IDENTICA AL CLIENTE) -->
-            <div class="w-full max-w-[280px] sm:max-w-[330px] bg-white/95 backdrop-blur-md rounded-[2.2rem] p-4 sm:p-5 shadow-2xl shadow-emerald-900/10 border-2 border-emerald-100 logo-float flex items-center justify-center overflow-hidden">
-                <img src="watermarked_img_11682534442017581043.jpg" alt="FoodWise Logo" class="w-full h-auto object-contain rounded-2xl" onerror="this.onerror=null; this.src='https://placehold.co/320x320/dcfce7/14532d?text=FoodWise+Logo';" />
-            </div>
-
-            <!-- PULSANTE PRINCIPALE "ENTRA IN FOODWISE" -->
-            <div class="pt-2">
-                <button onclick="enterFoodWise()" class="group relative inline-flex items-center justify-center gap-3 px-9 py-4 sm:px-11 sm:py-5 rounded-2xl bg-gradient-to-r from-fw-green via-fw-greenDark to-fw-orange text-white font-black text-base sm:text-lg tracking-wide shadow-xl shadow-orange-500/25 hover:shadow-2xl hover:shadow-emerald-600/35 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer">
-                    <span>ENTRA IN FOODWISE</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform"></i>
-                </button>
-                <p class="text-[11px] text-stone-400 font-medium mt-3">
-                    Demo Interattiva • Educazione Civica & Sostenibilità
-                </p>
-            </div>
+            <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Progetto Smart AI Anti-Spreco</span>
+            <h1 class="text-3xl font-extrabold mb-2 text-white">Ciao Sveva! 👋</h1>
+            <p class="text-green-100 text-sm mb-6">La tua dispensa intelligente contro lo spreco alimentare: scansiona, cucina con l'IA e condividi col vicinato.</p>
+            
+            <button onclick="enterApp()" class="w-full bg-brandOrange hover:bg-brandDarkOrange text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition transform hover:scale-105 flex items-center justify-center gap-3 text-lg">
+                <i class="fa-solid fa-seedling"></i> Entra in FoodWise
+            </button>
+            <p class="text-[11px] text-green-200 mt-4">Demo Interattiva • Educazione Civica & Sostenibilità</p>
         </div>
     </div>
 
-    <!-- =========================================================================
-         1. APPLICAZIONE PRINCIPALE FOODWISE (CON MENU HAMBURGER ☰)
-         ========================================================================= -->
-    <div id="main-app-container" class="hidden min-h-screen flex flex-col">
-
-        <!-- HEADER CON MENU HAMBURGER (☰) -->
-        <header class="bg-fw-greenDeep text-white px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
-            <div class="flex items-center gap-3">
-                <!-- Pulsante Hamburger ☰ -->
-                <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 text-orange-300 hover:text-white transition flex items-center justify-center border border-emerald-700/80 shadow-sm" title="Menu Sezioni">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
+    <!-- APP PRINCIPALE -->
+    <div id="main-app" class="hidden flex-col flex-grow">
+        
+        <!-- HEADER -->
+        <header class="bg-white shadow-md sticky top-0 z-40 border-b border-orange-100">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
                 
-                <!-- Logo e Nome nell'Header -->
-                <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchSection('fridge')">
-                    <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md overflow-hidden">
-                        <img src="watermarked_img_11682534442017581043.jpg" alt="Logo" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/40x40/dcfce7/14532d?text=FW';" />
-                    </div>
+                <div class="flex items-center gap-3 cursor-pointer" onclick="returnToWelcome()">
+                    <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="Logo" class="w-10 h-10 object-contain rounded-lg shadow">
                     <div>
-                        <span class="font-black text-lg sm:text-xl tracking-tight text-white">Food<span class="text-fw-orange">Wise</span></span>
-                        <span class="text-[10px] text-emerald-200 block font-medium -mt-1 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-fw-orange animate-pulse"></span> AI Active
-                        </span>
+                        <span class="text-xl font-black text-brandGreen tracking-tight">Food<span class="text-brandOrange">Wise</span></span>
+                        <span class="block text-[10px] text-green-600 font-bold uppercase tracking-widest"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> AI Active</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Azioni rapide destre -->
-            <div class="flex items-center gap-2.5">
-                <span class="hidden sm:inline-block text-xs bg-emerald-900 text-orange-300 border border-emerald-700 px-3 py-1 rounded-full font-bold">
-                    Risparmio: <span id="header-savings-text">€ 68,50</span>
-                </span>
-                <button onclick="backToWelcome()" class="px-3 py-2 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 border border-emerald-700/80 text-emerald-200 hover:text-white text-xs font-bold transition flex items-center gap-1.5">
-                    <i data-lucide="home" class="w-4 h-4 text-fw-orange"></i>
-                    <span class="hidden md:inline">Benvenuto</span>
-                </button>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-xl border border-green-200">
+                        <span class="text-xs text-gray-500">Risparmio:</span>
+                        <span class="text-sm font-black text-brandGreen">€ 68,50</span>
+                    </div>
+
+                    <div class="relative">
+                        <button onclick="toggleMenu()" class="bg-orange-50 hover:bg-orange-100 text-brandOrange p-3 rounded-xl border border-orange-200 transition flex items-center gap-2 font-bold shadow-sm">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                            <span class="hidden sm:inline text-sm">Menu Sezioni</span>
+                        </button>
+
+                        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
+                            <div class="px-4 py-2 border-b border-gray-100 text-xs font-semibold text-gray-400 uppercase">Sezioni App</div>
+                            <button onclick="switchTab('frigo')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-box-archive text-brandGreen w-5"></i> 1. Il Mio Frigo Smart
+                            </button>
+                            <button onclick="switchTab('scanner')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-camera-retro text-brandOrange w-5"></i> 2. Scanner Scontrino IA
+                            </button>
+                            <button onclick="switchTab('chef')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-hat-chef text-brandGreen w-5"></i> 3. Chef Svuota-Frigo
+                            </button>
+                            <button onclick="switchTab('social')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-hand-holding-heart text-brandOrange w-5"></i> 4. Condividi col Vicino
+                            </button>
+                            <button onclick="switchTab('spesa')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-cart-shopping text-brandGreen w-5"></i> 5. Lista Spesa & GDO
+                            </button>
+                            <button onclick="switchTab('business')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
+                                <i class="fa-solid fa-chart-pie text-brandOrange w-5"></i> 6. Impatto & Business
+                            </button>
+                            <div class="border-t border-gray-100 mt-2 pt-2">
+                                <button onclick="returnToWelcome()" class="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 flex items-center gap-3 transition text-sm font-medium">
+                                    <i class="fa-solid fa-arrow-left w-5"></i> Torna alla Schermata Iniziale
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </header>
 
-        <!-- MENU LATERALE A COMPARSA (DRAWER) -->
-        <div id="sidebar-drawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0">
-            <!-- Sfondo scuro semitrasparente -->
-            <div id="drawer-backdrop" onclick="toggleMobileMenu()" class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm pointer-events-auto"></div>
-            
-            <!-- Pannello Menu -->
-            <div id="drawer-panel" class="absolute top-0 left-0 bottom-0 w-80 bg-fw-greenDeep text-white shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 pointer-events-auto">
-                <!-- Header Drawer -->
-                <div class="p-5 border-b border-emerald-800/80 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden">
-                            <img src="watermarked_img_11682534442017581043.jpg" alt="Logo" class="w-full h-full object-contain" />
-                        </div>
-                        <div>
-                            <span class="font-black text-lg text-white">Food<span class="text-fw-orange">Wise</span></span>
-                            <span class="text-[10px] text-emerald-300 block font-semibold">Menu Sezioni Principali</span>
-                        </div>
+        <!-- CONTENUTO DELLE SEZIONI -->
+        <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
+
+            <!-- SEZIONE 1: FRIGO SMART -->
+            <section id="tab-frigo" class="space-y-6">
+                <div class="bg-gradient-to-r from-brandGreen to-brandLightGreen text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="bg-white/20 text-xs font-bold px-3 py-1 rounded-full">Sezione 1 di 6</span>
+                        <h2 class="text-2xl font-black mt-2">Il Mio Frigorifero Smart</h2>
+                        <p class="text-green-100 text-sm">Monitoraggio freschezza e scadenze assistito dall'Intelligenza Artificiale.</p>
                     </div>
-                    <button onclick="toggleMobileMenu()" class="p-2 rounded-xl text-emerald-200 hover:text-white hover:bg-emerald-800 transition">
-                        <i data-lucide="x" class="w-5 h-5"></i>
+                    <button onclick="switchTab('scanner')" class="bg-brandOrange hover:bg-brandDarkOrange text-white px-5 py-3 rounded-2xl font-bold shadow-md transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Scannerizza Scontrino
                     </button>
                 </div>
 
-                <!-- Lista Voci del Menu -->
-                <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                    <button onclick="switchSection('fridge'); toggleMobileMenu();" id="nav-fridge" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all bg-fw-orange text-white shadow-md shadow-orange-600/30">
-                        <i data-lucide="refrigerator" class="w-5 h-5"></i>
-                        <span>1. Frigo Smart</span>
-                        <span id="badge-expiring" class="ml-auto bg-white text-fw-orangeDark text-[11px] font-black px-2 py-0.5 rounded-full">2</span>
-                    </button>
-
-                    <button onclick="switchSection('scanner'); toggleMobileMenu();" id="nav-scanner" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all text-emerald-100 hover:bg-emerald-800/70 hover:text-white">
-                        <i data-lucide="scan-line" class="w-5 h-5 text-emerald-300"></i>
-                        <span>2. Scanner IA Scontrino</span>
-                    </button>
-
-                    <button onclick="switchSection('chef'); toggleMobileMenu();" id="nav-chef" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all text-emerald-100 hover:bg-emerald-800/70 hover:text-white">
-                        <i data-lucide="chef-hat" class="w-5 h-5 text-orange-300"></i>
-                        <span>3. Chef IA & Ricette</span>
-                    </button>
-
-                    <button onclick="switchSection('community'); toggleMobileMenu();" id="nav-community" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all text-emerald-100 hover:bg-emerald-800/70 hover:text-white">
-                        <i data-lucide="users" class="w-5 h-5 text-emerald-300"></i>
-                        <span>4. Condividi col Vicino</span>
-                        <span class="ml-auto bg-emerald-900 text-orange-300 border border-orange-400/30 text-[10px] font-bold px-2 py-0.5 rounded-full">4 vicini</span>
-                    </button>
-
-                    <button onclick="switchSection('shopping'); toggleMobileMenu();" id="nav-shopping" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all text-emerald-100 hover:bg-emerald-800/70 hover:text-white">
-                        <i data-lucide="shopping-cart" class="w-5 h-5 text-orange-300"></i>
-                        <span>5. Spesa & GDO Scontata</span>
-                    </button>
-
-                    <div class="pt-4 mt-4 border-t border-emerald-800/80">
-                        <span class="px-4 text-[10px] font-bold uppercase tracking-wider text-emerald-300/70 block mb-2">Educazione Civica & Business</span>
-                        <button onclick="switchSection('impact'); toggleMobileMenu();" id="nav-impact" class="nav-item w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all text-emerald-100 hover:bg-emerald-800/70 hover:text-white">
-                            <i data-lucide="award" class="w-5 h-5 text-fw-orange"></i>
-                            <span>6. Impatto & Business Model</span>
-                        </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>Denaro Risparmiato</span><i class="fa-solid fa-euro-sign text-brandGreen"></i></div>
+                        <div class="text-2xl font-black text-gray-800 mt-2">€ 68,50</div>
+                        <p class="text-xs text-brandGreen font-medium mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +24% questo mese</p>
                     </div>
-                </nav>
-
-                <!-- Footer Drawer con Profilo -->
-                <div class="p-4 m-4 rounded-2xl bg-emerald-900/90 border border-emerald-700/70">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-fw-orange to-orange-400 flex items-center justify-center font-black text-white text-sm shadow">
-                            SV
-                        </div>
-                        <div class="overflow-hidden">
-                            <p class="text-sm font-bold text-white truncate">Famiglia di Sveva</p>
-                            <p class="text-xs text-orange-300 font-semibold flex items-center gap-1" id="sidebar-plan-label">
-                                <i data-lucide="sparkles" class="w-3 h-3"></i> Piano Base (Free)
-                            </p>
-                        </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>Cibo Salvato</span><i class="fa-solid fa-scale-balanced text-brandOrange"></i></div>
+                        <div class="text-2xl font-black text-gray-800 mt-2">12.4 kg</div>
+                        <p class="text-xs text-gray-500 font-medium mt-1">36 alimenti salvati</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>CO₂ Evitata</span><i class="fa-solid fa-cloud text-brandGreen"></i></div>
+                        <div class="text-2xl font-black text-gray-800 mt-2">31.0 kg</div>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Pari a 155 km in auto</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>In Scadenza (≤2gg)</span><i class="fa-solid fa-triangle-exclamation text-red-500"></i></div>
+                        <div class="text-2xl font-black text-red-600 mt-2">2 prodotti</div>
+                        <p class="text-xs text-red-500 font-medium mt-1">Pronti per Chef IA</p>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- MAIN WORKSPACE AREA -->
-        <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-16">
-
-            <!-- =================================================================
-                 SEZIONE 1: IL MIO FRIGO SMART
-                 ================================================================= -->
-            <section id="sec-fridge" class="app-section fade-in space-y-6">
-                
-                <!-- Header & Azioni Rapide -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200 flex items-start gap-4">
+                    <div class="w-10 h-10 bg-brandOrange text-white rounded-xl flex items-center justify-center shrink-0 mt-1"><i class="fa-solid fa-robot"></i></div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-fw-orangeDark bg-orange-50 px-3 py-1 rounded-full border border-orange-200">Sezione 1 di 6</span>
+                            <h4 class="font-bold text-sm text-gray-900">Avviso Scadenza FoodWise IA</h4>
+                            <span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full">Priorità Alta</span>
                         </div>
-                        <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Il Mio Frigo Smart</h1>
-                        <p class="text-sm text-stone-500">Monitoraggio freschezza e scadenze assistito dall'Intelligenza Artificiale FoodWise.</p>
-                    </div>
-                    <div class="flex items-center gap-2.5">
-                        <button onclick="switchSection('scanner')" class="px-4 py-2.5 rounded-xl bg-fw-green text-white font-bold text-xs sm:text-sm hover:bg-fw-greenDark transition flex items-center gap-2 shadow-md shadow-emerald-600/20">
-                            <i data-lucide="scan-line" class="w-4 h-4"></i> Scanner Scontrino
-                        </button>
-                        <button onclick="openAddModal()" class="px-4 py-2.5 rounded-xl bg-fw-orange text-white font-bold text-xs sm:text-sm hover:bg-fw-orangeDark transition flex items-center gap-2 shadow-md shadow-orange-500/20">
-                            <i data-lucide="plus" class="w-4 h-4"></i> Aggiungi Alimento
-                        </button>
+                        <p class="text-sm text-gray-600 mt-1">"Hai spinaci freschi e ricotta vaccina che scadono domani: ecco 3 ricette da 15 minuti pronte per te!"</p>
                     </div>
                 </div>
+            </section>
 
-                <!-- 4 KPI Cards (Verde & Arancione) -->
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white p-4 sm:p-5 rounded-2xl border-2 border-emerald-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-stone-500">Denaro Risparmiato</span>
-                            <div class="w-9 h-9 rounded-xl bg-emerald-100 text-fw-greenDark flex items-center justify-center">
-                                <i data-lucide="piggy-bank" class="w-5 h-5"></i>
-                            </div>
+            <!-- SEZIONE 2: SCANNER SCONTRINO IA -->
+            <section id="tab-scanner" class="hidden space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-xl mx-auto text-center">
+                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 2 di 6</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-2">Scanner IA Scontrino & Barcode</h2>
+                    <p class="text-gray-500 text-sm mb-6">Fotografa lo scontrino del supermercato: l'IA estrae i prodotti e calcola automaticamente le date di scadenza.</p>
+
+                    <div id="scanner-box" class="relative bg-gray-900 rounded-2xl h-56 flex flex-col items-center justify-center overflow-hidden mb-6 border-4 border-orange-200">
+                        <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div id="scanner-laser" class="hidden absolute left-0 right-0 h-1 bg-brandOrange shadow-[0_0_15px_#f97316] scanner-laser"></div>
+                        <div id="scanner-placeholder" class="text-gray-300 text-sm z-10 flex flex-col items-center p-4">
+                            <i class="fa-solid fa-receipt text-4xl mb-2 text-orange-400"></i>
+                            Scontrino Campione Supermercato Eco-Market (Pronto)
                         </div>
-                        <div class="text-2xl font-black text-fw-greenDeep" id="kpi-money">€ 68,50</div>
-                        <p class="text-[11px] text-fw-green font-bold mt-1 flex items-center gap-1">
-                            <i data-lucide="trending-up" class="w-3 h-3"></i> +24% questo mese
-                        </p>
+                        <div id="scanner-result-text" class="hidden text-brandLightGreen font-bold text-lg z-10 animate-pulse">
+                            <i class="fa-solid fa-circle-check"></i> Scontrino letto e sincronizzato!
+                        </div>
                     </div>
 
-                    <div class="bg-white p-4 sm:p-5 rounded-2xl border-2 border-orange-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-stone-500">Cibo Salvato</span>
-                            <div class="w-9 h-9 rounded-xl bg-orange-100 text-fw-orangeDark flex items-center justify-center">
-                                <i data-lucide="apple" class="w-5 h-5"></i>
-                            </div>
-                        </div>
-                        <div class="text-2xl font-black text-fw-orangeDark" id="kpi-food">12.4 kg</div>
-                        <p class="text-[11px] text-stone-500 mt-1 font-medium">36 alimenti salvati</p>
-                    </div>
-
-                    <div class="bg-white p-4 sm:p-5 rounded-2xl border-2 border-emerald-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-stone-500">CO₂ Evitata</span>
-                            <div class="w-9 h-9 rounded-xl bg-emerald-100 text-fw-greenDark flex items-center justify-center">
-                                <i data-lucide="leaf" class="w-5 h-5"></i>
-                            </div>
-                        </div>
-                        <div class="text-2xl font-black text-fw-greenDeep" id="kpi-co2">31.0 kg</div>
-                        <p class="text-[11px] text-fw-green font-bold mt-1">Pari a 155 km in auto</p>
-                    </div>
-
-                    <div class="bg-white p-4 sm:p-5 rounded-2xl border-2 border-orange-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-stone-500">In Scadenza (≤2gg)</span>
-                            <div class="w-9 h-9 rounded-xl bg-orange-100 text-fw-orangeDark flex items-center justify-center">
-                                <i data-lucide="clock-alert" class="w-5 h-5"></i>
-                            </div>
-                        </div>
-                        <div class="text-2xl font-black text-fw-orange" id="kpi-expiring">2 prodotti</div>
-                        <p class="text-[11px] text-fw-orangeDark font-bold mt-1">Pronti per Chef IA</p>
-                    </div>
+                    <button onclick="startScanning()" id="scan-btn" class="w-full bg-brandOrange hover:bg-brandDarkOrange text-white py-4 rounded-2xl font-bold shadow-lg transition flex items-center justify-center gap-2 text-lg">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Avvia Scansione IA
+                    </button>
                 </div>
+            </section>
 
-                <!-- Alert Scadenza Imminente -->
-                <div id="urgent-alert-box" class="bg-gradient-to-r from-orange-50 via-amber-50/70 to-emerald-50 border-l-4 border-fw-orange rounded-2xl p-5 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div class="flex items-start gap-3.5">
-                        <div class="w-11 h-11 rounded-2xl bg-fw-orange text-white flex items-center justify-center shrink-0 shadow-md shadow-orange-500/25">
-                            <i data-lucide="bell-ring" class="w-5 h-5"></i>
-                        </div>
+            <!-- SEZIONE 3: CHEF SVUOTA-FRIGO -->
+            <section id="tab-chef" class="hidden space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
+                    <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 3 di 6</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-2">Chef IA Svuota-Frigo</h2>
+                    <p class="text-gray-500 text-sm mb-6">Ricette anti-spreco da 10-15 minuti create dando priorità agli alimenti vicini alla scadenza.</p>
+
+                    <div class="bg-green-50 p-4 rounded-2xl border border-green-200 mb-6 flex items-start gap-3">
+                        <div class="w-10 h-10 bg-brandGreen text-white rounded-xl flex items-center justify-center shrink-0"><i class="fa-solid fa-hat-chef"></i></div>
                         <div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-black uppercase tracking-wider text-fw-orangeDark">Avviso Scadenza FoodWise IA</span>
-                                <span class="text-[11px] bg-white text-fw-orangeDark border border-orange-200 px-2.5 py-0.5 rounded-full font-bold">Priorità Alta</span>
-                            </div>
-                            <p class="text-sm font-bold text-stone-800 mt-1" id="urgent-alert-text">
-                                "Hai spinaci freschi e ricotta vaccina che scadono domani: ecco 3 ricette da 15 minuti!"
-                            </p>
+                            <h4 class="font-bold text-sm text-gray-900">Chat con lo Chef IA FoodWise</h4>
+                            <p class="text-xs text-gray-600 mt-1">"Ciao Sveva! 👋 Ho analizzato il tuo frigo: hai <strong>Spinaci freschi</strong> e <strong>Ricotta vaccina</strong> in scadenza. Vuoi una ricetta veloce?"</p>
                         </div>
                     </div>
-                    <button onclick="triggerRecipeFromAlert()" class="px-5 py-3 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-xs sm:text-sm transition shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 shrink-0">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i> Cucina con Chef IA
+
+                    <button onclick="generateRecipe()" class="w-full bg-brandGreen hover:bg-green-700 text-white py-4 rounded-2xl font-bold shadow-lg transition flex items-center justify-center gap-2 text-lg mb-6">
+                        <i class="fa-solid fa-fire-burner"></i> Genera Ricetta Anti-Spreco
                     </button>
-                </div>
 
-                <!-- Filtri Categoria e Ricerca -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-emerald-100 shadow-sm">
-                    <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                        <button onclick="filterInventory('all')" id="cat-all" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-fw-greenDeep text-white transition">Tutto (<span id="count-all">0</span>)</button>
-                        <button onclick="filterInventory('Frigorifero')" id="cat-Frigorifero" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-emerald-50 transition">🥬 Frigorifero</button>
-                        <button onclick="filterInventory('Dispensa')" id="cat-Dispensa" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-orange-50 transition">🥫 Dispensa</button>
-                        <button onclick="filterInventory('Freezer')" id="cat-Freezer" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-emerald-50 transition">❄️ Freezer</button>
-                    </div>
-
-                    <div class="relative w-full sm:w-64">
-                        <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-                        <input type="text" id="inventory-search" onkeyup="renderInventory()" placeholder="Cerca alimento..." class="w-full pl-9 pr-3 py-2 text-xs bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-fw-green">
-                    </div>
-                </div>
-
-                <!-- Griglia Alimenti -->
-                <div id="inventory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Popolato via JS -->
-                </div>
-            </section>
-
-            <!-- =================================================================
-                 SEZIONE 2: SCANNER IA SCONTRINO & BARCODE
-                 ================================================================= -->
-            <section id="sec-scanner" class="app-section hidden fade-in space-y-6">
-                <div>
-                    <span class="text-xs font-extrabold uppercase tracking-wider text-fw-orangeDark bg-orange-50 px-3 py-1 rounded-full border border-orange-200">Sezione 2 di 6</span>
-                    <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Scanner IA Scontrino & Barcode</h1>
-                    <p class="text-sm text-stone-500">Scansiona lo scontrino del supermercato: l'IA estrae i prodotti e calcola automaticamente le date di scadenza.</p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    
-                    <!-- Simulatore Visivo Scontrino -->
-                    <div class="lg:col-span-5 bg-fw-greenDeep text-white rounded-3xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-bold bg-emerald-900 text-orange-300 px-3 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-fw-orange animate-ping"></span> Motore OCR FoodWise Pronto
-                            </span>
-                            <i data-lucide="camera" class="w-5 h-5 text-emerald-300"></i>
-                        </div>
-
-                        <!-- Area Scontrino con Laser -->
-                        <div class="relative bg-emerald-950/90 border-2 border-dashed border-emerald-600 rounded-2xl p-5 my-2 min-h-[300px] flex flex-col items-center justify-center overflow-hidden">
-                            
-                            <!-- Raggio Laser Verde/Arancio -->
-                            <div id="scanner-laser" class="hidden absolute inset-x-4 h-1.5 bg-gradient-to-r from-fw-green via-fw-orange to-fw-green laser-line z-20 rounded-full"></div>
-
-                            <!-- Scontrino Realistico -->
-                            <div class="bg-white text-stone-800 w-full max-w-[250px] p-4 rounded-xl shadow-lg font-mono text-[10px] space-y-1.5">
-                                <div class="text-center border-b border-dashed border-stone-300 pb-2">
-                                    <p class="font-black text-xs text-fw-greenDeep">SUPERMERCATO ECO-MARKET</p>
-                                    <p class="text-stone-400">Scontrino #4829 - Oggi</p>
-                                </div>
-                                <div class="space-y-1 pt-1">
-                                    <div class="flex justify-between"><span>PETTO DI POLLO BIO 400G</span><span>5,90</span></div>
-                                    <div class="flex justify-between"><span>YOGURT GRECO 2X150G</span><span>2,40</span></div>
-                                    <div class="flex justify-between"><span>ZUCCHINE VERDI 500G</span><span>1,85</span></div>
-                                    <div class="flex justify-between"><span>MOZZARELLA FRESCA</span><span>1,60</span></div>
-                                    <div class="flex justify-between"><span>PANE INTEGRALE FETTE</span><span>2,20</span></div>
-                                </div>
-                                <div class="border-t border-dashed border-stone-300 pt-2 flex justify-between font-bold text-xs text-fw-orangeDark">
-                                    <span>TOTALE SPESA</span>
-                                    <span>13,95 €</span>
-                                </div>
-                            </div>
-
-                            <!-- Log in tempo reale -->
-                            <div id="ocr-live-log" class="mt-3 text-center text-xs text-emerald-200 font-medium">
-                                Premi "Avvia Scansione IA" per estrarre i prodotti nel frigo.
-                            </div>
-                        </div>
-
-                        <!-- Pulsanti Scansione -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                            <button onclick="simulateReceiptScan()" class="py-3 px-4 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-orange-600/30">
-                                <i data-lucide="scan-line" class="w-4 h-4"></i> Avvia Scansione IA
-                            </button>
-                            <button onclick="simulateBarcodeScan()" class="py-3 px-4 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-md">
-                                <i data-lucide="barcode" class="w-4 h-4"></i> Codice a Barre
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Risultati Estratti -->
-                    <div class="lg:col-span-7 bg-white rounded-3xl p-6 border border-emerald-100 shadow-sm flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between pb-4 border-b border-stone-100">
-                                <div>
-                                    <h3 class="font-bold text-lg text-fw-greenDeep">Prodotti Riconosciuti dall'IA</h3>
-                                    <p class="text-xs text-stone-500">Assegnazione automatica della conservazione e dei giorni alla scadenza.</p>
-                                </div>
-                                <span id="scanned-count-badge" class="hidden bg-orange-50 text-fw-orangeDark font-bold text-xs px-3 py-1 rounded-full border border-orange-200">
-                                    5 prodotti pronti
-                                </span>
-                            </div>
-
-                            <!-- Stato vuoto iniziale -->
-                            <div id="scanner-empty-results" class="py-16 text-center space-y-3">
-                                <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-fw-green flex items-center justify-center mx-auto">
-                                    <i data-lucide="sparkles" class="w-7 h-7"></i>
-                                </div>
-                                <h4 class="font-bold text-stone-700 text-sm">In attesa di scansione</h4>
-                                <p class="text-xs text-stone-500 max-w-sm mx-auto">
-                                    Avvia la scansione a sinistra per simulare il riconoscimento ottico dello scontrino e caricare subito i prodotti nel frigorifero.
-                                </p>
-                            </div>
-
-                            <!-- Lista Prodotti Estratti -->
-                            <div id="scanned-items-list" class="hidden divide-y divide-stone-100 mt-2 max-h-[300px] overflow-y-auto">
-                                <!-- Popolato da JS -->
-                            </div>
-                        </div>
-
-                        <div id="scanner-import-footer" class="hidden pt-4 mt-4 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                            <span class="text-xs text-stone-500">Sincronizzazione immediata con Il Mio Frigo Smart.</span>
-                            <button onclick="importScannedToFridge()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-sm transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2">
-                                <i data-lucide="check-circle-2" class="w-4 h-4"></i> Conferma e Carica nel Frigo
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- =================================================================
-                 SEZIONE 3: CHEF IA SVUOTA-FRIGO & RICETTE
-                 ================================================================= -->
-            <section id="sec-chef" class="app-section hidden fade-in space-y-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <span class="text-xs font-extrabold uppercase tracking-wider text-fw-orangeDark bg-orange-50 px-3 py-1 rounded-full border border-orange-200">Sezione 3 di 6</span>
-                        <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Chef IA Svuota-Frigo</h1>
-                        <p class="text-sm text-stone-500">Ricette anti-spreco da 10-15 minuti create dando priorità agli alimenti vicini alla scadenza.</p>
-                    </div>
-                    <!-- Pulsante Gamification Ricetta Misteriosa -->
-                    <button onclick="generateMysteryRecipe()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-fw-orange to-orange-500 hover:from-fw-orangeDark hover:to-orange-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-orange-500/25 transition flex items-center gap-2 self-start">
-                        <i data-lucide="dices" class="w-5 h-5"></i> Genera Ricetta Misteriosa con IA
-                    </button>
-                </div>
-
-                <!-- Box Risultato Ricetta Misteriosa / Eco-Chef Badge -->
-                <div id="mystery-recipe-box" class="hidden bg-gradient-to-r from-emerald-900 to-fw-greenDeep text-white rounded-3xl p-6 shadow-xl border-2 border-fw-orange space-y-3 fade-in">
-                    <!-- Popolato da JS -->
-                </div>
-
-                <!-- Ricette Consigliate sugli Ingredienti in Scadenza -->
-                <div>
-                    <h3 class="font-bold text-lg text-fw-greenDeep mb-4 flex items-center gap-2">
-                        <i data-lucide="flame" class="w-5 h-5 text-fw-orange"></i> Ricette Rapide per i Tuoi Ingredienti in Scadenza
-                    </h3>
-                    <div id="recipes-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        <!-- Popolato da JS -->
-                    </div>
-                </div>
-
-                <!-- Mini-Chat Interattiva con Chef IA FoodWise -->
-                <div class="bg-white rounded-3xl p-6 border-2 border-emerald-100 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-fw-green text-white flex items-center justify-center shadow">
-                                <i data-lucide="bot" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-extrabold text-base text-fw-greenDeep">Chat con lo Chef IA FoodWise</h3>
-                                <p class="text-xs text-stone-500">Chiedi come abbinare gli avanzi che hai in casa</p>
-                            </div>
-                        </div>
-                        <span class="text-[11px] font-bold bg-orange-50 text-fw-orangeDark px-3 py-1 rounded-full border border-orange-200">Online</span>
-                    </div>
-
-                    <!-- Prompt Rapidi -->
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="askChefQuick('Cosa cucino in 10 minuti con spinaci e ricotta?')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-fw-greenDeep font-semibold px-3 py-1.5 rounded-full border border-emerald-200 transition">
-                            🥬 Spinaci + Ricotta in 10 min?
-                        </button>
-                        <button onclick="askChefQuick('Come posso riutilizzare il pane integrale raffermo?')" class="text-xs bg-orange-50 hover:bg-orange-100 text-fw-orangeDark font-semibold px-3 py-1.5 rounded-full border border-orange-200 transition">
-                            🍞 Idee per pane raffermo?
-                        </button>
-                        <button onclick="askChefQuick('Prepara una cena proteica con pollo e yogurt greco')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-fw-greenDeep font-semibold px-3 py-1.5 rounded-full border border-emerald-200 transition">
-                            🍗 Cena proteica svuota-frigo
-                        </button>
-                    </div>
-
-                    <!-- Messaggi Chat -->
-                    <div id="chef-chat-messages" class="bg-stone-50 rounded-2xl p-4 space-y-3 max-h-60 overflow-y-auto border border-stone-100">
-                        <div class="flex items-start gap-2.5">
-                            <span class="w-7 h-7 rounded-full bg-fw-green text-white text-xs font-bold flex items-center justify-center shrink-0">IA</span>
-                            <div class="bg-white border border-emerald-100 rounded-2xl rounded-tl-none p-3 text-xs text-stone-700 shadow-sm">
-                                Ciao Sveva! 👋 Ho analizzato il tuo frigo: hai <strong>Spinaci freschi</strong> e <strong>Ricotta vaccina</strong> in scadenza domani. Vuoi una ricetta veloce o preferisci abbinare altri ingredienti?
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Input Chat -->
-                    <form onsubmit="handleChefChatSubmit(event)" class="flex gap-2">
-                        <input type="text" id="chef-chat-input" placeholder="Scrivi qui gli ingredienti che hai in frigo..." class="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-fw-green">
-                        <button type="submit" class="px-5 py-3 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-sm transition flex items-center gap-2">
-                            <span>Chiedi</span>
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- =================================================================
-                 SEZIONE 4: CONDIVIDI COL VICINO (COMMUNITY)
-                 ================================================================= -->
-            <section id="sec-community" class="app-section hidden fade-in space-y-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <span class="text-xs font-extrabold uppercase tracking-wider text-fw-green bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Sezione 4 di 6</span>
-                        <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Condividi col Vicino</h1>
-                        <p class="text-sm text-stone-500">Parti per il weekend o hai cibo in esubero? Regalalo ai vicini nel raggio di 500 metri.</p>
-                    </div>
-                    <button onclick="openShareModal()" class="px-5 py-3 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-sm transition shadow-md shadow-orange-500/20 flex items-center gap-2 self-start">
-                        <i data-lucide="gift" class="w-4 h-4"></i> Regala Cibo dal Frigo
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Mappa Stilizzata Quartiere (Verde & Arancione) -->
-                    <div class="lg:col-span-5 bg-fw-greenDeep text-white rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden min-h-[360px] shadow-lg">
-                        <div class="flex justify-between items-center z-10">
-                            <span class="text-xs font-bold bg-emerald-900 text-orange-300 border border-emerald-700 px-3 py-1 rounded-full">
-                                Raggio attivo: 500m
-                            </span>
-                            <span class="text-xs text-emerald-200 font-semibold">4 vicini attivi ora</span>
-                        </div>
-
-                        <div class="relative my-4 flex-1 rounded-2xl bg-emerald-950/80 border border-emerald-700 overflow-hidden flex items-center justify-center">
-                            <!-- Griglia Mappa -->
-                            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#4ade80 1px, transparent 1px); background-size: 20px 20px;"></div>
-                            <!-- Cerchi Radar -->
-                            <div class="w-64 h-64 rounded-full border border-emerald-500/30 flex items-center justify-center">
-                                <div class="w-40 h-40 rounded-full border border-orange-400/40 flex items-center justify-center">
-                                    <!-- Pin Utente al Centro -->
-                                    <div class="w-11 h-11 rounded-full bg-fw-orange text-white font-black text-xs flex items-center justify-center shadow-lg border-2 border-white z-10">
-                                        TU
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pin Vicini -->
-                            <button onclick="highlightNeighborPost(0)" class="absolute top-6 left-7 bg-fw-green text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg border border-white/40 hover:scale-110 transition flex items-center gap-1">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-orange-300"></i> Giulia (120m)
-                            </button>
-                            <button onclick="highlightNeighborPost(1)" class="absolute bottom-7 right-6 bg-fw-orange text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg border border-white/40 hover:scale-110 transition flex items-center gap-1">
-                                <i data-lucide="map-pin" class="w-3 h-3"></i> Davide (250m)
-                            </button>
-                            <button onclick="highlightNeighborPost(2)" class="absolute top-12 right-8 bg-fw-green text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg border border-white/40 hover:scale-110 transition flex items-center gap-1">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-orange-300"></i> Elena (380m)
-                            </button>
-                        </div>
-
-                        <p class="text-xs text-emerald-200">
-                            <strong class="text-orange-300">Sicurezza FoodWise:</strong> Scambio consentito solo per alimenti confezionati integri o ortofrutta fresca prima della scadenza.
-                        </p>
-                    </div>
-
-                    <!-- Bacheca Annunci Vicinato -->
-                    <div class="lg:col-span-7 space-y-4" id="community-feed">
-                        <!-- Popolato da JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- =================================================================
-                 SEZIONE 5: SPESA & OFFERTE GDO
-                 ================================================================= -->
-            <section id="sec-shopping" class="app-section hidden fade-in space-y-6">
-                <div>
-                    <span class="text-xs font-extrabold uppercase tracking-wider text-fw-orangeDark bg-orange-50 px-3 py-1 rounded-full border border-orange-200">Sezione 5 di 6</span>
-                    <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Lista della Spesa & Offerte GDO</h1>
-                    <p class="text-sm text-stone-500">Lista condivisa con avviso anti-doppioni + Box Anti-Spreco scontate del 50-70% nei supermercati partner.</p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Lista Spesa Condivisa -->
-                    <div class="lg:col-span-6 bg-white rounded-3xl p-6 border-2 border-emerald-100 shadow-sm space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-fw-greenDark flex items-center justify-center">
-                                    <i data-lucide="list-checks" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-fw-greenDeep">Lista Spesa Famiglia</h3>
-                                    <p class="text-xs text-stone-400">Sincronizzata in tempo reale</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold bg-emerald-50 text-fw-green px-3 py-1 rounded-full border border-emerald-200">Anti-Doppioni IA</span>
-                        </div>
-
-                        <form onsubmit="addShoppingItem(event)" class="flex gap-2">
-                            <input type="text" id="shopping-input" placeholder="Es. Latte fresco, Uova, Pomodorini..." class="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                            <button type="submit" class="px-4 py-2.5 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-sm transition">
-                                Aggiungi
-                            </button>
-                        </form>
-
-                        <ul id="shopping-list-ul" class="divide-y divide-stone-100">
-                            <!-- Popolato da JS -->
+                    <div id="recipe-output" class="hidden bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                        <h3 class="font-bold text-brandGreen text-lg mb-2"><i class="fa-solid fa-plate-wheat"></i> Tortino Sprint Spinaci & Ricotta</h3>
+                        <p class="text-sm text-gray-600 mb-4">Pronto in 12 minuti con gli ingredienti in scadenza nel tuo frigo!</p>
+                        <ul class="text-sm space-y-2 text-gray-700">
+                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Sbollenta gli spinaci freschi per 2 minuti.</li>
+                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Mescolali con la ricotta vaccina e un uovo.</li>
+                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Passa in forno o padella per dorare la superficie.</li>
                         </ul>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Box Anti-Spreco Supermercati Partner -->
-                    <div class="lg:col-span-6 bg-white rounded-3xl p-6 border-2 border-orange-100 shadow-sm space-y-4">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-10 h-10 rounded-xl bg-orange-100 text-fw-orangeDark flex items-center justify-center">
-                                <i data-lucide="tag" class="w-5 h-5"></i>
-                            </div>
+            <!-- SEZIONE 4: CONDIVIDI COL VICINO -->
+            <section id="tab-social" class="hidden space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-xl mx-auto text-center">
+                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 4 di 6</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-2">Condividi col Vicino</h2>
+                    <p class="text-gray-500 text-sm mb-6">Parti per il weekend o hai cibo in esubero? Regalalo ai vicini nel raggio di 500 metri.</p>
+                    
+                    <div class="space-y-4 text-left">
+                        <div class="p-4 bg-orange-50 rounded-2xl border border-orange-100 flex justify-between items-center">
                             <div>
-                                <h3 class="font-bold text-base text-fw-greenDeep">Box Anti-Spreco Supermercati Partner</h3>
-                                <p class="text-xs text-stone-400">Prodotti vicini alla scadenza scontati del 50-70%</p>
+                                <span class="bg-orange-100 text-brandOrange text-[10px] font-bold px-2 py-0.5 rounded-full">Raggio 300m</span>
+                                <h4 class="font-bold text-sm mt-1">Confezione Biscotti Integrali</h4>
+                                <p class="text-xs text-gray-500">Scade tra 5 giorni • Perfetta integrità</p>
                             </div>
-                        </div>
-
-                        <div id="supermarket-deals-list" class="space-y-3">
-                            <!-- Popolato da JS -->
+                            <button class="bg-brandOrange text-white px-4 py-2 rounded-xl text-xs font-bold shadow">Richiedi</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- =================================================================
-                 SEZIONE 6: IMPATTO, PIANO PRO & BUSINESS MODEL CANVAS
-                 ================================================================= -->
-            <section id="sec-impact" class="app-section hidden fade-in space-y-8">
-                <div>
-                    <span class="text-xs font-extrabold uppercase tracking-wider text-fw-orangeDark bg-orange-50 px-3 py-1 rounded-full border border-orange-200">Sezione 6 di 6</span>
-                    <h1 class="text-2xl sm:text-3xl font-black text-fw-greenDeep tracking-tight mt-1">Impatto, Piano Pro & Business Model Canvas</h1>
-                    <p class="text-sm text-stone-500">I 3 pilastri della sostenibilità e la struttura imprenditoriale completa di FoodWise.</p>
-                </div>
-
-                <!-- 3 Pilastri della Sostenibilità con Barre Visive -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="bg-white p-6 rounded-2xl border-t-4 border-fw-green shadow-sm space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-fw-greenDark flex items-center justify-center">
-                            <i data-lucide="leaf" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="font-extrabold text-base text-fw-greenDeep">Sostenibilità Ambientale</h3>
-                        <p class="text-xs text-stone-600 leading-relaxed">
-                            Oltre il 50% dello spreco alimentare avviene nelle case. Riducendolo tagliamo emissioni di CO₂, consumo di suolo e acqua sprecata.
-                        </p>
-                        <div>
-                            <div class="flex justify-between text-[11px] font-bold text-fw-greenDark mb-1">
-                                <span>Riduzione CO₂ Domestica</span>
-                                <span>-68%</span>
-                            </div>
-                            <div class="w-full h-2 bg-emerald-100 rounded-full overflow-hidden">
-                                <div class="bg-fw-green h-full w-[68%] rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border-t-4 border-fw-orange shadow-sm space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-orange-100 text-fw-orangeDark flex items-center justify-center">
-                            <i data-lucide="coins" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="font-extrabold text-base text-fw-greenDeep">Sostenibilità Economica</h3>
-                        <p class="text-xs text-stone-600 leading-relaxed">
-                            Le famiglie risparmiano fino a 600 € l'anno sulla spesa. La start-up si autosostiene con modello Freemium/Pro e partnership con i supermercati.
-                        </p>
-                        <div>
-                            <div class="flex justify-between text-[11px] font-bold text-fw-orangeDark mb-1">
-                                <span>Risparmio Spesa Famiglia</span>
-                                <span>+32%</span>
-                            </div>
-                            <div class="w-full h-2 bg-orange-100 rounded-full overflow-hidden">
-                                <div class="bg-fw-orange h-full w-[75%] rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border-t-4 border-fw-green shadow-sm space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-fw-greenDark flex items-center justify-center">
-                            <i data-lucide="heart-handshake" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="font-extrabold text-base text-fw-greenDeep">Sostenibilità Sociale</h3>
-                        <p class="text-xs text-stone-600 leading-relaxed">
-                            Con "Condividi col vicino" gli avanzi integri diventano solidarietà di quartiere, rafforzando la comunità e l'educazione alimentare.
-                        </p>
-                        <div>
-                            <div class="flex justify-between text-[11px] font-bold text-fw-greenDark mb-1">
-                                <span>Cibo Condiviso nel Quartiere</span>
-                                <span>92% ritirato</span>
-                            </div>
-                            <div class="w-full h-2 bg-emerald-100 rounded-full overflow-hidden">
-                                <div class="bg-fw-green h-full w-[92%] rounded-full"></div>
-                            </div>
-                        </div>
+            <!-- SEZIONE 5: LISTA SPESA & GDO -->
+            <section id="tab-spesa" class="hidden space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-xl mx-auto text-center">
+                    <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 5 di 6</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-2">Lista della Spesa & Offerte GDO</h2>
+                    <p class="text-gray-500 text-sm mb-6">Lista condivisa con avviso anti-doppioni + Box Anti-Spreco scontate del 50-70% nei supermercati partner.</p>
+                    <div class="p-4 bg-green-50 rounded-2xl border border-green-200 text-left">
+                        <h4 class="font-bold text-sm text-brandGreen"><i class="fa-solid fa-cart-shopping"></i> Anti-Doppioni IA Attivo</h4>
+                        <p class="text-xs text-gray-600 mt-1">L'app rileva che hai già 2 confezioni di latte nel frigo e ti avvisa prima di acquistarne un'altra.</p>
                     </div>
                 </div>
+            </section>
 
-                <!-- Confronto Piano Free vs FoodWise Pro (2,99€/mese) -->
-                <div class="bg-fw-greenDeep text-white rounded-3xl p-6 sm:p-8 shadow-xl">
-                    <div class="text-center max-w-xl mx-auto mb-6">
-                        <h2 class="text-xl sm:text-2xl font-black">Modello di Guadagno: Free vs <span class="text-fw-orange">FoodWise Pro</span></h2>
-                        <p class="text-xs text-emerald-200 mt-1">Versione base gratuita per tutti per massimizzare l'impatto ecologico; abbonamento Pro per funzioni avanzate.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <!-- Free Plan -->
-                        <div class="bg-emerald-900/90 border border-emerald-700 rounded-2xl p-6 flex flex-col justify-between">
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">Versione Base</span>
-                                <div class="text-3xl font-black text-white mt-1">€ 0 <span class="text-xs font-normal text-emerald-200">/ per sempre</span></div>
-                                <ul class="mt-4 space-y-2.5 text-xs text-emerald-100">
-                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-fw-orange"></i> Scansione scontrini e codici a barre IA</li>
-                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-fw-orange"></i> Alert scadenze e ricette svuota-frigo</li>
-                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-fw-orange"></i> Accesso completo a "Condividi col vicino"</li>
-                                </ul>
-                            </div>
-                            <button onclick="selectPlan('Free')" class="mt-6 w-full py-2.5 rounded-xl bg-emerald-800 text-white font-bold text-xs hover:bg-emerald-700 transition">
-                                Piano Base Attivo
-                            </button>
+            <!-- SEZIONE 6: IMPATTO & BUSINESS -->
+            <section id="tab-business" class="hidden space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
+                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 6 di 6</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-4">Impatto, Piano Pro & Business Model Canvas</h2>
+                    <p class="text-gray-500 text-sm mb-6">I pilastri della sostenibilità e la struttura imprenditoriale completa di FoodWise.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
+                            <h3 class="font-bold text-brandGreen text-lg mb-2"><i class="fa-solid fa-seedling"></i> Sostenibilità & Impatto</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Riduzione del 68% dello spreco domestico, risparmio annuo di oltre 500€ per famiglia e rafforzamento della solidarietà di quartiere.</p>
                         </div>
-
-                        <!-- Pro Plan -->
-                        <div class="bg-gradient-to-br from-emerald-900 to-orange-950/80 border-2 border-fw-orange rounded-2xl p-6 flex flex-col justify-between relative">
-                            <span class="absolute -top-3 right-6 bg-fw-orange text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow">Consigliato Famiglie</span>
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-orange-300">FoodWise Pro</span>
-                                <div class="text-3xl font-black text-white mt-1">€ 2,99 <span class="text-xs font-normal text-orange-200">/ mese</span></div>
-                                <ul class="mt-4 space-y-2.5 text-xs text-white">
-                                    <li class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-fw-orange"></i> Piani alimentari settimanali IA personalizzati</li>
-                                    <li class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-fw-orange"></i> Lista della spesa condivisa illimitata in famiglia</li>
-                                    <li class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-fw-orange"></i> Sconti esclusivi nelle Box supermercati partner</li>
-                                </ul>
-                            </div>
-                            <button onclick="selectPlan('Pro')" id="btn-upgrade-pro" class="mt-6 w-full py-2.5 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-xs transition shadow-lg shadow-orange-600/30">
-                                Attiva Demo FoodWise Pro
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Business Model Canvas a 9 Blocchi per FoodWise -->
-                <div class="bg-white rounded-3xl p-6 border-2 border-emerald-100 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="font-black text-lg text-fw-greenDeep flex items-center gap-2">
-                            <i data-lucide="layout-grid" class="w-5 h-5 text-fw-orange"></i> Business Model Canvas (FoodWise)
-                        </h3>
-                        <span class="text-xs bg-orange-50 text-fw-orangeDark border border-orange-200 px-3 py-1 rounded-full font-bold">9 Blocchi Chiave</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
-                        <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">1. Proposte di Valore</span>
-                            Inventario frigo da scontrino con IA, alert scadenza con ricette da 15 min, "Condividi col vicino" e taglio dello spreco domestico (&gt;50%).
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">2. Segmenti di Clientela</span>
-                            Famiglie, studenti fuori sede, cittadini sensibili alla sostenibilità e supermercati/GDO locali.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">3. Canali</span>
-                            App mobile iOS/Android, social media (TikTok/Instagram con ricette svuota-frigo) e QR code sugli scontrini dei supermercati.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">4. Relazioni con i Clienti</span>
-                            Chef IA personalizzato, community solidale di quartiere, sfide gamification ("Eco-Chef") e report risparmio CO₂/€.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-orange-50/70 border border-orange-200">
-                            <span class="font-extrabold text-fw-orangeDark block mb-1">5. Flussi di Ricavi</span>
-                            Versione Base Gratuita (Freemium), abbonamento FoodWise Pro (2,99€/mese) e commissioni da partnership con supermercati.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">6. Attività Chiave</span>
-                            Addestramento IA OCR scontrini, aggiornamento database scadenze/ricette, moderazione community e accordi GDO.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">7. Risorse Chiave</span>
-                            Algoritmi IA e visione artificiale, database alimenti e ricette, app mobile e team tech/nutrizionisti.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">8. Partners Chiave</span>
-                            Catene di supermercati, nutrizionisti/food creator, associazioni ambientali, Comuni e provider Cloud/API IA.
-                        </div>
-                        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                            <span class="font-extrabold text-fw-greenDeep block mb-1">9. Struttura dei Costi</span>
-                            Server cloud e chiamate API IA (a consumo), sviluppo e manutenzione app, marketing digitale e sicurezza dati GDPR.
+                        <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200">
+                            <h3 class="font-bold text-brandOrange text-lg mb-2"><i class="fa-solid fa-briefcase"></i> Modello Freemium / Pro</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Versione base gratuita per tutti per massimizzare l'impatto ecologico; abbonamento Pro a 2,99€/mese per funzioni avanzate e partnership GDO.</p>
                         </div>
                     </div>
                 </div>
@@ -818,835 +274,64 @@
         </main>
     </div>
 
-    <!-- =========================================================================
-         MODALE 1: AGGIUNGI ALIMENTO MANUALMENTE
-         ========================================================================= -->
-    <div id="add-food-modal" class="hidden fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-2 border-emerald-100 space-y-4 fade-in">
-            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-                <h3 class="font-black text-lg text-fw-greenDeep">Aggiungi Alimento in FoodWise</h3>
-                <button onclick="closeAddModal()" class="text-stone-400 hover:text-stone-800">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <form onsubmit="handleAddFood(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 mb-1">Nome Alimento</label>
-                    <input type="text" id="food-name" required placeholder="Es. Carote Bio (500g)" class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 mb-1">Conservazione</label>
-                        <select id="food-category" class="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                            <option value="Frigorifero">🥬 Frigorifero</option>
-                            <option value="Dispensa">🥫 Dispensa</option>
-                            <option value="Freezer">❄️ Freezer</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 mb-1">Giorni alla scadenza</label>
-                        <input type="number" id="food-days" required min="0" max="365" value="3" class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 mb-1">Quantità</label>
-                        <input type="text" id="food-qty" required value="1 conf." class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 mb-1">Valore Stimato (€)</label>
-                        <input type="number" step="0.10" id="food-price" required value="2.40" class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-green">
-                    </div>
-                </div>
-                <div class="pt-2 flex justify-end gap-2">
-                    <button type="button" onclick="closeAddModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-stone-600 hover:bg-stone-100">Annulla</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-xs shadow-md">Salva nel Frigo</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- =========================================================================
-         MODALE 2: CONDIVIDI COL VICINO
-         ========================================================================= -->
-    <div id="share-neighbor-modal" class="hidden fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-2 border-orange-100 space-y-4 fade-in">
-            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-                <h3 class="font-black text-lg text-fw-greenDeep flex items-center gap-2">
-                    <i data-lucide="gift" class="w-5 h-5 text-fw-orange"></i> Condividi col Vicino
-                </h3>
-                <button onclick="closeShareModal()" class="text-stone-400 hover:text-stone-800">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <form onsubmit="handleShareFood(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 mb-1">Cosa vuoi regalare?</label>
-                    <input type="text" id="share-item-name" required placeholder="Es. 1L Latte Fresco + 4 Uova" class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-orange">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 mb-1">Messaggio per i vicini</label>
-                    <textarea id="share-item-note" rows="2" required class="w-full border border-stone-200 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-fw-orange">Partiamo per il weekend, regalo cibo sigillato e freschissimo!</textarea>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 mb-1">Fascia oraria ritiro</label>
-                    <input type="text" id="share-item-time" required value="Oggi entro le 20:30" class="w-full border border-stone-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-fw-orange">
-                </div>
-                <div class="pt-2 flex justify-end gap-2">
-                    <button type="button" onclick="closeShareModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-stone-600 hover:bg-stone-100">Annulla</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-xs shadow-md">Pubblica nel Quartiere</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- =========================================================================
-         MODALE 3: DETTAGLIO RICETTA
-         ========================================================================= -->
-    <div id="recipe-detail-modal" class="hidden fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border-2 border-emerald-100 space-y-4 fade-in max-h-[90vh] overflow-y-auto" id="recipe-modal-body">
-            <!-- Popolato da JS -->
-        </div>
-    </div>
-
-    <!-- =========================================================================
-         JAVASCRIPT LOGIC
-         ========================================================================= -->
+    <!-- SCRIPT INTERATTIVO -->
     <script>
-        // --- STATO INIZIALE FOODWISE ---
-        let state = {
-            moneySaved: 68.50,
-            foodSavedKg: 12.4,
-            co2SavedKg: 31.0,
-            currentFilter: 'all',
-            isPro: false,
-            inventory: [
-                { id: 1, name: 'Spinaci Freschi Bio', category: 'Frigorifero', qty: '300g', daysLeft: 1, price: 2.20, emoji: '🥬' },
-                { id: 2, name: 'Ricotta Vaccina Fresca', category: 'Frigorifero', qty: '250g', daysLeft: 1, price: 1.90, emoji: '🧀' },
-                { id: 3, name: 'Petto di Pollo Italiano', category: 'Frigorifero', qty: '400g', daysLeft: 2, price: 5.40, emoji: '🍗' },
-                { id: 4, name: 'Yogurt Greco Bianco', category: 'Frigorifero', qty: '2x150g', daysLeft: 4, price: 2.40, emoji: '🥣' },
-                { id: 5, name: 'Latte Fresco Alta Qualità', category: 'Frigorifero', qty: '1 Litro', daysLeft: 3, price: 1.50, emoji: '🥛' },
-                { id: 6, name: 'Pane Integrale a Fette', category: 'Dispensa', qty: '400g', daysLeft: 5, price: 2.10, emoji: '🍞' },
-                { id: 7, name: 'Uova Biologiche (6 pz)', category: 'Frigorifero', qty: '6 uova', daysLeft: 10, price: 2.80, emoji: '🥚' },
-                { id: 8, name: 'Pomodorini Datterini', category: 'Frigorifero', qty: '400g', daysLeft: 4, price: 2.50, emoji: '🍅' },
-                { id: 9, name: 'Piselli Dolci Surgelati', category: 'Freezer', qty: '450g', daysLeft: 60, price: 2.00, emoji: '❄️' }
-            ],
-            scannedBatch: [],
-            recipes: [
-                {
-                    id: 101,
-                    title: 'Frittata Soffice Spinaci e Ricotta',
-                    time: '15 min',
-                    calories: '310 kcal',
-                    savedMoney: '€ 4,10',
-                    urgentMatch: ['Spinaci Freschi Bio', 'Ricotta Vaccina Fresca', 'Uova Biologiche'],
-                    ingredients: ['300g Spinaci freschi', '200g Ricotta vaccina', '3 Uova bio', '2 cucchiai Parmigiano', 'Sale e pepe'],
-                    steps: [
-                        'Appassisci gli spinaci in padella con un filo d’olio per 3 minuti.',
-                        'Sbatti le uova con la ricotta e il parmigiano fino a ottenere una crema liscia.',
-                        'Unisci gli spinaci e cuoci a fuoco dolce con coperchio per 8 minuti.'
-                    ]
-                },
-                {
-                    id: 102,
-                    title: 'Pasta Cremosa Svuota-Frigo',
-                    time: '12 min',
-                    calories: '430 kcal',
-                    savedMoney: '€ 4,40',
-                    urgentMatch: ['Ricotta Vaccina Fresca', 'Pomodorini Datterini'],
-                    ingredients: ['200g Pasta corta', '150g Ricotta', '150g Pomodorini datterini', 'Basilico e olio EVO'],
-                    steps: [
-                        'Cuoci la pasta in acqua bollente salata.',
-                        'Taglia i datterini a metà e saltali velocemente in padella.',
-                        'Manteca la pasta con la ricotta e un mestolo d’acqua di cottura.'
-                    ]
-                },
-                {
-                    id: 103,
-                    title: 'Bowl Proteica Express Pollo & Yogurt',
-                    time: '14 min',
-                    calories: '390 kcal',
-                    savedMoney: '€ 7,80',
-                    urgentMatch: ['Petto di Pollo Italiano', 'Yogurt Greco Bianco'],
-                    ingredients: ['300g Petto di pollo a straccetti', '150g Yogurt greco', 'Spinaci freschi', 'Succo di limone e curcuma'],
-                    steps: [
-                        'Rosola gli straccetti di pollo in padella per 7-8 minuti con un pizzico di curcuma.',
-                        'Prepara una salsa leggera mescolando yogurt greco, limone e olio EVO.',
-                        'Componi la bowl con letto di spinaci freschi, pollo caldo e salsa allo yogurt.'
-                    ]
-                }
-            ],
-            communityPosts: [
-                {
-                    id: 201,
-                    author: 'Giulia M.',
-                    distance: '120m da te',
-                    avatar: 'GM',
-                    item: '2 Confezioni Yogurt Greco + 3 Banane Mature',
-                    note: 'Parto stasera per il weekend, tutto sigillato e freschissimo!',
-                    pickup: 'Oggi fino alle 21:00',
-                    reserved: false
-                },
-                {
-                    id: 202,
-                    author: 'Davide R.',
-                    distance: '250m da te',
-                    avatar: 'DR',
-                    item: '1 Pagnotta Pane Integrale Artigianale',
-                    note: 'Ne abbiamo comprate due per sbaglio, la regalo volentieri.',
-                    pickup: 'Domani mattina 09:00 - 12:00',
-                    reserved: false
-                },
-                {
-                    id: 203,
-                    author: 'Elena V.',
-                    distance: '380m da te',
-                    avatar: 'EV',
-                    item: 'Cassetta Zucchine e Pomodorini dell’Orto (1.5 kg)',
-                    note: 'Raccolti stamattina, ne abbiamo in abbondanza!',
-                    pickup: 'Oggi pomeriggio',
-                    reserved: false
-                }
-            ],
-            shoppingList: [
-                { id: 301, text: 'Olio Extravergine d’Oliva', checked: false, addedBy: 'Mamma' },
-                { id: 302, text: 'Mele Golden Bio (1 kg)', checked: true, addedBy: 'Sveva' },
-                { id: 303, text: 'Caffè Macinato Moka', checked: false, addedBy: 'Papà' }
-            ],
-            supermarketDeals: [
-                { id: 401, store: 'Conad City - Via Torino (300m)', item: 'Magic Box Ortofrutta & Latticini', originalPrice: '€ 12,00', discountPrice: '€ 3,99', discount: '-67%', booked: false },
-                { id: 402, store: 'NaturaSì - Corso Italia (450m)', item: 'Box Cena Bio Anti-Spreco', originalPrice: '€ 9,00', discountPrice: '€ 3,50', discount: '-61%', booked: false },
-                { id: 403, store: 'Forno Artigiano (150m)', item: 'Sacchetto Pane & Focaccia del Giorno', originalPrice: '€ 6,00', discountPrice: '€ 2,00', discount: '-66%', booked: false }
-            ]
-        };
-
-        // --- GESTIONE MENU HAMBURGER ☰ ---
-        function toggleMobileMenu() {
-            const drawer = document.getElementById('sidebar-drawer');
-            const panel = document.getElementById('drawer-panel');
-            
-            if (drawer.classList.contains('opacity-0')) {
-                // Apri
-                drawer.classList.remove('opacity-0', 'pointer-events-none');
-                panel.classList.remove('-translate-x-full');
-            } else {
-                // Chiudi
-                drawer.classList.add('opacity-0', 'pointer-events-none');
-                panel.classList.add('-translate-x-full');
-            }
+        function enterApp() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('main-app').classList.add('flex');
         }
 
-        // --- TRANSIZIONE DALLA SCHERMATA DI BENVENUTO ALL'APP ---
-        function enterFoodWise() {
-            const welcome = document.getElementById('welcome-screen');
-            const mainApp = document.getElementById('main-app-container');
-
-            welcome.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-            setTimeout(() => {
-                welcome.classList.add('hidden');
-                mainApp.classList.remove('hidden');
-                mainApp.classList.add('fade-in');
-                lucide.createIcons();
-                showToast('Benvenuta su FoodWise!', 'Il tuo frigorifero smart è sincronizzato e pronto.');
-            }, 350);
+        function returnToWelcome() {
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('flex');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+            document.getElementById('dropdown-menu').classList.add('hidden');
         }
 
-        function backToWelcome() {
-            const welcome = document.getElementById('welcome-screen');
-            const mainApp = document.getElementById('main-app-container');
-
-            mainApp.classList.add('hidden');
-            welcome.classList.remove('hidden', 'opacity-0', 'scale-95', 'pointer-events-none');
-            lucide.createIcons();
+        function toggleMenu() {
+            const menu = document.getElementById('dropdown-menu');
+            menu.classList.toggle('hidden');
         }
 
-        // --- NAVIGAZIONE SEZIONI ---
-        function switchSection(sectionId) {
-            document.querySelectorAll('.app-section').forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(`sec-${sectionId}`).classList.remove('hidden');
-
-            // Aggiorna classe attiva nel menu drawer
-            document.querySelectorAll('.nav-item').forEach(btn => {
-                btn.classList.remove('bg-fw-orange', 'text-white', 'font-bold', 'shadow-md', 'shadow-orange-600/30');
-                btn.classList.add('text-emerald-100', 'font-semibold');
+        function switchTab(tabId) {
+            ['frigo', 'scanner', 'chef', 'social', 'spesa', 'business'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
             });
-            const activeNav = document.getElementById(`nav-${sectionId}`);
-            if (activeNav) {
-                activeNav.classList.add('bg-fw-orange', 'text-white', 'font-bold', 'shadow-md', 'shadow-orange-600/30');
-                activeNav.classList.remove('text-emerald-100', 'font-semibold');
-            }
-
-            if (sectionId === 'chef') renderRecipes();
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('dropdown-menu').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            lucide.createIcons();
         }
 
-        // --- NOTIFICHE TOAST ---
-        function showToast(title, message, type = 'green') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            const borderClass = type === 'orange' ? 'border-fw-orange' : 'border-fw-green';
-            const iconName = type === 'orange' ? 'sparkles' : 'check-circle-2';
-            const iconColor = type === 'orange' ? 'text-fw-orange' : 'text-fw-green';
-
-            toast.className = `bg-white border-l-4 ${borderClass} text-stone-800 p-4 rounded-2xl shadow-xl border border-stone-100 pointer-events-auto flex items-start gap-3 fade-in`;
-            toast.innerHTML = `
-                <i data-lucide="${iconName}" class="w-5 h-5 ${iconColor} shrink-0 mt-0.5"></i>
-                <div class="text-xs">
-                    <p class="font-extrabold text-sm text-fw-greenDeep">${title}</p>
-                    <p class="text-stone-600 mt-0.5">${message}</p>
-                </div>
-            `;
-            container.appendChild(toast);
-            lucide.createIcons();
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-6px)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        function updateKPIs() {
-            const moneyStr = `€ ${state.moneySaved.toFixed(2).replace('.', ',')}`;
-            document.getElementById('kpi-money').innerText = moneyStr;
-            document.getElementById('header-savings-text').innerText = moneyStr;
-            document.getElementById('kpi-food').innerText = `${state.foodSavedKg.toFixed(1)} kg`;
-            document.getElementById('kpi-co2').innerText = `${state.co2SavedKg.toFixed(1)} kg`;
-
-            const expiringCount = state.inventory.filter(i => i.daysLeft <= 2).length;
-            document.getElementById('kpi-expiring').innerText = `${expiringCount} prodott${expiringCount === 1 ? 'o' : 'i'}`;
-            document.getElementById('badge-expiring').innerText = expiringCount;
-        }
-
-        // --- SEZIONE 1: INVENTARIO FRIGO ---
-        function filterInventory(category) {
-            state.currentFilter = category;
-            document.querySelectorAll('.cat-pill').forEach(btn => {
-                btn.classList.remove('bg-fw-greenDeep', 'text-white', 'font-bold');
-                btn.classList.add('text-stone-600', 'font-semibold');
-            });
-            const activePill = document.getElementById(`cat-${category}`);
-            if (activePill) {
-                activePill.classList.add('bg-fw-greenDeep', 'text-white', 'font-bold');
-                activePill.classList.remove('text-stone-600', 'font-semibold');
-            }
-            renderInventory();
-        }
-
-        function renderInventory() {
-            const grid = document.getElementById('inventory-grid');
-            const search = document.getElementById('inventory-search').value.toLowerCase();
-            grid.innerHTML = '';
-
-            const sorted = [...state.inventory].sort((a, b) => a.daysLeft - b.daysLeft);
-            const filtered = sorted.filter(item => {
-                const matchCat = state.currentFilter === 'all' || item.category === state.currentFilter;
-                const matchSearch = item.name.toLowerCase().includes(search);
-                return matchCat && matchSearch;
-            });
-
-            document.getElementById('count-all').innerText = state.inventory.length;
-            updateKPIs();
-
-            const alertBox = document.getElementById('urgent-alert-box');
-            const urgentItems = sorted.filter(i => i.daysLeft <= 2);
-            if (urgentItems.length > 0) {
-                alertBox.classList.remove('hidden');
-                const names = urgentItems.slice(0, 2).map(i => i.name.toLowerCase()).join(' e ');
-                document.getElementById('urgent-alert-text').innerText = `"Hai ${names} in scadenza: ecco 3 ricette anti-spreco da 15 minuti!"`;
-            } else {
-                alertBox.classList.add('hidden');
-            }
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full bg-white rounded-2xl p-10 text-center border border-emerald-100">
-                        <p class="text-sm font-bold text-stone-700">Nessun alimento trovato</p>
-                        <p class="text-xs text-stone-500 mt-1">Usa lo Scanner IA o aggiungi un alimento manualmente.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            filtered.forEach(item => {
-                let barColor = 'bg-fw-green';
-                let badgeStyle = 'bg-emerald-50 text-fw-greenDark border-emerald-200';
-                let statusText = `Scade tra ${item.daysLeft} giorni`;
-                let barPercent = '85%';
-
-                if (item.daysLeft <= 1) {
-                    barColor = 'bg-fw-orangeDark';
-                    badgeStyle = 'bg-orange-100 text-fw-orangeDark border-orange-300';
-                    statusText = item.daysLeft === 0 ? 'Scade OGGI!' : 'Scade DOMANI!';
-                    barPercent = '18%';
-                } else if (item.daysLeft <= 3) {
-                    barColor = 'bg-fw-orange';
-                    badgeStyle = 'bg-orange-50 text-fw-orange border-orange-200';
-                    statusText = `Scade tra ${item.daysLeft} giorni`;
-                    barPercent = '48%';
-                }
-
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-2xl p-5 border border-emerald-100/90 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-4';
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-start justify-between gap-2">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl bg-emerald-50/70 w-11 h-11 rounded-xl flex items-center justify-center border border-emerald-100">${item.emoji}</span>
-                                <div>
-                                    <h4 class="font-bold text-sm text-fw-greenDeep">${item.name}</h4>
-                                    <span class="text-xs text-stone-400">${item.category} • ${item.qty}</span>
-                                </div>
-                            </div>
-                            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full border ${badgeStyle} shrink-0">
-                                ${statusText}
-                            </span>
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="flex justify-between text-[10px] font-semibold text-stone-400 mb-1">
-                                <span>Freschezza IA</span>
-                                <span>Valore: € ${item.price.toFixed(2).replace('.', ',')}</span>
-                            </div>
-                            <div class="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
-                                <div class="${barColor} h-full rounded-full transition-all duration-500" style="width: ${barPercent}"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-                        <button onclick="consumeItem(${item.id})" class="flex-1 py-2 px-3 rounded-xl bg-emerald-50 hover:bg-fw-green text-fw-greenDark hover:text-white font-bold text-xs transition flex items-center justify-center gap-1.5">
-                            <i data-lucide="check" class="w-3.5 h-3.5"></i> Consumato
-                        </button>
-                        <button onclick="quickShareFromFridge(${item.id})" class="py-2 px-3 rounded-xl bg-orange-50 hover:bg-fw-orange text-fw-orangeDark hover:text-white font-bold text-xs transition flex items-center justify-center gap-1">
-                            <i data-lucide="gift" class="w-3.5 h-3.5"></i> Regala
-                        </button>
-                        <button onclick="deleteItem(${item.id})" title="Elimina" class="p-2 rounded-xl text-stone-400 hover:bg-orange-50 hover:text-fw-orangeDark transition">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            lucide.createIcons();
-        }
-
-        function consumeItem(id) {
-            const idx = state.inventory.findIndex(i => i.id === id);
-            if (idx === -1) return;
-            const item = state.inventory[idx];
-
-            state.inventory.splice(idx, 1);
-            state.moneySaved += item.price;
-            state.foodSavedKg += 0.35;
-            state.co2SavedKg += 0.9;
-
-            renderInventory();
-            showToast('Alimento Consumato!', `Hai salvato "${item.name}" (+€ ${item.price.toFixed(2).replace('.', ',')} risparmiati)!`);
-        }
-
-        function deleteItem(id) {
-            state.inventory = state.inventory.filter(i => i.id !== id);
-            renderInventory();
-            showToast('Alimento Rimosso', 'Inventario aggiornato.', 'orange');
-        }
-
-        function quickShareFromFridge(id) {
-            const item = state.inventory.find(i => i.id === id);
-            if (!item) return;
-            document.getElementById('share-item-name').value = `${item.name} (${item.qty})`;
-            openShareModal();
-        }
-
-        function openAddModal() { document.getElementById('add-food-modal').classList.remove('hidden'); }
-        function closeAddModal() { document.getElementById('add-food-modal').classList.add('hidden'); }
-
-        function handleAddFood(e) {
-            e.preventDefault();
-            const name = document.getElementById('food-name').value;
-            const category = document.getElementById('food-category').value;
-            const daysLeft = parseInt(document.getElementById('food-days').value, 10);
-            const qty = document.getElementById('food-qty').value;
-            const price = parseFloat(document.getElementById('food-price').value);
-            const emojis = { 'Frigorifero': '🥗', 'Dispensa': '🥫', 'Freezer': '❄️' };
-
-            state.inventory.unshift({ id: Date.now(), name, category, qty, daysLeft, price, emoji: emojis[category] || '🍎' });
-            closeAddModal();
-            e.target.reset();
-            renderInventory();
-            showToast('Alimento Aggiunto!', `${name} inserito in ${category}.`);
-        }
-
-        // --- SEZIONE 2: SCANNER IA SCONTRINO ---
-        function simulateReceiptScan() {
+        function startScanning() {
             const laser = document.getElementById('scanner-laser');
-            const log = document.getElementById('ocr-live-log');
+            const placeholder = document.getElementById('scanner-placeholder');
+            const resultText = document.getElementById('scanner-result-text');
+            const btn = document.getElementById('scan-btn');
+
             laser.classList.remove('hidden');
-            log.innerHTML = '<span class="text-orange-300 font-bold">Scansione OCR attiva...</span> Lettura righe scontrino e calcolo scadenze IA...';
+            placeholder.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerText = "Elaborazione scontrino in corso...";
 
             setTimeout(() => {
                 laser.classList.add('hidden');
-                log.innerHTML = '<span class="text-emerald-300 font-bold">✓ Scansione completata!</span> 5 nuovi prodotti estratti.';
-
-                state.scannedBatch = [
-                    { id: Date.now() + 1, name: 'Petto di Pollo Bio', category: 'Frigorifero', qty: '400g', daysLeft: 3, price: 5.90, emoji: '🍗' },
-                    { id: Date.now() + 2, name: 'Yogurt Greco 2x150g', category: 'Frigorifero', qty: '300g', daysLeft: 12, price: 2.40, emoji: '🥣' },
-                    { id: Date.now() + 3, name: 'Zucchine Verdi Fresche', category: 'Frigorifero', qty: '500g', daysLeft: 5, price: 1.85, emoji: '🥒' },
-                    { id: Date.now() + 4, name: 'Mozzarella Fresca', category: 'Frigorifero', qty: '125g', daysLeft: 4, price: 1.60, emoji: '🧀' },
-                    { id: Date.now() + 5, name: 'Pane Integrale Fette', category: 'Dispensa', qty: '400g', daysLeft: 7, price: 2.20, emoji: '🍞' }
-                ];
-
-                renderScannedResults();
-                showToast('Scontrino Riconosciuto!', '5 prodotti estratti dall’IA FoodWise.');
-            }, 1500);
+                resultText.classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerText = "Scansiona un altro scontrino";
+            }, 2000);
         }
 
-        function simulateBarcodeScan() {
-            const laser = document.getElementById('scanner-laser');
-            const log = document.getElementById('ocr-live-log');
-            laser.classList.remove('hidden');
-            log.innerHTML = '<span class="text-orange-300 font-bold">Lettura Codice a Barre...</span>';
-
-            setTimeout(() => {
-                laser.classList.add('hidden');
-                log.innerHTML = '<span class="text-emerald-300 font-bold">✓ Codice EAN riconosciuto!</span>';
-
-                state.scannedBatch = [
-                    { id: Date.now() + 10, name: 'Avocado Hass Maturo (2 pz)', category: 'Frigorifero', qty: '300g', daysLeft: 2, price: 2.90, emoji: '🥑' }
-                ];
-
-                renderScannedResults();
-                showToast('Codice a Barre Letto!', 'Avocado Hass riconosciuto (scadenza stimata: 2 giorni).', 'orange');
-            }, 1000);
+        function generateRecipe() {
+            document.getElementById('recipe-output').classList.remove('hidden');
         }
 
-        function renderScannedResults() {
-            document.getElementById('scanner-empty-results').classList.add('hidden');
-            const list = document.getElementById('scanned-items-list');
-            const footer = document.getElementById('scanner-import-footer');
-            const badge = document.getElementById('scanned-count-badge');
-
-            list.classList.remove('hidden');
-            footer.classList.remove('hidden');
-            badge.classList.remove('hidden');
-            badge.innerText = `${state.scannedBatch.length} prodotti pronti`;
-
-            list.innerHTML = state.scannedBatch.map(item => `
-                <div class="py-3 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xl bg-emerald-50 w-10 h-10 rounded-xl flex items-center justify-center border border-emerald-100">${item.emoji}</span>
-                        <div>
-                            <p class="font-bold text-sm text-fw-greenDeep">${item.name}</p>
-                            <p class="text-xs text-stone-400">${item.category} • ${item.qty} • € ${item.price.toFixed(2)}</p>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold bg-orange-50 text-fw-orangeDark px-2.5 py-1 rounded-lg border border-orange-200">
-                        IA: ${item.daysLeft} gg
-                    </span>
-                </div>
-            `).join('');
-        }
-
-        function importScannedToFridge() {
-            state.inventory = [...state.scannedBatch, ...state.inventory];
-            renderInventory();
-
-            state.scannedBatch = [];
-            document.getElementById('scanned-items-list').classList.add('hidden');
-            document.getElementById('scanner-import-footer').classList.add('hidden');
-            document.getElementById('scanned-count-badge').classList.add('hidden');
-            document.getElementById('scanner-empty-results').classList.remove('hidden');
-
-            switchSection('fridge');
-            showToast('Prodotti Caricati!', 'Tutti gli alimenti dello scontrino sono ora nel tuo Frigo Smart.');
-        }
-
-        // --- SEZIONE 3: CHEF IA & RICETTE ---
-        function triggerRecipeFromAlert() {
-            switchSection('chef');
-            showToast('Chef IA FoodWise', 'Ecco le ricette per salvare gli alimenti in scadenza!', 'orange');
-        }
-
-        function renderRecipes() {
-            const grid = document.getElementById('recipes-grid');
-            grid.innerHTML = state.recipes.map(rec => `
-                <div class="bg-white rounded-2xl p-5 border-2 border-emerald-100/80 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-4">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-[11px] font-bold bg-orange-50 text-fw-orangeDark px-2.5 py-1 rounded-full border border-orange-200">
-                                ⏱️ ${rec.time} • ${rec.calories}
-                            </span>
-                            <span class="text-xs font-extrabold text-fw-green">Salva ${rec.savedMoney}</span>
-                        </div>
-                        <h4 class="font-extrabold text-base text-fw-greenDeep">${rec.title}</h4>
-                        <p class="text-xs text-stone-500 mt-1.5">
-                            <strong>Ingredienti dal frigo:</strong> ${rec.urgentMatch.join(', ')}
-                        </p>
-                    </div>
-                    <button onclick="openRecipeModal(${rec.id})" class="w-full py-2.5 px-4 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-xs transition flex items-center justify-center gap-2">
-                        <i data-lucide="book-open" class="w-4 h-4"></i> Leggi Ricetta
-                    </button>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function generateMysteryRecipe() {
-            const sample = [...state.inventory].sort(() => 0.5 - Math.random()).slice(0, 3);
-            const names = sample.map(i => i.name).join(', ');
-            const box = document.getElementById('mystery-recipe-box');
-            box.classList.remove('hidden');
-            box.innerHTML = `
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="inline-flex items-center gap-1.5 bg-fw-orange text-white text-xs font-black px-3 py-1 rounded-full">
-                        🏆 Badge Sbloccato: Eco-Chef Creativo!
-                    </span>
-                    <span class="text-xs text-emerald-200 font-bold">Sfida Svuota-Frigo IA • 15 min</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-black text-white">Ricetta Misteriosa: Tortino Dorato Svuota-Frigo</h3>
-                <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                    L'IA ha combinato 3 ingredienti dal tuo frigo (<strong>${names}</strong>): tagliali a tocchetti regolari, saltali in padella con un filo d'olio EVO ed erbe aromatiche per 6 minuti, poi gratina in forno o friggitrice ad aria a 190°C per 8 minuti per una crosticina croccante a zero sprechi!
-                </p>
-            `;
-            showToast('Ricetta Misteriosa Creata!', 'Hai sbloccato il badge Eco-Chef Creativo!', 'orange');
-        }
-
-        function openRecipeModal(id) {
-            const rec = state.recipes.find(r => r.id === id);
-            if (!rec) return;
-
-            const body = document.getElementById('recipe-modal-body');
-            body.innerHTML = `
-                <div class="flex items-start justify-between border-b border-stone-100 pb-3">
-                    <div>
-                        <span class="text-xs font-bold text-fw-orangeDark">${rec.time} • ${rec.calories} • Risparmio ${rec.savedMoney}</span>
-                        <h3 class="font-black text-xl text-fw-greenDeep mt-0.5">${rec.title}</h3>
-                    </div>
-                    <button onclick="document.getElementById('recipe-detail-modal').classList.add('hidden')" class="text-stone-400 hover:text-stone-800">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Ingredienti</h4>
-                    <ul class="list-disc pl-5 text-xs text-stone-700 space-y-1">
-                        ${rec.ingredients.map(i => `<li>${i}</li>`).join('')}
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Preparazione Passo-Passo</h4>
-                    <ol class="list-decimal pl-5 text-xs text-stone-700 space-y-2 leading-relaxed">
-                        ${rec.steps.map(s => `<li>${s}</li>`).join('')}
-                    </ol>
-                </div>
-                <div class="pt-3 border-t border-stone-100 flex justify-end">
-                    <button onclick="document.getElementById('recipe-detail-modal').classList.add('hidden'); showToast('Ottimo Lavoro!', 'Ricetta completata con successo!');" class="px-5 py-2.5 rounded-xl bg-fw-orange text-white font-bold text-xs">
-                        Ho Preparato Questa Ricetta
-                    </button>
-                </div>
-            `;
-            document.getElementById('recipe-detail-modal').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function askChefQuick(question) {
-            appendChatMessage('Tu', question);
-            setTimeout(() => {
-                let reply = 'Perfetto! Taglia gli ingredienti a dadini, saltali in padella con olio extravergine e spezie per 10 minuti: otterrai un piatto unico sano ed equilibrato senza sprecare nulla!';
-                if (question.toLowerCase().includes('pane')) {
-                    reply = 'Con il pane integrale raffermo puoi preparare delle bruschette croccanti con pomodorini datterini o dei crostini dorati in padella per accompagnare una vellutata!';
-                } else if (question.toLowerCase().includes('pollo')) {
-                    reply = 'Taglia il petto di pollo a bocconcini, rosolalo con curcuma e limone e servilo su spinaci freschi con una crema leggera di yogurt greco!';
-                }
-                appendChatMessage('IA', reply);
-            }, 400);
-        }
-
-        function handleChefChatSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('chef-chat-input');
-            const val = input.value.trim();
-            if (!val) return;
-            input.value = '';
-            askChefQuick(val);
-        }
-
-        function appendChatMessage(sender, text) {
-            const box = document.getElementById('chef-chat-messages');
-            const isUser = sender === 'Tu';
-            const div = document.createElement('div');
-            div.className = `flex items-start gap-2.5 ${isUser ? 'justify-end' : ''}`;
-            div.innerHTML = isUser
-                ? `<div class="bg-fw-orange text-white rounded-2xl rounded-tr-none p-3 text-xs max-w-[80%] shadow-sm font-medium">${text}</div>`
-                : `<span class="w-7 h-7 rounded-full bg-fw-green text-white text-xs font-bold flex items-center justify-center shrink-0">IA</span>
-                   <div class="bg-white border border-emerald-100 rounded-2xl rounded-tl-none p-3 text-xs text-stone-700 max-w-[80%] shadow-sm">${text}</div>`;
-            box.appendChild(div);
-            box.scrollTop = box.scrollHeight;
-        }
-
-        // --- SEZIONE 4: COMMUNITY ---
-        function renderCommunityFeed() {
-            const feed = document.getElementById('community-feed');
-            feed.innerHTML = state.communityPosts.map((post, idx) => `
-                <div id="comm-post-${idx}" class="bg-white rounded-2xl p-5 border-2 border-emerald-100/80 shadow-sm transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div class="space-y-1.5">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-full bg-orange-100 text-fw-orangeDark font-extrabold text-xs flex items-center justify-center">${post.avatar}</span>
-                            <span class="font-bold text-xs text-fw-greenDeep">${post.author}</span>
-                            <span class="text-[11px] text-stone-400">• ${post.distance}</span>
-                        </div>
-                        <h4 class="font-extrabold text-base text-fw-greenDeep">${post.item}</h4>
-                        <p class="text-xs text-stone-600">"${post.note}"</p>
-                        <span class="inline-block text-[11px] font-bold text-fw-greenDark bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
-                            🕒 Ritiro: ${post.pickup}
-                        </span>
-                    </div>
-                    <div class="shrink-0">
-                        ${post.reserved 
-                            ? `<span class="px-4 py-2.5 rounded-xl bg-emerald-50 text-fw-greenDark border border-emerald-200 font-bold text-xs flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4"></i> Ritiro Prenotato</span>`
-                            : `<button onclick="reserveNeighborFood(${post.id})" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-fw-green hover:bg-fw-greenDark text-white font-bold text-xs transition flex items-center justify-center gap-1.5"><i data-lucide="message-circle" class="w-4 h-4"></i> Prenota Ritiro</button>`
-                        }
-                    </div>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function highlightNeighborPost(index) {
-            const el = document.getElementById(`comm-post-${index}`);
-            if (!el) return;
-            el.classList.add('ring-2', 'ring-fw-orange');
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => el.classList.remove('ring-2', 'ring-fw-orange'), 2000);
-        }
-
-        function reserveNeighborFood(id) {
-            const post = state.communityPosts.find(p => p.id === id);
-            if (!post) return;
-            post.reserved = true;
-            renderCommunityFeed();
-            showToast('Ritiro Prenotato!', `Messaggio inviato a ${post.author} per ritirare "${post.item}".`);
-        }
-
-        function openShareModal() { document.getElementById('share-neighbor-modal').classList.remove('hidden'); }
-        function closeShareModal() { document.getElementById('share-neighbor-modal').classList.add('hidden'); }
-
-        function handleShareFood(e) {
-            e.preventDefault();
-            const item = document.getElementById('share-item-name').value;
-            const note = document.getElementById('share-item-note').value;
-            const pickup = document.getElementById('share-item-time').value;
-
-            state.communityPosts.unshift({
-                id: Date.now(),
-                author: 'Sveva (Tu)',
-                distance: '0m (Il tuo palazzo)',
-                avatar: 'SV',
-                item,
-                note,
-                pickup,
-                reserved: false
-            });
-
-            closeShareModal();
-            e.target.reset();
-            switchSection('community');
-            renderCommunityFeed();
-            showToast('Annuncio Pubblicato!', 'I vicini nel raggio di 500m hanno ricevuto la notifica.', 'orange');
-        }
-
-        // --- SEZIONE 5: SPESA & OFFERTE GDO ---
-        function renderShoppingList() {
-            const ul = document.getElementById('shopping-list-ul');
-            ul.innerHTML = state.shoppingList.map(item => `
-                <li class="py-3 flex items-center justify-between gap-3">
-                    <label class="flex items-center gap-3 cursor-pointer flex-1">
-                        <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleShoppingItem(${item.id})" class="w-4 h-4 accent-fw-green rounded">
-                        <span class="text-sm ${item.checked ? 'line-through text-stone-400' : 'font-semibold text-stone-800'}">${item.text}</span>
-                    </label>
-                    <span class="text-[10px] bg-orange-50 text-fw-orangeDark font-bold px-2 py-0.5 rounded-full">da ${item.addedBy}</span>
-                </li>
-            `).join('');
-        }
-
-        function toggleShoppingItem(id) {
-            const item = state.shoppingList.find(i => i.id === id);
-            if (item) item.checked = !item.checked;
-            renderShoppingList();
-        }
-
-        function addShoppingItem(e) {
-            e.preventDefault();
-            const input = document.getElementById('shopping-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const alreadyInFridge = state.inventory.find(i => i.name.toLowerCase().includes(text.toLowerCase()) || text.toLowerCase().includes(i.name.split(' ')[0].toLowerCase()));
-            if (alreadyInFridge) {
-                showToast('Avviso Anti-Doppioni IA!', `Attenzione: hai già "${alreadyInFridge.name}" nel tuo frigo!`, 'orange');
-            } else {
-                showToast('Aggiunto alla Lista', `"${text}" sincronizzato con la famiglia.`);
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('dropdown-menu');
+            const btn = document.querySelector('header button');
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
             }
-
-            state.shoppingList.unshift({ id: Date.now(), text, checked: false, addedBy: 'Sveva' });
-            input.value = '';
-            renderShoppingList();
-        }
-
-        function renderSupermarketDeals() {
-            const container = document.getElementById('supermarket-deals-list');
-            container.innerHTML = state.supermarketDeals.map(deal => `
-                <div class="p-4 rounded-2xl border border-orange-200/80 bg-orange-50/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
-                        <span class="text-[11px] font-bold text-stone-500 block">${deal.store}</span>
-                        <h4 class="font-extrabold text-sm text-fw-greenDeep mt-0.5">${deal.item}</h4>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-xs line-through text-stone-400">${deal.originalPrice}</span>
-                            <span class="text-sm font-black text-fw-green">${deal.discountPrice}</span>
-                            <span class="text-[10px] font-black bg-fw-orange text-white px-2 py-0.5 rounded-full">${deal.discount}</span>
-                        </div>
-                    </div>
-                    ${deal.booked
-                        ? `<span class="px-3.5 py-2 rounded-xl bg-emerald-50 text-fw-greenDark border border-emerald-200 font-bold text-xs shrink-0">Box Prenotata ✓</span>`
-                        : `<button onclick="bookDeal(${deal.id})" class="px-4 py-2 rounded-xl bg-fw-orange hover:bg-fw-orangeDark text-white font-bold text-xs transition shrink-0 shadow-sm">Prenota Box</button>`
-                    }
-                </div>
-            `).join('');
-        }
-
-        function bookDeal(id) {
-            const deal = state.supermarketDeals.find(d => d.id === id);
-            if (!deal) return;
-            deal.booked = true;
-            renderSupermarketDeals();
-            showToast('Box Anti-Spreco Prenotata!', `Ritira "${deal.item}" in negozio entro chiusura.`, 'orange');
-        }
-
-        // --- SEZIONE 6: PIANO PRO ---
-        function selectPlan(plan) {
-            if (plan === 'Pro') {
-                state.isPro = true;
-                document.getElementById('sidebar-plan-label').innerHTML = `<i data-lucide="crown" class="w-3 h-3 text-fw-orange"></i> FoodWise Pro Attivo`;
-                const btn = document.getElementById('btn-upgrade-pro');
-                btn.innerText = 'Piano FoodWise Pro Attivo ✓';
-                btn.classList.replace('bg-fw-orange', 'bg-fw-green');
-                lucide.createIcons();
-                showToast('Benvenuta in FoodWise Pro!', 'Sbloccati piani alimentari IA e lista famiglia illimitata.', 'orange');
-            } else {
-                showToast('Piano Free Attivo', 'Stai utilizzando la versione gratuita base.');
-            }
-        }
-
-        // --- INIZIALIZZAZIONE ---
-        window.addEventListener('DOMContentLoaded', () => {
-            renderInventory();
-            renderRecipes();
-            renderCommunityFeed();
-            renderShoppingList();
-            renderSupermarketDeals();
-            lucide.createIcons();
         });
     </script>
 </body>
