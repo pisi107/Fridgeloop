@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+
 <html lang="it" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - Scontrino IA & Anti-Spreco Alimentare</title>
+    <title>FoodWise - Anti-Spreco Alimentare Intelligente</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -41,23 +41,23 @@
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+        .tab-content.active { display: block; animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Scrollbar pulita per mobile */
-        ::-webkit-scrollbar { height: 4px; width: 4px; }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar { height: 6px; width: 6px; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 h-full flex flex-col justify-between selection:bg-emeraldCustom selection:text-white">
+<body class="bg-slate-100 text-slate-800 h-full flex flex-col justify-between selection:bg-emeraldCustom selection:text-white">
 
-    <!-- SPLASH SCREEN / LANDING PAGE FILOSOFICA INIZIALE -->
+    <!-- SPLASH SCREEN / LANDING PAGE CINEMATOGRAFICA -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-forest-dark via-forest to-emeraldCustom flex flex-col items-center justify-center p-6 text-white transition-all duration-700">
-        <div class="bg-white/10 backdrop-blur-md p-8 sm:p-12 rounded-3xl border border-white/20 shadow-2xl flex flex-col items-center text-center max-w-lg w-full space-y-6 transform animate-fade-in">
+        <div class="bg-white/10 backdrop-blur-xl p-8 sm:p-12 rounded-[32px] border border-white/20 shadow-2xl flex flex-col items-center text-center max-w-md w-full space-y-6 transform animate-fade-in">
             <!-- Logo Branding Ufficiale FoodWise -->
-            <div class="bg-white p-4 rounded-2xl shadow-xl flex items-center justify-center border border-white/20 w-full h-52 sm:h-60 relative overflow-hidden group">
+            <div class="bg-white p-4 rounded-2xl shadow-2xl flex items-center justify-center border border-white/20 w-full h-48 sm:h-56 relative overflow-hidden group">
                 <svg viewBox="0 0 400 320" class="w-full h-full object-contain">
                     <rect x="70" y="40" width="150" height="240" rx="16" fill="#064E3B" stroke="#022C22" stroke-width="4"/>
                     <rect x="85" y="55" width="120" height="210" rx="8" fill="#ECFDF5"/>
@@ -78,33 +78,28 @@
                 </svg>
             </div>
             
-            <div class="space-y-3">
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-                    FoodWise
-                </h1>
+            <div class="space-y-2">
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">FoodWise</h1>
+                <p class="text-emerald-200 text-xs sm:text-sm font-medium">Anti-spreco alimentare domestico con IA</p>
             </div>
 
             <button onclick="enterApp()" class="w-full bg-citrus hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 text-base touch-manipulation group">
                 <i class="fa-solid fa-seedling text-xl group-hover:rotate-12 transition-transform"></i> Entra in FoodWise
             </button>
 
-            <!-- Frase Filosofica / Slogan Riaggiunta Subito Sotto -->
+            <!-- Frase Filosofica -->
             <p class="text-emerald-100 text-xs sm:text-sm italic font-serif leading-relaxed px-2 pt-2 border-t border-white/10">
-                "Il cibo nutre la vita, ma il rispetto del cibo nutre il futuro del pianeta."
+                "Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."
             </p>
 
-            <p class="text-[11px] text-emerald-200/80">Progetto Educazione Civica • Sveva & Gruppo</p>
+            <p class="text-[11px] text-emerald-200/80">Progetto di Educazione Civica • Sveva & Gruppo</p>
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto z-50 flex flex-col gap-2 max-w-sm pointer-events-none mx-auto sm:mx-0"></div>
-
-    <!-- Header & Brand Identity con Hamburger Menu a Sinistra -->
-    <header class="bg-forest text-white shadow-lg sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <!-- Header & Brand Identity -->
+    <header class="bg-forest text-white shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-                <!-- Hamburger Menu Trigger (Apertura Menu a Sinistra) -->
                 <button onclick="toggleSidebar()" class="w-10 h-10 bg-white/10 hover:bg-white/20 active:scale-95 rounded-2xl flex items-center justify-center text-white transition-all text-lg touch-manipulation">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -122,8 +117,7 @@
                 </div>
             </div>
             
-            <!-- Quick Stat Mini Badge -->
-            <div class="flex items-center gap-3 bg-forest-dark/50 px-3.5 py-2 rounded-2xl border border-white/10 text-xs">
+            <div class="flex items-center gap-3 bg-forest-dark/60 px-4 py-2 rounded-2xl border border-white/10 text-xs">
                 <div class="flex items-center gap-1.5 text-emerald-300">
                     <i class="fa-solid fa-seedling"></i>
                     <span class="font-semibold" id="header-kg">14.5 kg</span>
@@ -137,8 +131,8 @@
         </div>
     </header>
 
-    <!-- SIDEBAR HAMBURGER MENU (Da sinistra) -->
-    <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+    <!-- SIDEBAR HAMBURGER MENU -->
+    <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
     <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-80 bg-forest text-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between p-6">
         <div class="space-y-6">
             <div class="flex items-center justify-between border-b border-white/10 pb-4">
@@ -154,10 +148,12 @@
                 <button onclick="toggleSidebar()" class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="space-y-1.5">
-                <button onclick="switchTabAndClose('receipt')" id="menu-btn-receipt" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 bg-emeraldCustom text-white shadow">
-                    <i class="fa-solid fa-receipt text-citrus text-base w-6"></i> Scontrino IA ⚡
+                <button onclick="switchTabAndClose('home')" id="menu-btn-home" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 bg-emeraldCustom text-white shadow">
+                    <i class="fa-solid fa-house text-citrus text-base w-6"></i> Presentazione & Filosofia
+                </button>
+                <button onclick="switchTabAndClose('receipt')" id="menu-btn-receipt" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
+                    <i class="fa-solid fa-receipt text-base w-6"></i> Scontrino IA ⚡
                 </button>
                 <button onclick="switchTabAndClose('inventory')" id="menu-btn-inventory" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
                     <i class="fa-solid fa-box-open text-base w-6"></i> Inventario Frigo
@@ -169,10 +165,16 @@
                     <i class="fa-solid fa-hands-holding-child text-base w-6"></i> Condividi col Vicino
                 </button>
                 <button onclick="switchTabAndClose('gamification')" id="menu-btn-gamification" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-trophy text-citrus text-base w-6"></i> Report & Impatto CO₂
+                    <i class="fa-solid fa-trophy text-base w-6"></i> Report & Impatto CO₂
                 </button>
                 <button onclick="switchTabAndClose('shopping')" id="menu-btn-shopping" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
                     <i class="fa-solid fa-cart-shopping text-base w-6"></i> Lista Spesa Condivisa
+                </button>
+                <button onclick="switchTabAndClose('quiz')" id="menu-btn-quiz" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
+                    <i class="fa-solid fa-brain text-citrus text-base w-6"></i> Quiz Eco-Consapevolezza 🧠
+                </button>
+                <button onclick="switchTabAndClose('slot')" id="menu-btn-slot" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
+                    <i class="fa-solid fa-dice text-citrus text-base w-6"></i> Slot Svuota-Frigo 🎰
                 </button>
                 <button onclick="switchTabAndClose('pitch')" id="menu-btn-pitch" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
                     <i class="fa-solid fa-circle-info text-base w-6"></i> Progetto & Canvas
@@ -187,185 +189,155 @@
     </div>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-5 sm:py-6 flex-1 w-full space-y-6">
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-6">
 
-        <!-- TAB 0: HOME / PRESENTAZIONE FILOSOFICA -->
-        <section id="tab-home" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-forest via-forest-dark to-emeraldCustom text-white p-6 sm:p-10 rounded-3xl shadow-xl space-y-6 border border-white/10 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- TAB 0: HOME / PRESENTAZIONE E FILOSOFIA -->
+        <section id="tab-home" class="tab-content active space-y-6">
+            <div class="bg-gradient-to-r from-forest via-forest-dark to-emeraldCustom text-white p-8 sm:p-12 rounded-[32px] shadow-2xl space-y-6 border border-white/10 relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 w-80 h-80 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="max-w-3xl space-y-4">
-                    <span class="bg-citrus text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-flex items-center gap-2">
-                        <i class="fa-solid fa-seedling"></i> Progetto Educazione Civica
+                    <span class="bg-citrus text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider inline-flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-seedling"></i> Missione & Visione
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Perché abbiamo creato FoodWise?</h2>
-                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
-                        Oltre il 50% dello spreco alimentare avviene direttamente nelle nostre case, spesso perché dimentichiamo cosa abbiamo in fondo al frigo o non sappiamo come abbinare gli avanzi. Abbiamo ideato <b>FoodWise</b> per trasformare ogni scontrino in un alleato intelligente, aiutando le famiglie a risparmiare e a proteggere il pianeta.
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">"Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."</h2>
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed pt-2">
+                        Oltre il 50% dello spreco alimentare avviene direttamente nelle nostre case. Abbiamo creato <b>FoodWise</b> per trasformare ogni scontrino in un inventario intelligente e guidare le famiglie verso un consumo consapevole e sostenibile.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <button onclick="switchTab('receipt')" class="bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm touch-manipulation">
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button onclick="switchTab('receipt')" class="bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-7 py-4 rounded-2xl shadow-xl transition-all flex items-center gap-2.5 text-sm sm:text-base touch-manipulation">
                         <i class="fa-solid fa-receipt"></i> Prova Scontrino IA ⚡
                     </button>
-                    <button onclick="switchTab('inventory')" class="bg-white/10 hover:bg-white/20 active:scale-95 text-white font-semibold px-6 py-3.5 rounded-2xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm touch-manipulation">
+                    <button onclick="switchTab('inventory')" class="bg-white/10 hover:bg-white/25 active:scale-95 text-white font-semibold px-7 py-4 rounded-2xl border border-white/20 transition-all flex items-center gap-2.5 text-sm sm:text-base touch-manipulation">
                         <i class="fa-solid fa-box-open"></i> Apri Inventario Frigo
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-12 h-12 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center text-xl font-bold">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Inventario Intelligente</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Scansiona lo scontrino della spesa con l'IA per registrare i prodotti e calcolare automaticamente le scadenze ideali.</p>
+                    <h3 class="font-bold text-slate-900 text-lg">Inventario Intelligente</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Scatta una foto allo scontrino o scansiona i codici a barre: l'IA riconosce i prodotti e stima le date di scadenza.</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-12 h-12 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center text-xl font-bold">
+                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
                         <i class="fa-solid fa-hat-chef"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Ricette Svuota-Frigo</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Inserisci gli ingredienti vicini alla scadenza e ricevi in pochi secondi ricette lampo gustose e su misura.</p>
+                    <h3 class="font-bold text-slate-900 text-lg">Ricette Svuota-Frigo</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Ricevi avvisi mirati prima che il cibo scada, abbinati a ricette rapide e gustose su misura.</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center text-xl font-bold">
+                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
                         <i class="fa-solid fa-people-roof"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Solidarietà di Quartiere</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Usa la mappa radar interattiva per regalare il cibo in eccesso ai vicini di casa prima di partire o sprecare.</p>
+                    <h3 class="font-bold text-slate-900 text-lg">Condividi col Vicino</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Spazio solidale di quartiere per regalare cibo in eccesso prima di partire o sprecare.</p>
                 </div>
-            </div>
-
-            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div class="space-y-2 text-center sm:text-left">
-                    <h4 class="font-bold text-slate-900 text-base sm:text-lg">Pronto a iniziare il tuo viaggio a zero sprechi?</h4>
-                    <p class="text-xs sm:text-sm text-slate-500">Usa il menu in alto a sinistra (i 3 trattini) per esplorare tutte le sezioni dell'app.</p>
-                </div>
-                <button onclick="switchTab('receipt')" class="bg-forest hover:bg-forest-light text-white font-bold px-6 py-3.5 rounded-2xl shadow transition-all text-xs sm:text-sm whitespace-nowrap touch-manipulation">
-                    Inizia Ora <i class="fa-solid fa-arrow-right ml-1"></i>
-                </button>
             </div>
         </section>
 
         <!-- TAB 1: SCONTRINO IA -->
-        <section id="tab-receipt" class="tab-content space-y-5">
-            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-6 sm:p-8 rounded-3xl shadow-md space-y-3">
-                <span class="bg-citrus text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Scansione Intelligente</span>
-                <h2 class="text-xl sm:text-3xl font-serif italic text-emerald-100">"Il cibo nutre la vita, ma il rispetto del cibo nutre il futuro del pianeta."</h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl leading-relaxed pt-1">
-                    Fotografa lo scontrino della spesa: la nostra Intelligenza Artificiale (OCR) riconosce i prodotti, calcola la data di scadenza ideale e aggiorna il tuo inventario frigo in un secondo.
+        <section id="tab-receipt" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
+                <span class="bg-citrus text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Scansione Intelligente</span>
+                <h2 class="text-2xl sm:text-3xl font-serif italic text-emerald-100">"Il cibo nutre la vita, ma il rispetto del cibo nutre il futuro del pianeta."</h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                    Digitalizza in un attimo la spesa con l'intelligenza artificiale OCR: i prodotti vengono registrati e le scadenze calcolate automaticamente.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div onclick="simulateReceiptScan()" class="bg-white p-6 rounded-3xl border-2 border-dashed border-emeraldCustom/40 hover:border-emeraldCustom hover:bg-emerald-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-3 group">
-                    <div class="w-14 h-14 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-emeraldCustom/40 hover:border-emeraldCustom hover:bg-emerald-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
+                    <div class="w-16 h-16 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-camera"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">Scatta con Fotocamera</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Usa il telefono per digitalizzare lo scontrino</p>
+                        <h3 class="font-bold text-slate-900 text-base">Scatta con Fotocamera</h3>
+                        <p class="text-xs text-slate-500 mt-1">Usa il telefono per digitalizzare lo scontrino</p>
                     </div>
-                    <span class="text-xs bg-emeraldCustom text-white px-4 py-2 rounded-xl font-semibold mt-1">Scansiona Ora</span>
+                    <span class="text-xs bg-emeraldCustom text-white px-5 py-2.5 rounded-xl font-semibold mt-1 shadow">Scansiona Ora</span>
                 </div>
 
-                <div onclick="simulateReceiptScan()" class="bg-white p-6 rounded-3xl border-2 border-dashed border-citrus/40 hover:border-citrus hover:bg-amber-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-3 group">
-                    <div class="w-14 h-14 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-citrus/40 hover:border-citrus hover:bg-amber-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
+                    <div class="w-16 h-16 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-barcode"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">Scansiona Codice a Barre</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Inquadra il codice del prodotto acquistato</p>
+                        <h3 class="font-bold text-slate-900 text-base">Scansiona Codice a Barre</h3>
+                        <p class="text-xs text-slate-500 mt-1">Inquadra il codice del prodotto acquistato</p>
                     </div>
-                    <span class="text-xs bg-citrus text-white px-4 py-2 rounded-xl font-semibold mt-1">Scansiona Barcode</span>
+                    <span class="text-xs bg-citrus text-white px-5 py-2.5 rounded-xl font-semibold mt-1 shadow">Scansiona Barcode</span>
                 </div>
 
-                <div onclick="simulateReceiptScan()" class="bg-white p-6 rounded-3xl border-2 border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all cursor-pointer flex flex-col items-center text-center gap-3 group">
-                    <div class="w-14 h-14 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
+                    <div class="w-16 h-16 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-cloud-arrow-up"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">Carica Foto Scontrino</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Seleziona immagine dalla galleria</p>
+                        <h3 class="font-bold text-slate-900 text-base">Carica Foto Scontrino</h3>
+                        <p class="text-xs text-slate-500 mt-1">Seleziona immagine dalla galleria</p>
                     </div>
-                    <span class="text-xs bg-slate-200 text-slate-700 px-4 py-2 rounded-xl font-semibold mt-1">Seleziona File</span>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
-                    <i class="fa-solid fa-clock-rotate-left text-emeraldCustom"></i> Ultimi Scontrini Elaborati
-                </h3>
-                <div class="divide-y divide-slate-100 text-xs sm:text-sm" id="recent-receipts-list">
-                    <div class="py-3 flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emeraldCustom flex items-center justify-center font-bold flex-shrink-0">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-slate-900">Scontrino Esselunga - 12 Articoli</p>
-                                <p class="text-[11px] text-slate-400">Oggi, 10:45 • Scadenze calcolate con successo</p>
-                            </div>
-                        </div>
-                        <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-semibold whitespace-nowrap">Completato</span>
-                    </div>
+                    <span class="text-xs bg-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-semibold mt-1">Seleziona File</span>
                 </div>
             </div>
         </section>
 
         <!-- TAB 2: INVENTARIO FRIGO -->
-        <section id="tab-inventory" class="tab-content space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+        <section id="tab-inventory" class="tab-content space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
                 <div>
-                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-box-open text-emeraldCustom"></i> Il Mio Frigorifero Inteligente
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
+                        <i class="fa-solid fa-box-open text-emeraldCustom"></i> Il Mio Frigorifero Intelligente
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-500">Monitora lo stato di freschezza ed evita gli sprechi domestici.</p>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Monitora lo stato di freschezza ed evita gli sprechi domestici.</p>
                 </div>
-                <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
                     <i class="fa-solid fa-plus"></i> Aggiungi Prodotto
                 </button>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
                 <div class="relative w-full sm:w-80">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
-                    <input type="text" id="inventory-search" oninput="renderInventory()" placeholder="Cerca alimento..." class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <input type="text" id="inventory-search" oninput="renderInventory()" placeholder="Cerca alimento..." class="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom shadow-sm">
                 </div>
                 <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1">
-                    <button onclick="setFilter('all')" id="filter-all" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation">Tutti</button>
-                    <button onclick="setFilter('fresh')" id="filter-fresh" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">Freschi (>3gg)</button>
-                    <button onclick="setFilter('expiring')" id="filter-expiring" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">In Scadenza (≤3gg)</button>
+                    <button onclick="setFilter('all')" id="filter-all" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation">Tutti</button>
+                    <button onclick="setFilter('fresh')" id="filter-fresh" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">Freschi (>3gg)</button>
+                    <button onclick="setFilter('expiring')" id="filter-expiring" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">In Scadenza (≤3gg)</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="inventory-grid"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="inventory-grid"></div>
         </section>
 
         <!-- TAB 3: RICETTE ANTI-SPRECO IA -->
-        <section id="tab-recipes" class="tab-content space-y-5">
-            <div class="bg-gradient-to-r from-forest to-forest-light text-white p-6 sm:p-8 rounded-3xl shadow-md">
-                <h2 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-2">
+        <section id="tab-recipes" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-forest to-forest-light text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
+                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
                     <i class="fa-solid fa-wand-magic-sparkles text-citrus"></i> Chef IA - Ricette Anti-Spreco
                 </h2>
                 <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Seleziona gli ingredienti in scadenza per generare istantaneamente una ricetta lampo.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <div class="bg-white p-6 sm:p-7 rounded-[32px] shadow-sm border border-slate-200/80 space-y-4">
                     <h3 class="font-bold text-slate-900 flex items-center justify-between text-sm sm:text-base">
                         <span>Seleziona Ingredienti</span>
-                        <span class="text-xs bg-emerald-100 text-emeraldCustom px-2.5 py-1 rounded-full font-semibold" id="selected-count">0 selezionati</span>
+                        <span class="text-xs bg-emerald-100 text-emeraldCustom px-3 py-1 rounded-full font-semibold" id="selected-count">0 selezionati</span>
                     </h3>
-                    <div class="space-y-2 max-h-72 overflow-y-auto pr-1" id="recipe-ingredient-list"></div>
-                    <button onclick="generateAIPoweredRecipe()" class="w-full bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold py-3.5 rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                    <div class="space-y-2 max-h-80 overflow-y-auto pr-1" id="recipe-ingredient-list"></div>
+                    <button onclick="generateAIPoweredRecipe()" class="w-full bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
                         <i class="fa-solid fa-sparkles"></i> Genera Ricetta IA
                     </button>
                 </div>
 
-                <div class="lg:col-span-2 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div class="lg:col-span-2 bg-white p-6 sm:p-7 rounded-[32px] shadow-sm border border-slate-200/80 flex flex-col justify-between">
                     <div id="recipe-output" class="space-y-4">
                         <div class="flex flex-col items-center justify-center h-64 text-center text-slate-400">
                             <i class="fa-solid fa-utensils text-4xl mb-3 text-slate-300 animate-pulse"></i>
@@ -378,157 +350,157 @@
         </section>
 
         <!-- TAB 4: CONDIVIDI COL VICINO -->
-        <section id="tab-community" class="tab-content space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+        <section id="tab-community" class="tab-content space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
                 <div>
-                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
                         <i class="fa-solid fa-people-roof text-emeraldCustom"></i> Mappa Solidale di Quartiere
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-500">Condividi cibo in eccesso con i vicini prima di partire o sprecare.</p>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Condividi cibo in eccesso con i vicini prima di partire o sprecare.</p>
                 </div>
-                <button onclick="openShareModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                <button onclick="openShareModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
                     <i class="fa-solid fa-gift"></i> Offri un Alimento
                 </button>
             </div>
 
-            <!-- Radar Interattivo di Quartiere Ottimizzato Mobile -->
-            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <!-- Radar Interattivo di Quartiere -->
+            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 space-y-5">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
                         <i class="fa-solid fa-map-location-dot text-citrus"></i> Radar Vicinato (Raggio 1 km)
                     </h3>
-                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-semibold">
+                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3.5 py-1.5 rounded-full font-semibold shadow-sm">
                         <i class="fa-solid fa-signal text-emeraldCustom"></i> 4 vicini attivi
                     </span>
                 </div>
 
                 <!-- Canvas / Radar Map Container -->
-                <div class="relative w-full h-72 sm:h-80 bg-slate-900 rounded-2xl overflow-hidden shadow-inner border border-slate-800 cursor-crosshair" onclick="handleMapClick(event)">
-                    <div class="absolute inset-0 bg-[radial-gradient(#16a34a_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-emeraldCustom/30 rounded-full animate-ping pointer-events-none"></div>
+                <div class="relative w-full h-80 sm:h-96 bg-slate-900 rounded-[28px] overflow-hidden shadow-inner border border-slate-800 cursor-crosshair" onclick="handleMapClick(event)">
+                    <div class="absolute inset-0 bg-[radial-gradient(#16a34a_1.5px,transparent_1.5px)] [background-size:28px_28px] opacity-25"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-emeraldCustom/30 rounded-full animate-ping pointer-events-none"></div>
 
                     <!-- Center User Pin -->
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none z-20">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-citrus text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
-                            <i class="fa-solid fa-house-user text-xs sm:text-sm"></i>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-citrus text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white animate-bounce">
+                            <i class="fa-solid fa-house-user text-sm sm:text-base"></i>
                         </div>
-                        <span class="bg-slate-900/90 text-white text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-medium">Tu</span>
+                        <span class="bg-slate-900/90 text-white text-[11px] px-2.5 py-0.5 rounded-full mt-1.5 backdrop-blur font-semibold shadow">Tu</span>
                     </div>
 
                     <!-- Neighbor Pin 1 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(1)" class="absolute top-12 left-12 sm:top-16 sm:left-20 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <div onclick="event.stopPropagation(); selectNeighbor(1)" class="absolute top-14 left-16 sm:top-20 sm:left-24 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
                             <i class="fa-solid fa-gift text-xs"></i>
                         </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Marco R. (250m)</span>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Marco R. (250m)</span>
                     </div>
 
                     <!-- Neighbor Pin 2 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(2)" class="absolute bottom-12 right-12 sm:bottom-16 sm:right-24 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <div onclick="event.stopPropagation(); selectNeighbor(2)" class="absolute bottom-14 right-16 sm:bottom-20 sm:right-28 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
                             <i class="fa-solid fa-apple-whole text-xs"></i>
                         </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Chiara L. (420m)</span>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Chiara L. (420m)</span>
                     </div>
 
                     <!-- Neighbor Pin 3 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(3)" class="absolute top-16 right-16 sm:top-20 sm:right-28 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <div onclick="event.stopPropagation(); selectNeighbor(3)" class="absolute top-16 right-20 sm:top-24 sm:right-32 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
                             <i class="fa-solid fa-bread-slice text-xs"></i>
                         </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Luca M. (600m)</span>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Luca M. (600m)</span>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 sm:right-auto bg-slate-900/85 backdrop-blur px-3 py-2 rounded-xl border border-slate-700 text-white text-[11px] flex items-center gap-2 pointer-events-none">
+                    <div class="absolute bottom-4 left-4 right-4 sm:right-auto bg-slate-900/90 backdrop-blur px-4 py-2.5 rounded-xl border border-slate-700 text-white text-xs flex items-center gap-2.5 pointer-events-none">
                         <i class="fa-solid fa-circle-info text-citrus flex-shrink-0"></i> Clicca su un pin sulla mappa per i dettagli
                     </div>
                 </div>
 
                 <!-- Selected Neighbor Detail Card -->
-                <div id="map-detail-card" class="bg-emerald-50/70 border border-emerald-200 p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-2xl bg-emeraldCustom text-white flex items-center justify-center text-lg font-bold flex-shrink-0">
+                <div id="map-detail-card" class="bg-emerald-50/80 border border-emerald-200 p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-emeraldCustom text-white flex items-center justify-center text-xl font-bold flex-shrink-0 shadow-sm">
                             <i class="fa-solid fa-hand-holding-heart"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm" id="map-detail-title">Seleziona un vicino sulla mappa</h4>
-                            <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5" id="map-detail-desc">Visualizza alimenti disponibili e richiedi in un click.</p>
+                            <h4 class="font-bold text-slate-900 text-sm sm:text-base" id="map-detail-title">Seleziona un vicino sulla mappa</h4>
+                            <p class="text-xs text-slate-600 mt-0.5" id="map-detail-desc">Visualizza alimenti disponibili e richiedi in un click.</p>
                         </div>
                     </div>
-                    <button id="map-detail-btn" onclick="claimSelectedNeighbor()" disabled class="w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-4 py-3 rounded-xl text-xs transition-all cursor-not-allowed touch-manipulation">
+                    <button id="map-detail-btn" onclick="claimSelectedNeighbor()" disabled class="w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-5 py-3 rounded-xl text-xs transition-all cursor-not-allowed touch-manipulation">
                         Richiedi Alimento
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="community-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="community-grid"></div>
         </section>
 
         <!-- TAB 5: GAMIFICATION -->
-        <section id="tab-gamification" class="tab-content space-y-5">
-            <div class="bg-gradient-to-r from-emeraldCustom to-forest text-white p-6 sm:p-8 rounded-3xl shadow-md">
-                <h2 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-2">
+        <section id="tab-gamification" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-emeraldCustom to-forest text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
+                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
                     <i class="fa-solid fa-award text-citrus"></i> Report di Impatto & Badge Ecologici
                 </h2>
                 <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Traccia il cibo salvato, i risparmi economici e le emissioni di CO2 evitate.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
                         <i class="fa-solid fa-scale-unbalanced"></i>
                     </div>
                     <div>
-                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Cibo Salvato</p>
-                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-kg">14.5 <span class="text-xs font-normal text-slate-600">kg</span></h3>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Cibo Salvato</p>
+                        <h3 class="text-2xl font-bold text-slate-900" id="stats-kg">14.5 <span class="text-xs font-normal text-slate-600">kg</span></h3>
                     </div>
                 </div>
 
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
                         <i class="fa-solid fa-piggy-bank"></i>
                     </div>
                     <div>
-                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Risparmio</p>
-                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-eur">€48.20</h3>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Risparmio</p>
+                        <h3 class="text-2xl font-bold text-slate-900" id="stats-eur">€48.20</h3>
                     </div>
                 </div>
 
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
                         <i class="fa-solid fa-cloud"></i>
                     </div>
                     <div>
-                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">CO₂ Evitata</p>
-                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-co2">36.8 <span class="text-xs font-normal text-slate-600">kg</span></h3>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">CO₂ Evitata</p>
+                        <h3 class="text-2xl font-bold text-slate-900" id="stats-co2">36.8 <span class="text-xs font-normal text-slate-600">kg</span></h3>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
+            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 space-y-4">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2.5 text-sm sm:text-base">
                     <i class="fa-solid fa-medal text-citrus"></i> Badge Ecologici Sbloccati
                 </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="badges-grid"></div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="badges-grid"></div>
             </div>
         </section>
 
         <!-- TAB 6: LISTA DELLA SPESA CONDIVISA -->
-        <section id="tab-shopping" class="tab-content space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+        <section id="tab-shopping" class="tab-content space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
                 <div>
-                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
                         <i class="fa-solid fa-list-check text-emeraldCustom"></i> Lista Spesa Familiare
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-500">Sincronizzazione in tempo reale per evitare doppioni in casa.</p>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Sincronizzazione in tempo reale per evitare doppioni in casa.</p>
                 </div>
-                <button onclick="openAddShoppingModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                <button onclick="openAddShoppingModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
                     <i class="fa-solid fa-plus"></i> Aggiungi Articolo
                 </button>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+            <div class="bg-white rounded-[32px] shadow-sm border border-slate-200/80 overflow-hidden">
+                <div class="p-5 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     <span>Articolo & Categoria</span>
                     <span>Stato / Azioni</span>
                 </div>
@@ -536,36 +508,101 @@
             </div>
         </section>
 
-        <!-- TAB 7: PROGETTO & CANVAS -->
-        <section id="tab-pitch" class="tab-content space-y-5">
-            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-6 sm:p-8 rounded-3xl shadow-md space-y-3">
-                <span class="bg-citrus text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Educazione Civica</span>
-                <h2 class="text-2xl sm:text-3xl font-bold">FoodWise: Missione & Business Model Canvas</h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-3xl leading-relaxed">
-                    Oltre il 50% dello spreco alimentare avviene nelle case. FoodWise trasforma lo scontrino in un inventario intelligente per azzerare gli sprechi domestici.
+        <!-- TAB 6.5: QUIZ ECO-CONSAPEVOLEZZA -->
+        <section id="tab-quiz" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-forest via-forest-dark to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
+                <span class="bg-citrus text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Educazione Civica Interattiva</span>
+                <h2 class="text-2xl sm:text-3xl font-bold">Quiz Eco-Consapevolezza & Spreco Alimentare</h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                    Metti alla prova le tue conoscenze sullo spreco domestico, guadagna punti XP e dimostra di essere un vero custode del pianeta!
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-10 h-10 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center font-bold">1</div>
-                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Proposta di Valore</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Inventario automatico con IA da scontrino, alert scadenze, ricette rapide anti-spreco e funzione "Condividi col Vicino".</p>
+            <div class="bg-white p-7 sm:p-9 rounded-[32px] shadow-sm border border-slate-200/80 space-y-6" id="quiz-card-container">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emeraldCustom uppercase tracking-wider" id="quiz-progress-text">Domanda 1 di 3</span>
+                    <span class="text-xs bg-amber-100 text-citrus px-3.5 py-1.5 rounded-full font-bold shadow-sm"><i class="fa-solid fa-star"></i> 0 XP</span>
                 </div>
-                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-10 h-10 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center font-bold">2</div>
-                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Segmenti di Clientela</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Famiglie, studenti fuori sede, cittadini eco-sensibili e partner B2B (supermercati e GDO per coupon vicini alla scadenza).</p>
+                
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg sm:text-xl" id="quiz-question-title">Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?</h3>
+                    <div class="space-y-3 pt-2" id="quiz-options-container">
+                        <button onclick="answerQuiz(0)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">A) Circa il 10-15%</button>
+                        <button onclick="answerQuiz(1)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">B) Oltre il 50% del totale</button>
+                        <button onclick="answerQuiz(2)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">C) Meno del 5%</button>
+                    </div>
                 </div>
-                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-                    <div class="w-10 h-10 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center font-bold">3</div>
-                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Modello di Ricavi</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Modello Freemium con versione base gratuita, abbonamento FoodWise Pro (piani IA avanzati) e partnership GDO.</p>
+            </div>
+        </section>
+
+        <!-- TAB 6.6: SLOT MACHINE SVUOTA-FRIGO -->
+        <section id="tab-slot" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-citrus via-orange-600 to-amber-600 text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
+                <span class="bg-white/20 text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider backdrop-blur">Minigioco Svuota-Frigo</span>
+                <h2 class="text-2xl sm:text-3xl font-bold">Slot Machine Anti-Spreco 🎰</h2>
+                <p class="text-orange-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                    Gira la leva della slot machine: l'IA estrarrà a sorte 3 ingredienti dal tuo frigo e combinerà una ricetta lampo a sorpresa!
+                </p>
+            </div>
+
+            <div class="bg-white p-7 sm:p-9 rounded-[32px] shadow-sm border border-slate-200/80 space-y-6 text-center">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
+                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 1</span>
+                        <span id="slot-1" class="font-bold text-base sm:text-lg">Spinaci Freschi</span>
+                    </div>
+                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
+                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 2</span>
+                        <span id="slot-2" class="font-bold text-base sm:text-lg">Ricotta Fresca</span>
+                    </div>
+                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
+                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 3</span>
+                        <span id="slot-3" class="font-bold text-base sm:text-lg">Uova Biologiche</span>
+                    </div>
+                </div>
+
+                <button onclick="spinSlotMachine()" id="slot-btn" class="w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition-all text-sm sm:text-base touch-manipulation inline-flex items-center justify-center gap-3 mx-auto">
+                    <i class="fa-solid fa-rotate text-lg"></i> Gira la Slot Machine!
+                </button>
+
+                <div id="slot-recipe-box" class="hidden bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-left space-y-3 mt-4">
+                    <h4 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-hat-chef text-emeraldCustom"></i> Piatto a Sorpresa: <span id="slot-recipe-title" class="text-emeraldCustom">Frittata Svuota-Frigo Express</span>
+                    </h4>
+                    <p class="text-xs sm:text-sm text-slate-600" id="slot-recipe-desc">Sbatti le uova con la ricotta fresca, unisci gli spinaci saltati e cuoci in padella per 8 minuti. Ottimo, veloce e zero sprechi!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: PROGETTO & CANVAS -->
+        <section id="tab-pitch" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
+                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
+                    <i class="fa-solid fa-circle-info text-citrus"></i> Presentazione & Modello Business Canvas
+                </h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Il progetto di Educazione Civica ideato per azzerare lo spreco alimentare domestico.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
+                    <div class="w-12 h-12 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">1</div>
+                    <h3 class="font-bold text-slate-900 text-base">Proposta di Valore</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Inventario automatico con IA da scontrino, alert scadenze, ricette rapide anti-spreco e funzione "Condividi col Vicino".</p>
+                </div>
+                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
+                    <div class="w-12 h-12 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">2</div>
+                    <h3 class="font-bold text-slate-900 text-base">Segmenti di Clientela</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Famiglie, studenti fuori sede, cittadini eco-sensibili e partner B2B (supermercati e GDO per coupon vicini alla scadenza).</p>
+                </div>
+                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
+                    <div class="w-12 h-12 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">3</div>
+                    <h3 class="font-bold text-slate-900 text-base">Modello di Ricavi</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Modello Freemium con versione base gratuita, abbonamento FoodWise Pro (piani IA avanzati) e partnership GDO.</p>
                 </div>
             </div>
 
-            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 text-center space-y-2">
-                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Autrice del Progetto</h4>
+            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 text-center space-y-2">
+                <h4 class="font-bold text-slate-900 text-base">Autrice del Progetto</h4>
                 <p class="text-xs sm:text-sm text-slate-600">Progetto realizzato da <span class="font-semibold text-emeraldCustom">Sveva e Gruppo</span> • Corso di Educazione Civica</p>
                 <p class="text-xs text-slate-400 italic">"Meno cibo nella spazzatura, più valore per le famiglie e per il pianeta."</p>
             </div>
@@ -590,20 +627,20 @@
     </footer>
 
     <!-- MODAL: AGGIUNGI PRODOTTO FRIGO -->
-    <div id="modal-product" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+    <div id="modal-product" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
             <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base sm:text-lg text-slate-900">Aggiungi Prodotto al Frigo</h3>
+                <h3 class="font-bold text-lg text-slate-900">Aggiungi Prodotto al Frigo</h3>
                 <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="form-product" onsubmit="handleProductSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Alimento</label>
-                    <input type="text" id="prod-name" required placeholder="es. Mozzarella di Bufala" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Nome Alimento</label>
+                    <input type="text" id="prod-name" required placeholder="es. Mozzarella di Bufala" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Categoria</label>
-                    <select id="prod-category" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Categoria</label>
+                    <select id="prod-category" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
                         <option value="Latticini & Uova">Latticini & Uova</option>
                         <option value="Frutta & Verdura">Frutta & Verdura</option>
                         <option value="Carne & Pesce">Carne & Pesce</option>
@@ -611,69 +648,69 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giorni alla Scadenza</label>
-                    <input type="number" id="prod-days" required min="1" max="60" value="4" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Data di Scadenza</label>
+                    <input type="date" id="prod-date" required class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeModal('modal-product')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Salva Prodotto</button>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-product')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Salva Prodotto</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: CONDIVIDI COL VICINO -->
-    <div id="modal-share" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+    <div id="modal-share" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
             <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base sm:text-lg text-slate-900">Offri Cibo al Vicinato</h3>
+                <h3 class="font-bold text-lg text-slate-900">Offri Cibo al Vicinato</h3>
                 <button onclick="closeModal('modal-share')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="form-share" onsubmit="handleShareSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Cosa vuoi regalare?</label>
-                    <input type="text" id="share-item" required placeholder="es. Pacco di pasta integrale sigillato" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Cosa vuoi regalare?</label>
+                    <input type="text" id="share-item" required placeholder="es. Pacco di pasta integrale sigillato" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Scadenza / Condizione</label>
-                    <input type="text" id="share-cond" required placeholder="es. Ottimo stato, scade tra 2 mesi" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Scadenza / Condizione</label>
+                    <input type="text" id="share-cond" required placeholder="es. Ottimo stato, scade tra 2 mesi" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Zona di ritiro</label>
-                    <input type="text" id="share-zone" required placeholder="es. Quartiere Centro (Via Roma)" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Zona di ritiro</label>
+                    <input type="text" id="share-zone" required placeholder="es. Quartiere Centro (Via Roma)" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeModal('modal-share')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Pubblica Annuncio</button>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-share')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Pubblica Annuncio</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: AGGIUNGI ARTICOLO SPESA -->
-    <div id="modal-shopping" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+    <div id="modal-shopping" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
             <div class="flex justify-between items-center">
-                <h3 class="font-bold text-base sm:text-lg text-slate-900">Aggiungi alla Lista Spesa</h3>
+                <h3 class="font-bold text-lg text-slate-900">Aggiungi alla Lista Spesa</h3>
                 <button onclick="closeModal('modal-shopping')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="form-shopping" onsubmit="handleShoppingSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Articolo</label>
-                    <input type="text" id="shop-name" required placeholder="es. Latte Fresco" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Nome Articolo</label>
+                    <input type="text" id="shop-name" required placeholder="es. Latte Fresco" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Categoria</label>
-                    <select id="shop-cat" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Categoria</label>
+                    <select id="shop-cat" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
                         <option value="Latticini">Latticini</option>
                         <option value="Frutta & Verdura">Frutta & Verdura</option>
                         <option value="Dispensa">Dispensa</option>
                         <option value="Bevande">Bevande</option>
                     </select>
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeModal('modal-shopping')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Aggiungi</button>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-shopping')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Aggiungi</button>
                 </div>
             </form>
         </div>
@@ -703,6 +740,27 @@
                 { id: 3, name: 'Pomodorini Pachino', category: 'Frutta & Verdura', bought: false }
             ],
             stats: { kg: 14.5, eur: 48.20, co2: 36.8 },
+            quiz: {
+                currentQuestion: 0,
+                score: 0,
+                questions: [
+                    {
+                        title: "Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?",
+                        options: ["A) Circa il 10-15%", "B) Oltre il 50% del totale", "C) Meno del 5%"],
+                        correct: 1
+                    },
+                    {
+                        title: "Quale funzione di FoodWise permette di regalare il cibo in eccesso ai vicini prima di partire?",
+                        options: ["A) Condividi col Vicino", "B) Scontrino IA", "C) Chef Svuota-Frigo"],
+                        correct: 0
+                    },
+                    {
+                        title: "Qual è uno dei vantaggi principali della riduzione dello spreco alimentare domestico?",
+                        options: ["A) Aumento dei costi della spesa", "B) Risparmio economico e minor impatto di CO₂", "C) Nessun beneficio rilevante"],
+                        correct: 1
+                    }
+                ]
+            },
             badges: [
                 { id: 1, title: 'Primo Scontrino IA', desc: 'Digitalizzata spesa', icon: 'fa-receipt', unlocked: true },
                 { id: 2, title: 'Chef Svuota-Frigo', desc: '5 ricette anti-spreco', icon: 'fa-hat-chef', unlocked: true },
@@ -711,24 +769,8 @@
             ]
         };
 
-        // Funzione Toast globale per i messaggi all'utente
         function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            if(!container) return;
-            const toast = document.createElement('div');
-            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-xl text-white text-xs sm:text-sm font-medium flex items-center gap-3 transition-all transform translate-y-2 opacity-0 ${type === 'success' ? 'bg-forest border border-emeraldCustom/40' : 'bg-amber-600'}`;
-            toast.innerHTML = `
-                <i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-300' : 'fa-triangle-exclamation text-amber-200'} text-base"></i>
-                <span class="flex-1">${message}</span>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-            setTimeout(() => {
-                toast.classList.add('translate-y-2', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
+            // Toast notifications disabled as requested
         }
 
         function toggleSidebar() {
@@ -757,10 +799,8 @@
             splash.style.transform = 'scale(1.05)';
             setTimeout(() => { 
                 splash.style.display = 'none'; 
-                switchTab('receipt');
-            }, 600);
-            showToast("Benvenuto in FoodWise! Pronto ad azzerare gli sprechi.", "success");
-            confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+                switchTab('home');
+            }, 500);
         }
 
         function switchTab(tabId) {
@@ -774,20 +814,107 @@
                 targetTab.classList.add('active');
             }
             
-            // Trova tutti i pulsanti associati a questo tab nel menu e evidenziali
-            document.querySelectorAll(`#sidebar-menu nav button`).forEach(btn => {
-                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+            document.querySelectorAll('#sidebar-menu nav button').forEach(btn => {
+                const onclickAttr = btn.getAttribute('onclick') || '';
+                if (onclickAttr.includes(`'${tabId}'`)) {
                     btn.className = "w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 bg-emeraldCustom text-white shadow";
                 }
             });
             
-            if(tabId === 'recipes') {
-                renderRecipeIngredients();
-            }
-            if(tabId === 'community') {
-                renderCommunity();
-            }
+            if(tabId === 'recipes') { renderRecipeIngredients(); }
+            if(tabId === 'community') { renderCommunity(); }
+            if(tabId === 'quiz') { renderQuiz(); }
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function spinSlotMachine() {
+            const btn = document.getElementById('slot-btn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            const s1 = document.getElementById('slot-1');
+            const s2 = document.getElementById('slot-2');
+            const s3 = document.getElementById('slot-3');
+            const box = document.getElementById('slot-recipe-box');
+            box.classList.add('hidden');
+
+            let counter = 0;
+            const interval = setInterval(() => {
+                s1.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
+                s2.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
+                s3.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
+                counter++;
+                if(counter > 12) {
+                    clearInterval(interval);
+                    s1.innerText = "Spinaci Freschi";
+                    s2.innerText = "Ricotta Fresca";
+                    s3.innerText = "Uova Biologiche";
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50');
+                    box.classList.remove('hidden');
+                }
+            }, 80);
+        }
+
+        function renderQuiz() {
+            const q = appState.quiz;
+            const container = document.getElementById('quiz-card-container');
+            if(q.currentQuestion >= q.questions.length) {
+                container.innerHTML = `
+                    <div class="text-center py-8 space-y-4">
+                        <div class="w-16 h-16 bg-emerald-100 text-emeraldCustom rounded-full flex items-center justify-center text-3xl mx-auto shadow">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-xl">Quiz Completato con Successo!</h3>
+                        <p class="text-sm text-slate-600">Hai totalizzato <b>${q.score} XP</b> dimostrando di essere un esperto di sostenibilità.</p>
+                        <button onclick="resetQuiz()" class="bg-citrus hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg transition-all text-sm">
+                            Ricomincia Quiz
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const current = q.questions[q.currentQuestion];
+            document.getElementById('quiz-progress-text').innerText = `Domanda ${q.currentQuestion + 1} di ${q.questions.length}`;
+            document.getElementById('quiz-question-title').innerText = current.title;
+
+            const optsContainer = document.getElementById('quiz-options-container');
+            optsContainer.innerHTML = '';
+            current.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation shadow-sm";
+                btn.innerText = opt;
+                btn.onclick = () => answerQuiz(idx);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function answerQuiz(selectedIndex) {
+            const q = appState.quiz;
+            const current = q.questions[q.currentQuestion];
+            if(selectedIndex === current.correct) {
+                q.score += 50;
+            }
+            q.currentQuestion++;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            appState.quiz.currentQuestion = 0;
+            appState.quiz.score = 0;
+            const container = document.getElementById('quiz-card-container');
+            container.innerHTML = `
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emeraldCustom uppercase tracking-wider" id="quiz-progress-text">Domanda 1 di 3</span>
+                    <span class="text-xs bg-amber-100 text-citrus px-3.5 py-1.5 rounded-full font-bold shadow-sm"><i class="fa-solid fa-star"></i> 0 XP</span>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg sm:text-xl" id="quiz-question-title">Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?</h3>
+                    <div class="space-y-3 pt-2" id="quiz-options-container"></div>
+                </div>
+            `;
+            renderQuiz();
         }
 
         function simulateReceiptScan() {
@@ -795,7 +922,6 @@
         }
 
         function scanCustomReceipt(title, items) {
-            showToast(`IA OCR in corso per "${title}"...`, "success");
             setTimeout(() => {
                 items.forEach((itemName, index) => {
                     appState.inventory.unshift({
@@ -806,10 +932,8 @@
                     });
                 });
                 renderInventory();
-                showToast(`Scontrino scansionato! Aggiunti ${items.length} prodotti in frigo.`, "success");
-                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
                 switchTab('inventory');
-            }, 1000);
+            }, 600);
         }
 
         function renderInventory() {
@@ -845,15 +969,15 @@
                 }
 
                 const card = document.createElement('div');
-                card.className = "bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between gap-3 hover:shadow-md transition-all";
+                card.className = "bg-white p-5 rounded-[28px] border border-slate-200/80 shadow-sm flex flex-col justify-between gap-3 hover:shadow-md transition-all";
                 card.innerHTML = `
                     <div class="flex items-start justify-between gap-2">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl ${iconBg} flex items-center justify-center font-bold text-base flex-shrink-0">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-11 h-11 rounded-2xl ${iconBg} flex items-center justify-center font-bold text-base flex-shrink-0 shadow-sm">
                                 <i class="fa-solid fa-utensils"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${item.name}</h4>
+                                <h4 class="font-bold text-slate-900 text-sm">${item.name}</h4>
                                 <p class="text-[11px] text-slate-400">${item.category}</p>
                             </div>
                         </div>
@@ -861,8 +985,8 @@
                             <i class="fa-solid fa-circle-check text-xl"></i>
                         </button>
                     </div>
-                    <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                        <span class="text-[11px] px-2.5 py-1 rounded-full border font-semibold ${badgeColor}">${badgeText}</span>
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                        <span class="text-[11px] px-3 py-1 rounded-full border font-semibold ${badgeColor}">${badgeText}</span>
                         <button onclick="deleteProduct(${item.id})" class="text-slate-400 hover:text-red-500 text-xs transition-colors p-1 touch-manipulation">
                             <i class="fa-solid fa-trash-can"></i> Rimuovi
                         </button>
@@ -877,15 +1001,19 @@
             ['all', 'fresh', 'expiring'].forEach(f => {
                 const btn = document.getElementById(`filter-${f}`);
                 if(f === filter) {
-                    btn.className = "px-4 py-2.5 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation";
+                    btn.className = "px-5 py-3 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation";
                 } else {
-                    btn.className = "px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation";
+                    btn.className = "px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation";
                 }
             });
             renderInventory();
         }
 
         function openAddProductModal() {
+            // Imposta la data di default a 3 giorni da oggi nel selettore data
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 3);
+            document.getElementById('prod-date').valueAsDate = defaultDate;
             document.getElementById('modal-product').classList.remove('hidden');
         }
 
@@ -893,13 +1021,21 @@
             e.preventDefault();
             const name = document.getElementById('prod-name').value;
             const category = document.getElementById('prod-category').value;
-            const daysLeft = parseInt(document.getElementById('prod-days').value);
+            const expiryDateStr = document.getElementById('prod-date').value;
 
-            appState.inventory.push({ id: Date.now(), name, category, daysLeft });
+            // Calcola i giorni mancanti rispetto alla data odierna
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            const expiryDate = new Date(expiryDateStr);
+            expiryDate.setHours(0,0,0,0);
+            
+            const diffTime = expiryDate - today;
+            const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            appState.inventory.push({ id: Date.now(), name, category, daysLeft: Math.max(0, daysLeft) });
             closeModal('modal-product');
             document.getElementById('form-product').reset();
             renderInventory();
-            showToast(`"${name}" aggiunto al frigo!`, "success");
         }
 
         function deleteProduct(id) {
@@ -919,8 +1055,6 @@
 
             updateStatsDisplay();
             renderInventory();
-            showToast(`Cucinato "${item.name}"! +0.4 kg salvati.`, "success");
-            confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
         }
 
         function renderRecipeIngredients() {
@@ -934,7 +1068,7 @@
 
             appState.inventory.forEach(item => {
                 const div = document.createElement('label');
-                div.className = "flex items-center gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl cursor-pointer transition-all border border-slate-100 touch-manipulation";
+                div.className = "flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-slate-100 rounded-2xl cursor-pointer transition-all border border-slate-100 touch-manipulation";
                 div.innerHTML = `
                     <input type="checkbox" value="${item.name}" class="recipe-chk w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom" onchange="updateSelectedCount()">
                     <div class="flex-1 text-xs sm:text-sm font-medium text-slate-800">${item.name}</div>
@@ -955,7 +1089,6 @@
             const output = document.getElementById('recipe-output');
 
             if (checked.length === 0) {
-                showToast("Seleziona almeno un ingrediente!", "warning");
                 return;
             }
 
@@ -969,30 +1102,25 @@
                 output.innerHTML = `
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] bg-citrus/20 text-citrus font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ricetta IA Consigliata</span>
+                            <span class="text-xs bg-citrus/20 text-citrus font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">Ricetta IA Consigliata</span>
                             <span class="text-xs text-slate-400"><i class="fa-solid fa-clock text-emeraldCustom"></i> 15 min</span>
                         </div>
-                        <h4 class="font-bold text-base sm:text-lg text-slate-900">Tortino Svuota-Frigo con ${mainIng}</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">Sfrutta al meglio gli ingredienti vicini alla scadenza (${checked.join(', ')}) per un piatto delizioso a zero sprechi.</p>
-                        <div class="bg-slate-50 p-3.5 rounded-2xl space-y-2 border border-slate-100">
-                            <h5 class="text-[11px] font-bold text-slate-700 uppercase">Ingredienti:</h5>
-                            <div class="flex flex-wrap gap-1.5">
-                                ${checked.map(i => `<span class="text-xs bg-white border border-slate-200 px-2.5 py-1 rounded-xl text-slate-700 font-medium">${i}</span>`).join('')}
+                        <h4 class="font-bold text-lg text-slate-900">Tortino Svuota-Frigo con ${mainIng}</h4>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Sfrutta al meglio gli ingredienti vicini alla scadenza (${checked.join(', ')}) per un piatto delizioso a zero sprechi.</p>
+                        <div class="bg-slate-50 p-4 rounded-2xl space-y-2 border border-slate-100">
+                            <h5 class="text-xs font-bold text-slate-700 uppercase">Ingredienti:</h5>
+                            <div class="flex flex-wrap gap-2">
+                                ${checked.map(i => `<span class="text-xs bg-white border border-slate-200 px-3 py-1 rounded-xl text-slate-700 font-medium">${i}</span>`).join('')}
                             </div>
                         </div>
-                        <div class="space-y-1 text-xs text-slate-600">
+                        <div class="space-y-1.5 text-xs sm:text-sm text-slate-600">
                             <p><b>1. Preparazione:</b> Taglia finemente gli ingredienti freschi.</p>
                             <p><b>2. Cottura:</b> Unisci in padella con olio extravergine per 10 minuti.</p>
                             <p><b>3. Servizio:</b> Impiatta caldo. Buon appetito!</p>
                         </div>
-                        <button onclick="showToast('Ricetta salvata!', 'success')" class="w-full bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl text-xs transition-all shadow touch-manipulation">
-                            Salva nei Preferiti
-                        </button>
                     </div>
                 `;
-                showToast("Ricetta IA generata!", "success");
-                confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-            }, 1000);
+            }, 800);
         }
 
         function renderCommunity() {
@@ -1001,17 +1129,17 @@
 
             appState.communityPosts.forEach(post => {
                 const card = document.createElement('div');
-                card.className = "bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between gap-4";
+                card.className = "bg-white p-5 rounded-[28px] border border-slate-200/80 shadow-sm flex flex-col justify-between gap-4";
                 card.innerHTML = `
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-semibold bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full"><i class="fa-solid fa-location-dot"></i> ${post.zone}</span>
-                            <span class="text-[11px] text-slate-400">${post.author}</span>
+                            <span class="text-xs font-semibold bg-teal-50 text-teal-700 px-3 py-1 rounded-full"><i class="fa-solid fa-location-dot"></i> ${post.zone}</span>
+                            <span class="text-xs text-slate-400">${post.author}</span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${post.item}</h4>
+                        <h4 class="font-bold text-slate-900 text-sm">${post.item}</h4>
                         <p class="text-xs text-slate-500">${post.condition}</p>
                     </div>
-                    <button onclick="claimPost(${post.id})" class="w-full bg-emeraldCustom/10 hover:bg-emeraldCustom hover:text-white active:scale-95 text-emeraldCustom font-semibold py-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-1.5 touch-manipulation">
+                    <button onclick="claimPost(${post.id})" class="w-full bg-emeraldCustom/10 hover:bg-emeraldCustom hover:text-white active:scale-95 text-emeraldCustom font-semibold py-3.5 rounded-2xl text-xs transition-all flex items-center justify-center gap-2 touch-manipulation">
                         <i class="fa-solid fa-handshake"></i> Contatta Vicino
                     </button>
                 `;
@@ -1032,16 +1160,13 @@
                 document.getElementById('map-detail-desc').innerText = n.item;
                 const btn = document.getElementById('map-detail-btn');
                 btn.disabled = false;
-                btn.className = "w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold px-5 py-3 rounded-xl text-xs transition-all shadow cursor-pointer touch-manipulation";
+                btn.className = "w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold px-6 py-3.5 rounded-xl text-xs transition-all shadow-md cursor-pointer touch-manipulation";
                 btn.innerText = "Richiedi Alimento";
-                showToast(`Selezionato ${n.name.split('•')[0].trim()}`, "success");
             }
         }
 
         function claimSelectedNeighbor() {
             if(!appState.selectedNeighborId) return;
-            showToast("Richiesta inviata al vicino con successo!", "success");
-            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
         }
 
         function handleMapClick(e) {
@@ -1050,7 +1175,7 @@
             document.getElementById('map-detail-desc').innerText = "Visualizza alimenti disponibili e richiedi in un click.";
             const btn = document.getElementById('map-detail-btn');
             btn.disabled = true;
-            btn.className = "w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-4 py-3 rounded-xl text-xs transition-all cursor-not-allowed";
+            btn.className = "w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-5 py-3 rounded-xl text-xs transition-all cursor-not-allowed";
             btn.innerText = "Richiedi Alimento";
         }
 
@@ -1068,11 +1193,9 @@
             closeModal('modal-share');
             document.getElementById('form-share').reset();
             renderCommunity();
-            showToast("Alimento pubblicato nella bacheca di quartiere!", "success");
         }
 
         function claimPost(id) {
-            showToast("Richiesta inviata al vicino via chat in-app!", "success");
         }
 
         function updateStatsDisplay() {
@@ -1090,16 +1213,16 @@
 
             appState.badges.forEach(b => {
                 const card = document.createElement('div');
-                card.className = `p-3.5 sm:p-4 rounded-3xl border flex flex-col items-center text-center gap-2 ${b.unlocked ? 'bg-emerald-50/50 border-emerald-200 text-slate-900' : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'}`;
+                card.className = `p-4 rounded-[24px] border flex flex-col items-center text-center gap-2.5 ${b.unlocked ? 'bg-emerald-50/50 border-emerald-200 text-slate-900 shadow-sm' : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'}`;
                 card.innerHTML = `
-                    <div class="w-11 h-11 rounded-2xl ${b.unlocked ? 'bg-emeraldCustom text-white shadow-md' : 'bg-slate-200 text-slate-500'} flex items-center justify-center text-lg flex-shrink-0">
+                    <div class="w-12 h-12 rounded-2xl ${b.unlocked ? 'bg-emeraldCustom text-white shadow-md' : 'bg-slate-200 text-slate-500'} flex items-center justify-center text-xl flex-shrink-0">
                         <i class="fa-solid ${b.icon}"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-xs">${b.title}</h4>
-                        <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">${b.desc}</p>
+                        <h4 class="font-bold text-xs sm:text-sm">${b.title}</h4>
+                        <p class="text-[11px] text-slate-500 mt-0.5 leading-tight">${b.desc}</p>
                     </div>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full ${b.unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.unlocked ? 'Sbloccato' : 'Bloccato'}</span>
+                    <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full ${b.unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.unlocked ? 'Sbloccato' : 'Bloccato'}</span>
                 `;
                 grid.appendChild(card);
             });
@@ -1116,12 +1239,12 @@
 
             appState.shoppingList.forEach(item => {
                 const row = document.createElement('div');
-                row.className = "p-4 flex items-center justify-between hover:bg-slate-50/80 transition-colors gap-3";
+                row.className = "p-4.5 flex items-center justify-between hover:bg-slate-50/80 transition-colors gap-3";
                 row.innerHTML = `
-                    <div class="flex items-center gap-3 min-w-0">
+                    <div class="flex items-center gap-3.5 min-w-0">
                         <input type="checkbox" ${item.bought ? 'checked' : ''} onchange="toggleShoppingItem(${item.id})" class="w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom cursor-pointer flex-shrink-0">
                         <span class="text-xs sm:text-sm font-medium truncate ${item.bought ? 'line-through text-slate-400' : 'text-slate-800'}">${item.name}</span>
-                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full whitespace-nowrap hidden xs:inline-block">${item.category}</span>
+                        <span class="text-[11px] bg-slate-100 text-slate-600 px-3 py-0.5 rounded-full whitespace-nowrap hidden xs:inline-block">${item.category}</span>
                     </div>
                     <button onclick="deleteShoppingItem(${item.id})" class="text-slate-300 hover:text-red-500 transition-colors text-xs p-1 touch-manipulation flex-shrink-0">
                         <i class="fa-solid fa-trash-can"></i>
@@ -1144,7 +1267,6 @@
             closeModal('modal-shopping');
             document.getElementById('form-shopping').reset();
             renderShoppingList();
-            showToast(`"${name}" aggiunto alla spesa!`, "success");
         }
 
         function toggleShoppingItem(id) {
@@ -1158,7 +1280,6 @@
         function deleteShoppingItem(id) {
             appState.shoppingList = appState.shoppingList.filter(i => i.id !== id);
             renderShoppingList();
-            showToast("Articolo rimosso.", "success");
         }
 
         function closeModal(modalId) {
