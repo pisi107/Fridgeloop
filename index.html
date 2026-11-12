@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
@@ -49,6 +50,257 @@
             border-radius: 3px;
         }
     </style>
+
+    <!-- FOODWISE VISUAL REFRESH: CSS-only polish, original app logic preserved -->
+    <style id="foodwise-visual-refresh">
+        :root {
+            --fw-forest: #244b3d;
+            --fw-forest-deep: #18382e;
+            --fw-sage: #789b84;
+            --fw-sage-soft: #e8f0e8;
+            --fw-cream: #f7f6f0;
+            --fw-paper: #ffffff;
+            --fw-orange: #e89a57;
+            --fw-ink: #26352e;
+            --fw-muted: #78847d;
+            --fw-border: #e4e9e2;
+            --fw-shadow: 0 10px 28px rgba(31, 58, 45, .07);
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--fw-cream) !important;
+            color: var(--fw-ink) !important;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4d2c6; border-radius: 99px; }
+
+        #app-container {
+            max-width: 520px !important;
+            background: var(--fw-cream) !important;
+            box-shadow: 0 0 55px rgba(35, 70, 51, .09) !important;
+        }
+        #page-welcome { background: var(--fw-cream); }
+        #page-dashboard { background: var(--fw-cream) !important; }
+
+        /* Consistent card surfaces */
+        #page-dashboard .bg-white,
+        #page-welcome .bg-white,
+        #info-modal .bg-white,
+        #auth-modal .bg-white,
+        #modal-add-product .bg-white,
+        #modal-edit-date .bg-white,
+        #modal-add-annuncio .bg-white,
+        #modal-add-spesa .bg-white {
+            border-color: var(--fw-border) !important;
+            box-shadow: var(--fw-shadow);
+        }
+        #page-dashboard .rounded-3xl { border-radius: 22px !important; }
+        #page-dashboard .rounded-2xl { border-radius: 16px !important; }
+
+        /* Brand colors, while retaining semantic orange accents */
+        .text-forest { color: var(--fw-forest) !important; }
+        .bg-forest { background-color: var(--fw-forest) !important; }
+        .bg-emeraldcustom { background-color: var(--fw-sage) !important; }
+        .text-emeraldcustom { color: var(--fw-sage) !important; }
+        .border-emeraldcustom,
+        .border-emeraldcustom\/20,
+        .border-emeraldcustom\/30 { border-color: #d8e5d9 !important; }
+        .bg-lightgreen,
+        .bg-lightgreen\/50,
+        .bg-lightgreen\/70 { background-color: var(--fw-sage-soft) !important; }
+        .text-orangeaccent { color: #c77d3d !important; }
+        .bg-orangeaccent { background-color: var(--fw-orange) !important; }
+        .border-orangeaccent,
+        .border-orangeaccent\/20,
+        .border-orangeaccent\/30 { border-color: #f0d9c3 !important; }
+        .bg-gray-50 { background-color: #f8f9f6 !important; }
+
+        /* Buttons */
+        button {
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:not(:disabled) { transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease; }
+        button:active:not(:disabled) { transform: scale(.975); }
+        #page-welcome button,
+        #page-dashboard button[class*="rounded-xl"],
+        #page-dashboard button[class*="rounded-2xl"],
+        #page-dashboard button[class*="rounded-full"] {
+            letter-spacing: -.01em;
+        }
+        .shadow-lg { box-shadow: 0 7px 18px rgba(36, 75, 61, .12) !important; }
+        .shadow-2xl { box-shadow: 0 24px 70px rgba(20, 40, 30, .2) !important; }
+
+        /* Welcome / sign-in screen */
+        #page-welcome {
+            padding: 26px !important;
+        }
+        #page-welcome h1 {
+            font-size: 2.35rem !important;
+            letter-spacing: -.06em !important;
+        }
+        #page-welcome .w-28.h-28 {
+            width: 104px !important;
+            height: 104px !important;
+            border-radius: 30px !important;
+            background: linear-gradient(145deg, var(--fw-forest), #70957c) !important;
+            border-color: rgba(232, 154, 87, .45) !important;
+            box-shadow: 0 16px 32px rgba(36, 75, 61, .18) !important;
+        }
+        #page-welcome .my-auto p {
+            line-height: 1.65;
+        }
+        #page-welcome button {
+            border-radius: 17px !important;
+            padding-top: 14px !important;
+            padding-bottom: 14px !important;
+        }
+        #page-welcome button.bg-white\/80 {
+            border-color: #dfe5de !important;
+            background: #fff !important;
+        }
+
+        /* Dashboard top bar */
+        #page-dashboard header {
+            background: var(--fw-forest) !important;
+            padding: 12px 16px !important;
+            box-shadow: 0 5px 18px rgba(24, 56, 46, .13) !important;
+        }
+        #page-dashboard header .w-10.h-10 {
+            border-radius: 14px !important;
+        }
+        #page-dashboard header .font-extrabold {
+            letter-spacing: -.04em !important;
+        }
+        #page-dashboard > .flex-1 {
+            padding-bottom: 24px !important;
+        }
+
+        /* Dashboard welcome banner */
+        #section-dashboard-home > div:first-child {
+            background: linear-gradient(135deg, #244b3d 0%, #527c63 100%) !important;
+            box-shadow: 0 12px 25px rgba(36, 75, 61, .15) !important;
+        }
+        #section-dashboard-home > div:first-child h2 {
+            font-size: 1.15rem !important;
+            line-height: 1.55 !important;
+            letter-spacing: -.025em;
+        }
+        #section-dashboard-home .grid.grid-cols-3 > div,
+        #section-dashboard-home .grid.grid-cols-2 > div {
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        #section-dashboard-home .grid.grid-cols-2 > div {
+            min-height: 126px;
+            border-radius: 20px !important;
+            border-color: var(--fw-border) !important;
+            box-shadow: 0 5px 15px rgba(31, 58, 45, .04);
+        }
+        #section-dashboard-home .grid.grid-cols-2 > div:active {
+            transform: scale(.985);
+        }
+
+        /* Main content spacing and headings */
+        #section-dashboard-home,
+        #section-scansiona,
+        #section-catalogo,
+        #section-ricette,
+        #section-vicino,
+        #section-spesa,
+        #section-account {
+            padding: 16px !important;
+        }
+        #page-dashboard h3 { letter-spacing: -.025em; }
+        #page-dashboard p { line-height: 1.55; }
+
+        /* Inputs */
+        input, select, textarea {
+            font-family: inherit !important;
+            color: var(--fw-ink) !important;
+            background-color: #fbfcfa !important;
+            border-color: #dfe6de !important;
+            border-radius: 13px !important;
+            transition: border-color .18s ease, box-shadow .18s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #8eae95 !important;
+            box-shadow: 0 0 0 3px rgba(120, 155, 132, .15) !important;
+            outline: none !important;
+        }
+        input::placeholder, textarea::placeholder { color: #a1aaa3 !important; }
+
+        /* Drawers, modals, overlays */
+        #sidebar-drawer {
+            border-radius: 0 24px 24px 0 !important;
+            overflow: hidden;
+            background: #fff !important;
+        }
+        #sidebar-drawer nav button {
+            border-radius: 14px !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+        }
+        #sidebar-drawer nav button:hover { background: #edf4ed !important; }
+        #sidebar-drawer .bg-forest {
+            background: linear-gradient(135deg, var(--fw-forest), #527c63) !important;
+        }
+        #info-modal > div,
+        #auth-modal > div,
+        #modal-add-product > div,
+        #modal-edit-date > div,
+        #modal-add-annuncio > div,
+        #modal-add-spesa > div {
+            border-radius: 24px !important;
+            border-top-width: 3px !important;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        #toast-container > div {
+            border-radius: 14px !important;
+            box-shadow: 0 12px 25px rgba(24, 56, 46, .16) !important;
+        }
+
+        /* Catalog tabs / scan controls */
+        #section-catalogo .flex.bg-gray-100,
+        #section-scansiona .grid.grid-cols-2 { background: #edf0eb !important; }
+        #section-catalogo .flex.bg-gray-100 button { border-radius: 13px !important; }
+        #section-scansiona .border-dashed {
+            border-radius: 22px !important;
+            background-image: linear-gradient(180deg, rgba(232,240,232,.45), rgba(255,255,255,.65));
+        }
+        #section-scansiona .border-orangeaccent\/40 {
+            background-image: linear-gradient(180deg, rgba(250,240,230,.5), rgba(255,255,255,.7));
+        }
+
+        /* Mobile safe-area support */
+        @supports (padding: max(0px)) {
+            #page-welcome { padding-bottom: max(24px, env(safe-area-inset-bottom)) !important; }
+            #page-dashboard { padding-bottom: env(safe-area-inset-bottom); }
+        }
+        @media (min-width: 560px) {
+            body { padding: 18px 0; }
+            #app-container {
+                min-height: calc(100vh - 36px) !important;
+                height: calc(100vh - 36px) !important;
+                border-radius: 30px !important;
+                overflow: hidden;
+            }
+        }
+        @media (max-width: 380px) {
+            #page-welcome { padding: 18px !important; }
+            #section-dashboard-home .grid.grid-cols-3 { gap: 7px !important; }
+            #section-dashboard-home .grid.grid-cols-3 > div { padding: 9px !important; }
+            #section-dashboard-home .grid.grid-cols-3 span:first-of-type { font-size: 1rem !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        }
+    </style>
+
 </head>
 <body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
 
@@ -109,7 +361,7 @@
             <div class="flex flex-col items-center text-center my-auto py-4">
                 <!-- Logo: Replicating icon of stylized fridge interior, leaf, loop arrows, check/fork -->
                 <div class="w-28 h-28 bg-gradient-to-br from-forest to-emeraldcustom rounded-3xl shadow-xl flex items-center justify-center relative mb-6 border-2 border-orangeaccent/40 transform hover:rotate-2 transition">
-                    <i class="fa-solid fa-冷蔵庫 text-white text-2xl absolute opacity-20"></i>
+                    <i class="fa-solid fa-å·èµåº« text-white text-2xl absolute opacity-20"></i>
                     <div class="relative flex items-center justify-center">
                         <i class="fa-solid fa-leaf text-white text-4xl absolute -top-1 -left-2 transform -rotate-45"></i>
                         <i class="fa-solid fa-arrows-spin text-orangeaccent text-6xl opacity-90 animate-spin" style="animation-duration: 12s;"></i>
@@ -120,7 +372,7 @@
                 <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">FoodWise</h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Anti-spreco alimentare con IA</p>
                 <p class="text-sm italic text-gray-700 px-4 font-medium bg-white/60 py-2.5 rounded-2xl shadow-sm border border-emeraldcustom/10">
-                    “Dal tuo scontrino alla tavola: zero sprechi, massimo gusto.”
+                    âDal tuo scontrino alla tavola: zero sprechi, massimo gusto.â
                 </p>
             </div>
 
@@ -140,7 +392,7 @@
             <!-- Footer Creators -->
             <div class="text-center pt-2 pb-1 border-t border-emeraldcustom/20">
                 <p class="text-[11px] text-gray-600 font-medium">Creato da:</p>
-                <p class="text-[11px] font-bold text-forest">Baggi Filippo • Carpano Costanza • Oliva Sveva • Riggio Luca</p>
+                <p class="text-[11px] font-bold text-forest">Baggi Filippo â¢ Carpano Costanza â¢ Oliva Sveva â¢ Riggio Luca</p>
             </div>
         </div>
 
@@ -163,7 +415,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-700 mb-1">Password</label>
-                        <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emeraldcustom text-sm">
+                        <input type="password" id="auth-password" required placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emeraldcustom text-sm">
                     </div>
                     <button type="submit" id="auth-submit-btn" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-emeraldcustom/20">Accedi</button>
                 </form>
@@ -267,7 +519,7 @@
                         <div class="absolute -right-4 -bottom-4 opacity-10 text-9xl"><i class="fa-solid fa-leaf"></i></div>
                         <div class="relative z-10">
                             <span id="greeting-user" class="text-xs uppercase tracking-widest text-orangeaccent font-bold block mb-1">Bentornato, Sveva!</span>
-                            <h2 class="text-lg font-bold mb-3">“Il segreto della felicità non è fare ciò che si vuole, ma volere ciò che si fa.”</h2>
+                            <h2 class="text-lg font-bold mb-3">âIl segreto della felicitÃ  non Ã¨ fare ciÃ² che si vuole, ma volere ciÃ² che si fa.â</h2>
                             <p class="text-xs text-white/80 italic">Gestisci il tuo cibo con consapevolezza e riduci lo spreco domestico.</p>
                         </div>
                     </div>
@@ -288,13 +540,13 @@
                             </div>
                             <div class="bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
                                 <i class="fa-solid fa-piggy-bank text-orangeaccent text-xl mb-1"></i>
-                                <span id="stat-soldi" class="block font-extrabold text-orangeaccent text-lg">€ 48.50</span>
+                                <span id="stat-soldi" class="block font-extrabold text-orangeaccent text-lg">â¬ 48.50</span>
                                 <span class="text-[10px] text-gray-500 font-medium">Soldi Risparmiati</span>
                             </div>
                             <div class="bg-blue-50 p-3 rounded-2xl border border-blue-200">
                                 <i class="fa-solid fa-cloud text-blue-500 text-xl mb-1"></i>
                                 <span id="stat-co2" class="block font-extrabold text-blue-700 text-lg">31.2 kg</span>
-                                <span class="text-[10px] text-gray-500 font-medium">CO₂ Evitata</span>
+                                <span class="text-[10px] text-gray-500 font-medium">COâ Evitata</span>
                             </div>
                         </div>
                     </div>
@@ -488,7 +740,7 @@
                                 <h3 class="font-bold text-forest text-base flex items-center gap-2">
                                     <i class="fa-solid fa-map-location-dot text-emeraldcustom"></i> Condividi col Vicino
                                 </h3>
-                                <p class="text-xs text-gray-500">Solidarietà di quartiere anti-spreco</p>
+                                <p class="text-xs text-gray-500">SolidarietÃ  di quartiere anti-spreco</p>
                             </div>
                             <button onclick="openAddAnnuncioModal()" class="bg-forest hover:bg-forest/90 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl shadow transition flex items-center gap-1.5">
                                 <i class="fa-solid fa-plus"></i> Offri Cibo
@@ -586,15 +838,15 @@
                             <h4 class="font-bold text-forest text-xs uppercase tracking-wider mb-2">Sicurezza & Password</h4>
                             <div>
                                 <label class="block text-xs font-bold text-gray-700 mb-1">Password Attuale</label>
-                                <input type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                                <input type="password" required placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-700 mb-1">Nuova Password</label>
-                                <input type="password" id="new-pwd-1" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                                <input type="password" id="new-pwd-1" required placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-700 mb-1">Conferma Nuova Password</label>
-                                <input type="password" id="new-pwd-2" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                                <input type="password" id="new-pwd-2" required placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                             </div>
                             <button type="submit" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-forest/20">Aggiorna Password</button>
                         </form>
@@ -1125,7 +1377,7 @@
                                 <strong class="text-forest">${ann.item}</strong>
                                 <span class="text-[10px] text-gray-400">(${ann.distance})</span>
                             </div>
-                            <span class="text-[10px] text-orangeaccent font-semibold">${ann.user} • ${ann.expiry}</span>
+                            <span class="text-[10px] text-orangeaccent font-semibold">${ann.user} â¢ ${ann.expiry}</span>
                         </div>
                         <button onclick="showToast('Annuncio prenotato con successo! Contatta il vicino.')" class="bg-orangeaccent hover:bg-orange-600 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow transition">Prenota</button>
                     </div>
@@ -1166,7 +1418,7 @@
             container.innerHTML = '';
 
             if (spesaData.length === 0) {
-                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">La lista della spesa è vuota.</p>`;
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">La lista della spesa Ã¨ vuota.</p>`;
                 return;
             }
 
