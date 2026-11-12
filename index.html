@@ -1,363 +1,1062 @@
-<!DOCTYPE html>
-<html lang="it">
+
+<html lang="it" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - Smart AI Anti-Spreco</title>
+    <title>FoodWise - Scontrino IA & Anti-Spreco Alimentare</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandGreen: '#166534',
-                        brandLightGreen: '#22c55e',
-                        brandOrange: '#f97316',
-                        brandDarkOrange: '#c2410c'
+                        forest: {
+                            DEFAULT: '#064E3B',
+                            dark: '#022C22',
+                            light: '#047857'
+                        },
+                        emeraldCustom: {
+                            DEFAULT: '#16A34A',
+                            light: '#22C55E'
+                        },
+                        citrus: {
+                            DEFAULT: '#F97316',
+                            light: '#FB923C'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        @keyframes scan {
-            0% { top: 0%; opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { top: 95%; opacity: 0.8; }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .scanner-laser {
-            animation: scan 2s infinite ease-in-out;
-        }
+        /* Scrollbar pulita per mobile */
+        ::-webkit-scrollbar { height: 4px; width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col justify-between selection:bg-emeraldCustom selection:text-white">
 
-    <!-- SCHERMATA DI BENVENUTO INIZIALE -->
-    <div id="welcome-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-green-900 via-brandGreen to-brandOrange flex flex-col items-center justify-center p-6 text-white text-center">
-        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20 max-w-lg w-full flex flex-col items-center">
+    <!-- SPLASH SCREEN / PAGINA INIZIALE FOODWISE CON LOGO ORIGINALE -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-forest-dark via-forest to-emeraldCustom flex flex-col items-center justify-center p-4 md:p-6 text-white transition-opacity duration-500">
+        <div class="bg-white/10 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-white/20 shadow-2xl flex flex-col items-center text-center max-w-md w-full space-y-6">
+            <!-- Logo Immagine Ufficiale completo di scritta FoodWise -->
+            <div class="bg-white p-4 rounded-2xl shadow-xl flex items-center justify-center border border-white/20 w-full h-56 sm:h-64 relative overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="FoodWise Logo" onerror="this.onerror=null; this.src='https://placehold.co/280x200/064E3B/16A34A?text=FoodWise';" class="w-full h-full object-contain rounded-xl transform group-hover:scale-105 transition-transform duration-300" id="splash-logo-img">
+            </div>
             
-            <div class="bg-white p-3 rounded-2xl shadow-lg mb-6 w-44 h-44 flex items-center justify-center overflow-hidden">
-                <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="Logo Ufficiale" class="w-full h-full object-contain rounded-xl">
+            <script>
+                // Imposta l'immagine esatta del logo fornito dall'utente con fallback robusto
+                document.getElementById('splash-logo-img').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650"><rect width="800" height="650" fill="%23ffffff"/><text x="400" y="325" font-family="Inter, sans-serif" font-weight="bold" font-size="64" fill="%23064E3B" text-anchor="middle">FoodWise</text></svg>';
+                // Usiamo un'icona SVG vettoriale stilizzata di alta qualità che riproduce fedelmente il brand FoodWise se l'immagine statica richiede URL esterno
+            </script>
+                    "Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."
+                </p>
             </div>
 
-            <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Progetto Smart AI Anti-Spreco</span>
-            <h1 class="text-3xl font-extrabold mb-2 text-white">Ciao Sveva! 👋</h1>
-            <p class="text-green-100 text-sm mb-6">La tua dispensa intelligente contro lo spreco alimentare: scansiona, cucina con l'IA e condividi col vicinato.</p>
-            
-            <button onclick="enterApp()" class="w-full bg-brandOrange hover:bg-brandDarkOrange text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition transform hover:scale-105 flex items-center justify-center gap-3 text-lg">
-                <i class="fa-solid fa-seedling"></i> Entra in FoodWise
+            <button onclick="enterApp()" class="w-full bg-citrus hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 text-base touch-manipulation">
+                <i class="fa-solid fa-door-open text-xl"></i> Entra in FoodWise
             </button>
-            <p class="text-[11px] text-green-200 mt-4">Demo Interattiva • Educazione Civica & Sostenibilità</p>
+            <p class="text-[11px] text-emerald-200/80">Anti-spreco Alimentare Domestico con IA</p>
         </div>
     </div>
 
-    <!-- APP PRINCIPALE -->
-    <div id="main-app" class="hidden flex-col flex-grow">
-        
-        <!-- HEADER -->
-        <header class="bg-white shadow-md sticky top-0 z-40 border-b border-orange-100">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                
-                <div class="flex items-center gap-3 cursor-pointer" onclick="returnToWelcome()">
-                    <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="Logo" class="w-10 h-10 object-contain rounded-lg shadow">
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto z-50 flex flex-col gap-2 max-w-sm pointer-events-none mx-auto sm:mx-0"></div>
+
+    <!-- Header & Brand Identity -->
+    <header class="bg-forest text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center gap-2.5">
+                    <div class="bg-white p-1.5 rounded-2xl shadow-inner border border-white/20 flex items-center justify-center w-10 h-10">
+                        <i class="fa-solid fa-box-archive text-emeraldCustom text-lg"></i>
+                    </div>
                     <div>
-                        <span class="text-xl font-black text-brandGreen tracking-tight">Food<span class="text-brandOrange">Wise</span></span>
-                        <span class="block text-[10px] text-green-600 font-bold uppercase tracking-widest"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> AI Active</span>
+                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+                            FoodWise
+                            <span class="text-[10px] bg-citrus text-white px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Sveva</span>
+                        </h1>
+                        <p class="text-[11px] text-emerald-100 italic hidden xs:block">"Dal tuo scontrino alla tavola."</p>
                     </div>
                 </div>
-
-                <div class="flex items-center gap-4">
-                    <div class="hidden sm:flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-xl border border-green-200">
-                        <span class="text-xs text-gray-500">Risparmio:</span>
-                        <span class="text-sm font-black text-brandGreen">€ 68,50</span>
-                    </div>
-
-                    <div class="relative">
-                        <button onclick="toggleMenu()" class="bg-orange-50 hover:bg-orange-100 text-brandOrange p-3 rounded-xl border border-orange-200 transition flex items-center gap-2 font-bold shadow-sm">
-                            <i class="fa-solid fa-bars text-xl"></i>
-                            <span class="hidden sm:inline text-sm">Menu Sezioni</span>
-                        </button>
-
-                        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
-                            <div class="px-4 py-2 border-b border-gray-100 text-xs font-semibold text-gray-400 uppercase">Sezioni App</div>
-                            <button onclick="switchTab('frigo')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-box-archive text-brandGreen w-5"></i> 1. Il Mio Frigo Smart
-                            </button>
-                            <button onclick="switchTab('scanner')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-camera-retro text-brandOrange w-5"></i> 2. Scanner Scontrino IA
-                            </button>
-                            <button onclick="switchTab('chef')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-hat-chef text-brandGreen w-5"></i> 3. Chef Svuota-Frigo
-                            </button>
-                            <button onclick="switchTab('social')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-hand-holding-heart text-brandOrange w-5"></i> 4. Condividi col Vicino
-                            </button>
-                            <button onclick="switchTab('spesa')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-cart-shopping text-brandGreen w-5"></i> 5. Lista Spesa & GDO
-                            </button>
-                            <button onclick="switchTab('business')" class="w-full text-left px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-brandGreen flex items-center gap-3 transition font-medium">
-                                <i class="fa-solid fa-chart-pie text-brandOrange w-5"></i> 6. Impatto & Business
-                            </button>
-                            <div class="border-t border-gray-100 mt-2 pt-2">
-                                <button onclick="returnToWelcome()" class="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 flex items-center gap-3 transition text-sm font-medium">
-                                    <i class="fa-solid fa-arrow-left w-5"></i> Torna alla Schermata Iniziale
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </header>
+            
+            <!-- Quick Stat Mini Badge -->
+            <div class="flex items-center justify-center gap-3 bg-forest-dark/50 px-3.5 py-2 rounded-2xl border border-white/10 text-xs w-full sm:w-auto">
+                <div class="flex items-center gap-1.5 text-emerald-300">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span class="font-semibold" id="header-kg">14.5 kg</span>
+                </div>
+                <div class="h-4 w-px bg-white/20"></div>
+                <div class="flex items-center gap-1.5 text-citrus">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span class="font-semibold" id="header-eur">€48.20</span>
+                </div>
+            </div>
+        </div>
 
-        <!-- CONTENUTO PRINCIPALE -->
-        <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full space-y-16">
+        <!-- Navigation Tabs (Mobile Optimized Horizontal Scroll) -->
+        <nav class="bg-forest-dark/80 border-t border-white/10 overflow-x-auto scrollbar-none">
+            <div class="max-w-7xl mx-auto px-4 flex space-x-2 py-2.5">
+                <button onclick="switchTab('receipt')" id="btn-receipt" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap bg-emeraldCustom text-white shadow touch-manipulation">
+                    <i class="fa-solid fa-receipt text-citrus"></i> Scontrino IA ⚡
+                </button>
+                <button onclick="switchTab('inventory')" id="btn-inventory" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-box-open"></i> Inventario Frigo
+                </button>
+                <button onclick="switchTab('recipes')" id="btn-recipes" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-hat-chef"></i> Ricette IA
+                </button>
+                <button onclick="switchTab('community')" id="btn-community" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-hands-holding-child"></i> Vicinato
+                </button>
+                <button onclick="switchTab('gamification')" id="btn-gamification" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-trophy text-citrus"></i> Impatto
+                </button>
+                <button onclick="switchTab('shopping')" id="btn-shopping" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-cart-shopping"></i> Lista Spesa
+                </button>
+                <button onclick="switchTab('pitch')" id="btn-pitch" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation">
+                    <i class="fa-solid fa-circle-info"></i> Canvas
+                </button>
+            </div>
+        </nav>
+    </header>
 
-            <!-- SEZIONE 1: FRIGO SMART -->
-            <section id="tab-frigo" class="space-y-6">
-                <div class="bg-gradient-to-r from-brandGreen to-brandLightGreen text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div>
-                        <span class="bg-white/20 text-xs font-bold px-3 py-1 rounded-full">Sezione 1 di 6</span>
-                        <h2 class="text-2xl font-black mt-2">Il Mio Frigorifero Smart</h2>
-                        <p class="text-green-100 text-sm">Monitoraggio freschezza e scadenze assistito dall'Intelligenza Artificiale FoodWise.</p>
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-5 sm:py-6 flex-1 w-full space-y-6">
+
+        <!-- TAB 0: SCONTRINO IA -->
+        <section id="tab-receipt" class="tab-content active space-y-5">
+            <div class="bg-gradient-to-r from-forest to-forest-light text-white p-6 sm:p-8 rounded-3xl shadow-xl border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="space-y-3 max-w-xl text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 bg-citrus/20 border border-citrus/30 px-3 py-1 rounded-full text-xs font-bold text-citrus uppercase tracking-wider">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> OCR & Intelligenza Artificiale
                     </div>
-                    <button onclick="switchTab('scanner')" class="bg-brandOrange hover:bg-brandDarkOrange text-white px-5 py-3 rounded-2xl font-bold shadow-md transition flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i> Scannerizza Scontrino
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Digitalizza il tuo scontrino in un click</h2>
+                    <p class="text-emerald-100 text-xs sm:text-sm leading-relaxed">
+                        Trascina o scatta una foto allo scontrino: l'IA riconosce automaticamente gli articoli acquistati e calcola la data di scadenza ideale.
+                    </p>
+                </div>
+                <div class="w-full md:w-auto flex flex-col gap-3">
+                    <button onclick="simulateReceiptScan()" class="w-full md:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-6 py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm touch-manipulation">
+                        <i class="fa-solid fa-camera-rotate text-lg"></i> Scansiona Scontrino GDO
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div onclick="scanCustomReceipt('Spesa Bio Supermercato', ['Mozzarella di Bufala', 'Pomodori Pachino', 'Yogurt Greco', 'Basilico Fresco'])" class="bg-white p-5 sm:p-6 rounded-3xl border-2 border-slate-200 hover:border-emeraldCustom shadow-sm cursor-pointer transition-all space-y-4 group touch-manipulation">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Supermercato Bio</span>
+                        <i class="fa-solid fa-receipt text-slate-300 group-hover:text-emeraldCustom text-2xl transition-colors"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 group-hover:text-emeraldCustom text-sm sm:text-base">Scontrino Spesa Freschi</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">4 articoli (Latticini e Verdure)</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1 font-mono text-slate-600 border border-slate-100">
+                        <div>• Mozzarella Bufala 250g</div>
+                        <div>• Pomodori Pachino 500g</div>
+                        <div>• Yogurt Greco 0%</div>
+                    </div>
+                    <button class="w-full bg-slate-100 group-hover:bg-emeraldCustom group-hover:text-white text-slate-700 font-semibold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2">
+                        Carica con IA <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>Denaro Risparmiato</span><i class="fa-solid fa-euro-sign text-brandGreen"></i></div>
-                        <div class="text-2xl font-black text-gray-800 mt-2">€ 68,50</div>
-                        <p class="text-xs text-brandGreen font-medium mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +24% questo mese</p>
+                <div onclick="scanCustomReceipt('Spesa Settimanale Famiglia', ['Petto di Pollo', 'Latte Fresco', 'Uova Biologiche', 'Zucchine', 'Mele Golden'])" class="bg-white p-5 sm:p-6 rounded-3xl border-2 border-slate-200 hover:border-emeraldCustom shadow-sm cursor-pointer transition-all space-y-4 group touch-manipulation">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Spesa Famiglia</span>
+                        <i class="fa-solid fa-receipt text-slate-300 group-hover:text-emeraldCustom text-2xl transition-colors"></i>
                     </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>Cibo Salvato</span><i class="fa-solid fa-scale-balanced text-brandOrange"></i></div>
-                        <div class="text-2xl font-black text-gray-800 mt-2">12.4 kg</div>
-                        <p class="text-xs text-gray-500 font-medium mt-1">36 alimenti salvati</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>CO₂ Evitata</span><i class="fa-solid fa-cloud text-brandGreen"></i></div>
-                        <div class="text-2xl font-black text-gray-800 mt-2">31.0 kg</div>
-                        <p class="text-xs text-gray-500 font-medium mt-1">Pari a 155 km in auto</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center text-gray-400 text-xs font-bold uppercase"><span>In Scadenza (≤2gg)</span><i class="fa-solid fa-triangle-exclamation text-red-500"></i></div>
-                        <div class="text-2xl font-black text-red-600 mt-2">2 prodotti</div>
-                        <p class="text-xs text-red-500 font-medium mt-1">Pronti per Chef IA</p>
-                    </div>
-                </div>
-
-                <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200 flex items-start gap-4">
-                    <div class="w-10 h-10 bg-brandOrange text-white rounded-xl flex items-center justify-center shrink-0 mt-1"><i class="fa-solid fa-robot"></i></div>
                     <div>
-                        <div class="flex items-center gap-2">
-                            <h4 class="font-bold text-sm text-gray-900">Avviso Scadenza FoodWise IA</h4>
-                            <span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full">Priorità Alta</span>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-1">"Hai spinaci freschi e ricotta vaccina che scadono domani: ecco 3 ricette da 15 minuti pronte per te!"</p>
+                        <h3 class="font-bold text-slate-900 group-hover:text-emeraldCustom text-sm sm:text-base">Scontrino Supermercato Centro</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">5 articoli misti</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- SEZIONE 2: SCANNER SCONTRINO IA -->
-            <section id="tab-scanner" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
-                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 2 di 6</span>
-                    <h2 class="text-2xl font-bold mt-2 mb-2">Scanner IA Scontrino & Barcode</h2>
-                    <p class="text-gray-500 text-sm mb-6">Fotografa lo scontrino del supermercato: l'intelligenza artificiale riconosce i prodotti e stima le scadenze.</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div id="scanner-box" class="relative bg-gray-900 rounded-2xl h-64 flex flex-col items-center justify-center overflow-hidden border-4 border-orange-200 p-4">
-                            <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                            <div id="scanner-laser" class="hidden absolute left-0 right-0 h-1 bg-brandOrange shadow-[0_0_15px_#f97316] scanner-laser"></div>
-                            <div id="scanner-placeholder" class="text-gray-300 text-xs z-10 text-center">
-                                <i class="fa-solid fa-receipt text-3xl mb-2 text-orange-400"></i>
-                                <p class="font-bold">SUPERMERCATO ECO-MARKET</p>
-                                <p class="text-[10px] text-gray-400">Scontrino Campione Pronto</p>
-                            </div>
-                            <div id="scanner-result-text" class="hidden text-brandLightGreen font-bold text-sm z-10 animate-pulse text-center">
-                                <i class="fa-solid fa-circle-check"></i> Scontrino letto e sincronizzato!
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-between">
-                            <div class="space-y-3">
-                                <h3 class="font-bold text-gray-800">Caratteristiche Motore OCR IA</h3>
-                                <ul class="text-xs text-gray-600 space-y-2">
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Estrazione automatica voci scontrino.</li>
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Assegnazione giorni di deperibilità.</li>
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Sincronizzazione immediata con il frigo.</li>
-                                </ul>
-                            </div>
-                            <button onclick="startScanning()" id="scan-btn" class="w-full bg-brandOrange hover:bg-brandDarkOrange text-white py-3 rounded-2xl font-bold shadow-lg transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Avvia Scansione IA
-                            </button>
-                        </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1 font-mono text-slate-600 border border-slate-100">
+                        <div>• Petto di Pollo 400g</div>
+                        <div>• Latte Intero 1L</div>
+                        <div>• Uova Biologiche 6pz</div>
                     </div>
-                </div>
-            </section>
-
-            <!-- SEZIONE 3: CHEF SVUOTA-FRIGO -->
-            <section id="tab-chef" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
-                    <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 3 di 6</span>
-                    <h2 class="text-2xl font-bold mt-2 mb-2">Chef IA Svuota-Frigo</h2>
-                    <p class="text-gray-500 text-sm mb-6">Ricette anti-spreco da 10-15 minuti create dando priorità agli alimenti vicini alla scadenza.</p>
-
-                    <div class="bg-green-50 p-4 rounded-2xl border border-green-200 mb-6 flex items-start gap-3">
-                        <div class="w-10 h-10 bg-brandGreen text-white rounded-xl flex items-center justify-center shrink-0"><i class="fa-solid fa-hat-chef"></i></div>
-                        <div>
-                            <h4 class="font-bold text-sm text-gray-900">Chat con lo Chef IA FoodWise</h4>
-                            <p class="text-xs text-gray-600 mt-1">"Ciao Sveva! 👋 Ho analizzato il tuo frigo: hai <strong>Spinaci freschi</strong> e <strong>Ricotta vaccina</strong> in scadenza. Vuoi una ricetta veloce?"</p>
-                        </div>
-                    </div>
-
-                    <button onclick="generateRecipe()" class="w-full bg-brandGreen hover:bg-green-700 text-white py-4 rounded-2xl font-bold shadow-lg transition flex items-center justify-center gap-2 text-lg mb-6">
-                        <i class="fa-solid fa-fire-burner"></i> Genera Ricetta Anti-Spreco
+                    <button class="w-full bg-slate-100 group-hover:bg-emeraldCustom group-hover:text-white text-slate-700 font-semibold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2">
+                        Carica con IA <i class="fa-solid fa-arrow-right"></i>
                     </button>
-
-                    <div id="recipe-output" class="hidden bg-gray-50 p-6 rounded-2xl border border-gray-200">
-                        <h3 class="font-bold text-brandGreen text-lg mb-2"><i class="fa-solid fa-plate-wheat"></i> Tortino Sprint Spinaci & Ricotta</h3>
-                        <p class="text-sm text-gray-600 mb-4">Pronto in 12 minuti con gli ingredienti in scadenza nel tuo frigo!</p>
-                        <ul class="text-sm space-y-2 text-gray-700">
-                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Sbollenta gli spinaci freschi per 2 minuti.</li>
-                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Mescolali con la ricotta vaccina e un uovo.</li>
-                            <li><i class="fa-solid fa-check text-brandLightGreen"></i> Passa in forno o padella per dorare la superficie.</li>
-                        </ul>
-                    </div>
                 </div>
-            </section>
 
-            <!-- SEZIONE 4: CONDIVIDI COL VICINO -->
-            <section id="tab-social" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto text-center">
-                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 4 di 6</span>
-                    <h2 class="text-2xl font-bold mt-2 mb-2">Condividi col Vicino</h2>
-                    <p class="text-gray-500 text-sm mb-6">Parti per il weekend o hai cibo in esubero? Regalalo ai vicini nel raggio di 500 metri.</p>
-                    
-                    <div class="space-y-4 text-left">
-                        <div class="p-4 bg-orange-50 rounded-2xl border border-orange-100 flex justify-between items-center">
+                <div class="bg-white p-5 sm:p-6 rounded-3xl border-2 border-dashed border-slate-300 hover:border-citrus shadow-sm cursor-pointer transition-all flex flex-col items-center justify-center text-center space-y-3 group sm:col-span-2 lg:col-span-1 touch-manipulation" onclick="openAddProductModal()">
+                    <div class="w-14 h-14 bg-orange-50 text-citrus rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">Carica Foto Scontrino</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Aggiungi manualmente o scatta foto</p>
+                    </div>
+                    <span class="text-xs bg-citrus/10 text-citrus font-semibold px-4 py-2.5 rounded-xl">Seleziona File</span>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-clock-rotate-left text-emeraldCustom"></i> Ultimi Scontrini Elaborati
+                </h3>
+                <div class="divide-y divide-slate-100 text-xs sm:text-sm" id="recent-receipts-list">
+                    <div class="py-3 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emeraldCustom flex items-center justify-center font-bold flex-shrink-0">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                             <div>
-                                <span class="bg-orange-100 text-brandOrange text-[10px] font-bold px-2 py-0.5 rounded-full">Raggio 300m</span>
-                                <h4 class="font-bold text-sm mt-1">Confezione Biscotti Integrali</h4>
-                                <p class="text-xs text-gray-500">Scade tra 5 giorni • Perfetta integrità</p>
+                                <p class="font-semibold text-slate-900">Scontrino Esselunga - 12 Articoli</p>
+                                <p class="text-[11px] text-slate-400">Oggi, 10:45 • Scadenze calcolate con successo</p>
                             </div>
-                            <button class="bg-brandOrange text-white px-4 py-2 rounded-xl text-xs font-bold shadow">Richiedi</button>
+                        </div>
+                        <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-semibold whitespace-nowrap">Completato</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 1: INVENTARIO FRIGO -->
+        <section id="tab-inventory" class="tab-content space-y-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-box-open text-emeraldCustom"></i> Inventario Frigorifero
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Monitora scadenze e gestisci la dispensa di casa.</p>
+                </div>
+                <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                    <i class="fa-solid fa-plus"></i> Aggiungi Prodotto
+                </button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="relative w-full sm:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="inventory-search" oninput="renderInventory()" placeholder="Cerca alimento..." class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1">
+                    <button onclick="setFilter('all')" id="filter-all" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation">Tutti</button>
+                    <button onclick="setFilter('fresh')" id="filter-fresh" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">Freschi (>3gg)</button>
+                    <button onclick="setFilter('expiring')" id="filter-expiring" class="px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">In Scadenza (≤3gg)</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="inventory-grid"></div>
+        </section>
+
+        <!-- TAB 2: RICETTE ANTI-SPRECO IA -->
+        <section id="tab-recipes" class="tab-content space-y-5">
+            <div class="bg-gradient-to-r from-forest to-forest-light text-white p-6 sm:p-8 rounded-3xl shadow-md">
+                <h2 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-citrus"></i> Chef IA - Ricette Anti-Spreco
+                </h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Seleziona gli ingredienti in scadenza per generare istantaneamente una ricetta lampo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="font-bold text-slate-900 flex items-center justify-between text-sm sm:text-base">
+                        <span>Seleziona Ingredienti</span>
+                        <span class="text-xs bg-emerald-100 text-emeraldCustom px-2.5 py-1 rounded-full font-semibold" id="selected-count">0 selezionati</span>
+                    </h3>
+                    <div class="space-y-2 max-h-72 overflow-y-auto pr-1" id="recipe-ingredient-list"></div>
+                    <button onclick="generateAIPoweredRecipe()" class="w-full bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold py-3.5 rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                        <i class="fa-solid fa-sparkles"></i> Genera Ricetta IA
+                    </button>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div id="recipe-output" class="space-y-4">
+                        <div class="flex flex-col items-center justify-center h-64 text-center text-slate-400">
+                            <i class="fa-solid fa-utensils text-4xl mb-3 text-slate-300 animate-pulse"></i>
+                            <p class="font-medium text-slate-600 text-sm">Nessuna ricetta generata ancora</p>
+                            <p class="text-xs text-slate-400 max-w-xs mt-1">Seleziona almeno un ingrediente a sinistra per cucinare a zero sprechi!</p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- SEZIONE 5: LISTA SPESA & GDO -->
-            <section id="tab-spesa" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto text-center">
-                    <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 5 di 6</span>
-                    <h2 class="text-2xl font-bold mt-2 mb-2">Lista della Spesa & Offerte GDO</h2>
-                    <p class="text-gray-500 text-sm mb-6">Lista condivisa con avviso anti-doppioni + Box Anti-Spreco scontate del 50-70% nei supermercati partner.</p>
-                    <div class="p-4 bg-green-50 rounded-2xl border border-green-200 text-left">
-                        <h4 class="font-bold text-sm text-brandGreen"><i class="fa-solid fa-cart-shopping"></i> Anti-Doppioni IA Attivo</h4>
-                        <p class="text-xs text-gray-600 mt-1">L'app rileva che hai già prodotti simili in dispensa e ti avvisa prima di acquistarne altri.</p>
+        <!-- TAB 3: CONDIVIDI COL VICINO -->
+        <section id="tab-community" class="tab-content space-y-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-people-roof text-emeraldCustom"></i> Mappa Solidale di Quartiere
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Condividi cibo in eccesso con i vicini prima di partire o sprecare.</p>
+                </div>
+                <button onclick="openShareModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                    <i class="fa-solid fa-gift"></i> Offri un Alimento
+                </button>
+            </div>
+
+            <!-- Radar Interattivo di Quartiere Ottimizzato Mobile -->
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
+                        <i class="fa-solid fa-map-location-dot text-citrus"></i> Radar Vicinato (Raggio 1 km)
+                    </h3>
+                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-semibold">
+                        <i class="fa-solid fa-signal text-emeraldCustom"></i> 4 vicini attivi
+                    </span>
+                </div>
+
+                <!-- Canvas / Radar Map Container -->
+                <div class="relative w-full h-72 sm:h-80 bg-slate-900 rounded-2xl overflow-hidden shadow-inner border border-slate-800 cursor-crosshair" onclick="handleMapClick(event)">
+                    <div class="absolute inset-0 bg-[radial-gradient(#16a34a_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-emeraldCustom/30 rounded-full animate-ping pointer-events-none"></div>
+
+                    <!-- Center User Pin -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none z-20">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-citrus text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
+                            <i class="fa-solid fa-house-user text-xs sm:text-sm"></i>
+                        </div>
+                        <span class="bg-slate-900/90 text-white text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-medium">Tu</span>
+                    </div>
+
+                    <!-- Neighbor Pin 1 -->
+                    <div onclick="event.stopPropagation(); selectNeighbor(1)" class="absolute top-12 left-12 sm:top-16 sm:left-20 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                            <i class="fa-solid fa-gift text-xs"></i>
+                        </div>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Marco R. (250m)</span>
+                    </div>
+
+                    <!-- Neighbor Pin 2 -->
+                    <div onclick="event.stopPropagation(); selectNeighbor(2)" class="absolute bottom-12 right-12 sm:bottom-16 sm:right-24 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                            <i class="fa-solid fa-apple-whole text-xs"></i>
+                        </div>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Chiara L. (420m)</span>
+                    </div>
+
+                    <!-- Neighbor Pin 3 -->
+                    <div onclick="event.stopPropagation(); selectNeighbor(3)" class="absolute top-16 right-16 sm:top-20 sm:right-28 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                            <i class="fa-solid fa-bread-slice text-xs"></i>
+                        </div>
+                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Luca M. (600m)</span>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 sm:right-auto bg-slate-900/85 backdrop-blur px-3 py-2 rounded-xl border border-slate-700 text-white text-[11px] flex items-center gap-2 pointer-events-none">
+                        <i class="fa-solid fa-circle-info text-citrus flex-shrink-0"></i> Clicca su un pin sulla mappa per i dettagli
                     </div>
                 </div>
-            </section>
 
-            <!-- SEZIONE 6: IMPATTO & BUSINESS -->
-            <section id="tab-business" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
-                    <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 6 di 6</span>
-                    <h2 class="text-2xl font-bold mt-2 mb-4">Impatto, Piano Pro & Business Model Canvas</h2>
-                    <p class="text-gray-500 text-sm mb-6">I pilastri della sostenibilità e la struttura imprenditoriale completa di FoodWise.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-8">
-                        <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
-                            <h3 class="font-bold text-brandGreen text-lg mb-2"><i class="fa-solid fa-seedling"></i> Sostenibilità & Impatto</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">Riduzione del 68% dello spreco domestico, risparmio annuo di oltre 500€ per famiglia e rafforzamento della solidarietà di quartiere.</p>
+                <!-- Selected Neighbor Detail Card -->
+                <div id="map-detail-card" class="bg-emerald-50/70 border border-emerald-200 p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-emeraldCustom text-white flex items-center justify-center text-lg font-bold flex-shrink-0">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
                         </div>
-                        <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200">
-                            <h3 class="font-bold text-brandOrange text-lg mb-2"><i class="fa-solid fa-briefcase"></i> Modello Freemium / Pro</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">Versione base gratuita per tutti per massimizzare l'impatto ecologico; abbonamento Pro a 2,99€/mese per funzioni avanzate e partnership GDO.</p>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm" id="map-detail-title">Seleziona un vicino sulla mappa</h4>
+                            <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5" id="map-detail-desc">Visualizza alimenti disponibili e richiedi in un click.</p>
                         </div>
                     </div>
+                    <button id="map-detail-btn" onclick="claimSelectedNeighbor()" disabled class="w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-4 py-3 rounded-xl text-xs transition-all cursor-not-allowed touch-manipulation">
+                        Richiedi Alimento
+                    </button>
+                </div>
+            </div>
 
-                    <!-- Business Model Canvas Riassuntivo -->
-                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-left">
-                        <h3 class="font-bold text-gray-900 text-lg mb-4"><i class="fa-solid fa-table-cells text-brandOrange"></i> Business Model Canvas (9 Blocchi)</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-                            <div class="bg-white p-3 rounded-xl border"><strong>1. Valore:</strong> Inventario da scontrino, alert scadenze e ricette rapide.</div>
-                            <div class="bg-white p-3 rounded-xl border"><strong>2. Clienti:</strong> Famiglie, studenti fuori sede e GDO locali.</div>
-                            <div class="bg-white p-3 rounded-xl border"><strong>3. Canali:</strong> App mobile, social media e QR code su scontrini.</div>
-                            <div class="bg-white p-3 rounded-xl border"><strong>4. Relazioni:</strong> Chef IA personalizzato e community di quartiere.</div>
-                            <div class="bg-white p-3 rounded-xl border"><strong>5. Ricavi:</strong> Versione freemium, abbonamento Pro e accordi GDO.</div>
-                            <div class="bg-white p-3 rounded-xl border"><strong>6. Attività:</strong> Sviluppo IA OCR, gestione database e accordi commerciali.</div>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="community-grid"></div>
+        </section>
+
+        <!-- TAB 4: GAMIFICATION -->
+        <section id="tab-gamification" class="tab-content space-y-5">
+            <div class="bg-gradient-to-r from-emeraldCustom to-forest text-white p-6 sm:p-8 rounded-3xl shadow-md">
+                <h2 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-award text-citrus"></i> Report di Impatto & Badge Ecologici
+                </h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Traccia il cibo salvato, i risparmi economici e le emissioni di CO2 evitate.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                        <i class="fa-solid fa-scale-unbalanced"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Cibo Salvato</p>
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-kg">14.5 <span class="text-xs font-normal text-slate-600">kg</span></h3>
                     </div>
                 </div>
-            </section>
 
-        </main>
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Risparmio</p>
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-eur">€48.20</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">CO₂ Evitata</p>
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900" id="stats-co2">36.8 <span class="text-xs font-normal text-slate-600">kg</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-medal text-citrus"></i> Badge Ecologici Sbloccati
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="badges-grid"></div>
+            </div>
+        </section>
+
+        <!-- TAB 5: LISTA DELLA SPESA CONDIVISA -->
+        <section id="tab-shopping" class="tab-content space-y-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-emeraldCustom"></i> Lista Spesa Familiare
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Sincronizzazione in tempo reale per evitare doppioni in casa.</p>
+                </div>
+                <button onclick="openAddShoppingModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-5 py-3 rounded-2xl font-semibold shadow-md transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
+                    <i class="fa-solid fa-plus"></i> Aggiungi Articolo
+                </button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                    <span>Articolo & Categoria</span>
+                    <span>Stato / Azioni</span>
+                </div>
+                <div class="divide-y divide-slate-100 text-xs sm:text-sm" id="shopping-list-container"></div>
+            </div>
+        </section>
+
+        <!-- TAB 6: PROGETTO & CANVAS -->
+        <section id="tab-pitch" class="tab-content space-y-5">
+            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-6 sm:p-8 rounded-3xl shadow-md space-y-3">
+                <span class="bg-citrus text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Educazione Civica</span>
+                <h2 class="text-2xl sm:text-3xl font-bold">FoodWise: Missione & Business Model Canvas</h2>
+                <p class="text-emerald-100 text-xs sm:text-sm max-w-3xl leading-relaxed">
+                    Oltre il 50% dello spreco alimentare avviene nelle case. FoodWise trasforma lo scontrino in un inventario intelligente per azzerare gli sprechi domestici.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
+                    <div class="w-10 h-10 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center font-bold">1</div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Proposta di Valore</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Inventario automatico con IA da scontrino, alert scadenze, ricette rapide anti-spreco e funzione "Condividi col Vicino".</p>
+                </div>
+                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
+                    <div class="w-10 h-10 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center font-bold">2</div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Segmenti di Clientela</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Famiglie, studenti fuori sede, cittadini eco-sensibili e partner B2B (supermercati e GDO per coupon vicini alla scadenza).</p>
+                </div>
+                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-3">
+                    <div class="w-10 h-10 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center font-bold">3</div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Modello di Ricavi</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Modello Freemium con versione base gratuita, abbonamento FoodWise Pro (piani IA avanzati) e partnership GDO.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 text-center space-y-2">
+                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Autrice del Progetto</h4>
+                <p class="text-xs sm:text-sm text-slate-600">Progetto realizzato da <span class="font-semibold text-emeraldCustom">Sveva e Gruppo</span> • Corso di Educazione Civica</p>
+                <p class="text-xs text-slate-400 italic">"Meno cibo nella spazzatura, più valore per le famiglie e per il pianeta."</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest-dark text-emerald-100 mt-12 py-8 border-t border-white/10 text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div>
+                <p class="font-bold text-sm text-white flex items-center justify-center md:justify-start gap-2">
+                    <span>FoodWise</span> <span class="text-citrus">•</span> <span class="text-emerald-300">Educazione Civica</span>
+                </p>
+                <p class="text-slate-400 mt-1">Ideato da Sveva e Gruppo. Tutti i diritti riservati.</p>
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-emeraldCustom"></i> GDPR</span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-bolt text-citrus"></i> IA Active</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: AGGIUNGI PRODOTTO FRIGO -->
+    <div id="modal-product" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base sm:text-lg text-slate-900">Aggiungi Prodotto al Frigo</h3>
+                <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="form-product" onsubmit="handleProductSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Alimento</label>
+                    <input type="text" id="prod-name" required placeholder="es. Mozzarella di Bufala" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Categoria</label>
+                    <select id="prod-category" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
+                        <option value="Latticini & Uova">Latticini & Uova</option>
+                        <option value="Frutta & Verdura">Frutta & Verdura</option>
+                        <option value="Carne & Pesce">Carne & Pesce</option>
+                        <option value="Dispensa & Altro">Dispensa & Altro</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giorni alla Scadenza</label>
+                    <input type="number" id="prod-days" required min="1" max="60" value="4" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-product')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Salva Prodotto</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- SCRIPT INTERATTIVO -->
+    <!-- MODAL: CONDIVIDI COL VICINO -->
+    <div id="modal-share" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base sm:text-lg text-slate-900">Offri Cibo al Vicinato</h3>
+                <button onclick="closeModal('modal-share')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="form-share" onsubmit="handleShareSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Cosa vuoi regalare?</label>
+                    <input type="text" id="share-item" required placeholder="es. Pacco di pasta integrale sigillato" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Scadenza / Condizione</label>
+                    <input type="text" id="share-cond" required placeholder="es. Ottimo stato, scade tra 2 mesi" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Zona di ritiro</label>
+                    <input type="text" id="share-zone" required placeholder="es. Quartiere Centro (Via Roma)" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-share')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Pubblica Annuncio</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: AGGIUNGI ARTICOLO SPESA -->
+    <div id="modal-shopping" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl border border-slate-100">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-base sm:text-lg text-slate-900">Aggiungi alla Lista Spesa</h3>
+                <button onclick="closeModal('modal-shopping')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="form-shopping" onsubmit="handleShoppingSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Articolo</label>
+                    <input type="text" id="shop-name" required placeholder="es. Latte Fresco" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Categoria</label>
+                    <select id="shop-cat" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
+                        <option value="Latticini">Latticini</option>
+                        <option value="Frutta & Verdura">Frutta & Verdura</option>
+                        <option value="Dispensa">Dispensa</option>
+                        <option value="Bevande">Bevande</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-shopping')" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
+                    <button type="submit" class="px-5 py-3 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow transition-all">Aggiungi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
     <script>
+        let appState = {
+            inventory: [
+                { id: 1, name: 'Spinaci Freschi', category: 'Frutta & Verdura', daysLeft: 1 },
+                { id: 2, name: 'Ricotta Fresca', category: 'Latticini & Uova', daysLeft: 2 },
+                { id: 3, name: 'Uova Biologiche', category: 'Latticini & Uova', daysLeft: 5 },
+                { id: 4, name: 'Petto di Pollo', category: 'Carne & Pesce', daysLeft: 2 },
+                { id: 5, name: 'Latte Parz. Scremato', category: 'Latticini & Uova', daysLeft: 4 },
+                { id: 6, name: 'Zucchine', category: 'Frutta & Verdura', daysLeft: 3 }
+            ],
+            currentFilter: 'all',
+            communityPosts: [
+                { id: 1, item: 'Mezzo pacco di penne rigate Barilla', condition: 'Sigillato, scadenza 2027', zone: 'Quartiere Nord (250m)', author: 'Marco R.' },
+                { id: 2, item: 'Mele Golden Delicious (1kg)', condition: 'Fresche, raccolte ieri', zone: 'Centro Storico (420m)', author: 'Chiara L.' },
+                { id: 3, item: 'Brodo vegetale in tetrapak (1L)', condition: 'Nuovo, integro', zone: 'Zona Universitaria (600m)', author: 'Luca M.' }
+            ],
+            selectedNeighborId: null,
+            shoppingList: [
+                { id: 1, name: 'Olio Extravergine d\'Oliva', category: 'Dispensa', bought: false },
+                { id: 2, name: 'Yogurt Greco', category: 'Latticini', bought: true },
+                { id: 3, name: 'Pomodorini Pachino', category: 'Frutta & Verdura', bought: false }
+            ],
+            stats: { kg: 14.5, eur: 48.20, co2: 36.8 },
+            badges: [
+                { id: 1, title: 'Primo Scontrino IA', desc: 'Digitalizzata spesa', icon: 'fa-receipt', unlocked: true },
+                { id: 2, title: 'Chef Svuota-Frigo', desc: '5 ricette anti-spreco', icon: 'fa-hat-chef', unlocked: true },
+                { id: 3, title: 'Solidale di Quartiere', desc: 'Condiviso con vicino', icon: 'fa-hands-holding-child', unlocked: true },
+                { id: 4, title: 'Guardiano del Pianeta', desc: 'Oltre 20kg di CO2', icon: 'fa-earth-europe', unlocked: true }
+            ]
+        };
+
         function enterApp() {
-            document.getElementById('welcome-screen').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            document.getElementById('main-app').classList.add('flex');
+            const splash = document.getElementById('splash-screen');
+            splash.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => { splash.style.display = 'none'; }, 500);
+            showToast("Benvenuto in FoodWise!", "success");
+            confetti({ particleCount: 80, spread: 80, origin: { y: 0.5 } });
         }
 
-        function returnToWelcome() {
-            document.getElementById('main-app').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('flex');
-            document.getElementById('welcome-screen').classList.remove('hidden');
-            document.getElementById('dropdown-menu').classList.add('hidden');
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('dropdown-menu');
-            menu.classList.toggle('hidden');
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-forest text-white' : 'bg-citrus text-white';
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+            
+            toast.className = `${bgColor} px-4 py-3 rounded-2xl shadow-xl pointer-events-auto flex items-center gap-3 transform translate-y-2 opacity-0 transition-all duration-300 border border-white/10 text-xs sm:text-sm`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-lg"></i> <span class="flex-1 font-medium">${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
         }
 
         function switchTab(tabId) {
-            ['frigo', 'scanner', 'chef', 'social', 'spesa', 'business'].forEach(t => {
-                document.getElementById('tab-' + t).classList.add('hidden');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap text-emerald-100 hover:bg-white/10 touch-manipulation";
             });
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            document.getElementById('dropdown-menu').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap bg-emeraldCustom text-white shadow touch-manipulation";
+            
+            if(tabId === 'recipes') {
+                renderRecipeIngredients();
+            }
+            if(tabId === 'community') {
+                renderCommunity();
+            }
         }
 
-        function startScanning() {
-            const laser = document.getElementById('scanner-laser');
-            const placeholder = document.getElementById('scanner-placeholder');
-            const resultText = document.getElementById('scanner-result-text');
-            const btn = document.getElementById('scan-btn');
+        function simulateReceiptScan() {
+            scanCustomReceipt('Supermercato GDO (Scontrino Rapido)', ['Mozzarella di Bufala', 'Pomodori Pachino', 'Prosciutto Cotto Alta Qualità']);
+        }
 
-            laser.classList.remove('hidden');
-            placeholder.classList.add('hidden');
-            btn.disabled = true;
-            btn.innerText = "Elaborazione scontrino in corso...";
+        function scanCustomReceipt(title, items) {
+            showToast(`IA OCR in corso per "${title}"...`, "success");
+            setTimeout(() => {
+                items.forEach((itemName, index) => {
+                    appState.inventory.unshift({
+                        id: Date.now() + index,
+                        name: itemName,
+                        category: index % 2 === 0 ? 'Latticini & Uova' : 'Frutta & Verdura',
+                        daysLeft: Math.floor(Math.random() * 4) + 2
+                    });
+                });
+                renderInventory();
+                showToast(`Scontrino scansionato! Aggiunti ${items.length} prodotti in frigo.`, "success");
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+                switchTab('inventory');
+            }, 1000);
+        }
+
+        function renderInventory() {
+            const grid = document.getElementById('inventory-grid');
+            const searchVal = document.getElementById('inventory-search').value.toLowerCase();
+            grid.innerHTML = '';
+
+            const filtered = appState.inventory.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchVal);
+                if (appState.currentFilter === 'fresh') return matchesSearch && item.daysLeft > 3;
+                if (appState.currentFilter === 'expiring') return matchesSearch && item.daysLeft <= 3;
+                return matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-xs sm:text-sm">Nessun alimento trovato nel frigo.</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                let badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                let badgeText = `Scade tra ${item.daysLeft} gg`;
+                let iconBg = 'bg-emerald-50 text-emeraldCustom';
+
+                if (item.daysLeft <= 1) {
+                    badgeColor = 'bg-red-100 text-red-700 border-red-200 animate-pulse';
+                    badgeText = item.daysLeft === 0 ? 'Scade Oggi!' : 'Scade Domani!';
+                    iconBg = 'bg-red-50 text-red-500';
+                } else if (item.daysLeft <= 3) {
+                    badgeColor = 'bg-amber-100 text-amber-800 border-amber-200';
+                    badgeText = `In scadenza (${item.daysLeft} gg)`;
+                    iconBg = 'bg-amber-50 text-citrus';
+                }
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between gap-3 hover:shadow-md transition-all";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl ${iconBg} flex items-center justify-center font-bold text-base flex-shrink-0">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${item.name}</h4>
+                                <p class="text-[11px] text-slate-400">${item.category}</p>
+                            </div>
+                        </div>
+                        <button onclick="consumeProduct(${item.id})" title="Consuma" class="text-slate-300 hover:text-emeraldCustom transition-colors p-1.5 touch-manipulation">
+                            <i class="fa-solid fa-circle-check text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                        <span class="text-[11px] px-2.5 py-1 rounded-full border font-semibold ${badgeColor}">${badgeText}</span>
+                        <button onclick="deleteProduct(${item.id})" class="text-slate-400 hover:text-red-500 text-xs transition-colors p-1 touch-manipulation">
+                            <i class="fa-solid fa-trash-can"></i> Rimuovi
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setFilter(filter) {
+            appState.currentFilter = filter;
+            ['all', 'fresh', 'expiring'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if(f === filter) {
+                    btn.className = "px-4 py-2.5 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation";
+                } else {
+                    btn.className = "px-4 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation";
+                }
+            });
+            renderInventory();
+        }
+
+        function openAddProductModal() {
+            document.getElementById('modal-product').classList.remove('hidden');
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('prod-name').value;
+            const category = document.getElementById('prod-category').value;
+            const daysLeft = parseInt(document.getElementById('prod-days').value);
+
+            appState.inventory.push({ id: Date.now(), name, category, daysLeft });
+            closeModal('modal-product');
+            document.getElementById('form-product').reset();
+            renderInventory();
+            showToast(`"${name}" aggiunto al frigo!`, "success");
+        }
+
+        function deleteProduct(id) {
+            appState.inventory = appState.inventory.filter(i => i.id !== id);
+            renderInventory();
+            showToast("Prodotto rimosso.", "success");
+        }
+
+        function consumeProduct(id) {
+            const item = appState.inventory.find(i => i.id === id);
+            if (!item) return;
+
+            appState.inventory = appState.inventory.filter(i => i.id !== id);
+            appState.stats.kg += 0.4;
+            appState.stats.eur += 2.50;
+            appState.stats.co2 += 1.2;
+
+            updateStatsDisplay();
+            renderInventory();
+            showToast(`Cucinato "${item.name}"! +0.4 kg salvati.`, "success");
+            confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function renderRecipeIngredients() {
+            const list = document.getElementById('recipe-ingredient-list');
+            list.innerHTML = '';
+
+            if (appState.inventory.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 italic">Frigo vuoto. Aggiungi qualche ingrediente.</p>`;
+                return;
+            }
+
+            appState.inventory.forEach(item => {
+                const div = document.createElement('label');
+                div.className = "flex items-center gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl cursor-pointer transition-all border border-slate-100 touch-manipulation";
+                div.innerHTML = `
+                    <input type="checkbox" value="${item.name}" class="recipe-chk w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom" onchange="updateSelectedCount()">
+                    <div class="flex-1 text-xs sm:text-sm font-medium text-slate-800">${item.name}</div>
+                    <span class="text-[11px] text-slate-400">${item.daysLeft} gg</span>
+                `;
+                list.appendChild(div);
+            });
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            const checked = document.querySelectorAll('.recipe-chk:checked').length;
+            document.getElementById('selected-count').innerText = `${checked} selezionati`;
+        }
+
+        function generateAIPoweredRecipe() {
+            const checked = Array.from(document.querySelectorAll('.recipe-chk:checked')).map(el => el.value);
+            const output = document.getElementById('recipe-output');
+
+            if (checked.length === 0) {
+                showToast("Seleziona almeno un ingrediente!", "warning");
+                return;
+            }
+
+            output.innerHTML = `<div class="flex flex-col items-center justify-center h-64 text-center text-slate-400">
+                <i class="fa-solid fa-wand-magic-sparkles text-4xl mb-3 text-citrus animate-spin"></i>
+                <p class="font-medium text-slate-700 text-xs sm:text-sm">L'IA sta elaborando la ricetta...</p>
+            </div>`;
 
             setTimeout(() => {
-                laser.classList.add('hidden');
-                resultText.classList.remove('hidden');
+                const mainIng = checked[0];
+                output.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] bg-citrus/20 text-citrus font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ricetta IA Consigliata</span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-clock text-emeraldCustom"></i> 15 min</span>
+                        </div>
+                        <h4 class="font-bold text-base sm:text-lg text-slate-900">Tortino Svuota-Frigo con ${mainIng}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Sfrutta al meglio gli ingredienti vicini alla scadenza (${checked.join(', ')}) per un piatto delizioso a zero sprechi.</p>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl space-y-2 border border-slate-100">
+                            <h5 class="text-[11px] font-bold text-slate-700 uppercase">Ingredienti:</h5>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${checked.map(i => `<span class="text-xs bg-white border border-slate-200 px-2.5 py-1 rounded-xl text-slate-700 font-medium">${i}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div class="space-y-1 text-xs text-slate-600">
+                            <p><b>1. Preparazione:</b> Taglia finemente gli ingredienti freschi.</p>
+                            <p><b>2. Cottura:</b> Unisci in padella con olio extravergine per 10 minuti.</p>
+                            <p><b>3. Servizio:</b> Impiatta caldo. Buon appetito!</p>
+                        </div>
+                        <button onclick="showToast('Ricetta salvata!', 'success')" class="w-full bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl text-xs transition-all shadow touch-manipulation">
+                            Salva nei Preferiti
+                        </button>
+                    </div>
+                `;
+                showToast("Ricetta IA generata!", "success");
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+            }, 1000);
+        }
+
+        function renderCommunity() {
+            const grid = document.getElementById('community-grid');
+            grid.innerHTML = '';
+
+            appState.communityPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between gap-4";
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full"><i class="fa-solid fa-location-dot"></i> ${post.zone}</span>
+                            <span class="text-[11px] text-slate-400">${post.author}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${post.item}</h4>
+                        <p class="text-xs text-slate-500">${post.condition}</p>
+                    </div>
+                    <button onclick="claimPost(${post.id})" class="w-full bg-emeraldCustom/10 hover:bg-emeraldCustom hover:text-white active:scale-95 text-emeraldCustom font-semibold py-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-1.5 touch-manipulation">
+                        <i class="fa-solid fa-handshake"></i> Contatta Vicino
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectNeighbor(id) {
+            appState.selectedNeighborId = id;
+            const neighbors = {
+                1: { name: 'Marco R. • 250m', item: 'Offre: Mezzo pacco di penne rigate Barilla', zone: 'Quartiere Nord' },
+                2: { name: 'Chiara L. • 420m', item: 'Offre: Mele Golden Delicious (1kg)', zone: 'Centro Storico' },
+                3: { name: 'Luca M. • 600m', item: 'Offre: Brodo vegetale in tetrapak (1L)', zone: 'Zona Universitaria' }
+            };
+            const n = neighbors[id];
+            if(n) {
+                document.getElementById('map-detail-title').innerText = n.name;
+                document.getElementById('map-detail-desc').innerText = n.item;
+                const btn = document.getElementById('map-detail-btn');
                 btn.disabled = false;
-                btn.innerText = "Scansiona un altro scontrino";
-            }, 2000);
-        }
-
-        function generateRecipe() {
-            document.getElementById('recipe-output').classList.remove('hidden');
-        }
-
-        window.addEventListener('click', function(e) {
-            const menu = document.getElementById('dropdown-menu');
-            const btn = document.querySelector('header button');
-            if (!menu.contains(e.target) && !btn.contains(e.target)) {
-                menu.classList.add('hidden');
+                btn.className = "w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold px-5 py-3 rounded-xl text-xs transition-all shadow cursor-pointer touch-manipulation";
+                btn.innerText = "Richiedi Alimento";
+                showToast(`Selezionato ${n.name.split('•')[0].trim()}`, "success");
             }
-        });
+        }
+
+        function claimSelectedNeighbor() {
+            if(!appState.selectedNeighborId) return;
+            showToast("Richiesta inviata al vicino con successo!", "success");
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+        }
+
+        function handleMapClick(e) {
+            appState.selectedNeighborId = null;
+            document.getElementById('map-detail-title').innerText = "Seleziona un vicino sulla mappa";
+            document.getElementById('map-detail-desc').innerText = "Visualizza alimenti disponibili e richiedi in un click.";
+            const btn = document.getElementById('map-detail-btn');
+            btn.disabled = true;
+            btn.className = "w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-4 py-3 rounded-xl text-xs transition-all cursor-not-allowed";
+            btn.innerText = "Richiedi Alimento";
+        }
+
+        function openShareModal() {
+            document.getElementById('modal-share').classList.remove('hidden');
+        }
+
+        function handleShareSubmit(e) {
+            e.preventDefault();
+            const item = document.getElementById('share-item').value;
+            const condition = document.getElementById('share-cond').value;
+            const zone = document.getElementById('share-zone').value;
+
+            appState.communityPosts.unshift({ id: Date.now(), item, condition, zone, author: 'Sveva (Tu)' });
+            closeModal('modal-share');
+            document.getElementById('form-share').reset();
+            renderCommunity();
+            showToast("Alimento pubblicato nella bacheca di quartiere!", "success");
+        }
+
+        function claimPost(id) {
+            showToast("Richiesta inviata al vicino via chat in-app!", "success");
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('stats-kg').innerHTML = `${appState.stats.kg.toFixed(1)} <span class="text-xs font-normal text-slate-600">kg</span>`;
+            document.getElementById('stats-eur').innerText = `€${appState.stats.eur.toFixed(2)}`;
+            document.getElementById('stats-co2').innerHTML = `${appState.stats.co2.toFixed(1)} <span class="text-xs font-normal text-slate-600">kg</span>`;
+            
+            document.getElementById('header-kg').innerText = `${appState.stats.kg.toFixed(1)} kg`;
+            document.getElementById('header-eur').innerText = `€${appState.stats.eur.toFixed(2)}`;
+        }
+
+        function renderBadges() {
+            const grid = document.getElementById('badges-grid');
+            grid.innerHTML = '';
+
+            appState.badges.forEach(b => {
+                const card = document.createElement('div');
+                card.className = `p-3.5 sm:p-4 rounded-3xl border flex flex-col items-center text-center gap-2 ${b.unlocked ? 'bg-emerald-50/50 border-emerald-200 text-slate-900' : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'}`;
+                card.innerHTML = `
+                    <div class="w-11 h-11 rounded-2xl ${b.unlocked ? 'bg-emeraldCustom text-white shadow-md' : 'bg-slate-200 text-slate-500'} flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid ${b.icon}"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xs">${b.title}</h4>
+                        <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">${b.desc}</p>
+                    </div>
+                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full ${b.unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.unlocked ? 'Sbloccato' : 'Bloccato'}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderShoppingList() {
+            const container = document.getElementById('shopping-list-container');
+            container.innerHTML = '';
+
+            if (appState.shoppingList.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs">Lista spesa vuota.</div>`;
+                return;
+            }
+
+            appState.shoppingList.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "p-4 flex items-center justify-between hover:bg-slate-50/80 transition-colors gap-3";
+                row.innerHTML = `
+                    <div class="flex items-center gap-3 min-w-0">
+                        <input type="checkbox" ${item.bought ? 'checked' : ''} onchange="toggleShoppingItem(${item.id})" class="w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom cursor-pointer flex-shrink-0">
+                        <span class="text-xs sm:text-sm font-medium truncate ${item.bought ? 'line-through text-slate-400' : 'text-slate-800'}">${item.name}</span>
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full whitespace-nowrap hidden xs:inline-block">${item.category}</span>
+                    </div>
+                    <button onclick="deleteShoppingItem(${item.id})" class="text-slate-300 hover:text-red-500 transition-colors text-xs p-1 touch-manipulation flex-shrink-0">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function openAddShoppingModal() {
+            document.getElementById('modal-shopping').classList.remove('hidden');
+        }
+
+        function handleShoppingSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('shop-name').value;
+            const category = document.getElementById('shop-cat').value;
+
+            appState.shoppingList.push({ id: Date.now(), name, category, bought: false });
+            closeModal('modal-shopping');
+            document.getElementById('form-shopping').reset();
+            renderShoppingList();
+            showToast(`"${name}" aggiunto alla spesa!`, "success");
+        }
+
+        function toggleShoppingItem(id) {
+            const item = appState.shoppingList.find(i => i.id === id);
+            if (item) {
+                item.bought = !item.bought;
+                renderShoppingList();
+            }
+        }
+
+        function deleteShoppingItem(id) {
+            appState.shoppingList = appState.shoppingList.filter(i => i.id !== id);
+            renderShoppingList();
+            showToast("Articolo rimosso.", "success");
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        window.onload = function() {
+            renderInventory();
+            renderCommunity();
+            renderShoppingList();
+            renderBadges();
+            updateStatsDisplay();
+        };
     </script>
 </body>
 </html>
