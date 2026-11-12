@@ -1,426 +1,1253 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FridgeLoop - Zero Sprechi</title>
+    <title>FoodWise - Zero Sprechi, Massimo Gusto</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bosco: '#064E3B',
-                        smeraldo: '#16A34A',
-                        arancio: '#F97316'
+                        forest: '#064E3B',
+                        emeraldcustom: '#16A34A',
+                        lightgreen: '#F0FDF4',
+                        lightgreenbg: '#E8F5E9',
+                        orangeaccent: '#F97316',
+                        orangecustom: '#F97316',
+                        darkcustom: '#1F2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        .hidden-section { display: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E8F5E9;
+            color: #1F2937;
+        }
+        /* Custom scrollbar for clean mobile feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16A34A;
+            border-radius: 3px;
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col items-center justify-center p-0 sm:p-4">
+<body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
 
-    <!-- Smartphone Frame Container -->
-    <div class="w-full sm:max-w-md bg-white sm:rounded-3xl sm:shadow-2xl overflow-hidden flex flex-col h-screen sm:h-[880px] border border-gray-200">
-        
-        <!-- Header / Homepage Iniziale -->
-        <header class="bg-bosco text-white p-4 flex flex-col shadow-md">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <div class="bg-smeraldo p-2 rounded-xl text-white font-bold text-xl">🍏</div>
-                    <div>
-                        <h1 class="font-bold text-lg tracking-wide">FridgeLoop</h1>
-                        <p class="text-xs text-green-200">"Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."</p>
-                    </div>
+    <!-- Notification Toast / Message Box (Custom modal replacement for alert) -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Info Modal for Registration Benefits -->
+    <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform transition-all border-t-4 border-orangeaccent">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-2 text-emeraldcustom">
+                    <i class="fa-solid fa-circle-info text-2xl text-orangeaccent"></i>
+                    <h3 class="text-xl font-bold text-forest">Agevolazioni Registrazione</h3>
                 </div>
-                <button onclick="openAddModal()" class="bg-arancio hover:bg-orange-600 text-white text-xs font-semibold px-3 py-2 rounded-lg transition shadow">
-                    + Prodotto
+                <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-gray-600 mb-4 text-sm">Registrandoti a <span class="font-bold text-emeraldcustom">FoodWise</span> sblocchi strumenti esclusivi per azzerare lo spreco e risparmiare:</p>
+            <ul class="space-y-3 mb-6 text-sm text-gray-700">
+                <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-1"></i>
+                    <div>
+                        <strong class="text-forest block">Ricette generate dall'AI</strong>
+                        <span>Consigli culinari immediati basati sugli ingredienti esatti che hai in scadenza nel frigo.</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-store text-orangeaccent mt-1"></i>
+                    <div>
+                        <strong class="text-forest block">Sconti GDO in tempo reale</strong>
+                        <span>Supermercati e catene partner ti avvisano su sconti dedicati per prodotti vicino alla scadenza.</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-users text-orangeaccent mt-1"></i>
+                    <div>
+                        <strong class="text-forest block">Condivisione Familiare</strong>
+                        <span>Aggiungi membri familiari per sincronizzare la lista della spesa e il catalogo in tempo reale.</span>
+                    </div>
+                </li>
+            </ul>
+            <button onclick="closeInfoModal()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-orangeaccent/20">Ho capito, fantastico!</button>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-container" class="w-full max-w-md mx-auto h-full flex flex-col bg-[#E8F5E9] shadow-2xl relative overflow-hidden">
+
+        <!-- ================= PAGE 1: WELCOME / AUTH ================= -->
+        <div id="page-welcome" class="flex flex-col justify-between h-full p-6 overflow-y-auto">
+            <!-- Top Bar with Info Button -->
+            <div class="flex justify-end pt-2">
+                <button onclick="openInfoModal()" class="w-10 h-10 rounded-full bg-white/80 hover:bg-white text-forest flex items-center justify-center shadow border border-emeraldcustom/30 transition transform hover:scale-105" title="Informazioni Agevolazioni">
+                    <i class="fa-solid fa-circle-info text-orangeaccent text-xl"></i>
                 </button>
             </div>
-            <div class="mt-2 pt-2 border-t border-green-800 text-[11px] text-green-100 flex justify-between">
-                <span>Team: <strong>Baggi Filippo, Carpano Costanza, Oliva Sveva, Riggio Luca</strong></span>
+
+            <!-- Central Branding -->
+            <div class="flex flex-col items-center text-center my-auto py-4">
+                <!-- Logo: Replicating icon of stylized fridge interior, leaf, loop arrows, check/fork -->
+                <div class="w-28 h-28 bg-gradient-to-br from-forest to-emeraldcustom rounded-3xl shadow-xl flex items-center justify-center relative mb-6 border-2 border-orangeaccent/40 transform hover:rotate-2 transition">
+                    <i class="fa-solid fa-冷蔵庫 text-white text-2xl absolute opacity-20"></i>
+                    <div class="relative flex items-center justify-center">
+                        <i class="fa-solid fa-leaf text-white text-4xl absolute -top-1 -left-2 transform -rotate-45"></i>
+                        <i class="fa-solid fa-arrows-spin text-orangeaccent text-6xl opacity-90 animate-spin" style="animation-duration: 12s;"></i>
+                        <i class="fa-solid fa-utensils text-white text-3xl absolute"></i>
+                    </div>
+                </div>
+
+                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">FoodWise</h1>
+                <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Anti-spreco alimentare con IA</p>
+                <p class="text-sm italic text-gray-700 px-4 font-medium bg-white/60 py-2.5 rounded-2xl shadow-sm border border-emeraldcustom/10">
+                    “Dal tuo scontrino alla tavola: zero sprechi, massimo gusto.”
+                </p>
             </div>
-        </header>
 
-        <!-- Main Scrollable Content Area -->
-        <main id="main-content" class="flex-1 overflow-y-auto p-4 pb-20 bg-gray-50">
+            <!-- Action Buttons -->
+            <div class="space-y-3 pb-4">
+                <button onclick="showAuthModal('login')" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-forest/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Accedi
+                </button>
+                <button onclick="showAuthModal('register')" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-orangeaccent/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> Registrati
+                </button>
+                <button onclick="continueWithoutAccess()" class="w-full bg-white/80 hover:bg-white text-gray-700 font-medium py-3 rounded-2xl border border-gray-300 transition text-sm">
+                    Continua senza accesso <span class="text-xs text-orangeaccent block font-normal">(Perderai le agevolazioni IA e GDO)</span>
+                </button>
+            </div>
+
+            <!-- Footer Creators -->
+            <div class="text-center pt-2 pb-1 border-t border-emeraldcustom/20">
+                <p class="text-[11px] text-gray-600 font-medium">Creato da:</p>
+                <p class="text-[11px] font-bold text-forest">Baggi Filippo • Carpano Costanza • Oliva Sveva • Riggio Luca</p>
+            </div>
+        </div>
+
+
+        <!-- ================= AUTH MODAL (LOGIN/REGISTER) ================= -->
+        <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+            <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-forest">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+                <h3 id="auth-title" class="text-2xl font-bold text-forest mb-2">Accedi a FoodWise</h3>
+                <p id="auth-subtitle" class="text-xs text-gray-500 mb-6">Inserisci le tue credenziali per sincronizzare il tuo frigo e le ricette IA.</p>
+                
+                <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field-container" class="hidden">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Nome e Cognome</label>
+                        <input type="text" id="auth-name" placeholder="es. Sveva Oliva" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emeraldcustom text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
+                        <input type="email" id="auth-email" required placeholder="tuamail@esempio.it" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emeraldcustom text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Password</label>
+                        <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emeraldcustom text-sm">
+                    </div>
+                    <button type="submit" id="auth-submit-btn" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-emeraldcustom/20">Accedi</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 2: DASHBOARD & MAIN SECTIONS ================= -->
+        <div id="page-dashboard" class="flex flex-col h-full hidden bg-gray-50 relative">
+
+            <!-- Top Header Navigation -->
+            <header class="bg-forest text-white px-4 py-3 flex items-center justify-between shadow-md relative z-20">
+                <div class="flex items-center gap-3">
+                    <!-- Hamburger Menu Toggle Button -->
+                    <button onclick="toggleSidebar()" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition text-lg" title="Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <!-- Account avatar / indicator - clicking opens account section -->
+                    <div class="flex items-center gap-2 cursor-pointer" onclick="switchSection('section-account')">
+                        <div class="relative">
+                            <div id="user-avatar-initials" class="w-9 h-9 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-sm shadow">SO</div>
+                            <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-forest rounded-full"></span>
+                        </div>
+                        <div class="hidden sm:block text-left">
+                            <span id="user-display-name" class="block text-xs font-bold leading-tight truncate max-w-[100px]">Sveva Oliva</span>
+                            <span id="user-status-badge" class="text-[10px] text-orangeaccent font-semibold">Pro Account</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand Title -->
+                <div class="flex items-center gap-2">
+                    <span class="font-extrabold tracking-wider text-lg text-white">Food<span class="text-orangeaccent">Wise</span></span>
+                </div>
+
+                <!-- Fixed Home Button - points directly to dashboard-home -->
+                <button onclick="switchSection('section-dashboard-home')" class="w-10 h-10 rounded-xl bg-orangeaccent hover:bg-orange-600 text-white flex items-center justify-center transition shadow-lg shadow-orangeaccent/30" title="Torna alla Dashboard">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+            </header>
+
+            <!-- Sidebar Drawer Menu -->
+            <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-30 hidden transition-opacity"></div>
+            <aside id="sidebar-drawer" class="absolute top-0 left-0 bottom-0 w-72 bg-white z-40 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between">
+                <div>
+                    <!-- Sidebar Header -->
+                    <div class="bg-forest text-white p-5 flex items-center justify-between">
+                        <div class="flex items-center gap-3 cursor-pointer" onclick="switchSection('section-account'); toggleSidebar();">
+                            <div id="sidebar-avatar" class="w-11 h-11 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-base shadow-lg">SO</div>
+                            <div>
+                                <h4 id="sidebar-name" class="font-bold text-sm">Sveva Oliva</h4>
+                                <p id="sidebar-plan" class="text-xs text-orangeaccent font-semibold">Account Registrato (Pro)</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleSidebar()" class="text-white/70 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+
+                    <!-- Sidebar Navigation Links -->
+                    <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-220px)]">
+                        <button onclick="switchSection('section-dashboard-home'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
+                            <i class="fa-solid fa-house w-5 text-emeraldcustom"></i> Dashboard & Impatto
+                        </button>
+                        <button onclick="switchSection('section-scansiona'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
+                            <i class="fa-solid fa-camera-retro w-5 text-emeraldcustom"></i> Scansiona (Scontrino / Barcode)
+                        </button>
+                        <button onclick="switchSection('section-catalogo'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
+                            <i class="fa-solid fa-boxes-stacked w-5 text-emeraldcustom"></i> Catalogo (Frigo, Freezer, Dispensa)
+                        </button>
+                        <button onclick="switchSection('section-ricette'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm relative">
+                            <i class="fa-solid fa-wand-magic-sparkles w-5 text-orangeaccent"></i> Ricette IA
+                            <span id="sidebar-ricette-badge" class="ml-auto bg-orangeaccent text-white text-[10px] px-2 py-0.5 rounded-full font-bold">IA</span>
+                        </button>
+                        <button onclick="switchSection('section-vicino'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
+                            <i class="fa-solid fa-map-location-dot w-5 text-emeraldcustom"></i> Condividi col Vicino
+                        </button>
+                        <button onclick="switchSection('section-spesa'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
+                            <i class="fa-solid fa-basket-shopping w-5 text-emeraldcustom"></i> Lista Spesa Condivisa
+                        </button>
+                        <button onclick="switchSection('section-account'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm border-t border-gray-100 mt-2">
+                            <i class="fa-solid fa-user-gear w-5 text-emeraldcustom"></i> Il Mio Account & Password
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Sidebar Footer Logout / Switch -->
+                <div class="p-4 border-t border-gray-100 bg-gray-50">
+                    <button onclick="logoutToWelcome()" class="w-full flex items-center justify-center gap-2 text-red-600 hover:bg-red-50 font-semibold py-2.5 rounded-xl transition text-sm border border-red-200">
+                        <i class="fa-solid fa-right-from-bracket"></i> Esci / Cambia Account
+                    </button>
+                </div>
+            </aside>
+
+
+            <!-- MAIN CONTENT AREA SWITCHER -->
+            <div class="flex-1 overflow-y-auto pb-16">
+
+                <!-- 1. DASHBOARD HOME -->
+                <div id="section-dashboard-home" class="p-4 space-y-4 max-w-md mx-auto">
+                    <!-- Greeting & Philosophy -->
+                    <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-5 rounded-3xl shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 opacity-10 text-9xl"><i class="fa-solid fa-leaf"></i></div>
+                        <div class="relative z-10">
+                            <span id="greeting-user" class="text-xs uppercase tracking-widest text-orangeaccent font-bold block mb-1">Bentornato, Sveva!</span>
+                            <h2 class="text-lg font-bold mb-3">“Il segreto della felicità non è fare ciò che si vuole, ma volere ciò che si fa.”</h2>
+                            <p class="text-xs text-white/80 italic">Gestisci il tuo cibo con consapevolezza e riduci lo spreco domestico.</p>
+                        </div>
+                    </div>
+
+                    <!-- Impact Card: Il tuo impatto in primo piano -->
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-forest text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-orangeaccent"></i> Il tuo impatto in primo piano
+                            </h3>
+                            <span class="text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2.5 py-1 rounded-full uppercase">Eco-Badge Attivo</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 text-center">
+                            <div class="bg-lightgreen/70 p-3 rounded-2xl border border-emeraldcustom/20">
+                                <i class="fa-solid fa-utensils text-emeraldcustom text-xl mb-1"></i>
+                                <span id="stat-cibo" class="block font-extrabold text-forest text-lg">12.4 kg</span>
+                                <span class="text-[10px] text-gray-500 font-medium">Cibo Salvato</span>
+                            </div>
+                            <div class="bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
+                                <i class="fa-solid fa-piggy-bank text-orangeaccent text-xl mb-1"></i>
+                                <span id="stat-soldi" class="block font-extrabold text-orangeaccent text-lg">€ 48.50</span>
+                                <span class="text-[10px] text-gray-500 font-medium">Soldi Risparmiati</span>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded-2xl border border-blue-200">
+                                <i class="fa-solid fa-cloud text-blue-500 text-xl mb-1"></i>
+                                <span id="stat-co2" class="block font-extrabold text-blue-700 text-lg">31.2 kg</span>
+                                <span class="text-[10px] text-gray-500 font-medium">CO₂ Evitata</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Access Cards Grid -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div onclick="switchSection('section-scansiona')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
+                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
+                                <i class="fa-solid fa-camera-retro"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest text-sm">Scansiona</h4>
+                                <p class="text-[11px] text-gray-500">Scontrino o Codice a barre con IA</p>
+                            </div>
+                        </div>
+                        <div onclick="switchSection('section-catalogo')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
+                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest text-sm">Catalogo</h4>
+                                <p class="text-[11px] text-gray-500">Frigo, Freezer & Dispensa</p>
+                            </div>
+                        </div>
+                        <div onclick="switchSection('section-ricette')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
+                            <div class="w-10 h-10 rounded-2xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold mb-3 group-hover:bg-orangeaccent group-hover:text-white transition">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest text-sm">Ricette IA</h4>
+                                <p class="text-[11px] text-gray-500">Svuota-frigo intelligente</p>
+                            </div>
+                        </div>
+                        <div onclick="switchSection('section-vicino')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
+                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest text-sm">Vicino</h4>
+                                <p class="text-[11px] text-gray-500">Condividi cibo di quartiere</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GDO Partner Banner -->
+                    <div class="bg-gradient-to-r from-orangeaccent/10 to-orangeaccent/20 border border-orangeaccent/30 p-4 rounded-3xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-orangeaccent text-white flex items-center justify-center font-bold shrink-0">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-forest">Sconti GDO in Scadenza</h5>
+                                <p class="text-[11px] text-gray-600">Supermercati vicini: -30% su latticini e verdure fresche.</p>
+                            </div>
+                        </div>
+                        <button onclick="showToast('Coupon GDO applicato! Controlla la lista spesa.')" class="bg-orangeaccent text-white text-xs font-bold px-3 py-2 rounded-xl shadow hover:bg-orange-600 transition shrink-0">Scopri</button>
+                    </div>
+                </div>
+
+
+                <!-- 2. SCANSIONA SECTION -->
+                <div id="section-scansiona" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
+                        <h3 class="font-bold text-forest text-base mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-camera-retro text-emeraldcustom"></i> Scansione Intelligente IA
+                        </h3>
+                        <p class="text-xs text-gray-500 mb-4">Inquadra lo scontrino del supermercato o il codice a barre di un prodotto per aggiungerlo automaticamente al catalogo.</p>
+
+                        <!-- Action Toggle Buttons -->
+                        <div class="grid grid-cols-2 gap-2 mb-6">
+                            <button onclick="switchScanTab('scontrino')" id="btn-tab-scontrino" class="py-3 px-4 rounded-2xl font-bold text-xs bg-emeraldcustom text-white shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-receipt"></i> Inquadra Scontrino
+                            </button>
+                            <button onclick="switchScanTab('barcode')" id="btn-tab-barcode" class="py-3 px-4 rounded-2xl font-bold text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-barcode"></i> Codice a Barre
+                            </button>
+                        </div>
+
+                        <!-- Scan Scontrino View -->
+                        <div id="scan-view-scontrino" class="space-y-4">
+                            <div class="border-2 border-dashed border-emeraldcustom/40 bg-lightgreen/50 rounded-3xl p-6 text-center relative overflow-hidden">
+                                <div class="w-16 h-16 bg-emeraldcustom/10 text-emeraldcustom rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                                <h4 class="font-bold text-forest text-sm mb-1">Simulatore Fotocamera Scontrino</h4>
+                                <p class="text-xs text-gray-500 mb-4">Carica una foto dello scontrino o simula la scansione istantanea con l'IA OCR.</p>
+                                <button onclick="simulateReceiptScan()" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-2xl text-xs shadow-lg shadow-emeraldcustom/20 transition flex items-center justify-center gap-2 mx-auto">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Scansiona e Estrai con IA
+                                </button>
+                            </div>
+
+                            <!-- Scan Result List (Hidden initially) -->
+                            <div id="receipt-result-box" class="hidden bg-lightgreen p-4 rounded-2xl border border-emeraldcustom/30 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <h5 class="font-bold text-forest text-xs flex items-center gap-2">
+                                        <i class="fa-solid fa-check-circle text-emeraldcustom"></i> Scontrino letto con successo!
+                                    </h5>
+                                    <span class="text-[10px] bg-emeraldcustom text-white font-bold px-2 py-0.5 rounded-full">3 prodotti estratti</span>
+                                </div>
+                                <div id="extracted-items-list" class="space-y-2">
+                                    <!-- Populated via JS -->
+                                </div>
+                                <button onclick="saveScannedItems()" class="w-full bg-forest text-white font-semibold py-2.5 rounded-xl text-xs hover:bg-forest/90 transition shadow">
+                                    Salva nel Catalogo Frigo/Dispensa
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Scan Barcode View -->
+                        <div id="scan-view-barcode" class="space-y-4 hidden">
+                            <div class="border-2 border-dashed border-orangeaccent/40 bg-orangeaccent/5 rounded-3xl p-6 text-center">
+                                <div class="w-16 h-16 bg-orangeaccent/10 text-orangeaccent rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+                                    <i class="fa-solid fa-barcode"></i>
+                                </div>
+                                <h4 class="font-bold text-forest text-sm mb-1">Scanner Codice a Barre</h4>
+                                <p class="text-xs text-gray-500 mb-4">Inquadra il codice a barre sul retro della confezione.</p>
+                                <button onclick="simulateBarcodeScan()" class="bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-2xl text-xs shadow-lg shadow-orangeaccent/20 transition flex items-center justify-center gap-2 mx-auto">
+                                    <i class="fa-solid fa-barcode"></i> Simula Scansione Barcode
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 3. CATALOGO SECTION -->
+                <div id="section-catalogo" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="font-bold text-forest text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-boxes-stacked text-emeraldcustom"></i> Il Tuo Catalogo
+                                </h3>
+                                <p class="text-xs text-gray-500">Gestisci scadenze e prodotti in casa</p>
+                            </div>
+                            <button onclick="openAddProductModal()" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Aggiungi
+                            </button>
+                        </div>
+
+                        <!-- Sub-tabs for Frigo, Freezer, Dispensa -->
+                        <div class="flex bg-gray-100 p-1 rounded-2xl mb-4">
+                            <button onclick="switchCatalogTab('frigo')" id="cat-tab-frigo" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition">Frigo</button>
+                            <button onclick="switchCatalogTab('freezer')" id="cat-tab-freezer" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition">Freezer</button>
+                            <button onclick="switchCatalogTab('dispensa')" id="cat-tab-dispensa" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition">Dispensa</button>
+                        </div>
+
+                        <!-- Products List Container -->
+                        <div id="catalog-products-container" class="space-y-3">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 4. RICETTE SECTION -->
+                <div id="section-ricette" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-orangeaccent/10 text-orangeaccent rounded-2xl flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-forest text-base">Ricette IA Svuota-Frigo</h3>
+                                <p class="text-xs text-gray-500">L'IA analizza gli ingredienti in scadenza per te</p>
+                            </div>
+                        </div>
+
+                        <!-- Check registration status -->
+                        <div id="recipe-ai-content" class="space-y-4">
+                            <div class="bg-lightgreen p-4 rounded-2xl border border-emeraldcustom/30 text-center space-y-3">
+                                <p class="text-xs text-gray-700 font-medium">Hai <strong class="text-forest">Spinaci, Ricotta e Uova</strong> in scadenza nel tuo catalogo oggi!</p>
+                                <button onclick="generateAirRecipes()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-xs shadow-lg shadow-orangeaccent/20 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-bolt">Genera 3 Ricette Rapide (15 min)</i>
+                                </button>
+                            </div>
+
+                            <div id="generated-recipes-list" class="space-y-3 hidden">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 5. VICINO SECTION -->
+                <div id="section-vicino" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-bold text-forest text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-map-location-dot text-emeraldcustom"></i> Condividi col Vicino
+                                </h3>
+                                <p class="text-xs text-gray-500">Solidarietà di quartiere anti-spreco</p>
+                            </div>
+                            <button onclick="openAddAnnuncioModal()" class="bg-forest hover:bg-forest/90 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Offri Cibo
+                            </button>
+                        </div>
+
+                        <!-- Simulated Map view -->
+                        <div class="w-full h-40 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
+                            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                            <!-- Map pin markers -->
+                            <div class="absolute top-8 left-12 bg-white px-3 py-1.5 rounded-full shadow-md border border-emeraldcustom flex items-center gap-2 animate-bounce">
+                                <span class="w-2.5 h-2.5 bg-orangeaccent rounded-full"></span>
+                                <span class="text-[11px] font-bold text-forest">Marco (120m) - Mele Bio</span>
+                            </div>
+                            <div class="absolute bottom-10 right-16 bg-white px-3 py-1.5 rounded-full shadow-md border border-emeraldcustom flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 bg-emeraldcustom rounded-full"></span>
+                                <span class="text-[11px] font-bold text-forest">Chiara (350m) - Pane Fresco</span>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orangeaccent rounded-full border-2 border-white shadow-lg animate-ping"></div>
+                        </div>
+
+                        <!-- Neighbor Annunci List -->
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-forest text-xs">Annunci disponibili nel tuo isolato:</h4>
+                            <div id="neighbors-annunci-list" class="space-y-2.5">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 6. LISTA SPESA SECTION -->
+                <div id="section-spesa" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-bold text-forest text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-basket-shopping text-emeraldcustom"></i> Lista della Spesa
+                                </h3>
+                                <p class="text-xs text-gray-500">Sincronizzata con i membri familiari</p>
+                            </div>
+                        </div>
+
+                        <!-- Quick add form with inline search/input and button -->
+                        <form onsubmit="handleQuickAddSpesa(event)" class="flex gap-2">
+                            <div class="relative flex-1">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+                                <input type="text" id="spesa-quick-input" placeholder="Cosa aggiungere alla spesa..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                            </div>
+                            <button type="submit" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition shadow flex items-center gap-1.5 shrink-0">
+                                <i class="fa-solid fa-plus"></i> Aggiungi
+                            </button>
+                        </form>
+
+                        <!-- Family Members Tag (Only for registered users) -->
+                        <div id="family-members-container" class="flex items-center justify-between bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-users text-emeraldcustom"></i>
+                                <span class="text-xs font-bold text-forest">Membri Famiglia:</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="flex -space-x-2">
+                                    <div class="w-7 h-7 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center border-2 border-white">BF</div>
+                                    <div class="w-7 h-7 rounded-full bg-emeraldcustom text-white text-[10px] font-bold flex items-center justify-center border-2 border-white">CC</div>
+                                </div>
+                                <button onclick="addFamilyMemberPrompt()" class="w-7 h-7 rounded-full bg-orangeaccent text-white text-[10px] font-bold flex items-center justify-center shadow hover:bg-orange-600 transition" title="Aggiungi membro famiglia">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Spesa Items List -->
+                        <div id="spesa-items-container" class="space-y-2">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 7. ACCOUNT & PASSWORD SECTION -->
+                <div id="section-account" class="p-4 space-y-4 max-w-md mx-auto hidden">
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
+                        <div class="flex items-center gap-3 border-b border-gray-100 pb-4">
+                            <div id="account-page-avatar" class="w-14 h-14 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-xl shadow-lg">SO</div>
+                            <div>
+                                <h3 id="account-page-name" class="font-bold text-forest text-base">Sveva Oliva</h3>
+                                <p id="account-page-email" class="text-xs text-gray-500">sveva.oliva@foodwise.it</p>
+                                <span id="account-page-badge" class="inline-block mt-1 text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2 py-0.5 rounded-full">Pro Account</span>
+                            </div>
+                        </div>
+
+                        <!-- Change Password Form -->
+                        <form onsubmit="handlePasswordChange(event)" class="space-y-3 pt-2">
+                            <h4 class="font-bold text-forest text-xs uppercase tracking-wider mb-2">Sicurezza & Password</h4>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Password Attuale</label>
+                                <input type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Nuova Password</label>
+                                <input type="password" id="new-pwd-1" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Conferma Nuova Password</label>
+                                <input type="password" id="new-pwd-2" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                            </div>
+                            <button type="submit" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-forest/20">Aggiorna Password</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL: ADD PRODUCT TO CATALOG -->
+    <div id="modal-add-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
+            <button onclick="closeAddProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Aggiungi Prodotto</h3>
+            <p class="text-xs text-gray-500 mb-4">Inserisci manualmente nome e data di scadenza.</p>
             
-            <!-- SEZIONE 1: HOME MENU VISIBILE -->
-            <section id="sec-1" class="space-y-4">
-                <div class="bg-gradient-to-r from-green-700 to-bosco text-white p-4 rounded-2xl shadow">
-                    <h2 class="font-bold text-base">Benvenuto in FridgeLoop 👋</h2>
-                    <p class="text-xs text-green-100 mt-1">Scegli una funzione dal menu in basso o scorri le tue scorciatoie rapide per gestire la casa a zero sprechi.</p>
-                </div>
-
-                <!-- Report Rapido in alto come richiesto -->
-                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-bosco text-xs mb-2">📊 Il tuo Impatto in Primo Piano</h3>
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-green-50 p-2 rounded-lg">
-                            <span class="text-sm font-bold text-smeraldo">14.2 kg</span>
-                            <p class="text-[10px] text-gray-500">Cibo Salvato</p>
-                        </div>
-                        <div class="bg-orange-50 p-2 rounded-lg">
-                            <span class="text-sm font-bold text-arancio">€ 48.5</span>
-                            <p class="text-[10px] text-gray-500">Risparmiati</p>
-                        </div>
-                        <div class="bg-green-50 p-2 rounded-lg">
-                            <span class="text-sm font-bold text-bosco">35.6 kg</span>
-                            <p class="text-[10px] text-gray-500">CO2 Evitata</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="switchTab(2)" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-left hover:border-smeraldo transition">
-                        <span class="text-2xl">⚡</span>
-                        <h4 class="font-bold text-bosco text-xs mt-2">Scansiona Scontrino</h4>
-                        <p class="text-[10px] text-gray-500">Crea inventario con IA</p>
-                    </button>
-                    <button onclick="switchTab(3)" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-left hover:border-smeraldo transition">
-                        <span class="text-2xl">🧊</span>
-                        <h4 class="font-bold text-bosco text-xs mt-2">Catalogo Completo</h4>
-                        <p class="text-[10px] text-gray-500">Frigo, Freezer, Dispensa</p>
-                    </button>
-                    <button onclick="switchTab(4)" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-left hover:border-smeraldo transition">
-                        <span class="text-2xl">🍳</span>
-                        <h4 class="font-bold text-bosco text-xs mt-2">Ricette IA</h4>
-                        <p class="text-[10px] text-gray-500">Anti-spreco su misura</p>
-                    </button>
-                    <button onclick="switchTab(5)" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-left hover:border-smeraldo transition">
-                        <span class="text-2xl">🤝</span>
-                        <h4 class="font-bold text-bosco text-xs mt-2">Condividi Vicino</h4>
-                        <p class="text-[10px] text-gray-500">Solidarietà di quartiere</p>
-                    </button>
-                </div>
-            </section>
-
-            <!-- SEZIONE 2: SCANSIONA SCONTRINO -->
-            <section id="sec-2" class="space-y-4 hidden-section">
-                <div class="bg-bosco text-white p-5 rounded-2xl text-center space-y-3 shadow-lg">
-                    <div class="text-4xl">⚡</div>
-                    <h2 class="font-bold text-lg">Scansiona Scontrino</h2>
-                    <p class="text-xs text-green-100">Inquadra lo scontrino o i codici a barre: l'IA registrerà i prodotti dividendoli automaticamente nel catalogo.</p>
-                    <button onclick="simulateScan()" class="bg-arancio hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-xl text-sm transition shadow">
-                        📷 Scatta Foto Scontrino
-                    </button>
-                </div>
-                <div id="scan-result" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hidden">
-                    <h3 class="font-bold text-smeraldo text-sm mb-2">Prodotti aggiunti con successo!</h3>
-                    <ul class="text-xs space-y-1 text-gray-600">
-                        <li>✅ Latte Fresco (Frigo)</li>
-                        <li>✅ Pizza Surgelata (Freezer)</li>
-                        <li>✅ Passata di Pomodoro (Dispensa)</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- SEZIONE 3: CATALOGO FRIGO E DISPENSA (Frigo, Freezer, Dispensa) -->
-            <section id="sec-3" class="space-y-3 hidden-section">
-                <div class="flex justify-between items-center">
-                    <h2 class="font-bold text-bosco text-sm">Cataloghi Casa</h2>
-                    <button onclick="openAddModal()" class="text-xs bg-smeraldo text-white px-2.5 py-1.5 rounded-lg">+ Aggiungi</button>
-                </div>
-
-                <!-- Sotto-barra Frigo / Freezer / Dispensa -->
-                <div class="flex bg-gray-200 p-1 rounded-xl text-xs font-bold text-center">
-                    <button onclick="filterCatalog('frigo')" id="btn-cat-frigo" class="flex-1 py-1.5 rounded-lg bg-white text-bosco shadow-sm">Frigo</button>
-                    <button onclick="filterCatalog('freezer')" id="btn-cat-freezer" class="flex-1 py-1.5 rounded-lg text-gray-600">Freezer</button>
-                    <button onclick="filterCatalog('dispensa')" id="btn-cat-dispensa" class="flex-1 py-1.5 rounded-lg text-gray-600">Dispensa</button>
-                </div>
-
-                <div id="catalog-list" class="space-y-2 mt-2">
-                    <!-- Contenuto dinamico -->
-                </div>
-            </section>
-
-            <!-- SEZIONE 4: RICETTE IA -->
-            <section id="sec-4" class="space-y-4 hidden-section">
-                <div class="bg-gradient-to-r from-green-700 to-bosco text-white p-4 rounded-2xl shadow">
-                    <h2 class="font-bold text-base">Ricette IA Anti-Spreco 🍳</h2>
-                    <p class="text-xs text-green-100 mt-1">Idee rapide basate sugli ingredienti in scadenza.</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-2">
-                    <span class="text-xs bg-arancio text-white px-2 py-0.5 rounded font-bold">In scadenza</span>
-                    <h3 class="font-bold text-bosco text-sm mt-1">Frittata express con spinaci</h3>
-                    <p class="text-xs text-gray-600">Pronta in 15 minuti sfruttando i prodotti del frigo.</p>
-                </div>
-            </section>
-
-            <!-- SEZIONE 5: CONDIVIDI COL VICINO -->
-            <section id="sec-5" class="space-y-4 hidden-section">
-                <h2 class="font-bold text-bosco text-md">Condividi col Vicino 🤝</h2>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-sm text-gray-800">Marco (a 300m)</span>
-                        <span class="text-xs bg-green-100 text-smeraldo px-2 py-0.5 rounded font-bold">⭐ 4.9</span>
-                    </div>
-                    <p class="text-xs text-gray-600">"Ho confezioni di pasta sigillate in eccesso prima di partire."</p>
-                    <button onclick="alert('Richiesta inviata a Marco!')" class="w-full mt-2 bg-smeraldo text-white py-1.5 rounded-lg text-xs font-bold">Richiedi Cibo</button>
-                </div>
-            </section>
-
-            <!-- SEZIONE 6: REPORT & IMPATTO -->
-            <section id="sec-6" class="space-y-4 hidden-section">
-                <h2 class="font-bold text-bosco text-md">Report & Impatto CO2 📊</h2>
-                <div class="space-y-3">
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
-                        <span class="text-3xl font-bold text-smeraldo">14.2 kg</span>
-                        <p class="text-xs text-gray-500 mt-1">Cibo Salvato Totale</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
-                        <span class="text-3xl font-bold text-arancio">€ 48.50</span>
-                        <p class="text-xs text-gray-500 mt-1">Denaro Risparmiato</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
-                        <span class="text-3xl font-bold text-bosco">35.6 kg</span>
-                        <p class="text-xs text-gray-500 mt-1">CO2 Evitata nell'atmosfera</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEZIONE 7: LISTA SPESA (Grande + Aggiunta Membri) -->
-            <section id="sec-7" class="space-y-4 hidden-section">
-                <div class="flex justify-between items-center">
-                    <h2 class="font-bold text-bosco text-md">Lista Spesa Familiare 🛒</h2>
-                    <button onclick="openFamilyModal()" class="text-xs bg-bosco text-white px-2.5 py-1.5 rounded-lg">+ Membri</button>
-                </div>
-
-                <!-- Box Membri Condivisi -->
-                <div class="bg-green-50 p-3 rounded-xl border border-green-200 text-xs flex justify-between items-center">
-                    <div>
-                        <strong class="text-bosco block">Famiglia Sincronizzata:</strong>
-                        <span id="family-members" class="text-gray-600">Sveva, Filippo, Costanza, Luca</span>
-                    </div>
-                    <span class="text-smeraldo font-bold text-sm">🟢 Online</span>
-                </div>
-
-                <div class="flex space-x-2">
-                    <input type="text" id="grocery-input" placeholder="Aggiungi prodotto alla lista..." class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
-                    <button onclick="addGroceryItem()" class="bg-smeraldo text-white px-4 py-2 rounded-lg text-xs font-bold">Aggiungi</button>
-                </div>
-                <ul id="grocery-list" class="space-y-2">
-                    <li class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center text-xs">
-                        <span>Olio Extravergine d'Oliva</span>
-                        <button onclick="this.parentElement.remove()" class="text-red-500 font-bold">✕</button>
-                    </li>
-                    <li class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center text-xs">
-                        <span>Farina Integrale</span>
-                        <button onclick="this.parentElement.remove()" class="text-red-500 font-bold">✕</button>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- SEZIONE 8: PROGETTO & CANVAS -->
-            <section id="sec-8" class="space-y-4 hidden-section">
-                <h2 class="font-bold text-bosco text-md">Progetto & Canvas 📌</h2>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3 text-xs">
-                    <div>
-                        <strong class="text-smeraldo">Proposta di Valore:</strong> Inventario da scontrino, ricette IA e condivisione di quartiere.
-                    </div>
-                    <div>
-                        <strong class="text-smeraldo">Target:</strong> Famiglie, studenti fuori sede e cittadini sensibili alla sostenibilità.
-                    </div>
-                    <div>
-                        <strong class="text-smeraldo">Modello di Business:</strong> Freemium (funzioni base gratis, abbonamento Pro per piani avanzati).
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Modal Aggiunta Prodotto Catalogo -->
-        <div id="add-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-2xl p-5 w-full max-w-sm space-y-3 shadow-xl">
-                <h3 class="font-bold text-bosco text-md">Aggiungi al Catalogo</h3>
+            <form onsubmit="handleSaveNewProduct(event)" class="space-y-3">
                 <div>
-                    <label class="text-xs text-gray-600 block mb-1">Nome Prodotto</label>
-                    <input type="text" id="new-item-name" placeholder="Es. Yogurt greco" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Nome Prodotto</label>
+                    <input type="text" id="new-prod-name" required placeholder="es. Latte Fresco" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                 </div>
                 <div>
-                    <label class="text-xs text-gray-600 block mb-1">Sezione</label>
-                    <select id="new-item-section" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Destinazione</label>
+                    <select id="new-prod-dest" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                         <option value="frigo">Frigo</option>
                         <option value="freezer">Freezer</option>
                         <option value="dispensa">Dispensa</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-xs text-gray-600 block mb-1">Data di Scadenza</label>
-                    <input type="date" id="new-item-date" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Data Scadenza</label>
+                    <input type="date" id="new-prod-date" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                 </div>
-                <div class="flex space-x-2 pt-2">
-                    <button onclick="closeAddModal()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-xs font-bold">Annulla</button>
-                    <button onclick="saveNewItem()" class="flex-1 bg-smeraldo text-white py-2 rounded-lg text-xs font-bold">Salva</button>
-                </div>
-            </div>
+                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-emeraldcustom/20">Aggiungi al Catalogo</button>
+            </form>
         </div>
-
-        <!-- Modal Gestione Membri Famiglia -->
-        <div id="family-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-2xl p-5 w-full max-w-sm space-y-3 shadow-xl">
-                <h3 class="font-bold text-bosco text-md">Gestisci Nucleo Familiare</h3>
-                <div>
-                    <label class="text-xs text-gray-600 block mb-1">Aggiungi membro (Nome)</label>
-                    <input type="text" id="new-member-name" placeholder="Es. Anna" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
-                </div>
-                <div class="flex space-x-2 pt-2">
-                    <button onclick="closeFamilyModal()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-xs font-bold">Chiudi</button>
-                    <button onclick="addFamilyMember()" class="flex-1 bg-bosco text-white py-2 rounded-lg text-xs font-bold">Aggiungi</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation Bar con Emoji come richiesto -->
-        <nav class="bg-white border-t border-gray-200 flex justify-around py-2 text-[10px] text-gray-600">
-            <button onclick="switchTab(1)" class="tab-btn flex flex-col items-center text-smeraldo font-bold" data-tab="1"><span class="text-lg">🏠</span><span>Home</span></button>
-            <button onclick="switchTab(2)" class="tab-btn flex flex-col items-center" data-tab="2"><span class="text-lg">⚡</span><span>Scontrino</span></button>
-            <button onclick="switchTab(3)" class="tab-btn flex flex-col items-center" data-tab="3"><span class="text-lg">🧊</span><span>Catalogo</span></button>
-            <button onclick="switchTab(4)" class="tab-btn flex flex-col items-center" data-tab="4"><span class="text-lg">🍳</span><span>Ricette</span></button>
-            <button onclick="switchTab(5)" class="tab-btn flex flex-col items-center" data-tab="5"><span class="text-lg">🤝</span><span>Vicino</span></button>
-            <button onclick="switchTab(6)" class="tab-btn flex flex-col items-center" data-tab="6"><span class="text-lg">📊</span><span>Report</span></button>
-            <button onclick="switchTab(7)" class="tab-btn flex flex-col items-center" data-tab="7"><span class="text-lg">🛒</span><span>Spesa</span></button>
-            <button onclick="switchTab(8)" class="tab-btn flex flex-col items-center" data-tab="8"><span class="text-lg">📌</span><span>Canvas</span></button>
-        </nav>
-
     </div>
 
+    <!-- MODAL: EDIT PRODUCT DATE -->
+    <div id="modal-edit-date" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
+            <button onclick="closeEditDateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Modifica Data di Scadenza</h3>
+            <p id="edit-date-prod-name" class="text-xs text-gray-500 mb-4">Seleziona la nuova scadenza precisa.</p>
+            
+            <form onsubmit="handleSaveEditDate(event)" class="space-y-3">
+                <input type="hidden" id="edit-prod-id">
+                <input type="hidden" id="edit-prod-dest">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Data Scadenza Precisa</label>
+                    <input type="date" id="modal-new-date" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                </div>
+                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-emeraldcustom/20">Salva Nuova Data</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD NEIGHBOR ANNOUNCEMENT -->
+    <div id="modal-add-annuncio" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
+            <button onclick="closeAddAnnuncioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Condividi Cibo col Vicino</h3>
+            <p class="text-xs text-gray-500 mb-4">Pubblica un prodotto in eccesso prima che scada.</p>
+            
+            <form onsubmit="handleSaveAnnuncio(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Cosa vuoi condividere?</label>
+                    <input type="text" id="ann-title" required placeholder="es. Zucchine fresche dell'orto (500g)" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-orangeaccent">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Scadenza / Condizione</label>
+                    <input type="text" id="ann-scadenza" required placeholder="es. Scade tra 2 giorni" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-orangeaccent">
+                </div>
+                <button type="submit" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-orangeaccent/20">Pubblica Annuncio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD SPESA ITEM -->
+    <div id="modal-add-spesa" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
+            <button onclick="closeAddSpesaModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Aggiungi alla Lista Spesa</h3>
+            <p class="text-xs text-gray-500 mb-4">Cosa manca in casa?</p>
+            
+            <form onsubmit="handleSaveSpesaItem(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Nome Prodotto</label>
+                    <input type="text" id="spesa-item-name" required placeholder="es. Pasta Integrale" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                </div>
+                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow-lg shadow-emeraldcustom/20">Aggiungi Prodotto</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        let catalog = [
-            { name: "Spinaci Freschi", section: "frigo", expiry: "2026-06-15", status: "arancio" },
-            { name: "Latte Parz. Scremato", section: "frigo", expiry: "2026-06-18", status: "smeraldo" },
-            { name: "Pizza Margherita Surgelata", section: "freezer", expiry: "2026-12-10", status: "smeraldo" },
-            { name: "Passata di Pomodoro", section: "dispensa", expiry: "2027-01-01", status: "smeraldo" }
+        // --- Application State ---
+        let currentUser = {
+            name: "Sveva Oliva",
+            email: "sveva.oliva@foodwise.it",
+            isRegistered: true,
+            plan: "Pro Account"
+        };
+
+        // Catalogo Data
+        let catalogData = {
+            frigo: [
+                { id: 1, name: "Latte Fresco Parzialmente Scremato", date: "2026-06-15", daysLeft: 2, weight: "1 Litro", status: "red" },
+                { id: 2, name: "Spinaci Freschi in Bustina", date: "2026-06-16", daysLeft: 3, weight: "250g", status: "yellow" },
+                { id: 3, name: "Ricotta Vaccina", date: "2026-06-17", daysLeft: 4, weight: "200g", status: "yellow" },
+                { id: 4, name: "Yogurt Greco Bianco", date: "2026-06-25", daysLeft: 12, weight: "500g", status: "green" },
+                { id: 5, name: "Uova Biologiche Locali", date: "2026-06-30", daysLeft: 17, weight: "Confezione da 6", status: "green" }
+            ],
+            freezer: [
+                { id: 6, name: "Filetti di Merluzzo Surgelati", date: "2026-12-10", daysLeft: 180, weight: "400g", status: "green" },
+                { id: 7, name: "Pisellini Fini Pastello", date: "2026-09-20", daysLeft: 100, weight: "600g", status: "green" }
+            ],
+            dispensa: [
+                { id: 8, name: "Pasta Penne Rigate Barilla", date: "2027-04-12", daysLeft: 300, weight: "500g", status: "green" },
+                { id: 9, name: "Passata di Pomodoro Rustica", date: "2026-11-05", daysLeft: 145, weight: "700g", status: "green" },
+                { id: 10, name: "Olio Extra Vergine d'Oliva", date: "2027-01-30", daysLeft: 230, weight: "750ml", status: "green" }
+            ]
+        };
+
+        let currentCatalogTab = 'frigo';
+
+        // Neighbors Annunci
+        let annunciData = [
+            { id: 1, user: "Marco Rossi", item: "Mele Bio del frutteto (1.5 kg)", expiry: "Scade tra 2 giorni", distance: "120m", type: "green" },
+            { id: 2, user: "Chiara Bianchi", item: "Pane casereccio integrale", expiry: "Fresco di oggi", distance: "350m", type: "green" },
+            { id: 3, user: "Luca Verdi", item: "Mozzarella di Bufala", expiry: "Scade domani", distance: "500m", type: "orange" }
         ];
 
-        let currentCatalogFilter = 'frigo';
-        let familyList = ["Sveva", "Filippo", "Costanza", "Luca"];
+        // Spesa Items
+        let spesaData = [
+            { id: 1, name: "Latte Fresco", checked: false },
+            { id: 2, name: "Spinaci", checked: true },
+            { id: 3, name: "Olio Extra Vergine", checked: false },
+            { id: 4, name: "Mele Golden", checked: false }
+        ];
 
-        function switchTab(tabIndex) {
-            for (let i = 1; i <= 8; i++) {
-                document.getElementById(`sec-${i}`).classList.add('hidden-section');
-            }
-            document.getElementById(`sec-${tabIndex}`).classList.remove('hidden-section');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-smeraldo', 'font-bold');
-                btn.classList.add('text-gray-600');
-            });
-            const activeBtn = document.querySelector(`[data-tab="${tabIndex}"]`);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-gray-600');
-                activeBtn.classList.add('text-smeraldo', 'font-bold');
-            }
-            
-            if(tabIndex === 3) filterCatalog(currentCatalogFilter);
+        // Family members list
+        let familyMembers = [
+            { initials: "BF", name: "Baggi Filippo" },
+            { initials: "CC", name: "Carpano Costanza" }
+        ];
+
+        // Scanned temporary items
+        let scannedTempItems = [];
+
+
+        // --- UI Toast Notification ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-2xl shadow-xl text-white text-xs font-semibold flex items-center gap-2 transition transform translate-y-2 animate-bounce pointer-events-auto ${type === 'success' ? 'bg-forest border border-emeraldcustom' : 'bg-orangeaccent'}`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        function filterCatalog(section) {
-            currentCatalogFilter = section;
-            ['frigo', 'freezer', 'dispensa'].forEach(sec => {
-                const btn = document.getElementById(`btn-cat-${sec}`);
-                if(sec === section) {
-                    btn.className = "flex-1 py-1.5 rounded-lg bg-white text-bosco shadow-sm font-bold";
+
+        // --- Modal Control Functions ---
+        function openInfoModal() {
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        let currentAuthMode = 'login';
+        function showAuthModal(mode) {
+            currentAuthMode = mode;
+            const modal = document.getElementById('auth-modal');
+            const title = document.getElementById('auth-title');
+            const sub = document.getElementById('auth-subtitle');
+            const nameField = document.getElementById('name-field-container');
+            const btn = document.getElementById('auth-submit-btn');
+
+            if (mode === 'register') {
+                title.textContent = "Registrati a FoodWise";
+                sub.textContent = "Sblocca ricette IA, sconti GDO e sincronizzazione familiare.";
+                nameField.classList.remove('hidden');
+                btn.textContent = "Registrati Ora & Ottieni Agevolazioni";
+            } else {
+                title.textContent = "Accedi a FoodWise";
+                sub.textContent = "Bentornato! Accedi per visualizzare il tuo catalogo.";
+                nameField.classList.add('hidden');
+                btn.textContent = "Accedi";
+            }
+            modal.classList.remove('hidden');
+        }
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const nameInput = document.getElementById('auth-name').value;
+            
+            if (currentAuthMode === 'register' && nameInput) {
+                currentUser.name = nameInput;
+                currentUser.isRegistered = true;
+                currentUser.plan = "Pro Account";
+            } else {
+                currentUser.name = email.split('@')[0] || "Utente FoodWise";
+                currentUser.isRegistered = true;
+                currentUser.plan = "Pro Account";
+            }
+
+            closeAuthModal();
+            enterDashboard();
+            showToast(`Benvenuto, ${currentUser.name}! Accesso effettuato.`);
+        }
+
+        function continueWithoutAccess() {
+            currentUser.name = "Ospite Anonimo";
+            currentUser.isRegistered = false;
+            currentUser.plan = "Versione Base (Senza Agevolazioni)";
+            enterDashboard();
+            showToast("Accesso come ospite. Alcune funzioni IA sono limitate.", "warning");
+        }
+
+        function logoutToWelcome() {
+            document.getElementById('page-dashboard').classList.add('hidden');
+            document.getElementById('page-welcome').classList.remove('hidden');
+            toggleSidebar();
+            showToast("Logout effettuato con successo.");
+        }
+
+        // --- Navigation & Dashboard Switcher ---
+        function enterDashboard() {
+            document.getElementById('page-welcome').classList.add('hidden');
+            document.getElementById('page-auth-modal')?.classList?.add('hidden');
+            document.getElementById('page-dashboard').classList.remove('hidden');
+            
+            // Update user display info
+            document.getElementById('user-display-name').textContent = currentUser.name;
+            document.getElementById('sidebar-name').textContent = currentUser.name;
+            document.getElementById('account-page-name').textContent = currentUser.name;
+            document.getElementById('account-page-email').textContent = currentUser.email;
+            document.getElementById('greeting-user').textContent = `Bentornato, ${currentUser.name.split(' ')[0]}!`;
+            
+            // Initials avatar
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || "FW";
+            document.getElementById('user-avatar-initials').textContent = initials;
+            document.getElementById('sidebar-avatar').textContent = initials;
+            document.getElementById('account-page-avatar').textContent = initials;
+
+            // Restrict family members for unregistered users
+            const famContainer = document.getElementById('family-members-container');
+            if (famContainer) {
+                if (currentUser.isRegistered) {
+                    famContainer.style.display = 'flex';
                 } else {
-                    btn.className = "flex-1 py-1.5 rounded-lg text-gray-600 font-normal";
+                    famContainer.style.display = 'none';
+                }
+            }
+
+            switchSection('section-dashboard-home');
+            renderCatalog();
+            renderSpesaList();
+            renderNeighborsAnnunci();
+        }
+
+        function switchSection(sectionId) {
+            const sections = [
+                'section-dashboard-home',
+                'section-scansiona',
+                'section-catalogo',
+                'section-ricette',
+                'section-vicino',
+                'section-spesa',
+                'section-account'
+            ];
+
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (id === sectionId) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
                 }
             });
 
-            const listContainer = document.getElementById('catalog-list');
-            listContainer.innerHTML = '';
+            // Scroll top on container
+            const container = document.querySelector('#page-dashboard > div.flex-1');
+            if (container) container.scrollTop = 0;
+        }
+
+        function toggleSidebar() {
+            const drawer = document.getElementById('sidebar-drawer');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (drawer && overlay) {
+                drawer.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            }
+        }
+
+        function switchScanTab(tab) {
+            const btnS = document.getElementById('btn-tab-scontrino');
+            const btnB = document.getElementById('btn-tab-barcode');
+            const viewS = document.getElementById('scan-view-scontrino');
+            const viewB = document.getElementById('scan-view-barcode');
+
+            if (tab === 'scontrino') {
+                btnS.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-emeraldcustom text-white shadow-md transition flex items-center justify-center gap-2";
+                btnB.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center justify-center gap-2";
+                viewS.classList.remove('hidden');
+                viewB.classList.add('hidden');
+            } else {
+                btnB.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-orangeaccent text-white shadow-md transition flex items-center justify-center gap-2";
+                btnS.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center justify-center gap-2";
+                viewB.classList.remove('hidden');
+                viewS.classList.add('hidden');
+            }
+        }
+
+        function simulateReceiptScan() {
+            scannedTempItems = [
+                { name: "Latte Fresco Parzialmente Scremato", date: "2026-06-18", weight: "1 L" },
+                { name: "Yogurt Greco", date: "2026-06-22", weight: "500g" },
+                { name: "Mozzarella di Bufala", date: "2026-06-16", weight: "250g" }
+            ];
             
-            const filtered = catalog.filter(item => item.section === section);
-            if(filtered.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Nessun prodotto in questa sezione.</p>`;
+            const listEl = document.getElementById('extracted-items-list');
+            listEl.innerHTML = '';
+            scannedTempItems.forEach((item, idx) => {
+                listEl.innerHTML += `
+                    <div class="bg-white p-2.5 rounded-xl border border-emeraldcustom/20 flex justify-between items-center text-xs">
+                        <div>
+                            <strong class="text-forest">${item.name}</strong>
+                            <span class="text-gray-500 block text-[10px]">Scadenza: ${item.date} (${item.weight})</span>
+                        </div>
+                        <span class="bg-emeraldcustom/10 text-emeraldcustom px-2 py-0.5 rounded font-bold text-[10px]">Rilevato IA</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('receipt-result-box').classList.remove('hidden');
+            showToast("Scontrino scansionato con successo dall'IA!");
+        }
+
+        function simulateBarcodeScan() {
+            catalogData.frigo.push({
+                id: Date.now(),
+                name: "Prodotto Barcode Scansionato",
+                date: "2026-06-30",
+                daysLeft: 15,
+                weight: "Standard",
+                status: "green"
+            });
+            showToast("Codice a barre scansionato! Prodotto aggiunto al Frigo.");
+            switchCatalogTab('frigo');
+            switchSection('section-catalogo');
+        }
+
+        function saveScannedItems() {
+            scannedTempItems.forEach(item => {
+                catalogData.frigo.push({
+                    id: Date.now() + Math.random(),
+                    name: item.name,
+                    date: item.date,
+                    daysLeft: 5,
+                    weight: item.weight,
+                    status: "yellow"
+                });
+            });
+            document.getElementById('receipt-result-box').classList.add('hidden');
+            showToast("Prodotti dello scontrino salvati nel catalogo!");
+            switchCatalogTab('frigo');
+            switchSection('section-catalogo');
+        }
+
+        // --- Catalog Functions ---
+        function switchCatalogTab(tab) {
+            currentCatalogTab = tab;
+            const btnF = document.getElementById('cat-tab-frigo');
+            const btnFr = document.getElementById('cat-tab-freezer');
+            const btnD = document.getElementById('cat-tab-dispensa');
+
+            btnF.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
+            btnFr.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
+            btnD.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
+
+            if (tab === 'frigo') btnF.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
+            if (tab === 'freezer') btnFr.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
+            if (tab === 'dispensa') btnD.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
+
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const container = document.getElementById('catalog-products-container');
+            const items = catalogData[currentCatalogTab];
+            container.innerHTML = '';
+
+            if (items.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Nessun prodotto in questa sezione.</p>`;
                 return;
             }
 
-            filtered.forEach((item, index) => {
-                let badgeColor = item.status === 'arancio' ? 'bg-orange-100 text-arancio' : 'bg-green-100 text-smeraldo';
-                listContainer.innerHTML += `
-                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-xs text-gray-800 block">${item.name}</span>
-                            <span class="text-[10px] text-gray-500">Scadenza: ${item.expiry}</span>
+            items.forEach(item => {
+                let badgeColor = 'bg-green-500';
+                if (item.status === 'yellow') badgeColor = 'bg-yellow-500';
+                if (item.status === 'red') badgeColor = 'bg-red-500 animate-pulse';
+
+                container.innerHTML += `
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3.5 h-3.5 rounded-full ${badgeColor} shrink-0 shadow-sm" title="Stato scadenza"></span>
+                            <div>
+                                <h4 class="font-bold text-forest text-xs">${item.name}</h4>
+                                <p class="text-[10px] text-gray-500">Scadenza: <span class="font-semibold text-gray-700">${item.date}</span> (${item.weight})</p>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${badgeColor}">${item.section.toUpperCase()}</span>
-                            <button onclick="deleteItem('${item.name}')" class="text-red-500 text-xs font-bold">✕</button>
+                        <div class="flex items-center gap-1.5 relative">
+                            <!-- Direct date input triggered instantly by calendar icon click -->
+                            <div class="relative overflow-hidden inline-block" title="Modifica data precisa">
+                                <button class="p-2 rounded-xl bg-gray-100 hover:bg-lightgreen text-emeraldcustom text-xs transition pointer-events-none">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </button>
+                                <input type="date" value="${item.date}" onchange="updateCatalogItemDate(${item.id}, '${currentCatalogTab}', this.value)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                            </div>
+                            <button onclick="deleteCatalogItem(${item.id}, '${currentCatalogTab}')" class="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-xs transition" title="Elimina prodotto">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function openAddModal() {
-            document.getElementById('add-modal').classList.remove('hidden');
+        function updateCatalogItemDate(id, dest, newDate) {
+            const items = catalogData[dest];
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.date = newDate;
+                showToast(`Data aggiornata per "${item.name}"!`);
+                renderCatalog();
+            }
         }
 
-        function closeAddModal() {
-            document.getElementById('add-modal').classList.add('hidden');
+        function deleteCatalogItem(id, dest) {
+            catalogData[dest] = catalogData[dest].filter(i => i.id !== id);
+            showToast("Prodotto eliminato dal catalogo.");
+            renderCatalog();
         }
 
-        function saveNewItem() {
-            const name = document.getElementById('new-item-name').value;
-            const section = document.getElementById('new-item-section').value;
-            const expiry = document.getElementById('new-item-date').value;
-            if(!name || !expiry) {
-                alert('Inserisci nome e data di scadenza!');
+        function openAddProductModal() {
+            document.getElementById('modal-add-product').classList.remove('hidden');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('modal-add-product').classList.add('hidden');
+        }
+
+        function handleSaveNewProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-prod-name').value;
+            const dest = document.getElementById('new-prod-dest').value;
+            const date = document.getElementById('new-prod-date').value;
+
+            catalogData[dest].push({
+                id: Date.now(),
+                name: name,
+                date: date,
+                daysLeft: 10,
+                weight: "Standard",
+                status: "green"
+            });
+
+            closeAddProductModal();
+            renderCatalog();
+            showToast(`"${name}" aggiunto al ${dest} con successo!`);
+            e.target.reset();
+        }
+
+        // --- Recipe AI Functions ---
+        function generateAirRecipes() {
+            if (!currentUser.isRegistered) {
+                showToast("Funzione riservata agli utenti registrati!", "warning");
                 return;
             }
-            catalog.push({ name, section, expiry, status: 'smeraldo' });
-            document.getElementById('new-item-name').value = '';
-            document.getElementById('new-item-date').value = '';
-            closeAddModal();
-            switchTab(3);
-            filterCatalog(section);
-        }
-
-        function deleteItem(name) {
-            catalog = catalog.filter(i => i.name !== name);
-            filterCatalog(currentCatalogFilter);
-        }
-
-        function simulateScan() {
-            document.getElementById('scan-result').classList.remove('hidden');
-            catalog.push({ name: "Mozzarella Fresca", section: "frigo", expiry: "2026-06-16", status: "arancio" });
-        }
-
-        function addGroceryItem() {
-            const input = document.getElementById('grocery-input');
-            if(!input.value) return;
-            const list = document.getElementById('grocery-list');
-            list.innerHTML += `
-                <li class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center text-xs">
-                    <span>${input.value}</span>
-                    <button onclick="this.parentElement.remove()" class="text-red-500 font-bold">✕</button>
-                </li>
+            const list = document.getElementById('generated-recipes-list');
+            list.classList.remove('hidden');
+            list.innerHTML = `
+                <div class="bg-lightgreen p-3.5 rounded-2xl border border-emeraldcustom/30 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <strong class="text-forest text-xs font-bold">1. Frittata Veloce agli Spinaci e Ricotta</strong>
+                        <span class="text-[10px] bg-orangeaccent text-white px-2 py-0.5 rounded-full font-bold">12 min</span>
+                    </div>
+                    <p class="text-[11px] text-gray-600">Usa gli spinaci e la ricotta in scadenza oggi in frigo con 2 uova. Sbatti tutto e cuoci in padella.</p>
+                </div>
+                <div class="bg-lightgreen p-3.5 rounded-2xl border border-emeraldcustom/30 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <strong class="text-forest text-xs font-bold">2. Rotolo di Ricotta e Spinaci Svuota-Frigo</strong>
+                        <span class="text-[10px] bg-orangeaccent text-white px-2 py-0.5 rounded-full font-bold">20 min</span>
+                    </div>
+                    <p class="text-[11px] text-gray-600">Unisci ricotta e spinaci saltati, farcisci e inforna per un piatto eccezionale zero sprechi.</p>
+                </div>
             `;
+            showToast("Ricette IA generate con successo!");
+        }
+
+        // --- Neighbor Annunci Functions ---
+        function renderNeighborsAnnunci() {
+            const container = document.getElementById('neighbors-annunci-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            annunciData.forEach(ann => {
+                container.innerHTML += `
+                    <div class="bg-gray-50 p-3 rounded-2xl border border-gray-200 flex items-center justify-between text-xs">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <strong class="text-forest">${ann.item}</strong>
+                                <span class="text-[10px] text-gray-400">(${ann.distance})</span>
+                            </div>
+                            <span class="text-[10px] text-orangeaccent font-semibold">${ann.user} • ${ann.expiry}</span>
+                        </div>
+                        <button onclick="showToast('Annuncio prenotato con successo! Contatta il vicino.')" class="bg-orangeaccent hover:bg-orange-600 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow transition">Prenota</button>
+                    </div>
+                `;
+            });
+        }
+
+        function openAddAnnuncioModal() {
+            document.getElementById('modal-add-annuncio').classList.remove('hidden');
+        }
+        function closeAddAnnuncioModal() {
+            document.getElementById('modal-add-annuncio').classList.add('hidden');
+        }
+        function handleSaveAnnuncio(e) {
+            e.preventDefault();
+            const title = document.getElementById('ann-title').value;
+            const scad = document.getElementById('ann-scadenza').value;
+
+            annunciData.unshift({
+                id: Date.now(),
+                user: currentUser.name,
+                item: title,
+                expiry: scad,
+                distance: "Vicino a te (0m)",
+                type: "green"
+            });
+
+            closeAddAnnuncioModal();
+            renderNeighborsAnnunci();
+            showToast("Annuncio pubblicato nella community!");
+            e.target.reset();
+        }
+
+        // --- Spesa List Functions ---
+        function renderSpesaList() {
+            const container = document.getElementById('spesa-items-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (spesaData.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">La lista della spesa è vuota.</p>`;
+                return;
+            }
+
+            spesaData.forEach(item => {
+                container.innerHTML += `
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs">
+                        <label class="flex items-center gap-3 cursor-pointer flex-1">
+                            <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleSpesaItem(${item.id})" class="w-4 h-4 text-emeraldcustom rounded accent-emeraldcustom">
+                            <span class="${item.checked ? 'line-through text-gray-400' : 'text-forest font-medium'}">${item.name}</span>
+                        </label>
+                        <button onclick="deleteSpesaItem(${item.id})" class="text-red-500 hover:text-red-700 p-1"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function handleQuickAddSpesa(e) {
+            e.preventDefault();
+            const input = document.getElementById('spesa-quick-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            spesaData.push({
+                id: Date.now(),
+                name: val,
+                checked: false
+            });
+
             input.value = '';
+            renderSpesaList();
+            showToast(`"${val}" aggiunto alla lista spesa!`);
         }
 
-        function openFamilyModal() {
-            document.getElementById('family-modal').classList.remove('hidden');
+        function toggleSpesaItem(id) {
+            const item = spesaData.find(i => i.id === id);
+            if (item) {
+                item.checked = !item.checked;
+                renderSpesaList();
+            }
         }
 
-        function closeFamilyModal() {
-            document.getElementById('family-modal').classList.add('hidden');
+        function deleteSpesaItem(id) {
+            spesaData = spesaData.filter(i => i.id !== id);
+            renderSpesaList();
+            showToast("Prodotto rimosso dalla spesa.");
         }
 
-        function addFamilyMember() {
-            const nameInput = document.getElementById('new-member-name');
-            if(!nameInput.value) return;
-            familyList.push(nameInput.value);
-            document.getElementById('family-members').innerText = familyList.join(', ');
-            nameInput.value = '';
-            closeFamilyModal();
+        function addFamilyMemberPrompt() {
+            if (!currentUser.isRegistered) {
+                showToast("Funzione riservata agli utenti registrati!", "warning");
+                return;
+            }
+            const name = prompt("Inserisci il nome del familiare da aggiungere:");
+            if (name) {
+                const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                familyMembers.push({ initials, name });
+                showToast(`Familiare "${name}" aggiunto con successo!`);
+            }
         }
 
-        filterCatalog('frigo');
+        // --- Account Password Change ---
+        function handlePasswordChange(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('new-pwd-1').value;
+            const p2 = document.getElementById('new-pwd-2').value;
+
+            if (p1 !== p2) {
+                showToast("Le password non coincidono!", "warning");
+                return;
+            }
+
+            showToast("Password aggiornata con successo!");
+            e.target.reset();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderCatalog();
+            renderSpesaList();
+            renderNeighborsAnnunci();
+        };
     </script>
 </body>
 </html>
