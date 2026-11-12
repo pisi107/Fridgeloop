@@ -1,1298 +1,300 @@
-
-<html lang="it" class="h-full">
+<!DOCTYPE html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - Anti-Spreco Alimentare Intelligente</title>
-    <!-- Tailwind CSS CDN -->
+    <title>FridgeLoop - Zero Sprechi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        forest: {
-                            DEFAULT: '#064E3B',
-                            dark: '#022C22',
-                            light: '#047857'
-                        },
-                        emeraldCustom: {
-                            DEFAULT: '#16A34A',
-                            light: '#22C55E'
-                        },
-                        citrus: {
-                            DEFAULT: '#F97316',
-                            light: '#FB923C'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
+                        bosco: '#064E3B',
+                        smeraldo: '#16A34A',
+                        arancio: '#F97316'
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Custom smooth scrollbar */
-        ::-webkit-scrollbar { height: 6px; width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        .hidden-section { display: none; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 h-full flex flex-col justify-between selection:bg-emeraldCustom selection:text-white">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col items-center justify-center p-0 sm:p-4">
 
-    <!-- SPLASH SCREEN / LANDING PAGE CINEMATOGRAFICA -->
-    <div id="splash-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-forest-dark via-forest to-emeraldCustom flex flex-col items-center justify-center p-6 text-white transition-all duration-700">
-        <div class="bg-white/10 backdrop-blur-xl p-8 sm:p-12 rounded-[32px] border border-white/20 shadow-2xl flex flex-col items-center text-center max-w-md w-full space-y-6 transform animate-fade-in">
-            <!-- Logo Branding Ufficiale FoodWise -->
-            <div class="bg-white p-4 rounded-2xl shadow-2xl flex items-center justify-center border border-white/20 w-full h-48 sm:h-56 relative overflow-hidden group">
-                <svg viewBox="0 0 400 320" class="w-full h-full object-contain">
-                    <rect x="70" y="40" width="150" height="240" rx="16" fill="#064E3B" stroke="#022C22" stroke-width="4"/>
-                    <rect x="85" y="55" width="120" height="210" rx="8" fill="#ECFDF5"/>
-                    <circle cx="145" cy="75" r="14" fill="#FEF08A" opacity="0.9"/>
-                    <path d="M120 100 Q145 80 170 100 Q185 115 170 135 Q145 150 120 135 Q105 115 120 100 Z" fill="#F97316" stroke="#C2410C" stroke-width="2"/>
-                    <path d="M135 110 Q145 100 155 110" stroke="#FFF" stroke-width="2" fill="none"/>
-                    <path d="M128 122 Q145 115 162 122" stroke="#FFF" stroke-width="2" fill="none"/>
-                    <rect x="85" y="175" width="120" height="8" fill="#10B981" rx="4"/>
-                    <path d="M125 195 Q145 220 165 195 Z" fill="#047857"/>
-                    <path d="M225 35 L310 50 L310 275 L225 290 Z" fill="#064E3B" stroke="#022C22" stroke-width="3"/>
-                    <path d="M235 48 L295 58 L295 265 L235 255 Z" fill="#D1FAE5"/>
-                    <rect x="242" y="85" width="46" height="24" rx="4" fill="#10B981"/>
-                    <circle cx="255" cy="95" r="6" fill="#F97316"/>
-                    <rect x="242" y="155" width="46" height="32" rx="4" fill="#10B981"/>
-                    <circle cx="265" cy="171" r="10" fill="#EF4444"/>
-                    <path d="M260 160 L260 153 M265 160 L267 151" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
-                    <rect x="303" y="135" width="5" height="60" rx="2.5" fill="#94A3B8"/>
-                </svg>
+    <!-- Smartphone Frame Container -->
+    <div class="w-full sm:max-w-md bg-white sm:rounded-3xl sm:shadow-2xl overflow-hidden flex flex-col h-screen sm:h-[850px] border border-gray-200">
+        
+        <!-- Header -->
+        <header class="bg-bosco text-white p-4 flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-2">
+                <div class="bg-smeraldo p-2 rounded-xl text-white font-bold text-xl">🍏</div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-wide">FridgeLoop</h1>
+                    <p class="text-xs text-green-200">Zero sprechi, massimo gusto</p>
+                </div>
             </div>
-            
-            <div class="space-y-2">
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">FoodWise</h1>
-                <p class="text-emerald-200 text-xs sm:text-sm font-medium">Anti-spreco alimentare domestico con IA</p>
-            </div>
-
-            <button onclick="enterApp()" class="w-full bg-citrus hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 text-base touch-manipulation group">
-                <i class="fa-solid fa-seedling text-xl group-hover:rotate-12 transition-transform"></i> Entra in FoodWise
+            <button onclick="openAddModal()" class="bg-arancio hover:bg-orange-600 text-white text-xs font-semibold px-3 py-2 rounded-lg transition shadow">
+                + Prodotto
             </button>
+        </header>
 
-            <!-- Frase Filosofica -->
-            <p class="text-emerald-100 text-xs sm:text-sm italic font-serif leading-relaxed px-2 pt-2 border-t border-white/10">
-                "Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."
-            </p>
-
-            <p class="text-[11px] text-emerald-200/80">Progetto di Educazione Civica • Sveva & Gruppo</p>
-        </div>
-    </div>
-
-    <!-- Header & Brand Identity -->
-    <header class="bg-forest text-white shadow-xl sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="w-10 h-10 bg-white/10 hover:bg-white/20 active:scale-95 rounded-2xl flex items-center justify-center text-white transition-all text-lg touch-manipulation">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchTab('home')">
-                    <div class="bg-white p-1.5 rounded-2xl shadow-inner border border-white/20 flex items-center justify-center w-10 h-10">
-                        <i class="fa-solid fa-box-archive text-emeraldCustom text-lg"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
-                            FoodWise
-                            <span class="text-[10px] bg-citrus text-white px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Sveva</span>
-                        </h1>
-                        <p class="text-[11px] text-emerald-100 italic hidden xs:block">Zero sprechi, massimo gusto.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Main Scrollable Content Area -->
+        <main id="main-content" class="flex-1 overflow-y-auto p-4 pb-20 bg-gray-50">
             
-            <div class="flex items-center gap-3 bg-forest-dark/60 px-4 py-2 rounded-2xl border border-white/10 text-xs">
-                <div class="flex items-center gap-1.5 text-emerald-300">
-                    <i class="fa-solid fa-seedling"></i>
-                    <span class="font-semibold" id="header-kg">14.5 kg</span>
+            <!-- SEZIONE 1: FILOSOFIA -->
+            <section id="sec-1" class="space-y-4">
+                <div class="bg-green-50 border-l-4 border-smeraldo p-4 rounded-r-xl">
+                    <h2 class="font-bold text-bosco text-lg">Il Problema dello Spreco</h2>
+                    <p class="text-sm text-gray-700 mt-1">Oltre il 50% dello spreco alimentare avviene nelle case dei consumatori per dimenticanza o cattiva gestione della dispensa.</p>
                 </div>
-                <div class="h-4 w-px bg-white/20"></div>
-                <div class="flex items-center gap-1.5 text-citrus">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span class="font-semibold" id="header-eur">€48.20</span>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-bosco">La nostra Missione</h3>
+                    <p class="text-sm text-gray-600 mt-1">Trasformare lo scontrino in un inventario intelligente gestito dall'IA per cucinare ciò che hai già in casa.</p>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- SIDEBAR HAMBURGER MENU -->
-    <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
-    <div id="sidebar-menu" class="fixed inset-y-0 left-0 w-80 bg-forest text-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between p-6">
-        <div class="space-y-6">
-            <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white p-1 rounded-xl flex items-center justify-center">
-                        <i class="fa-solid fa-box-archive text-emeraldCustom text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-base">Menu FoodWise</h3>
-                        <p class="text-[11px] text-emerald-200">Educazione Civica</p>
-                    </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-bosco">La Visione</h3>
+                    <p class="text-sm text-gray-600 mt-1">Creare una rete capillare di consumo consapevole e solidarietà di quartiere.</p>
                 </div>
-                <button onclick="toggleSidebar()" class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20"><i class="fa-solid fa-xmark"></i></button>
-            </div>
+            </section>
 
-            <nav class="space-y-1.5">
-                <button onclick="switchTabAndClose('home')" id="menu-btn-home" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 bg-emeraldCustom text-white shadow">
-                    <i class="fa-solid fa-house text-citrus text-base w-6"></i> Presentazione & Filosofia
-                </button>
-                <button onclick="switchTabAndClose('receipt')" id="menu-btn-receipt" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-receipt text-base w-6"></i> Scontrino IA ⚡
-                </button>
-                <button onclick="switchTabAndClose('inventory')" id="menu-btn-inventory" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-box-open text-base w-6"></i> Inventario Frigo
-                </button>
-                <button onclick="switchTabAndClose('recipes')" id="menu-btn-recipes" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-hat-chef text-base w-6"></i> Ricette IA Anti-Spreco
-                </button>
-                <button onclick="switchTabAndClose('community')" id="menu-btn-community" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-hands-holding-child text-base w-6"></i> Condividi col Vicino
-                </button>
-                <button onclick="switchTabAndClose('gamification')" id="menu-btn-gamification" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-trophy text-base w-6"></i> Report & Impatto CO₂
-                </button>
-                <button onclick="switchTabAndClose('shopping')" id="menu-btn-shopping" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-cart-shopping text-base w-6"></i> Lista Spesa Condivisa
-                </button>
-                <button onclick="switchTabAndClose('quiz')" id="menu-btn-quiz" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-brain text-citrus text-base w-6"></i> Quiz Eco-Consapevolezza 🧠
-                </button>
-                <button onclick="switchTabAndClose('slot')" id="menu-btn-slot" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-dice text-citrus text-base w-6"></i> Slot Svuota-Frigo 🎰
-                </button>
-                <button onclick="switchTabAndClose('pitch')" id="menu-btn-pitch" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10">
-                    <i class="fa-solid fa-circle-info text-base w-6"></i> Progetto & Canvas
-                </button>
-            </nav>
-        </div>
-
-        <div class="border-t border-white/10 pt-4 text-xs text-emerald-200/80 space-y-1">
-            <p class="font-semibold text-white">Sveva & Gruppo</p>
-            <p>Corso di Educazione Civica</p>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-6">
-
-        <!-- TAB 0: HOME / PRESENTAZIONE E FILOSOFIA -->
-        <section id="tab-home" class="tab-content active space-y-6">
-            <div class="bg-gradient-to-r from-forest via-forest-dark to-emeraldCustom text-white p-8 sm:p-12 rounded-[32px] shadow-2xl space-y-6 border border-white/10 relative overflow-hidden">
-                <div class="absolute -right-12 -bottom-12 w-80 h-80 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="max-w-3xl space-y-4">
-                    <span class="bg-citrus text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider inline-flex items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-seedling"></i> Missione & Visione
-                    </span>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">"Dal tuo scontrino alla tavola: zero sprechi, massimo gusto."</h2>
-                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed pt-2">
-                        Oltre il 50% dello spreco alimentare avviene direttamente nelle nostre case. Abbiamo creato <b>FoodWise</b> per trasformare ogni scontrino in un inventario intelligente e guidare le famiglie verso un consumo consapevole e sostenibile.
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <button onclick="switchTab('receipt')" class="bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-7 py-4 rounded-2xl shadow-xl transition-all flex items-center gap-2.5 text-sm sm:text-base touch-manipulation">
-                        <i class="fa-solid fa-receipt"></i> Prova Scontrino IA ⚡
-                    </button>
-                    <button onclick="switchTab('inventory')" class="bg-white/10 hover:bg-white/25 active:scale-95 text-white font-semibold px-7 py-4 rounded-2xl border border-white/20 transition-all flex items-center gap-2.5 text-sm sm:text-base touch-manipulation">
-                        <i class="fa-solid fa-box-open"></i> Apri Inventario Frigo
+            <!-- SEZIONE 2: SCONTRINO IA -->
+            <section id="sec-2" class="space-y-4 hidden-section">
+                <div class="bg-bosco text-white p-5 rounded-2xl text-center space-y-3 shadow-lg">
+                    <div class="text-4xl">⚡</div>
+                    <h2 class="font-bold text-lg">Scansiona il tuo Scontrino</h2>
+                    <p class="text-xs text-green-100">Fotografa lo scontrino o scansiona i codici a barre: l'IA riconoscerà i prodotti e stimerà le scadenze.</p>
+                    <button onclick="simulateScan()" class="bg-arancio hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-xl text-sm transition shadow">
+                        📷 Scatta Foto Scontrino
                     </button>
                 </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-lg">Inventario Intelligente</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Scatta una foto allo scontrino o scansiona i codici a barre: l'IA riconosce i prodotti e stima le date di scadenza.</p>
+                <div id="scan-result" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hidden">
+                    <h3 class="font-bold text-smeraldo text-sm mb-2">Articoli Riconosciuti con Successo!</h3>
+                    <ul class="text-xs space-y-1 text-gray-600">
+                        <li>✅ 1x Latte Fresco (Scadenza: 3 giorni)</li>
+                        <li>✅ 1x Mozzarella di Bufala (Scadenza: 2 giorni)</li>
+                        <li>✅ 1x Confezione Spinaci (Scadenza domani)</li>
+                    </ul>
                 </div>
-                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
-                        <i class="fa-solid fa-hat-chef"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-lg">Ricette Svuota-Frigo</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Ricevi avvisi mirati prima che il cibo scada, abbinati a ricette rapide e gustose su misura.</p>
-                </div>
-                <div class="bg-white p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">
-                        <i class="fa-solid fa-people-roof"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-lg">Condividi col Vicino</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Spazio solidale di quartiere per regalare cibo in eccesso prima di partire o sprecare.</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TAB 1: SCONTRINO IA -->
-        <section id="tab-receipt" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
-                <span class="bg-citrus text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Scansione Intelligente</span>
-                <h2 class="text-2xl sm:text-3xl font-serif italic text-emerald-100">"Il cibo nutre la vita, ma il rispetto del cibo nutre il futuro del pianeta."</h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
-                    Digitalizza in un attimo la spesa con l'intelligenza artificiale OCR: i prodotti vengono registrati e le scadenze calcolate automaticamente.
-                </p>
-            </div>
+            <!-- SEZIONE 3: INVENTARIO FRIGO -->
+            <section id="sec-3" class="space-y-3 hidden-section">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="font-bold text-bosco text-md">Il tuo Frigo Intelligente</h2>
+                    <button onclick="openAddModal()" class="text-xs bg-smeraldo text-white px-2.5 py-1.5 rounded-lg">+ Aggiungi</button>
+                </div>
+                <div id="inventory-list" class="space-y-2">
+                    <!-- Dinamico -->
+                </div>
+            </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-emeraldCustom/40 hover:border-emeraldCustom hover:bg-emerald-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
-                    <div class="w-16 h-16 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-camera"></i>
+            <!-- SEZIONE 4: RICETTE IA -->
+            <section id="sec-4" class="space-y-4 hidden-section">
+                <div class="bg-gradient-to-r from-green-700 to-bosco text-white p-4 rounded-2xl shadow">
+                    <h2 class="font-bold text-base">Chef IA Anti-Spreco 🍳</h2>
+                    <p class="text-xs text-green-100 mt-1">Basato sugli ingredienti in scadenza nel tuo inventario.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-2">
+                    <span class="text-xs bg-arancio text-white px-2 py-0.5 rounded font-bold">In scadenza domani</span>
+                    <h3 class="font-bold text-bosco text-sm mt-1">Frittata express con spinaci e ricotta</h3>
+                    <p class="text-xs text-gray-600">Pronta in 15 minuti. Sfrutta gli spinaci prima che vadano a male.</p>
+                </div>
+            </section>
+
+            <!-- SEZIONE 5: CONDIVIDI COL VICINO -->
+            <section id="sec-5" class="space-y-4 hidden-section">
+                <h2 class="font-bold text-bosco text-md">Bacheca Solidale di Quartiere</h2>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-sm text-gray-800">Marco (a 300m)</span>
+                        <span class="text-xs bg-green-100 text-smeraldo px-2 py-0.5 rounded font-bold">Affidabile ⭐ 4.9</span>
+                    </div>
+                    <p class="text-xs text-gray-600">"Ho 3 confezioni di pasta sigillate in eccesso prima di partire per le vacanze. Chi le vuole?"</p>
+                    <button onclick="alert('Richiesta inviata a Marco!')" class="w-full mt-2 bg-smeraldo text-white py-1.5 rounded-lg text-xs font-bold">Richiedi Cibo</button>
+                </div>
+            </section>
+
+            <!-- SEZIONE 6: REPORT CO2 -->
+            <section id="sec-6" class="space-y-4 hidden-section">
+                <h2 class="font-bold text-bosco text-md">Il tuo Impatto Ecologico</h2>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+                        <span class="text-2xl font-bold text-smeraldo">14.2 kg</span>
+                        <p class="text-xs text-gray-500 mt-1">Cibo Salvato</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+                        <span class="text-2xl font-bold text-arancio">€ 48.50</span>
+                        <p class="text-xs text-gray-500 mt-1">Denaro Risparmiato</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <span class="text-2xl font-bold text-bosco">35.6 kg</span>
+                    <p class="text-xs text-gray-500 mt-1">CO2 Evitata nell'atmosfera</p>
+                </div>
+            </section>
+
+            <!-- SEZIONE 7: LISTA SPESA PERSONALE -->
+            <section id="sec-7" class="space-y-4 hidden-section">
+                <div class="flex justify-between items-center">
+                    <h2 class="font-bold text-bosco text-md">Lista Spesa Personale</h2>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="text" id="grocery-input" placeholder="Aggiungi prodotto..." class="flex-1 border border-gray-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:border-smeraldo">
+                    <button onclick="addGroceryItem()" class="bg-smeraldo text-white px-3 py-1.5 rounded-lg text-xs font-bold">Aggiungi</button>
+                </div>
+                <ul id="grocery-list" class="space-y-2">
+                    <li class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center text-xs">
+                        <span>Olio Extravergine d'Oliva</span>
+                        <button onclick="this.parentElement.remove()" class="text-red-500 font-bold">✕</button>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- SEZIONE 8: PROGETTO & CANVAS -->
+            <section id="sec-8" class="space-y-4 hidden-section">
+                <h2 class="font-bold text-bosco text-md">Business Model Canvas</h2>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3 text-xs">
+                    <div>
+                        <strong class="text-smeraldo">Proposta di Valore:</strong> Inventario da scontrino, ricette IA e condivisione di quartiere.
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 text-base">Scatta con Fotocamera</h3>
-                        <p class="text-xs text-slate-500 mt-1">Usa il telefono per digitalizzare lo scontrino</p>
-                    </div>
-                    <span class="text-xs bg-emeraldCustom text-white px-5 py-2.5 rounded-xl font-semibold mt-1 shadow">Scansiona Ora</span>
-                </div>
-
-                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-citrus/40 hover:border-citrus hover:bg-amber-50/40 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
-                    <div class="w-16 h-16 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-barcode"></i>
+                        <strong class="text-smeraldo">Target:</strong> Famiglie, studenti fuori sede e cittadini sensibili alla sostenibilità.
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 text-base">Scansiona Codice a Barre</h3>
-                        <p class="text-xs text-slate-500 mt-1">Inquadra il codice del prodotto acquistato</p>
+                        <strong class="text-smeraldo">Modello di Business:</strong> Freemium (funzioni base gratis, abbonamento Pro per piani avanzati).
                     </div>
-                    <span class="text-xs bg-citrus text-white px-5 py-2.5 rounded-xl font-semibold mt-1 shadow">Scansiona Barcode</span>
                 </div>
+            </section>
 
-                <div onclick="simulateReceiptScan()" class="bg-white p-7 rounded-[28px] border-2 border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all cursor-pointer flex flex-col items-center text-center gap-4 group shadow-sm">
-                    <div class="w-16 h-16 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900 text-base">Carica Foto Scontrino</h3>
-                        <p class="text-xs text-slate-500 mt-1">Seleziona immagine dalla galleria</p>
-                    </div>
-                    <span class="text-xs bg-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-semibold mt-1">Seleziona File</span>
-                </div>
-            </div>
-        </section>
+        </main>
 
-        <!-- TAB 2: INVENTARIO FRIGO -->
-        <section id="tab-inventory" class="tab-content space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
+        <!-- Modal Aggiunta Prodotto Inventario -->
+        <div id="add-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-2xl p-5 w-full max-w-sm space-y-3 shadow-xl">
+                <h3 class="font-bold text-bosco text-md">Aggiungi al Frigo</h3>
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-                        <i class="fa-solid fa-box-open text-emeraldCustom"></i> Il Mio Frigorifero Intelligente
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Monitora lo stato di freschezza ed evita gli sprechi domestici.</p>
+                    <label class="text-xs text-gray-600 block mb-1">Nome Prodotto</label>
+                    <input type="text" id="new-item-name" placeholder="Es. Yogurt greco" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
                 </div>
-                <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
-                    <i class="fa-solid fa-plus"></i> Aggiungi Prodotto
-                </button>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
-                <div class="relative w-full sm:w-80">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input type="text" id="inventory-search" oninput="renderInventory()" placeholder="Cerca alimento..." class="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom shadow-sm">
-                </div>
-                <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1">
-                    <button onclick="setFilter('all')" id="filter-all" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation">Tutti</button>
-                    <button onclick="setFilter('fresh')" id="filter-fresh" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">Freschi (>3gg)</button>
-                    <button onclick="setFilter('expiring')" id="filter-expiring" class="px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation">In Scadenza (≤3gg)</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="inventory-grid"></div>
-        </section>
-
-        <!-- TAB 3: RICETTE ANTI-SPRECO IA -->
-        <section id="tab-recipes" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-forest to-forest-light text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
-                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
-                    <i class="fa-solid fa-wand-magic-sparkles text-citrus"></i> Chef IA - Ricette Anti-Spreco
-                </h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Seleziona gli ingredienti in scadenza per generare istantaneamente una ricetta lampo.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 sm:p-7 rounded-[32px] shadow-sm border border-slate-200/80 space-y-4">
-                    <h3 class="font-bold text-slate-900 flex items-center justify-between text-sm sm:text-base">
-                        <span>Seleziona Ingredienti</span>
-                        <span class="text-xs bg-emerald-100 text-emeraldCustom px-3 py-1 rounded-full font-semibold" id="selected-count">0 selezionati</span>
-                    </h3>
-                    <div class="space-y-2 max-h-80 overflow-y-auto pr-1" id="recipe-ingredient-list"></div>
-                    <button onclick="generateAIPoweredRecipe()" class="w-full bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
-                        <i class="fa-solid fa-sparkles"></i> Genera Ricetta IA
-                    </button>
-                </div>
-
-                <div class="lg:col-span-2 bg-white p-6 sm:p-7 rounded-[32px] shadow-sm border border-slate-200/80 flex flex-col justify-between">
-                    <div id="recipe-output" class="space-y-4">
-                        <div class="flex flex-col items-center justify-center h-64 text-center text-slate-400">
-                            <i class="fa-solid fa-utensils text-4xl mb-3 text-slate-300 animate-pulse"></i>
-                            <p class="font-medium text-slate-600 text-sm">Nessuna ricetta generata ancora</p>
-                            <p class="text-xs text-slate-400 max-w-xs mt-1">Seleziona almeno un ingrediente a sinistra per cucinare a zero sprechi!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 4: CONDIVIDI COL VICINO -->
-        <section id="tab-community" class="tab-content space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-                        <i class="fa-solid fa-people-roof text-emeraldCustom"></i> Mappa Solidale di Quartiere
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Condividi cibo in eccesso con i vicini prima di partire o sprecare.</p>
+                    <label class="text-xs text-gray-600 block mb-1">Data di Scadenza</label>
+                    <input type="date" id="new-item-date" class="w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-smeraldo">
                 </div>
-                <button onclick="openShareModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
-                    <i class="fa-solid fa-gift"></i> Offri un Alimento
-                </button>
-            </div>
-
-            <!-- Radar Interattivo di Quartiere -->
-            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 space-y-5">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
-                        <i class="fa-solid fa-map-location-dot text-citrus"></i> Radar Vicinato (Raggio 1 km)
-                    </h3>
-                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3.5 py-1.5 rounded-full font-semibold shadow-sm">
-                        <i class="fa-solid fa-signal text-emeraldCustom"></i> 4 vicini attivi
-                    </span>
+                <div class="flex space-x-2 pt-2">
+                    <button onclick="closeAddModal()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-xs font-bold">Annulla</button>
+                    <button onclick="saveNewItem()" class="flex-1 bg-smeraldo text-white py-2 rounded-lg text-xs font-bold">Salva</button>
                 </div>
-
-                <!-- Canvas / Radar Map Container -->
-                <div class="relative w-full h-80 sm:h-96 bg-slate-900 rounded-[28px] overflow-hidden shadow-inner border border-slate-800 cursor-crosshair" onclick="handleMapClick(event)">
-                    <div class="absolute inset-0 bg-[radial-gradient(#16a34a_1.5px,transparent_1.5px)] [background-size:28px_28px] opacity-25"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-emeraldCustom/30 rounded-full animate-ping pointer-events-none"></div>
-
-                    <!-- Center User Pin -->
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none z-20">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-citrus text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white animate-bounce">
-                            <i class="fa-solid fa-house-user text-sm sm:text-base"></i>
-                        </div>
-                        <span class="bg-slate-900/90 text-white text-[11px] px-2.5 py-0.5 rounded-full mt-1.5 backdrop-blur font-semibold shadow">Tu</span>
-                    </div>
-
-                    <!-- Neighbor Pin 1 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(1)" class="absolute top-14 left-16 sm:top-20 sm:left-24 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
-                            <i class="fa-solid fa-gift text-xs"></i>
-                        </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Marco R. (250m)</span>
-                    </div>
-
-                    <!-- Neighbor Pin 2 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(2)" class="absolute bottom-14 right-16 sm:bottom-20 sm:right-28 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
-                            <i class="fa-solid fa-apple-whole text-xs"></i>
-                        </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Chiara L. (420m)</span>
-                    </div>
-
-                    <!-- Neighbor Pin 3 -->
-                    <div onclick="event.stopPropagation(); selectNeighbor(3)" class="absolute top-16 right-20 sm:top-24 sm:right-32 flex flex-col items-center cursor-pointer group/pin z-30 transition-transform hover:scale-110 p-2 touch-manipulation">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emeraldCustom text-white rounded-full flex items-center justify-center shadow-xl border-2 border-white">
-                            <i class="fa-solid fa-bread-slice text-xs"></i>
-                        </div>
-                        <span class="bg-slate-900/90 text-emerald-300 text-[10px] px-2.5 py-0.5 rounded-full mt-1 backdrop-blur font-semibold shadow">Luca M. (600m)</span>
-                    </div>
-
-                    <div class="absolute bottom-4 left-4 right-4 sm:right-auto bg-slate-900/90 backdrop-blur px-4 py-2.5 rounded-xl border border-slate-700 text-white text-xs flex items-center gap-2.5 pointer-events-none">
-                        <i class="fa-solid fa-circle-info text-citrus flex-shrink-0"></i> Clicca su un pin sulla mappa per i dettagli
-                    </div>
-                </div>
-
-                <!-- Selected Neighbor Detail Card -->
-                <div id="map-detail-card" class="bg-emerald-50/80 border border-emerald-200 p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-12 h-12 rounded-2xl bg-emeraldCustom text-white flex items-center justify-center text-xl font-bold flex-shrink-0 shadow-sm">
-                            <i class="fa-solid fa-hand-holding-heart"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-900 text-sm sm:text-base" id="map-detail-title">Seleziona un vicino sulla mappa</h4>
-                            <p class="text-xs text-slate-600 mt-0.5" id="map-detail-desc">Visualizza alimenti disponibili e richiedi in un click.</p>
-                        </div>
-                    </div>
-                    <button id="map-detail-btn" onclick="claimSelectedNeighbor()" disabled class="w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-5 py-3 rounded-xl text-xs transition-all cursor-not-allowed touch-manipulation">
-                        Richiedi Alimento
-                    </button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="community-grid"></div>
-        </section>
-
-        <!-- TAB 5: GAMIFICATION -->
-        <section id="tab-gamification" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-emeraldCustom to-forest text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
-                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
-                    <i class="fa-solid fa-award text-citrus"></i> Report di Impatto & Badge Ecologici
-                </h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Traccia il cibo salvato, i risparmi economici e le emissioni di CO2 evitate.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
-                    <div class="w-14 h-14 bg-emerald-100 text-emeraldCustom rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
-                        <i class="fa-solid fa-scale-unbalanced"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Cibo Salvato</p>
-                        <h3 class="text-2xl font-bold text-slate-900" id="stats-kg">14.5 <span class="text-xs font-normal text-slate-600">kg</span></h3>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
-                    <div class="w-14 h-14 bg-amber-100 text-citrus rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
-                        <i class="fa-solid fa-piggy-bank"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Risparmio</p>
-                        <h3 class="text-2xl font-bold text-slate-900" id="stats-eur">€48.20</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-200/80 flex items-center gap-4">
-                    <div class="w-14 h-14 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-inner">
-                        <i class="fa-solid fa-cloud"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">CO₂ Evitata</p>
-                        <h3 class="text-2xl font-bold text-slate-900" id="stats-co2">36.8 <span class="text-xs font-normal text-slate-600">kg</span></h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 space-y-4">
-                <h3 class="font-bold text-slate-900 flex items-center gap-2.5 text-sm sm:text-base">
-                    <i class="fa-solid fa-medal text-citrus"></i> Badge Ecologici Sbloccati
-                </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="badges-grid"></div>
-            </div>
-        </section>
-
-        <!-- TAB 6: LISTA DELLA SPESA CONDIVISA -->
-        <section id="tab-shopping" class="tab-content space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-                        <i class="fa-solid fa-list-check text-emeraldCustom"></i> Lista Spesa Familiare
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Sincronizzazione in tempo reale per evitare doppioni in casa.</p>
-                </div>
-                <button onclick="openAddShoppingModal()" class="w-full sm:w-auto bg-emeraldCustom hover:bg-emerald-700 active:scale-95 text-white px-6 py-3.5 rounded-2xl font-semibold shadow-lg transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation">
-                    <i class="fa-solid fa-plus"></i> Aggiungi Articolo
-                </button>
-            </div>
-
-            <div class="bg-white rounded-[32px] shadow-sm border border-slate-200/80 overflow-hidden">
-                <div class="p-5 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    <span>Articolo & Categoria</span>
-                    <span>Stato / Azioni</span>
-                </div>
-                <div class="divide-y divide-slate-100 text-xs sm:text-sm" id="shopping-list-container"></div>
-            </div>
-        </section>
-
-        <!-- TAB 6.5: QUIZ ECO-CONSAPEVOLEZZA -->
-        <section id="tab-quiz" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-forest via-forest-dark to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
-                <span class="bg-citrus text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Educazione Civica Interattiva</span>
-                <h2 class="text-2xl sm:text-3xl font-bold">Quiz Eco-Consapevolezza & Spreco Alimentare</h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
-                    Metti alla prova le tue conoscenze sullo spreco domestico, guadagna punti XP e dimostra di essere un vero custode del pianeta!
-                </p>
-            </div>
-
-            <div class="bg-white p-7 sm:p-9 rounded-[32px] shadow-sm border border-slate-200/80 space-y-6" id="quiz-card-container">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-emeraldCustom uppercase tracking-wider" id="quiz-progress-text">Domanda 1 di 3</span>
-                    <span class="text-xs bg-amber-100 text-citrus px-3.5 py-1.5 rounded-full font-bold shadow-sm"><i class="fa-solid fa-star"></i> 0 XP</span>
-                </div>
-                
-                <div class="space-y-4">
-                    <h3 class="font-bold text-slate-900 text-lg sm:text-xl" id="quiz-question-title">Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?</h3>
-                    <div class="space-y-3 pt-2" id="quiz-options-container">
-                        <button onclick="answerQuiz(0)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">A) Circa il 10-15%</button>
-                        <button onclick="answerQuiz(1)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">B) Oltre il 50% del totale</button>
-                        <button onclick="answerQuiz(2)" class="w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation">C) Meno del 5%</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 6.6: SLOT MACHINE SVUOTA-FRIGO -->
-        <section id="tab-slot" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-citrus via-orange-600 to-amber-600 text-white p-7 sm:p-9 rounded-[32px] shadow-xl space-y-3">
-                <span class="bg-white/20 text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider backdrop-blur">Minigioco Svuota-Frigo</span>
-                <h2 class="text-2xl sm:text-3xl font-bold">Slot Machine Anti-Spreco 🎰</h2>
-                <p class="text-orange-100 text-xs sm:text-sm max-w-2xl leading-relaxed">
-                    Gira la leva della slot machine: l'IA estrarrà a sorte 3 ingredienti dal tuo frigo e combinerà una ricetta lampo a sorpresa!
-                </p>
-            </div>
-
-            <div class="bg-white p-7 sm:p-9 rounded-[32px] shadow-sm border border-slate-200/80 space-y-6 text-center">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
-                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 1</span>
-                        <span id="slot-1" class="font-bold text-base sm:text-lg">Spinaci Freschi</span>
-                    </div>
-                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
-                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 2</span>
-                        <span id="slot-2" class="font-bold text-base sm:text-lg">Ricotta Fresca</span>
-                    </div>
-                    <div class="bg-slate-900 text-emerald-300 p-7 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center min-h-[120px]">
-                        <span class="text-[11px] text-slate-400 uppercase tracking-widest mb-1">Ingrediente 3</span>
-                        <span id="slot-3" class="font-bold text-base sm:text-lg">Uova Biologiche</span>
-                    </div>
-                </div>
-
-                <button onclick="spinSlotMachine()" id="slot-btn" class="w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition-all text-sm sm:text-base touch-manipulation inline-flex items-center justify-center gap-3 mx-auto">
-                    <i class="fa-solid fa-rotate text-lg"></i> Gira la Slot Machine!
-                </button>
-
-                <div id="slot-recipe-box" class="hidden bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-left space-y-3 mt-4">
-                    <h4 class="font-bold text-slate-900 text-base flex items-center gap-2">
-                        <i class="fa-solid fa-hat-chef text-emeraldCustom"></i> Piatto a Sorpresa: <span id="slot-recipe-title" class="text-emeraldCustom">Frittata Svuota-Frigo Express</span>
-                    </h4>
-                    <p class="text-xs sm:text-sm text-slate-600" id="slot-recipe-desc">Sbatti le uova con la ricotta fresca, unisci gli spinaci saltati e cuoci in padella per 8 minuti. Ottimo, veloce e zero sprechi!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 7: PROGETTO & CANVAS -->
-        <section id="tab-pitch" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-forest to-emeraldCustom text-white p-7 sm:p-9 rounded-[32px] shadow-xl">
-                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2.5 mb-2">
-                    <i class="fa-solid fa-circle-info text-citrus"></i> Presentazione & Modello Business Canvas
-                </h2>
-                <p class="text-emerald-100 text-xs sm:text-sm max-w-2xl">Il progetto di Educazione Civica ideato per azzerare lo spreco alimentare domestico.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
-                    <div class="w-12 h-12 bg-emerald-50 text-emeraldCustom rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">1</div>
-                    <h3 class="font-bold text-slate-900 text-base">Proposta di Valore</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Inventario automatico con IA da scontrino, alert scadenze, ricette rapide anti-spreco e funzione "Condividi col Vicino".</p>
-                </div>
-                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
-                    <div class="w-12 h-12 bg-amber-50 text-citrus rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">2</div>
-                    <h3 class="font-bold text-slate-900 text-base">Segmenti di Clientela</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Famiglie, studenti fuori sede, cittadini eco-sensibili e partner B2B (supermercati e GDO per coupon vicini alla scadenza).</p>
-                </div>
-                <div class="bg-white p-6 sm:p-7 rounded-[28px] shadow-sm border border-slate-200/80 space-y-3">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-700 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">3</div>
-                    <h3 class="font-bold text-slate-900 text-base">Modello di Ricavi</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Modello Freemium con versione base gratuita, abbonamento FoodWise Pro (piani IA avanzati) e partnership GDO.</p>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-200/80 text-center space-y-2">
-                <h4 class="font-bold text-slate-900 text-base">Autrice del Progetto</h4>
-                <p class="text-xs sm:text-sm text-slate-600">Progetto realizzato da <span class="font-semibold text-emeraldCustom">Sveva e Gruppo</span> • Corso di Educazione Civica</p>
-                <p class="text-xs text-slate-400 italic">"Meno cibo nella spazzatura, più valore per le famiglie e per il pianeta."</p>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-forest-dark text-emerald-100 mt-12 py-8 border-t border-white/10 text-xs">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div>
-                <p class="font-bold text-sm text-white flex items-center justify-center md:justify-start gap-2">
-                    <span>FoodWise</span> <span class="text-citrus">•</span> <span class="text-emerald-300">Educazione Civica</span>
-                </p>
-                <p class="text-slate-400 mt-1">Ideato da Sveva e Gruppo. Tutti i diritti riservati.</p>
-            </div>
-            <div class="flex items-center gap-4 text-slate-400">
-                <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-emeraldCustom"></i> GDPR</span>
-                <span class="flex items-center gap-1"><i class="fa-solid fa-bolt text-citrus"></i> IA Active</span>
             </div>
         </div>
-    </footer>
 
-    <!-- MODAL: AGGIUNGI PRODOTTO FRIGO -->
-    <div id="modal-product" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-900">Aggiungi Prodotto al Frigo</h3>
-                <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="form-product" onsubmit="handleProductSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Nome Alimento</label>
-                    <input type="text" id="prod-name" required placeholder="es. Mozzarella di Bufala" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Categoria</label>
-                    <select id="prod-category" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
-                        <option value="Latticini & Uova">Latticini & Uova</option>
-                        <option value="Frutta & Verdura">Frutta & Verdura</option>
-                        <option value="Carne & Pesce">Carne & Pesce</option>
-                        <option value="Dispensa & Altro">Dispensa & Altro</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Data di Scadenza</label>
-                    <input type="date" id="prod-date" required class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
-                </div>
-                <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-product')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Salva Prodotto</button>
-                </div>
-            </form>
-        </div>
+        <!-- Bottom Navigation Bar -->
+        <nav class="bg-white border-t border-gray-200 flex justify-around py-2 text-xs text-gray-600">
+            <button onclick="switchTab(1)" class="tab-btn flex flex-col items-center text-smeraldo font-bold" data-tab="1"><span>🏠</span><span>Filosofia</span></button>
+            <button onclick="switchTab(2)" class="tab-btn flex flex-col items-center" data-tab="2"><span>⚡</span><span>Scontrino</span></button>
+            <button onclick="switchTab(3)" class="tab-btn flex flex-col items-center" data-tab="3"><span>🧊</span><span>Frigo</span></button>
+            <button onclick="switchTab(4)" class="tab-btn flex flex-col items-center" data-tab="4"><span>🍳</span><span>Ricette</span></button>
+            <button onclick="switchTab(5)" class="tab-btn flex flex-col items-center" data-tab="5"><span>🤝</span><span>Vicino</span></button>
+            <button onclick="switchTab(6)" class="tab-btn flex flex-col items-center" data-tab="6"><span>📊</span><span>Report</span></button>
+            <button onclick="switchTab(7)" class="tab-btn flex flex-col items-center" data-tab="7"><span>🛒</span><span>Spesa</span></button>
+            <button onclick="switchTab(8)" class="tab-btn flex flex-col items-center" data-tab="8"><span>📌</span><span>Canvas</span></button>
+        </nav>
+
     </div>
 
-    <!-- MODAL: CONDIVIDI COL VICINO -->
-    <div id="modal-share" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-900">Offri Cibo al Vicinato</h3>
-                <button onclick="closeModal('modal-share')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="form-share" onsubmit="handleShareSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Cosa vuoi regalare?</label>
-                    <input type="text" id="share-item" required placeholder="es. Pacco di pasta integrale sigillato" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Scadenza / Condizione</label>
-                    <input type="text" id="share-cond" required placeholder="es. Ottimo stato, scade tra 2 mesi" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Zona di ritiro</label>
-                    <input type="text" id="share-zone" required placeholder="es. Quartiere Centro (Via Roma)" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
-                </div>
-                <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-share')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Pubblica Annuncio</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: AGGIUNGI ARTICOLO SPESA -->
-    <div id="modal-shopping" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-7 space-y-5 shadow-2xl border border-slate-100">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-900">Aggiungi alla Lista Spesa</h3>
-                <button onclick="closeModal('modal-shopping')" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="form-shopping" onsubmit="handleShoppingSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Nome Articolo</label>
-                    <input type="text" id="shop-name" required placeholder="es. Latte Fresco" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Categoria</label>
-                    <select id="shop-cat" class="w-full px-4 py-3.5 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldCustom bg-white">
-                        <option value="Latticini">Latticini</option>
-                        <option value="Frutta & Verdura">Frutta & Verdura</option>
-                        <option value="Dispensa">Dispensa</option>
-                        <option value="Bevande">Bevande</option>
-                    </select>
-                </div>
-                <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-shopping')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl text-xs sm:text-sm transition-all">Annulla</button>
-                    <button type="submit" class="px-6 py-3.5 bg-emeraldCustom hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-md transition-all">Aggiungi</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- JavaScript Application Logic -->
     <script>
-        let appState = {
-            inventory: [
-                { id: 1, name: 'Spinaci Freschi', category: 'Frutta & Verdura', daysLeft: 1 },
-                { id: 2, name: 'Ricotta Fresca', category: 'Latticini & Uova', daysLeft: 2 },
-                { id: 3, name: 'Uova Biologiche', category: 'Latticini & Uova', daysLeft: 5 },
-                { id: 4, name: 'Petto di Pollo', category: 'Carne & Pesce', daysLeft: 2 },
-                { id: 5, name: 'Latte Parz. Scremato', category: 'Latticini & Uova', daysLeft: 4 },
-                { id: 6, name: 'Zucchine', category: 'Frutta & Verdura', daysLeft: 3 }
-            ],
-            currentFilter: 'all',
-            communityPosts: [
-                { id: 1, item: 'Mezzo pacco di penne rigate Barilla', condition: 'Sigillato, scadenza 2027', zone: 'Quartiere Nord (250m)', author: 'Marco R.' },
-                { id: 2, item: 'Mele Golden Delicious (1kg)', condition: 'Fresche, raccolte ieri', zone: 'Centro Storico (420m)', author: 'Chiara L.' },
-                { id: 3, item: 'Brodo vegetale in tetrapak (1L)', condition: 'Nuovo, integro', zone: 'Zona Universitaria (600m)', author: 'Luca M.' }
-            ],
-            selectedNeighborId: null,
-            shoppingList: [
-                { id: 1, name: 'Olio Extravergine d\'Oliva', category: 'Dispensa', bought: false },
-                { id: 2, name: 'Yogurt Greco', category: 'Latticini', bought: true },
-                { id: 3, name: 'Pomodorini Pachino', category: 'Frutta & Verdura', bought: false }
-            ],
-            stats: { kg: 14.5, eur: 48.20, co2: 36.8 },
-            quiz: {
-                currentQuestion: 0,
-                score: 0,
-                questions: [
-                    {
-                        title: "Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?",
-                        options: ["A) Circa il 10-15%", "B) Oltre il 50% del totale", "C) Meno del 5%"],
-                        correct: 1
-                    },
-                    {
-                        title: "Quale funzione di FoodWise permette di regalare il cibo in eccesso ai vicini prima di partire?",
-                        options: ["A) Condividi col Vicino", "B) Scontrino IA", "C) Chef Svuota-Frigo"],
-                        correct: 0
-                    },
-                    {
-                        title: "Qual è uno dei vantaggi principali della riduzione dello spreco alimentare domestico?",
-                        options: ["A) Aumento dei costi della spesa", "B) Risparmio economico e minor impatto di CO₂", "C) Nessun beneficio rilevante"],
-                        correct: 1
-                    }
-                ]
-            },
-            badges: [
-                { id: 1, title: 'Primo Scontrino IA', desc: 'Digitalizzata spesa', icon: 'fa-receipt', unlocked: true },
-                { id: 2, title: 'Chef Svuota-Frigo', desc: '5 ricette anti-spreco', icon: 'fa-hat-chef', unlocked: true },
-                { id: 3, title: 'Solidale di Quartiere', desc: 'Condiviso con vicino', icon: 'fa-hands-holding-child', unlocked: true },
-                { id: 4, title: 'Guardiano del Pianeta', desc: 'Oltre 20kg di CO2', icon: 'fa-earth-europe', unlocked: true }
-            ]
-        };
+        let inventory = [
+            { name: "Spinaci Freschi", expiry: "2026-06-15", status: "arancio" },
+            { name: "Latte Parz. Scremato", expiry: "2026-06-18", status: "smeraldo" },
+            { name: "Uova Bio (x6)", expiry: "2026-06-25", status: "smeraldo" }
+        ];
 
-        function showToast(message, type = 'success') {
-            // Toast notifications disabled as requested
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar-menu');
-            const backdrop = document.getElementById('sidebar-backdrop');
-            const isOpen = sidebar.classList.contains('translate-x-0');
-            if (isOpen) {
-                sidebar.classList.remove('translate-x-0');
-                sidebar.classList.add('-translate-x-full');
-                backdrop.classList.add('hidden');
-            } else {
-                sidebar.classList.remove('-translate-x-full');
-                sidebar.classList.add('translate-x-0');
-                backdrop.classList.remove('hidden');
+        function switchTab(tabIndex) {
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById(`sec-${i}`).classList.add('hidden-section');
             }
-        }
-
-        function switchTabAndClose(tabId) {
-            switchTab(tabId);
-            toggleSidebar();
-        }
-
-        function enterApp() {
-            const splash = document.getElementById('splash-screen');
-            splash.style.opacity = '0';
-            splash.style.transform = 'scale(1.05)';
-            setTimeout(() => { 
-                splash.style.display = 'none'; 
-                switchTab('home');
-            }, 500);
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('#sidebar-menu nav button').forEach(btn => {
-                btn.className = "w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 text-emerald-100 hover:bg-white/10";
-            });
-
-            const targetTab = document.getElementById(`tab-${tabId}`);
-            if (targetTab) {
-                targetTab.classList.add('active');
-            }
+            document.getElementById(`sec-${tabIndex}`).classList.remove('hidden-section');
             
-            document.querySelectorAll('#sidebar-menu nav button').forEach(btn => {
-                const onclickAttr = btn.getAttribute('onclick') || '';
-                if (onclickAttr.includes(`'${tabId}'`)) {
-                    btn.className = "w-full text-left px-4 py-3 rounded-2xl text-sm font-medium transition-all flex items-center gap-3 bg-emeraldCustom text-white shadow";
-                }
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-smeraldo', 'font-bold');
+                btn.classList.add('text-gray-600');
             });
+            const activeBtn = document.querySelector(`[data-tab="${tabIndex}"]`);
+            activeBtn.classList.remove('text-gray-600');
+            activeBtn.classList.add('text-smeraldo', 'font-bold');
             
-            if(tabId === 'recipes') { renderRecipeIngredients(); }
-            if(tabId === 'community') { renderCommunity(); }
-            if(tabId === 'quiz') { renderQuiz(); }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function spinSlotMachine() {
-            const btn = document.getElementById('slot-btn');
-            btn.disabled = true;
-            btn.classList.add('opacity-50');
-
-            const s1 = document.getElementById('slot-1');
-            const s2 = document.getElementById('slot-2');
-            const s3 = document.getElementById('slot-3');
-            const box = document.getElementById('slot-recipe-box');
-            box.classList.add('hidden');
-
-            let counter = 0;
-            const interval = setInterval(() => {
-                s1.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
-                s2.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
-                s3.innerText = appState.inventory[Math.floor(Math.random() * appState.inventory.length)].name;
-                counter++;
-                if(counter > 12) {
-                    clearInterval(interval);
-                    s1.innerText = "Spinaci Freschi";
-                    s2.innerText = "Ricotta Fresca";
-                    s3.innerText = "Uova Biologiche";
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-50');
-                    box.classList.remove('hidden');
-                }
-            }, 80);
-        }
-
-        function renderQuiz() {
-            const q = appState.quiz;
-            const container = document.getElementById('quiz-card-container');
-            if(q.currentQuestion >= q.questions.length) {
-                container.innerHTML = `
-                    <div class="text-center py-8 space-y-4">
-                        <div class="w-16 h-16 bg-emerald-100 text-emeraldCustom rounded-full flex items-center justify-center text-3xl mx-auto shadow">
-                            <i class="fa-solid fa-trophy"></i>
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-xl">Quiz Completato con Successo!</h3>
-                        <p class="text-sm text-slate-600">Hai totalizzato <b>${q.score} XP</b> dimostrando di essere un esperto di sostenibilità.</p>
-                        <button onclick="resetQuiz()" class="bg-citrus hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg transition-all text-sm">
-                            Ricomincia Quiz
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            const current = q.questions[q.currentQuestion];
-            document.getElementById('quiz-progress-text').innerText = `Domanda ${q.currentQuestion + 1} di ${q.questions.length}`;
-            document.getElementById('quiz-question-title').innerText = current.title;
-
-            const optsContainer = document.getElementById('quiz-options-container');
-            optsContainer.innerHTML = '';
-            current.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:border-emeraldCustom border border-slate-200 transition-all font-medium text-xs sm:text-sm text-slate-800 touch-manipulation shadow-sm";
-                btn.innerText = opt;
-                btn.onclick = () => answerQuiz(idx);
-                optsContainer.appendChild(btn);
-            });
-        }
-
-        function answerQuiz(selectedIndex) {
-            const q = appState.quiz;
-            const current = q.questions[q.currentQuestion];
-            if(selectedIndex === current.correct) {
-                q.score += 50;
-            }
-            q.currentQuestion++;
-            renderQuiz();
-        }
-
-        function resetQuiz() {
-            appState.quiz.currentQuestion = 0;
-            appState.quiz.score = 0;
-            const container = document.getElementById('quiz-card-container');
-            container.innerHTML = `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-emeraldCustom uppercase tracking-wider" id="quiz-progress-text">Domanda 1 di 3</span>
-                    <span class="text-xs bg-amber-100 text-citrus px-3.5 py-1.5 rounded-full font-bold shadow-sm"><i class="fa-solid fa-star"></i> 0 XP</span>
-                </div>
-                <div class="space-y-4">
-                    <h3 class="font-bold text-slate-900 text-lg sm:text-xl" id="quiz-question-title">Qual è la percentuale stimata di spreco alimentare che avviene direttamente nelle case dei consumatori?</h3>
-                    <div class="space-y-3 pt-2" id="quiz-options-container"></div>
-                </div>
-            `;
-            renderQuiz();
-        }
-
-        function simulateReceiptScan() {
-            scanCustomReceipt('Supermercato GDO (Scontrino Rapido)', ['Mozzarella di Bufala', 'Pomodori Pachino', 'Prosciutto Cotto Alta Qualità']);
-        }
-
-        function scanCustomReceipt(title, items) {
-            setTimeout(() => {
-                items.forEach((itemName, index) => {
-                    appState.inventory.unshift({
-                        id: Date.now() + index,
-                        name: itemName,
-                        category: index % 2 === 0 ? 'Latticini & Uova' : 'Frutta & Verdura',
-                        daysLeft: Math.floor(Math.random() * 4) + 2
-                    });
-                });
-                renderInventory();
-                switchTab('inventory');
-            }, 600);
+            if(tabIndex === 3) renderInventory();
         }
 
         function renderInventory() {
-            const grid = document.getElementById('inventory-grid');
-            const searchVal = document.getElementById('inventory-search').value.toLowerCase();
-            grid.innerHTML = '';
-
-            const filtered = appState.inventory.filter(item => {
-                const matchesSearch = item.name.toLowerCase().includes(searchVal);
-                if (appState.currentFilter === 'fresh') return matchesSearch && item.daysLeft > 3;
-                if (appState.currentFilter === 'expiring') return matchesSearch && item.daysLeft <= 3;
-                return matchesSearch;
+            const listContainer = document.getElementById('inventory-list');
+            listContainer.innerHTML = '';
+            inventory.forEach((item, index) => {
+                let badgeColor = item.status === 'arancio' ? 'bg-orange-100 text-arancio' : 'bg-green-100 text-smeraldo';
+                listContainer.innerHTML += `
+                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-xs text-gray-800 block">${item.name}</span>
+                            <span class="text-[10px] text-gray-500">Scadenza: ${item.expiry}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${badgeColor}">Scadenza</span>
+                            <button onclick="deleteItem(${index})" class="text-red-500 text-xs font-bold">✕</button>
+                        </div>
+                    </div>
+                `;
             });
+        }
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-xs sm:text-sm">Nessun alimento trovato nel frigo.</div>`;
+        function openAddModal() {
+            document.getElementById('add-modal').classList.remove('hidden');
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.add('hidden');
+        }
+
+        function saveNewItem() {
+            const name = document.getElementById('new-item-name').value;
+            const expiry = document.getElementById('new-item-date').value;
+            if(!name || !expiry) {
+                alert('Inserisci nome e data di scadenza!');
                 return;
             }
-
-            filtered.forEach(item => {
-                let badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
-                let badgeText = `Scade tra ${item.daysLeft} gg`;
-                let iconBg = 'bg-emerald-50 text-emeraldCustom';
-
-                if (item.daysLeft <= 1) {
-                    badgeColor = 'bg-red-100 text-red-700 border-red-200 animate-pulse';
-                    badgeText = item.daysLeft === 0 ? 'Scade Oggi!' : 'Scade Domani!';
-                    iconBg = 'bg-red-50 text-red-500';
-                } else if (item.daysLeft <= 3) {
-                    badgeColor = 'bg-amber-100 text-amber-800 border-amber-200';
-                    badgeText = `In scadenza (${item.daysLeft} gg)`;
-                    iconBg = 'bg-amber-50 text-citrus';
-                }
-
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-[28px] border border-slate-200/80 shadow-sm flex flex-col justify-between gap-3 hover:shadow-md transition-all";
-                card.innerHTML = `
-                    <div class="flex items-start justify-between gap-2">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-11 h-11 rounded-2xl ${iconBg} flex items-center justify-center font-bold text-base flex-shrink-0 shadow-sm">
-                                <i class="fa-solid fa-utensils"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-sm">${item.name}</h4>
-                                <p class="text-[11px] text-slate-400">${item.category}</p>
-                            </div>
-                        </div>
-                        <button onclick="consumeProduct(${item.id})" title="Consuma" class="text-slate-300 hover:text-emeraldCustom transition-colors p-1.5 touch-manipulation">
-                            <i class="fa-solid fa-circle-check text-xl"></i>
-                        </button>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                        <span class="text-[11px] px-3 py-1 rounded-full border font-semibold ${badgeColor}">${badgeText}</span>
-                        <button onclick="deleteProduct(${item.id})" class="text-slate-400 hover:text-red-500 text-xs transition-colors p-1 touch-manipulation">
-                            <i class="fa-solid fa-trash-can"></i> Rimuovi
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+            inventory.push({ name, expiry, status: 'smeraldo' });
+            document.getElementById('new-item-name').value = '';
+            document.getElementById('new-item-date').value = '';
+            closeAddModal();
+            renderInventory();
+            switchTab(3);
         }
 
-        function setFilter(filter) {
-            appState.currentFilter = filter;
-            ['all', 'fresh', 'expiring'].forEach(f => {
-                const btn = document.getElementById(`filter-${f}`);
-                if(f === filter) {
-                    btn.className = "px-5 py-3 rounded-2xl text-xs font-semibold bg-emeraldCustom text-white transition-all shadow-sm whitespace-nowrap touch-manipulation";
-                } else {
-                    btn.className = "px-5 py-3 rounded-2xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all whitespace-nowrap touch-manipulation";
-                }
-            });
+        function deleteItem(index) {
+            inventory.splice(index, 1);
             renderInventory();
         }
 
-        function openAddProductModal() {
-            // Imposta la data di default a 3 giorni da oggi nel selettore data
-            const defaultDate = new Date();
-            defaultDate.setDate(defaultDate.getDate() + 3);
-            document.getElementById('prod-date').valueAsDate = defaultDate;
-            document.getElementById('modal-product').classList.remove('hidden');
+        function simulateScan() {
+            document.getElementById('scan-result').classList.remove('hidden');
+            inventory.push({ name: "Mozzarella di Bufala", expiry: "2026-06-14", status: "arancio" });
         }
 
-        function handleProductSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('prod-name').value;
-            const category = document.getElementById('prod-category').value;
-            const expiryDateStr = document.getElementById('prod-date').value;
-
-            // Calcola i giorni mancanti rispetto alla data odierna
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const expiryDate = new Date(expiryDateStr);
-            expiryDate.setHours(0,0,0,0);
-            
-            const diffTime = expiryDate - today;
-            const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            appState.inventory.push({ id: Date.now(), name, category, daysLeft: Math.max(0, daysLeft) });
-            closeModal('modal-product');
-            document.getElementById('form-product').reset();
-            renderInventory();
+        function addGroceryItem() {
+            const input = document.getElementById('grocery-input');
+            if(!input.value) return;
+            const list = document.getElementById('grocery-list');
+            list.innerHTML += `
+                <li class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center text-xs">
+                    <span>${input.value}</span>
+                    <button onclick="this.parentElement.remove()" class="text-red-500 font-bold">✕</button>
+                </li>
+            `;
+            input.value = '';
         }
 
-        function deleteProduct(id) {
-            appState.inventory = appState.inventory.filter(i => i.id !== id);
-            renderInventory();
-            showToast("Prodotto rimosso.", "success");
-        }
-
-        function consumeProduct(id) {
-            const item = appState.inventory.find(i => i.id === id);
-            if (!item) return;
-
-            appState.inventory = appState.inventory.filter(i => i.id !== id);
-            appState.stats.kg += 0.4;
-            appState.stats.eur += 2.50;
-            appState.stats.co2 += 1.2;
-
-            updateStatsDisplay();
-            renderInventory();
-        }
-
-        function renderRecipeIngredients() {
-            const list = document.getElementById('recipe-ingredient-list');
-            list.innerHTML = '';
-
-            if (appState.inventory.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-400 italic">Frigo vuoto. Aggiungi qualche ingrediente.</p>`;
-                return;
-            }
-
-            appState.inventory.forEach(item => {
-                const div = document.createElement('label');
-                div.className = "flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-slate-100 rounded-2xl cursor-pointer transition-all border border-slate-100 touch-manipulation";
-                div.innerHTML = `
-                    <input type="checkbox" value="${item.name}" class="recipe-chk w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom" onchange="updateSelectedCount()">
-                    <div class="flex-1 text-xs sm:text-sm font-medium text-slate-800">${item.name}</div>
-                    <span class="text-[11px] text-slate-400">${item.daysLeft} gg</span>
-                `;
-                list.appendChild(div);
-            });
-            updateSelectedCount();
-        }
-
-        function updateSelectedCount() {
-            const checked = document.querySelectorAll('.recipe-chk:checked').length;
-            document.getElementById('selected-count').innerText = `${checked} selezionati`;
-        }
-
-        function generateAIPoweredRecipe() {
-            const checked = Array.from(document.querySelectorAll('.recipe-chk:checked')).map(el => el.value);
-            const output = document.getElementById('recipe-output');
-
-            if (checked.length === 0) {
-                return;
-            }
-
-            output.innerHTML = `<div class="flex flex-col items-center justify-center h-64 text-center text-slate-400">
-                <i class="fa-solid fa-wand-magic-sparkles text-4xl mb-3 text-citrus animate-spin"></i>
-                <p class="font-medium text-slate-700 text-xs sm:text-sm">L'IA sta elaborando la ricetta...</p>
-            </div>`;
-
-            setTimeout(() => {
-                const mainIng = checked[0];
-                output.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs bg-citrus/20 text-citrus font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">Ricetta IA Consigliata</span>
-                            <span class="text-xs text-slate-400"><i class="fa-solid fa-clock text-emeraldCustom"></i> 15 min</span>
-                        </div>
-                        <h4 class="font-bold text-lg text-slate-900">Tortino Svuota-Frigo con ${mainIng}</h4>
-                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Sfrutta al meglio gli ingredienti vicini alla scadenza (${checked.join(', ')}) per un piatto delizioso a zero sprechi.</p>
-                        <div class="bg-slate-50 p-4 rounded-2xl space-y-2 border border-slate-100">
-                            <h5 class="text-xs font-bold text-slate-700 uppercase">Ingredienti:</h5>
-                            <div class="flex flex-wrap gap-2">
-                                ${checked.map(i => `<span class="text-xs bg-white border border-slate-200 px-3 py-1 rounded-xl text-slate-700 font-medium">${i}</span>`).join('')}
-                            </div>
-                        </div>
-                        <div class="space-y-1.5 text-xs sm:text-sm text-slate-600">
-                            <p><b>1. Preparazione:</b> Taglia finemente gli ingredienti freschi.</p>
-                            <p><b>2. Cottura:</b> Unisci in padella con olio extravergine per 10 minuti.</p>
-                            <p><b>3. Servizio:</b> Impiatta caldo. Buon appetito!</p>
-                        </div>
-                    </div>
-                `;
-            }, 800);
-        }
-
-        function renderCommunity() {
-            const grid = document.getElementById('community-grid');
-            grid.innerHTML = '';
-
-            appState.communityPosts.forEach(post => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-[28px] border border-slate-200/80 shadow-sm flex flex-col justify-between gap-4";
-                card.innerHTML = `
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold bg-teal-50 text-teal-700 px-3 py-1 rounded-full"><i class="fa-solid fa-location-dot"></i> ${post.zone}</span>
-                            <span class="text-xs text-slate-400">${post.author}</span>
-                        </div>
-                        <h4 class="font-bold text-slate-900 text-sm">${post.item}</h4>
-                        <p class="text-xs text-slate-500">${post.condition}</p>
-                    </div>
-                    <button onclick="claimPost(${post.id})" class="w-full bg-emeraldCustom/10 hover:bg-emeraldCustom hover:text-white active:scale-95 text-emeraldCustom font-semibold py-3.5 rounded-2xl text-xs transition-all flex items-center justify-center gap-2 touch-manipulation">
-                        <i class="fa-solid fa-handshake"></i> Contatta Vicino
-                    </button>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function selectNeighbor(id) {
-            appState.selectedNeighborId = id;
-            const neighbors = {
-                1: { name: 'Marco R. • 250m', item: 'Offre: Mezzo pacco di penne rigate Barilla', zone: 'Quartiere Nord' },
-                2: { name: 'Chiara L. • 420m', item: 'Offre: Mele Golden Delicious (1kg)', zone: 'Centro Storico' },
-                3: { name: 'Luca M. • 600m', item: 'Offre: Brodo vegetale in tetrapak (1L)', zone: 'Zona Universitaria' }
-            };
-            const n = neighbors[id];
-            if(n) {
-                document.getElementById('map-detail-title').innerText = n.name;
-                document.getElementById('map-detail-desc').innerText = n.item;
-                const btn = document.getElementById('map-detail-btn');
-                btn.disabled = false;
-                btn.className = "w-full sm:w-auto bg-citrus hover:bg-orange-600 active:scale-95 text-white font-semibold px-6 py-3.5 rounded-xl text-xs transition-all shadow-md cursor-pointer touch-manipulation";
-                btn.innerText = "Richiedi Alimento";
-            }
-        }
-
-        function claimSelectedNeighbor() {
-            if(!appState.selectedNeighborId) return;
-        }
-
-        function handleMapClick(e) {
-            appState.selectedNeighborId = null;
-            document.getElementById('map-detail-title').innerText = "Seleziona un vicino sulla mappa";
-            document.getElementById('map-detail-desc').innerText = "Visualizza alimenti disponibili e richiedi in un click.";
-            const btn = document.getElementById('map-detail-btn');
-            btn.disabled = true;
-            btn.className = "w-full sm:w-auto bg-slate-200 text-slate-400 font-semibold px-5 py-3 rounded-xl text-xs transition-all cursor-not-allowed";
-            btn.innerText = "Richiedi Alimento";
-        }
-
-        function openShareModal() {
-            document.getElementById('modal-share').classList.remove('hidden');
-        }
-
-        function handleShareSubmit(e) {
-            e.preventDefault();
-            const item = document.getElementById('share-item').value;
-            const condition = document.getElementById('share-cond').value;
-            const zone = document.getElementById('share-zone').value;
-
-            appState.communityPosts.unshift({ id: Date.now(), item, condition, zone, author: 'Sveva (Tu)' });
-            closeModal('modal-share');
-            document.getElementById('form-share').reset();
-            renderCommunity();
-        }
-
-        function claimPost(id) {
-        }
-
-        function updateStatsDisplay() {
-            document.getElementById('stats-kg').innerHTML = `${appState.stats.kg.toFixed(1)} <span class="text-xs font-normal text-slate-600">kg</span>`;
-            document.getElementById('stats-eur').innerText = `€${appState.stats.eur.toFixed(2)}`;
-            document.getElementById('stats-co2').innerHTML = `${appState.stats.co2.toFixed(1)} <span class="text-xs font-normal text-slate-600">kg</span>`;
-            
-            document.getElementById('header-kg').innerText = `${appState.stats.kg.toFixed(1)} kg`;
-            document.getElementById('header-eur').innerText = `€${appState.stats.eur.toFixed(2)}`;
-        }
-
-        function renderBadges() {
-            const grid = document.getElementById('badges-grid');
-            grid.innerHTML = '';
-
-            appState.badges.forEach(b => {
-                const card = document.createElement('div');
-                card.className = `p-4 rounded-[24px] border flex flex-col items-center text-center gap-2.5 ${b.unlocked ? 'bg-emerald-50/50 border-emerald-200 text-slate-900 shadow-sm' : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'}`;
-                card.innerHTML = `
-                    <div class="w-12 h-12 rounded-2xl ${b.unlocked ? 'bg-emeraldCustom text-white shadow-md' : 'bg-slate-200 text-slate-500'} flex items-center justify-center text-xl flex-shrink-0">
-                        <i class="fa-solid ${b.icon}"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-xs sm:text-sm">${b.title}</h4>
-                        <p class="text-[11px] text-slate-500 mt-0.5 leading-tight">${b.desc}</p>
-                    </div>
-                    <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full ${b.unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.unlocked ? 'Sbloccato' : 'Bloccato'}</span>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function renderShoppingList() {
-            const container = document.getElementById('shopping-list-container');
-            container.innerHTML = '';
-
-            if (appState.shoppingList.length === 0) {
-                container.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs">Lista spesa vuota.</div>`;
-                return;
-            }
-
-            appState.shoppingList.forEach(item => {
-                const row = document.createElement('div');
-                row.className = "p-4.5 flex items-center justify-between hover:bg-slate-50/80 transition-colors gap-3";
-                row.innerHTML = `
-                    <div class="flex items-center gap-3.5 min-w-0">
-                        <input type="checkbox" ${item.bought ? 'checked' : ''} onchange="toggleShoppingItem(${item.id})" class="w-4 h-4 text-emeraldCustom rounded focus:ring-emeraldCustom cursor-pointer flex-shrink-0">
-                        <span class="text-xs sm:text-sm font-medium truncate ${item.bought ? 'line-through text-slate-400' : 'text-slate-800'}">${item.name}</span>
-                        <span class="text-[11px] bg-slate-100 text-slate-600 px-3 py-0.5 rounded-full whitespace-nowrap hidden xs:inline-block">${item.category}</span>
-                    </div>
-                    <button onclick="deleteShoppingItem(${item.id})" class="text-slate-300 hover:text-red-500 transition-colors text-xs p-1 touch-manipulation flex-shrink-0">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function openAddShoppingModal() {
-            document.getElementById('modal-shopping').classList.remove('hidden');
-        }
-
-        function handleShoppingSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('shop-name').value;
-            const category = document.getElementById('shop-cat').value;
-
-            appState.shoppingList.push({ id: Date.now(), name, category, bought: false });
-            closeModal('modal-shopping');
-            document.getElementById('form-shopping').reset();
-            renderShoppingList();
-        }
-
-        function toggleShoppingItem(id) {
-            const item = appState.shoppingList.find(i => i.id === id);
-            if (item) {
-                item.bought = !item.bought;
-                renderShoppingList();
-            }
-        }
-
-        function deleteShoppingItem(id) {
-            appState.shoppingList = appState.shoppingList.filter(i => i.id !== id);
-            renderShoppingList();
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        window.onload = function() {
-            renderInventory();
-            renderCommunity();
-            renderShoppingList();
-            renderBadges();
-            updateStatsDisplay();
-        };
+        renderInventory();
     </script>
 </body>
 </html>
