@@ -1,11 +1,13 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fridgeloop — Zero sprechi, massimo gusto</title>
+    <title>FoodWise - Zero Sprechi, Massimo Gusto</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter & Google Fonts -->
@@ -50,110 +52,7 @@
             background: #16A34A;
             border-radius: 3px;
         }
-    
-.fridge-visual-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.fridge-visual-card{min-height:210px;border:0!important;border-radius:24px!important;padding:22px!important;text-align:left;color:white!important;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;position:relative;overflow:hidden;isolation:isolate;box-shadow:var(--shadow);background-size:cover!important;background-position:center!important}.fridge-visual-card:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,35,22,.86),rgba(8,35,22,.02) 90%);z-index:-1}.fridge-card-frigo{background-image:url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85')!important}.fridge-card-freezer{background-image:url('https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&w=1000&q=85'),linear-gradient(135deg,#147da7,#a8dff0)!important}.fridge-card-freezer{background-image:url('https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&w=1000&q=85'),linear-gradient(135deg,#147da7,#a8dff0)!important}.fridge-card-dispensa{background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=85')!important}.fridge-visual-icon{position:absolute;top:18px;left:20px;font-size:32px;filter:drop-shadow(0 2px 4px #0005)}.fridge-visual-label{font-size:25px;font-weight:800;letter-spacing:-.04em}.fridge-visual-card small{font-size:12px;color:#ffffffdf;margin-top:4px}.fridge-visual-action{font-size:11px;font-weight:700;margin-top:12px;padding:8px 12px;border-radius:99px;background:#ffffff2a;backdrop-filter:blur(8px)}
-@media(max-width:650px){.fridge-visual-grid{grid-template-columns:1fr}.fridge-visual-card{min-height:145px}}
-</style>
-
-<!-- FRIDGELOOP COMPLETE VISUAL SYSTEM -->
-<style id="fridgeloop-premium">
-:root{--pine:#174b38;--pine2:#0f382b;--leaf:#32945d;--mint:#e8f4e9;--cream:#f7f8f4;--ink:#18251e;--muted:#738078;--line:#e7ece7;--orange:#e9a044;--shadow:0 14px 34px rgba(25,57,40,.09)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--cream)!important;color:var(--ink)!important;font-family:Inter,system-ui,sans-serif!important;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button{cursor:pointer}#app-container{max-width:none!important;width:100%!important;height:100dvh!important;min-height:100dvh;background:var(--cream)!important;box-shadow:none!important;overflow:hidden!important}
-#page-welcome{max-width:100%!important;min-height:100dvh;background:radial-gradient(circle at 78% 16%,#d9edda 0,transparent 25%),linear-gradient(135deg,#f7faf5,#edf5eb 60%,#e4f0e4)!important;align-items:center;justify-content:center;gap:28px;padding:36px 22px!important}
-#page-welcome>div:nth-child(2){max-width:540px;width:100%}#page-welcome h1{font-size:clamp(42px,7vw,68px)!important;letter-spacing:-.06em;color:var(--pine)!important}#page-welcome .w-28{width:124px;height:124px;border-radius:36px;background:linear-gradient(145deg,#245c43,#8cbd72)!important;border:0!important}#page-welcome .text-xs.uppercase{color:#6b9e48!important}#page-welcome .italic{font-size:15px!important;padding:16px!important}#page-welcome .space-y-3{width:min(100%,420px)}#page-welcome button{border-radius:16px!important;padding:15px!important;font-size:14px!important}
-#page-dashboard{background:var(--cream)!important;min-height:0}#page-dashboard>header{height:76px;flex-shrink:0;background:rgba(255,255,255,.94)!important;color:var(--ink)!important;border-bottom:1px solid var(--line);box-shadow:0 3px 16px rgba(28,50,35,.04)!important;padding:12px 28px!important}#page-dashboard>header .bg-white\/10{background:#eef5ee!important;color:var(--pine)!important}#page-dashboard>header .font-extrabold{color:var(--pine)!important;font-size:20px!important}#page-dashboard>header #user-display-name{color:var(--ink)!important}#page-dashboard>header #user-status-badge{color:#6b9b4b!important}#page-dashboard>header button:last-child{background:var(--pine)!important;border-radius:14px!important}
-#sidebar-overlay{z-index:35!important}#sidebar-drawer{position:fixed!important;top:0!important;left:0!important;bottom:0!important;width:258px!important;transform:translateX(-105%);background:linear-gradient(180deg,var(--pine),var(--pine2))!important;color:white!important;border-radius:0 24px 24px 0;z-index:40!important;box-shadow:12px 0 40px #102d201f!important}#sidebar-drawer:not(.-translate-x-full){transform:translateX(0)!important}#sidebar-drawer>div:first-child>div:first-child{background:transparent!important;border-bottom:1px solid #ffffff25;padding:28px 22px!important}#sidebar-drawer nav{padding:20px 14px!important;max-height:calc(100dvh - 150px)!important}#sidebar-drawer nav button{color:#eff8f0!important;border-radius:13px!important;padding:12px 14px!important;margin:3px 0;font-size:13px!important}#sidebar-drawer nav button:hover{background:#ffffff19!important;color:white!important}#sidebar-drawer nav button i{color:#b6df9c!important}#sidebar-drawer nav button:last-child{border-color:#ffffff22!important}#sidebar-drawer .border-t{border-color:#ffffff20!important;background:transparent!important}#sidebar-drawer .text-orangeaccent{color:#c7e8a8!important}
-#page-dashboard>.flex-1{padding:26px 30px 42px!important;overflow-y:auto!important}#page-dashboard>.flex-1>div[id^="section-"]{max-width:1320px!important;width:100%;margin:0 auto!important;padding:0!important;display:none}#page-dashboard>.flex-1>div[id^="section-"].hidden{display:none!important}#page-dashboard>.flex-1>div[id^="section-"]:not(.hidden){display:block!important}
-#section-dashboard-home{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px!important;align-content:start}#section-dashboard-home.hidden{display:none!important}#section-dashboard-home>div:first-child{grid-column:1/-1;min-height:185px;border-radius:28px!important;padding:30px 34px!important;background:linear-gradient(105deg,#164b36 0%,#2d8050 58%,#80b66c 100%)!important;box-shadow:var(--shadow)!important;display:flex;align-items:center}#section-dashboard-home>div:first-child h2{font-size:clamp(21px,3vw,30px)!important;max-width:690px;line-height:1.3}#section-dashboard-home>div:first-child p{font-size:14px!important}#section-dashboard-home>div:nth-child(2){grid-column:1/-1;border:0!important;border-radius:24px!important;box-shadow:var(--shadow)!important;padding:24px!important}#section-dashboard-home>div:nth-child(2) h3{font-size:16px!important}#section-dashboard-home>div:nth-child(2) .grid{gap:14px!important}#section-dashboard-home>div:nth-child(2) .grid>div{border:0!important;border-radius:18px!important;padding:18px 12px!important}#section-dashboard-home>div:nth-child(2) .grid span:nth-of-type(1){font-size:clamp(18px,2vw,25px)!important}#section-dashboard-home>div:nth-child(3){grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px!important}#section-dashboard-home>div:nth-child(3)>div{min-height:158px;padding:20px!important;border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:var(--shadow)!important;transition:transform .2s,box-shadow .2s}#section-dashboard-home>div:nth-child(3)>div:hover{transform:translateY(-4px);box-shadow:0 18px 34px #1d4b2c18!important}#section-dashboard-home>div:nth-child(3)>div .w-10{width:48px;height:48px;border-radius:16px!important}#section-dashboard-home>div:nth-child(4){grid-column:1/-1;border:0!important;border-radius:22px!important;padding:20px 24px!important;background:linear-gradient(90deg,#fff3df,#fdf8ed)!important}
-/* Food category visual panels */
-#section-dashboard-home:after{content:"";display:block;grid-column:1/-1;min-height:120px;border-radius:24px;background:linear-gradient(90deg,#edf7e6,#dceecf);background-image:linear-gradient(90deg,rgba(239,248,231,.95),rgba(223,241,211,.7)),url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center;box-shadow:var(--shadow)}
-#section-scansiona,#section-catalogo,#section-ricette,#section-vicino,#section-spesa,#section-account{max-width:1100px!important}#page-dashboard .bg-white{box-shadow:0 8px 24px rgba(30,57,39,.055)}#page-dashboard .rounded-3xl{border-radius:22px!important}#page-dashboard h3{font-size:20px!important}#page-dashboard input,#page-dashboard select{min-height:44px;border-radius:12px!important;border-color:#dfe8df!important}#page-dashboard button{transition:transform .16s,filter .16s,box-shadow .16s}#page-dashboard button:active{transform:scale(.98)}#page-dashboard .bg-forest{background-color:var(--pine)!important}#page-dashboard .text-forest{color:var(--pine)!important}#page-dashboard .bg-emeraldcustom{background-color:#32945d!important}#page-dashboard .text-emeraldcustom{color:#2d8a55!important}#page-dashboard .bg-orangeaccent{background-color:#e99b3e!important}#page-dashboard .text-orangeaccent{color:#d88a2f!important}
-#section-catalogo>div:first-child{border-radius:24px!important}#catalog-products-container>div{padding:16px!important;border-radius:16px!important;border:1px solid var(--line)!important;margin-bottom:10px;box-shadow:none!important}#catalog-products-container h4{font-size:14px!important}#section-catalogo .grid.grid-cols-3{gap:8px!important}#section-catalogo button{border-radius:12px!important}#section-ricette>div,#section-vicino>div,#section-spesa>div,#section-account>div{border-radius:24px!important;padding:24px!important;border:1px solid var(--line)!important;box-shadow:var(--shadow)!important}#section-spesa #spesa-items-container>div{padding:14px!important;border-radius:14px!important;background:#f8faf7!important}#section-vicino #neighbors-annunci-list>div{padding:16px!important;border-radius:16px!important;background:#f8faf7!important}
-#toast-container{z-index:100!important}#toast-container>div{font-size:13px!important;padding:13px 18px!important;border-radius:14px!important;box-shadow:var(--shadow)!important}
-@media(min-width:1050px){#sidebar-drawer{transform:translateX(0)!important;position:fixed!important;top:0!important;bottom:0!important;border-radius:0!important}#sidebar-overlay{display:none!important}#page-dashboard>header{padding-left:286px!important}#page-dashboard>.flex-1{margin-left:258px;padding:28px 38px 44px!important}#page-dashboard>header>div:first-child>button:first-child{display:none!important}#page-dashboard>header>div:nth-child(2){margin-left:245px}#page-dashboard>header>button:last-child{display:none!important}}
-@media(max-width:1049px){#page-dashboard>.flex-1{padding:20px 18px 34px!important}#section-dashboard-home>div:nth-child(3){grid-template-columns:repeat(2,minmax(0,1fr))!important}#section-dashboard-home>div:nth-child(3)>div{min-height:140px}#page-dashboard>header{padding:10px 16px!important}}
-@media(max-width:600px){#page-dashboard>header{height:66px;padding:9px 12px!important}#page-dashboard>.flex-1{padding:16px 13px 28px!important}#section-dashboard-home>div:first-child{min-height:165px;padding:22px!important}#section-dashboard-home>div:nth-child(2){padding:16px!important}#section-dashboard-home>div:nth-child(2) .grid{grid-template-columns:1fr!important}#section-dashboard-home>div:nth-child(2) .grid>div{display:flex;align-items:center;gap:12px;text-align:left;padding:12px!important}#section-dashboard-home>div:nth-child(2) .grid i{margin:0!important}#section-dashboard-home>div:nth-child(3){gap:10px!important}#section-dashboard-home>div:nth-child(3)>div{padding:14px!important;min-height:132px}#section-dashboard-home>div:nth-child(3)>div p{font-size:10px!important}#section-dashboard-home>div:nth-child(4){align-items:flex-start}#sidebar-drawer{width:min(84vw,300px)!important}#page-dashboard .p-5{padding:18px!important}}
-</style>
-
-<style id="fridgeloop-all-sections-v2">
-/* FRIDGELOOP — COMPLETE UI POLISH v2 */
-:root{--pine:#174b38;--pine-deep:#103829;--leaf:#3d9a60;--leaf-soft:#e9f4e9;--cream:#f6f8f4;--ink:#17251d;--muted:#718078;--line:#e5ebe5;--amber:#e9a34b;--card-shadow:0 12px 32px rgba(24,57,38,.075)}
-body{background:var(--cream)!important;color:var(--ink)!important}
-#page-dashboard{background:linear-gradient(180deg,#f8faf7 0%,#f2f6f0 100%)!important}
-#page-dashboard>header{position:sticky;top:0;z-index:25;backdrop-filter:blur(16px);background:rgba(255,255,255,.9)!important;border-bottom:1px solid rgba(31,76,51,.09)!important}
-#sidebar-drawer{background:linear-gradient(165deg,#194f39 0%,#103628 100%)!important}
-#sidebar-drawer nav button{min-height:46px;font-size:13px!important;letter-spacing:.005em}
-#sidebar-drawer nav button:focus-visible,#page-dashboard button:focus-visible{outline:3px solid #e8b66d;outline-offset:2px}
-#page-dashboard>.flex-1{scrollbar-color:#b9d0bd transparent}
-#page-dashboard>.flex-1>div[id^="section-"]{animation:sectionIn .28s ease both}
-@keyframes sectionIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-/* Common surfaces */
-#page-dashboard .bg-white{border-color:var(--line)!important;box-shadow:var(--card-shadow)!important}
-#page-dashboard input,#page-dashboard select,#page-dashboard textarea{background:#fbfdfb!important;color:var(--ink)!important;border:1px solid #dce6dc!important;box-shadow:inset 0 1px 2px rgba(20,50,30,.025);transition:border-color .2s,box-shadow .2s}
-#page-dashboard input:focus,#page-dashboard select:focus,#page-dashboard textarea:focus{border-color:#6da77a!important;box-shadow:0 0 0 4px rgba(61,154,96,.12)!important;outline:0}
-#page-dashboard button{font-weight:650;letter-spacing:.005em}
-#page-dashboard button:not(:disabled):hover{filter:brightness(1.025)}
-#page-dashboard .text-gray-500,#page-dashboard .text-gray-600{color:#718078!important}
-/* Dashboard cards */
-#section-dashboard-home>div:first-child{position:relative;overflow:hidden;background:linear-gradient(112deg,#153f30 0%,#276d49 58%,#91bd76 100%)!important}
-#section-dashboard-home>div:first-child:after{content:'🌿';position:absolute;right:5%;bottom:-28px;font-size:clamp(90px,14vw,170px);opacity:.18;transform:rotate(-18deg);pointer-events:none}
-#section-dashboard-home>div:nth-child(2) .grid>div{background:linear-gradient(145deg,#fff,#f7faf6)!important;border:1px solid #edf1eb!important;transition:transform .2s,box-shadow .2s}
-#section-dashboard-home>div:nth-child(2) .grid>div:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(24,57,38,.08)}
-#section-dashboard-home>div:nth-child(3)>div{overflow:hidden;position:relative}
-#section-dashboard-home>div:nth-child(3)>div:nth-child(1){background:linear-gradient(140deg,#f3eefe,#fff)!important}
-#section-dashboard-home>div:nth-child(3)>div:nth-child(2){background:linear-gradient(140deg,#e8f7eb,#fff)!important}
-#section-dashboard-home>div:nth-child(3)>div:nth-child(3){background:linear-gradient(140deg,#fff0df,#fff)!important}
-#section-dashboard-home>div:nth-child(3)>div:nth-child(4){background:linear-gradient(140deg,#edf5df,#fff)!important}
-/* Each app section gets a generous, consistent canvas */
-#section-scansiona,#section-catalogo,#section-ricette,#section-vicino,#section-spesa,#section-account{max-width:1120px!important;padding:4px 0 22px!important}
-#section-scansiona>div,#section-catalogo>div,#section-ricette>div,#section-vicino>div,#section-spesa>div,#section-account>div{border:1px solid #e6ece5!important;border-radius:26px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 14px 36px rgba(26,58,39,.07)!important;padding:clamp(18px,2.4vw,30px)!important}
-#section-scansiona h3,#section-catalogo h3,#section-ricette h3,#section-vicino h3,#section-spesa h3,#section-account h3{font-size:clamp(19px,2.2vw,24px)!important;letter-spacing:-.035em;line-height:1.2}
-#section-scansiona h3 i,#section-catalogo h3 i,#section-ricette h3 i,#section-vicino h3 i,#section-spesa h3 i{width:42px;height:42px;border-radius:14px;background:#edf6ed;display:inline-flex;align-items:center;justify-content:center}
-/* Scan area */
-#section-scansiona .bg-white{background:linear-gradient(180deg,#fff,#fbfdfb)!important}
-#section-scansiona .bg-gray-100{background:#f0f4ef!important}
-#section-scansiona .border-dashed{border:2px dashed #b9d2bd!important;border-radius:20px!important;background:linear-gradient(145deg,#f5faf4,#fff)!important}
-#section-scansiona .fa-receipt,#section-scansiona .fa-barcode{filter:drop-shadow(0 5px 8px rgba(23,75,56,.12))}
-/* Catalog: tabs and product rows */
-#section-catalogo>div:first-child{overflow:hidden}
-#section-catalogo .flex.bg-gray-100{padding:5px!important;border-radius:16px!important;background:#eff4ee!important;gap:4px}
-#section-catalogo .flex.bg-gray-100 button{min-height:42px;border-radius:12px!important}
-#catalog-products-container{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important}
-#catalog-products-container>div{min-height:94px;margin:0!important;padding:15px!important;border-radius:18px!important;background:linear-gradient(145deg,#fff,#fafcf9)!important;border:1px solid #e8eee7!important;box-shadow:0 5px 15px rgba(24,57,38,.035)!important;transition:transform .2s,box-shadow .2s}
-#catalog-products-container>div:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(24,57,38,.08)!important}
-#catalog-products-container>div>div:first-child{min-width:0;gap:12px!important}
-#catalog-products-container h4{font-size:14px!important;letter-spacing:-.015em;margin-bottom:4px}
-#catalog-products-container p{font-size:11px!important;line-height:1.5}
-#catalog-products-container>div>div:last-child button{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:12px!important}
-#catalog-products-container input[type=date]{min-height:34px!important}
-/* Recipes */
-#section-ricette #recipe-ai-content>div:first-child{padding:24px!important;border-radius:22px!important;background:linear-gradient(125deg,#f0f8e9,#fff7e9)!important;border:1px solid #e5eedc!important}
-#section-ricette #generated-recipes-list>div{border:1px solid #e7ece5!important;border-radius:20px!important;padding:18px!important;background:linear-gradient(145deg,#fff,#fafcf9)!important;box-shadow:0 8px 22px rgba(24,57,38,.055)!important}
-/* Community */
-#section-vicino .h-40{height:230px!important;border-radius:22px!important;background:radial-gradient(circle at 20% 30%,#d6ebd1,transparent 35%),radial-gradient(circle at 80% 70%,#d8e9d8,transparent 38%),linear-gradient(135deg,#eff7ed,#e7f0e4)!important;border:1px solid #dce9d9!important}
-#section-vicino .h-40>div:not(.absolute){z-index:1}
-#section-vicino #neighbors-annunci-list>div{border:1px solid #e7ede5!important;background:linear-gradient(145deg,#fff,#f8fbf7)!important;box-shadow:0 6px 16px rgba(24,57,38,.04)!important;border-radius:18px!important;padding:16px!important}
-/* Shopping list */
-#section-spesa form{padding:8px;background:#f1f6f0;border:1px solid #e4ece2;border-radius:17px}
-#section-spesa form input{background:#fff!important;border:0!important;box-shadow:none!important}
-#section-spesa form button{min-height:44px;border-radius:13px!important;padding-inline:18px!important}
-#family-members-container{border:1px solid #dfebdc!important;border-radius:17px!important;background:linear-gradient(100deg,#eff7ec,#f9fbf7)!important;padding:14px 16px!important}
-#spesa-items-container{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important}
-#spesa-items-container>div{min-height:62px;border:1px solid #e7ede5!important;border-radius:16px!important;background:#fff!important;box-shadow:0 5px 14px rgba(24,57,38,.035)!important;display:flex;align-items:center;justify-content:space-between;padding:13px 15px!important}
-#spesa-items-container>div:has(input:checked){background:#f1f7ef!important;opacity:.78}
-/* Account */
-#section-account #account-page-avatar{width:66px!important;height:66px!important;border:4px solid #edf5eb;box-shadow:0 7px 18px rgba(24,57,38,.12)!important}
-#section-account form{background:#f8faf7;border:1px solid #e8eee7;border-radius:20px;padding:20px!important}
-/* Modals */
-#app-container [id$="-modal"]>div{border-radius:26px!important;box-shadow:0 24px 70px rgba(9,35,20,.22)!important;border:1px solid rgba(255,255,255,.75)}
-#app-container [id$="-modal"] input,#app-container [id$="-modal"] select{min-height:46px}
-/* Toasts and motion */
-#toast-container>div{border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(12px)}
-@media(max-width:760px){#page-dashboard>.flex-1{padding:15px 13px 30px!important}#section-scansiona,#section-catalogo,#section-ricette,#section-vicino,#section-spesa,#section-account{padding:0 0 18px!important}#section-scansiona>div,#section-catalogo>div,#section-ricette>div,#section-vicino>div,#section-spesa>div,#section-account>div{padding:18px!important;border-radius:22px!important}#catalog-products-container,#spesa-items-container{grid-template-columns:1fr}#section-vicino .h-40{height:190px!important}#section-dashboard-home>div:nth-child(3){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:420px){#section-dashboard-home>div:nth-child(3)>div{min-height:124px;padding:13px!important}#section-dashboard-home>div:nth-child(3)>div h4{font-size:12px!important}#catalog-products-container>div{padding:12px!important}#section-spesa form{flex-wrap:wrap}#section-spesa form>div{flex-basis:100%}#section-spesa form button{width:100%;justify-content:center}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-</style>
+    </style>
 </head>
 <body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
 
@@ -170,7 +69,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                 </div>
                 <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold p-2"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="text-gray-600 mb-4 text-sm">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi per azzerare lo spreco e risparmiare:</p>
+            <p class="text-gray-600 mb-4 text-sm">Registrandoti a <span class="font-bold text-emeraldcustom">FoodWise</span> sblocchi strumenti esclusivi per azzerare lo spreco e risparmiare:</p>
             <ul class="space-y-3 mb-6 text-sm text-gray-700">
                 <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-1"></i>
@@ -182,8 +81,8 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                 <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-store text-orangeaccent mt-1"></i>
                     <div>
-                        <strong class="text-forest block">Idee e promemoria per risparmiare</strong>
-                        <span>Tieni sotto controllo gli alimenti e pianifica gli acquisti con attenzione.</span>
+                        <strong class="text-forest block">Sconti GDO in tempo reale</strong>
+                        <span>Supermercati e catene partner ti avvisano su sconti dedicati per prodotti vicino alla scadenza.</span>
                     </div>
                 </li>
                 <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
@@ -214,7 +113,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             <div class="flex flex-col items-center text-center my-auto py-4">
                 <!-- Logo: Replicating icon of stylized fridge interior, leaf, loop arrows, check/fork -->
                 <div class="w-28 h-28 bg-gradient-to-br from-forest to-emeraldcustom rounded-3xl shadow-xl flex items-center justify-center relative mb-6 border-2 border-orangeaccent/40 transform hover:rotate-2 transition">
-                    <i class="fa-solid fa-refrigerator text-white text-2xl absolute opacity-20"></i>
+                    <i class="fa-solid fa-冷蔵庫 text-white text-2xl absolute opacity-20"></i>
                     <div class="relative flex items-center justify-center">
                         <i class="fa-solid fa-leaf text-white text-4xl absolute -top-1 -left-2 transform -rotate-45"></i>
                         <i class="fa-solid fa-arrows-spin text-orangeaccent text-6xl opacity-90 animate-spin" style="animation-duration: 12s;"></i>
@@ -222,7 +121,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                     </div>
                 </div>
 
-                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">Fridgeloop</h1>
+                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">FoodWise</h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Anti-spreco alimentare con IA</p>
                 <p class="text-sm italic text-gray-700 px-4 font-medium bg-white/60 py-2.5 rounded-2xl shadow-sm border border-emeraldcustom/10">
                     “Dal tuo scontrino alla tavola: zero sprechi, massimo gusto.”
@@ -254,8 +153,8 @@ body{background:var(--cream)!important;color:var(--ink)!important}
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
             <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-forest">
                 <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
-                <h3 id="auth-title" class="text-2xl font-bold text-forest mb-2">Accedi a Fridgeloop</h3>
-                <p id="auth-subtitle" class="text-xs text-gray-500 mb-6">Accesso dimostrativo su questo dispositivo. I dati restano salvati localmente.</p>
+                <h3 id="auth-title" class="text-2xl font-bold text-forest mb-2">Accedi a FoodWise</h3>
+                <p id="auth-subtitle" class="text-xs text-gray-500 mb-6">Inserisci le tue credenziali per sincronizzare il tuo frigo e le ricette IA.</p>
                 
                 <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
                     <div id="name-field-container" class="hidden">
@@ -301,7 +200,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
 
                 <!-- Brand Title -->
                 <div class="flex items-center gap-2">
-                    <span class="font-extrabold tracking-wider text-lg text-white">Fridge<span class="text-lime-300">loop</span></span>
+                    <span class="font-extrabold tracking-wider text-lg text-white">Food<span class="text-orangeaccent">Wise</span></span>
                 </div>
 
                 <!-- Fixed Home Button - points directly to dashboard-home -->
@@ -442,19 +341,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                                 <p class="text-[11px] text-gray-500">Condividi cibo di quartiere</p>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Pantry overview: visual shortcuts -->
-                    <div class="fridge-visual-grid">
-                        <button class="fridge-visual-card fridge-card-frigo" onclick="switchCatalogTab('frigo');switchSection('section-catalogo')">
-                            <span class="fridge-visual-icon">🥬</span><span class="fridge-visual-label">Frigo</span><small id="count-frigo">0 prodotti</small><span class="fridge-visual-action">Apri catalogo →</span>
-                        </button>
-                        <button class="fridge-visual-card fridge-card-freezer" onclick="switchCatalogTab('freezer');switchSection('section-catalogo')">
-                            <span class="fridge-visual-icon">🫐</span><span class="fridge-visual-label">Freezer</span><small id="count-freezer">0 prodotti</small><span class="fridge-visual-action">Apri catalogo →</span>
-                        </button>
-                        <button class="fridge-visual-card fridge-card-dispensa" onclick="switchCatalogTab('dispensa');switchSection('section-catalogo')">
-                            <span class="fridge-visual-icon">🍝</span><span class="fridge-visual-label">Dispensa</span><small id="count-dispensa">0 prodotti</small><span class="fridge-visual-action">Apri catalogo →</span>
-                        </button>
                     </div>
 
                     <!-- GDO Partner Banner -->
@@ -825,19 +711,19 @@ body{background:var(--cream)!important;color:var(--ink)!important}
         // Catalogo Data
         let catalogData = {
             frigo: [
-                { id: 1, name: "Latte Fresco Parzialmente Scremato", date: "2026-11-14", daysLeft: 2, weight: "1 Litro", status: "red" },
-                { id: 2, name: "Spinaci Freschi in Bustina", date: "2026-11-15", daysLeft: 3, weight: "250g", status: "yellow" },
-                { id: 3, name: "Ricotta Vaccina", date: "2026-11-16", daysLeft: 4, weight: "200g", status: "yellow" },
-                { id: 4, name: "Yogurt Greco Bianco", date: "2026-11-25", daysLeft: 12, weight: "500g", status: "green" },
-                { id: 5, name: "Uova Biologiche Locali", date: "2026-11-30", daysLeft: 17, weight: "Confezione da 6", status: "green" }
+                { id: 1, name: "Latte Fresco Parzialmente Scremato", date: "2026-06-15", daysLeft: 2, weight: "1 Litro", status: "red" },
+                { id: 2, name: "Spinaci Freschi in Bustina", date: "2026-06-16", daysLeft: 3, weight: "250g", status: "yellow" },
+                { id: 3, name: "Ricotta Vaccina", date: "2026-06-17", daysLeft: 4, weight: "200g", status: "yellow" },
+                { id: 4, name: "Yogurt Greco Bianco", date: "2026-06-25", daysLeft: 12, weight: "500g", status: "green" },
+                { id: 5, name: "Uova Biologiche Locali", date: "2026-06-30", daysLeft: 17, weight: "Confezione da 6", status: "green" }
             ],
             freezer: [
-                { id: 6, name: "Filetti di Merluzzo Surgelati", date: "2027-03-10", daysLeft: 180, weight: "400g", status: "green" },
-                { id: 7, name: "Pisellini Fini Pastello", date: "2027-02-20", daysLeft: 100, weight: "600g", status: "green" }
+                { id: 6, name: "Filetti di Merluzzo Surgelati", date: "2026-12-10", daysLeft: 180, weight: "400g", status: "green" },
+                { id: 7, name: "Pisellini Fini Pastello", date: "2026-09-20", daysLeft: 100, weight: "600g", status: "green" }
             ],
             dispensa: [
                 { id: 8, name: "Pasta Penne Rigate Barilla", date: "2027-04-12", daysLeft: 300, weight: "500g", status: "green" },
-                { id: 9, name: "Passata di Pomodoro Rustica", date: "2026-11-20", daysLeft: 145, weight: "700g", status: "green" },
+                { id: 9, name: "Passata di Pomodoro Rustica", date: "2026-11-05", daysLeft: 145, weight: "700g", status: "green" },
                 { id: 10, name: "Olio Extra Vergine d'Oliva", date: "2027-01-30", daysLeft: 230, weight: "750ml", status: "green" }
             ]
         };
@@ -867,45 +753,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
 
         // Scanned temporary items
         let scannedTempItems = [];
-
-        // Persistenza locale: catalogo, lista, annunci e profilo restano sul dispositivo.
-        const FRIDGELOOP_STORAGE_KEY = 'fridgeloop_v3_data';
-        function saveFridgeloopData() {
-            try { localStorage.setItem(FRIDGELOOP_STORAGE_KEY, JSON.stringify({catalogData, spesaData, annunciData, familyMembers, currentUser})); }
-            catch (err) { console.warn('Salvataggio locale non riuscito', err); }
-        }
-        function loadFridgeloopData() {
-            try {
-                const raw = localStorage.getItem(FRIDGELOOP_STORAGE_KEY);
-                if (!raw) return;
-                const data = JSON.parse(raw);
-                if (data.catalogData && typeof data.catalogData === 'object') catalogData = {...catalogData, ...data.catalogData};
-                if (Array.isArray(data.spesaData)) spesaData = data.spesaData;
-                if (Array.isArray(data.annunciData)) annunciData = data.annunciData;
-                if (Array.isArray(data.familyMembers)) familyMembers = data.familyMembers;
-                if (data.currentUser && typeof data.currentUser === 'object') currentUser = {...currentUser, ...data.currentUser};
-            } catch (err) { console.warn('Archivio locale non leggibile', err); }
-        }
-        function daysUntil(dateString) {
-            if (!dateString) return null;
-            const target = new Date(dateString + 'T23:59:59');
-            if (Number.isNaN(target.getTime())) return null;
-            return Math.ceil((target - new Date()) / 86400000);
-        }
-        function refreshDashboardNumbers() {
-            const all = Object.values(catalogData).flat();
-            const near = all.filter(x => { const d = daysUntil(x.date); return d !== null && d >= 0 && d <= 3; }).length;
-            const cibo = document.getElementById('stat-cibo');
-            const soldi = document.getElementById('stat-soldi');
-            const co2 = document.getElementById('stat-co2');
-            if (cibo) cibo.textContent = all.length + ' prodotti';
-            if (soldi) soldi.textContent = near + ' urgenti';
-            if (co2) co2.textContent = all.length + ' in casa';
-            ['frigo','freezer','dispensa'].forEach(k => { const el=document.getElementById('count-'+k); if(el) el.textContent=(catalogData[k]||[]).length+' prodotti'; });
-            const heading = document.querySelector('#section-dashboard-home h2');
-            if (heading) heading.textContent = near ? 'Hai ' + near + ' prodotti da consumare a breve. Salviamoli insieme!' : 'La tua cucina è sotto controllo. Continua così!';
-        }
-
 
 
         // --- UI Toast Notification ---
@@ -940,12 +787,12 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             const btn = document.getElementById('auth-submit-btn');
 
             if (mode === 'register') {
-                title.textContent = "Registrati a Fridgeloop";
-                sub.textContent = "Crea il tuo profilo locale e organizza la tua cucina.";
+                title.textContent = "Registrati a FoodWise";
+                sub.textContent = "Sblocca ricette IA, sconti GDO e sincronizzazione familiare.";
                 nameField.classList.remove('hidden');
                 btn.textContent = "Registrati Ora & Ottieni Agevolazioni";
             } else {
-                title.textContent = "Accedi a Fridgeloop";
+                title.textContent = "Accedi a FoodWise";
                 sub.textContent = "Bentornato! Accedi per visualizzare il tuo catalogo.";
                 nameField.classList.add('hidden');
                 btn.textContent = "Accedi";
@@ -966,13 +813,11 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                 currentUser.isRegistered = true;
                 currentUser.plan = "Pro Account";
             } else {
-                currentUser.name = email.split('@')[0] || "Utente Fridgeloop";
+                currentUser.name = email.split('@')[0] || "Utente FoodWise";
                 currentUser.isRegistered = true;
                 currentUser.plan = "Pro Account";
             }
 
-            currentUser.email = email;
-            saveFridgeloopData();
             closeAuthModal();
             enterDashboard();
             showToast(`Benvenuto, ${currentUser.name}! Accesso effettuato.`);
@@ -982,7 +827,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             currentUser.name = "Ospite Anonimo";
             currentUser.isRegistered = false;
             currentUser.plan = "Versione Base (Senza Agevolazioni)";
-            saveFridgeloopData();
             enterDashboard();
             showToast("Accesso come ospite. Alcune funzioni IA sono limitate.", "warning");
         }
@@ -1088,7 +932,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             scannedTempItems = [
                 { name: "Latte Fresco Parzialmente Scremato", date: "2026-06-18", weight: "1 L" },
                 { name: "Yogurt Greco", date: "2026-06-22", weight: "500g" },
-                { name: "Mozzarella di Bufala", date: "2026-11-15", weight: "250g" }
+                { name: "Mozzarella di Bufala", date: "2026-06-16", weight: "250g" }
             ];
             
             const listEl = document.getElementById('extracted-items-list');
@@ -1113,14 +957,12 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             catalogData.frigo.push({
                 id: Date.now(),
                 name: "Prodotto Barcode Scansionato",
-                date: "2026-11-30",
+                date: "2026-06-30",
                 daysLeft: 15,
                 weight: "Standard",
                 status: "green"
             });
-            saveFridgeloopData();
-            renderCatalog();
-            showToast("Prodotto demo aggiunto al Frigo. Per la scansione reale serve una fotocamera/servizio collegato.");
+            showToast("Codice a barre scansionato! Prodotto aggiunto al Frigo.");
             switchCatalogTab('frigo');
             switchSection('section-catalogo');
         }
@@ -1136,7 +978,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                     status: "yellow"
                 });
             });
-            saveFridgeloopData();
             document.getElementById('receipt-result-box').classList.add('hidden');
             showToast("Prodotti dello scontrino salvati nel catalogo!");
             switchCatalogTab('frigo');
@@ -1200,7 +1041,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                     </div>
                 `;
             });
-            refreshDashboardNumbers();
         }
 
         function updateCatalogItemDate(id, dest, newDate) {
@@ -1208,7 +1048,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             const item = items.find(i => i.id === id);
             if (item) {
                 item.date = newDate;
-                saveFridgeloopData();
                 showToast(`Data aggiornata per "${item.name}"!`);
                 renderCatalog();
             }
@@ -1216,7 +1055,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
 
         function deleteCatalogItem(id, dest) {
             catalogData[dest] = catalogData[dest].filter(i => i.id !== id);
-            saveFridgeloopData();
             showToast("Prodotto eliminato dal catalogo.");
             renderCatalog();
         }
@@ -1244,7 +1082,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                 status: "green"
             });
 
-            saveFridgeloopData();
             closeAddProductModal();
             renderCatalog();
             showToast(`"${name}" aggiunto al ${dest} con successo!`);
@@ -1275,7 +1112,7 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                     <p class="text-[11px] text-gray-600">Unisci ricotta e spinaci saltati, farcisci e inforna per un piatto eccezionale zero sprechi.</p>
                 </div>
             `;
-            showToast("Esempi di ricette pronti. La generazione IA online richiede un servizio collegato.");
+            showToast("Ricette IA generate con successo!");
         }
 
         // --- Neighbor Annunci Functions ---
@@ -1320,7 +1157,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
                 type: "green"
             });
 
-            saveFridgeloopData();
             closeAddAnnuncioModal();
             renderNeighborsAnnunci();
             showToast("Annuncio pubblicato nella community!");
@@ -1364,7 +1200,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             });
 
             input.value = '';
-            saveFridgeloopData();
             renderSpesaList();
             showToast(`"${val}" aggiunto alla lista spesa!`);
         }
@@ -1373,14 +1208,12 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             const item = spesaData.find(i => i.id === id);
             if (item) {
                 item.checked = !item.checked;
-                saveFridgeloopData();
                 renderSpesaList();
             }
         }
 
         function deleteSpesaItem(id) {
             spesaData = spesaData.filter(i => i.id !== id);
-            saveFridgeloopData();
             renderSpesaList();
             showToast("Prodotto rimosso dalla spesa.");
         }
@@ -1394,7 +1227,6 @@ body{background:var(--cream)!important;color:var(--ink)!important}
             if (name) {
                 const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
                 familyMembers.push({ initials, name });
-                saveFridgeloopData();
                 showToast(`Familiare "${name}" aggiunto con successo!`);
             }
         }
@@ -1416,14 +1248,9 @@ body{background:var(--cream)!important;color:var(--ink)!important}
 
         // Initialize on load
         window.onload = function() {
-            loadFridgeloopData();
             renderCatalog();
             renderSpesaList();
             renderNeighborsAnnunci();
-            refreshDashboardNumbers();
-            saveFridgeloopData();
-            // Keep the sample state current and save on tab close.
-            window.addEventListener('beforeunload', saveFridgeloopData);
         };
     </script>
 </body>
