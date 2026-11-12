@@ -38,7 +38,7 @@
         <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20 max-w-lg w-full flex flex-col items-center">
             
             <div class="bg-white p-3 rounded-2xl shadow-lg mb-6 w-44 h-44 flex items-center justify-center overflow-hidden">
-                <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="FoodWise Logo" class="w-full h-full object-contain rounded-xl">
+                <img src="https://i.ibb.co/6R2n91p/image_7a7b1b.jpg" alt="Logo Ufficiale" class="w-full h-full object-contain rounded-xl">
             </div>
 
             <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Progetto Smart AI Anti-Spreco</span>
@@ -112,7 +112,7 @@
         </header>
 
         <!-- CONTENUTO PRINCIPALE -->
-        <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
+        <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full space-y-16">
 
             <!-- SEZIONE 1: FRIGO SMART -->
             <section id="tab-frigo" class="space-y-6">
@@ -164,10 +164,10 @@
 
             <!-- SEZIONE 2: SCANNER SCONTRINO IA -->
             <section id="tab-scanner" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
                     <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 2 di 6</span>
                     <h2 class="text-2xl font-bold mt-2 mb-2">Scanner IA Scontrino & Barcode</h2>
-                    <p class="text-gray-500 text-sm mb-6">Scansiona lo scontrino del supermercato: l'IA estrae i prodotti e calcola automaticamente le date di scadenza.</p>
+                    <p class="text-gray-500 text-sm mb-6">Fotografa lo scontrino del supermercato: l'intelligenza artificiale riconosce i prodotti e stima le scadenze.</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div id="scanner-box" class="relative bg-gray-900 rounded-2xl h-64 flex flex-col items-center justify-center overflow-hidden border-4 border-orange-200 p-4">
@@ -179,16 +179,16 @@
                                 <p class="text-[10px] text-gray-400">Scontrino Campione Pronto</p>
                             </div>
                             <div id="scanner-result-text" class="hidden text-brandLightGreen font-bold text-sm z-10 animate-pulse text-center">
-                                <i class="fa-solid fa-circle-check"></i> Scontrino letto con successo!
+                                <i class="fa-solid fa-circle-check"></i> Scontrino letto e sincronizzato!
                             </div>
                         </div>
                         <div class="flex flex-col justify-between">
                             <div class="space-y-3">
-                                <h3 class="font-bold text-gray-800">Cosa fa l'IA sullo scontrino?</h3>
+                                <h3 class="font-bold text-gray-800">Caratteristiche Motore OCR IA</h3>
                                 <ul class="text-xs text-gray-600 space-y-2">
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Riconosce testi OCR complessi.</li>
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Assegna categorie e giorni di conservazione.</li>
-                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Aggiorna in tempo reale il frigorifero smart.</li>
+                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Estrazione automatica voci scontrino.</li>
+                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Assegnazione giorni di deperibilità.</li>
+                                    <li><i class="fa-solid fa-check text-brandOrange"></i> Sincronizzazione immediata con il frigo.</li>
                                 </ul>
                             </div>
                             <button onclick="startScanning()" id="scan-btn" class="w-full bg-brandOrange hover:bg-brandDarkOrange text-white py-3 rounded-2xl font-bold shadow-lg transition flex items-center justify-center gap-2">
@@ -201,7 +201,7 @@
 
             <!-- SEZIONE 3: CHEF SVUOTA-FRIGO -->
             <section id="tab-chef" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
                     <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 3 di 6</span>
                     <h2 class="text-2xl font-bold mt-2 mb-2">Chef IA Svuota-Frigo</h2>
                     <p class="text-gray-500 text-sm mb-6">Ricette anti-spreco da 10-15 minuti create dando priorità agli alimenti vicini alla scadenza.</p>
@@ -232,7 +232,7 @@
 
             <!-- SEZIONE 4: CONDIVIDI COL VICINO -->
             <section id="tab-social" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-xl mx-auto text-center">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto text-center">
                     <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 4 di 6</span>
                     <h2 class="text-2xl font-bold mt-2 mb-2">Condividi col Vicino</h2>
                     <p class="text-gray-500 text-sm mb-6">Parti per il weekend o hai cibo in esubero? Regalalo ai vicini nel raggio di 500 metri.</p>
@@ -252,25 +252,25 @@
 
             <!-- SEZIONE 5: LISTA SPESA & GDO -->
             <section id="tab-spesa" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-xl mx-auto text-center">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto text-center">
                     <span class="bg-green-100 text-brandGreen text-xs font-bold px-3 py-1 rounded-full">Sezione 5 di 6</span>
                     <h2 class="text-2xl font-bold mt-2 mb-2">Lista della Spesa & Offerte GDO</h2>
                     <p class="text-gray-500 text-sm mb-6">Lista condivisa con avviso anti-doppioni + Box Anti-Spreco scontate del 50-70% nei supermercati partner.</p>
                     <div class="p-4 bg-green-50 rounded-2xl border border-green-200 text-left">
                         <h4 class="font-bold text-sm text-brandGreen"><i class="fa-solid fa-cart-shopping"></i> Anti-Doppioni IA Attivo</h4>
-                        <p class="text-xs text-gray-600 mt-1">L'app rileva che hai già 2 confezioni di latte nel frigo e ti avvisa prima di acquistarne un'altra.</p>
+                        <p class="text-xs text-gray-600 mt-1">L'app rileva che hai già prodotti simili in dispensa e ti avvisa prima di acquistarne altri.</p>
                     </div>
                 </div>
             </section>
 
             <!-- SEZIONE 6: IMPATTO & BUSINESS -->
             <section id="tab-business" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
                     <span class="bg-orange-100 text-brandOrange text-xs font-bold px-3 py-1 rounded-full">Sezione 6 di 6</span>
                     <h2 class="text-2xl font-bold mt-2 mb-4">Impatto, Piano Pro & Business Model Canvas</h2>
                     <p class="text-gray-500 text-sm mb-6">I pilastri della sostenibilità e la struttura imprenditoriale completa di FoodWise.</p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-8">
                         <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
                             <h3 class="font-bold text-brandGreen text-lg mb-2"><i class="fa-solid fa-seedling"></i> Sostenibilità & Impatto</h3>
                             <p class="text-xs text-gray-600 leading-relaxed">Riduzione del 68% dello spreco domestico, risparmio annuo di oltre 500€ per famiglia e rafforzamento della solidarietà di quartiere.</p>
@@ -278,6 +278,19 @@
                         <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200">
                             <h3 class="font-bold text-brandOrange text-lg mb-2"><i class="fa-solid fa-briefcase"></i> Modello Freemium / Pro</h3>
                             <p class="text-xs text-gray-600 leading-relaxed">Versione base gratuita per tutti per massimizzare l'impatto ecologico; abbonamento Pro a 2,99€/mese per funzioni avanzate e partnership GDO.</p>
+                        </div>
+                    </div>
+
+                    <!-- Business Model Canvas Riassuntivo -->
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-left">
+                        <h3 class="font-bold text-gray-900 text-lg mb-4"><i class="fa-solid fa-table-cells text-brandOrange"></i> Business Model Canvas (9 Blocchi)</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-white p-3 rounded-xl border"><strong>1. Valore:</strong> Inventario da scontrino, alert scadenze e ricette rapide.</div>
+                            <div class="bg-white p-3 rounded-xl border"><strong>2. Clienti:</strong> Famiglie, studenti fuori sede e GDO locali.</div>
+                            <div class="bg-white p-3 rounded-xl border"><strong>3. Canali:</strong> App mobile, social media e QR code su scontrini.</div>
+                            <div class="bg-white p-3 rounded-xl border"><strong>4. Relazioni:</strong> Chef IA personalizzato e community di quartiere.</div>
+                            <div class="bg-white p-3 rounded-xl border"><strong>5. Ricavi:</strong> Versione freemium, abbonamento Pro e accordi GDO.</div>
+                            <div class="bg-white p-3 rounded-xl border"><strong>6. Attività:</strong> Sviluppo IA OCR, gestione database e accordi commerciali.</div>
                         </div>
                     </div>
                 </div>
