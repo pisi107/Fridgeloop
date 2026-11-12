@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - Zero Sprechi, Massimo Gusto</title>
+    <title>Fridgeloop - Zero Sprechi, Massimo Gusto</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter & Google Fonts -->
@@ -51,6 +51,19 @@
             border-radius: 3px;
         }
     </style>
+<style id="fridgeloop-reference-redesign">
+:root{--fl-green:#174b38;--fl-green2:#238452;--fl-ink:#202722;--fl-muted:#68736d;--fl-bg:#f5f7f4;--fl-line:#e8ece8;--fl-shadow:0 5px 18px rgba(25,55,39,.08)}
+*{box-sizing:border-box}body{background:var(--fl-bg)!important;color:var(--fl-ink)!important;font-family:Inter,system-ui,sans-serif!important}#app-container{max-width:none!important;width:100%!important;height:auto!important;min-height:100vh!important;margin:0!important;overflow:visible!important;background:var(--fl-bg)!important;box-shadow:none!important}#page-dashboard{min-height:100vh!important;height:auto!important;display:grid!important;grid-template-columns:240px minmax(0,1fr);grid-template-rows:82px minmax(0,1fr);background:var(--fl-bg)!important}#page-dashboard>header{grid-column:2;grid-row:1;background:#fff!important;color:var(--fl-ink)!important;border-bottom:1px solid var(--fl-line);box-shadow:none!important;padding:0 34px!important;min-height:82px}#page-dashboard>header .fa-bars{display:none}#page-dashboard>header .bg-white\/10{display:none}#page-dashboard>header .text-white{color:var(--fl-green)!important}#page-dashboard>header .text-orangeaccent{color:#5d9c61!important}#page-dashboard>header>div:nth-child(2){font-size:0!important}#page-dashboard>header>div:nth-child(2):after{content:'La tua cucina intelligente';font-size:14px;color:#738078;font-weight:600}#page-dashboard>header>button{background:#edf5ed!important;color:var(--fl-green)!important;box-shadow:none!important}
+#sidebar-overlay{display:none!important}#sidebar-drawer{position:fixed!important;inset:0 auto 0 0!important;width:240px!important;max-width:240px!important;transform:none!important;z-index:45!important;background:linear-gradient(180deg,#194d39,#123d2d)!important;color:white!important;border-radius:0!important;box-shadow:none!important;justify-content:flex-start!important}#sidebar-drawer>div:first-child{display:flex;flex-direction:column;min-height:100%;}.sidebar-brand{height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;border-bottom:1px solid rgba(255,255,255,.2);margin:0 24px 18px;text-align:center}.brand-leaf{font-size:42px;color:#9bd36b;transform:rotate(-15deg);margin-bottom:12px}.brand-name{font-size:30px;letter-spacing:-1.4px;font-weight:800}.brand-name span{color:#a6d96e}.sidebar-brand small{font-size:12px;line-height:1.45;margin-top:14px;color:#e3eee5}.sidebar-inner>div:first-of-type:not(.sidebar-brand){background:transparent!important;padding:8px 18px 12px!important;border:0!important}.sidebar-inner #sidebar-avatar{background:#2c8d55!important}.sidebar-inner nav{padding:0 14px 18px!important;max-height:none!important;overflow:visible!important;display:flex;flex-direction:column;gap:5px}.sidebar-inner nav button{color:#f4faf5!important;border:0!important;border-radius:13px!important;padding:13px 14px!important;font-size:13px!important;text-align:left}.sidebar-inner nav button:hover,.sidebar-inner nav button:focus{background:#2a8b54!important;color:white!important}.sidebar-inner nav button i{color:#d8efdf!important}.sidebar-inner nav button:nth-child(1){background:#2d9158!important}.sidebar-inner nav button:nth-child(6){margin-top:auto!important}.sidebar-inner>div:last-child{margin-top:auto;background:transparent!important;border-color:rgba(255,255,255,.18)!important}.sidebar-inner>div:last-child button{color:#fff!important;border-color:rgba(255,255,255,.25)!important;background:rgba(255,255,255,.07)!important}
+#page-dashboard>.flex-1{grid-column:2;grid-row:2;min-height:calc(100vh - 82px);overflow:visible!important;padding:0 34px 35px!important}#page-dashboard>.flex-1>div{max-width:none!important}#page-dashboard .max-w-md{max-width:none!important}.dashboard-home{padding:28px 0 26px!important;max-width:1500px!important;margin:0 auto!important;display:flex;flex-direction:column;gap:24px!important}.dash-welcome-row{display:flex;justify-content:space-between;align-items:center;gap:24px}.dash-eyebrow{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#7a9381;margin:0 0 7px}.dash-title{font-size:clamp(30px,3vw,44px);line-height:1.08;font-weight:800;letter-spacing:-1.8px;margin:0;color:#202622}.wave{font-size:.82em}.dash-subtitle{font-size:17px;color:#66716b;margin:8px 0 0}.dash-home-actions{display:flex;align-items:center;gap:14px}.home-pill,.round-action{border:0;background:#fff;box-shadow:var(--fl-shadow);color:#26352c}.home-pill{border-radius:30px;padding:13px 18px;font-weight:700;display:flex;align-items:center;gap:11px}.round-action{width:48px;height:48px;border-radius:50%;font-size:19px;position:relative}.round-action b{position:absolute;right:-2px;top:-4px;background:#e33d43;color:#fff;font-size:10px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center}.user-action{background:#174b38;color:#fff}
+.dash-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.dash-stat{min-width:0;min-height:106px;background:#fff;border:1px solid #edf0ed;border-radius:22px;padding:16px;display:flex;align-items:center;gap:14px;text-align:left;box-shadow:var(--fl-shadow);color:var(--fl-ink)}.stat-icon{width:66px;height:66px;flex:0 0 66px;border-radius:50%;display:grid;place-items:center;font-size:27px}.fridge-icon,.waste-icon{background:#e4f2d2;color:#398347}.freezer-icon{background:#d9f2fa;color:#1886c4}.pantry-icon{background:#ffedc8;color:#b87818}.stat-copy{display:flex;flex-direction:column;gap:3px;min-width:0}.stat-copy strong{font-size:32px;line-height:1;font-weight:800}.stat-copy small{font-size:13px;color:#59645e;white-space:nowrap}.stat-arrow{margin-left:auto;color:#68736d}.waste-stat{background:#fbfdf8}.storage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}.storage-card{background:#fff;border-radius:25px;overflow:hidden;border:1px solid #e9ede9;box-shadow:var(--fl-shadow);display:flex;flex-direction:column;min-width:0}.storage-hero{height:78px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;color:#fff}.fridge-card .storage-hero{background:linear-gradient(110deg,#19743e,#65b85b)}.freezer-card .storage-hero{background:linear-gradient(110deg,#0878a8,#39b5d1)}.pantry-card .storage-hero{background:linear-gradient(110deg,#c17a1b,#edb34c)}.storage-title{display:flex;align-items:center;gap:13px}.storage-title i{font-size:29px}.storage-title h2{font-size:23px;font-weight:800;margin:0}.storage-hero button{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:22px;padding:10px 15px;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}.storage-photo{height:100px;background-size:cover;background-position:center}.fridge-photo{background-image:linear-gradient(0deg,rgba(15,65,35,.08),rgba(15,65,35,.08)),url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=80')}.freezer-photo{background-image:url('https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80')}.pantry-photo{background-image:url('https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=900&q=80')}.storage-items{padding:7px 17px 2px;flex:1}.storage-item{display:flex;align-items:center;gap:12px;min-height:58px;padding:7px 0;border-bottom:1px solid #edf0ed;min-width:0}.storage-item:last-child{border-bottom:0}.food-thumb{width:48px;height:44px;flex:0 0 48px;border-radius:13px;background:#f3f6f1;display:grid;place-items:center;font-size:25px}.storage-item>span:nth-child(2){min-width:0;display:flex;flex-direction:column;gap:3px;flex:1}.storage-item b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.storage-item small{font-size:11px;color:#68736d}.storage-item .expiry-soon{color:#d35b25;font-weight:700}.storage-item>i{color:#7a837d;font-size:13px}.storage-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 17px;background:#f4f8f2;font-size:12px;color:#294b36}.freezer-card .storage-footer{background:#edf8fb;color:#176b91}.pantry-card .storage-footer{background:#fff7e9;color:#8e5d16}.storage-footer span,.storage-footer b{display:flex;align-items:center;gap:7px}.storage-footer b{font-size:11px;color:#25834b}.storage-empty{padding:22px 5px;text-align:center;color:#87918a;font-size:12px}
+.feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.feature-tile{position:relative;min-height:145px;border:0;border-radius:21px;padding:18px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;overflow:hidden;color:#17251b;box-shadow:var(--fl-shadow)}.recipes-tile{background:#eee5ff}.shopping-tile{background:#e3f5e2}.sharing-tile{background:#ffedda}.impact-tile{background:#e8f4d8}.feature-symbol{font-size:27px;color:#39844b}.feature-tile>span:nth-child(2){display:flex;flex-direction:column;gap:5px;max-width:70%;z-index:1}.feature-tile b{font-size:15px}.feature-tile small{font-size:11px;line-height:1.4}.feature-art{position:absolute;right:14px;top:25px;font-size:49px;filter:drop-shadow(0 5px 5px rgba(0,0,0,.12))}.feature-arrow{position:absolute;right:14px;bottom:13px;width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#1c4d36}.planet-banner{min-height:82px;border-radius:20px;background:linear-gradient(100deg,#e3f3c9,#f0f6d8);display:flex;align-items:center;gap:18px;padding:14px 22px;overflow:hidden}.planet-leaf{width:54px;height:54px;display:grid;place-items:center;background:#d3e9ba;border-radius:50%;color:#277347;font-size:29px}.planet-banner>div{display:flex;flex-direction:column;gap:5px;flex:1}.planet-banner b{font-size:17px;color:#244631}.planet-banner small{font-size:13px;color:#405448}.planet-banner button{border:0;border-radius:25px;padding:12px 18px;background:#174b38;color:#fff;font-size:12px;font-weight:700}.impact-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.impact-mini-grid>div{background:#fff;border:1px solid var(--fl-line);border-radius:16px;padding:13px 16px;display:flex;flex-direction:column;gap:3px}.impact-mini-grid b{font-size:17px;color:#287a48}.impact-mini-grid small{font-size:11px;color:#7a837d}
+/* All the other app areas keep their original forms and interactions, with a cleaner desktop canvas. */
+#page-dashboard .flex-1>div:not(#section-dashboard-home){max-width:1120px!important;margin:0 auto!important;padding:30px 0!important}#page-dashboard .flex-1>div:not(#section-dashboard-home) .rounded-3xl{border-radius:22px!important}#page-dashboard input,#page-dashboard select,#page-dashboard textarea{border-radius:12px!important}
+@media(max-width:1100px){#page-dashboard{grid-template-columns:210px minmax(0,1fr)}#sidebar-drawer{width:210px!important;max-width:210px!important}#page-dashboard>.flex-1{padding:0 22px 28px!important}#page-dashboard>header{padding:0 22px!important}.dash-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.storage-grid{gap:12px}.storage-hero{padding:13px}.storage-title h2{font-size:19px}.storage-hero button{padding:8px 10px}.storage-footer{font-size:10px;padding:10px}.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){#page-dashboard{display:flex!important;min-height:100vh!important;height:100vh!important;overflow:hidden!important}#page-dashboard>header{grid-column:auto;grid-row:auto;min-height:66px;padding:0 14px!important;flex:0 0 66px}#page-dashboard>header .fa-bars{display:inline!important}#page-dashboard>header .bg-white\/10{display:flex!important}#page-dashboard>header>div:nth-child(2){display:flex!important;font-size:16px!important}#page-dashboard>header>div:nth-child(2):after{content:none}#sidebar-drawer{position:absolute!important;inset:0 auto 0 0!important;width:288px!important;max-width:85vw!important;transform:translateX(-100%)!important;transition:transform .3s!important;background:#fff!important;color:var(--fl-ink)!important}#sidebar-drawer:not(.-translate-x-full){transform:translateX(0)!important}#sidebar-drawer>div:first-child{display:block;min-height:auto}.sidebar-brand{height:155px;margin:0 20px 10px}.brand-name{font-size:25px}.sidebar-brand small{margin-top:7px}.sidebar-inner>div:first-of-type:not(.sidebar-brand){background:var(--fl-green)!important;padding:15px!important}.sidebar-inner nav{padding:10px 14px 18px!important;max-height:calc(100vh - 270px)!important;overflow:auto!important}.sidebar-inner nav button{color:#34443a!important}.sidebar-inner nav button i{color:#25804a!important}#sidebar-drawer>div:last-child button{color:#b42318!important;border-color:#f2c9c5!important;background:#fff!important}#page-dashboard>.flex-1{padding:0 14px 24px!important;overflow-y:auto!important;min-height:0!important;flex:1}#page-dashboard>.flex-1>div{padding:18px 0!important}.dashboard-home{gap:17px!important}.dash-welcome-row{align-items:flex-start}.dash-title{font-size:29px;letter-spacing:-1px}.dash-subtitle{font-size:13px}.dash-eyebrow{font-size:8px}.dash-home-actions{gap:7px}.home-pill{font-size:0;padding:11px}.home-pill i{font-size:15px}.home-pill i:last-child{display:none}.round-action{width:39px;height:39px;font-size:15px}.dash-stats-grid{gap:8px}.dash-stat{min-height:76px;padding:9px;gap:8px;border-radius:16px}.stat-icon{width:42px;height:42px;flex-basis:42px;font-size:19px}.stat-copy strong{font-size:23px}.stat-copy small{font-size:9px;white-space:normal}.stat-arrow{font-size:10px}.storage-grid{grid-template-columns:1fr;gap:14px}.storage-card{border-radius:20px}.storage-hero{height:65px}.storage-photo{height:95px}.storage-items{display:grid;grid-template-columns:1fr}.storage-item{min-height:52px}.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.feature-tile{min-height:130px;padding:13px;border-radius:17px}.feature-tile b{font-size:13px}.feature-tile small{font-size:10px}.feature-art{font-size:35px;right:8px;top:27px}.feature-arrow{width:25px;height:25px;right:9px;bottom:9px}.planet-banner{padding:12px;gap:9px}.planet-leaf{width:40px;height:40px;font-size:22px;flex:0 0 40px}.planet-banner b{font-size:12px}.planet-banner small{font-size:10px}.planet-banner button{font-size:0;padding:10px}.planet-banner button i{font-size:13px}.impact-mini-grid{gap:7px}.impact-mini-grid>div{padding:10px}.impact-mini-grid b{font-size:14px}.impact-mini-grid small{font-size:9px}}
+@media(min-width:761px){#sidebar-drawer .sidebar-inner>div:first-of-type:not(.sidebar-brand){display:none!important}#sidebar-drawer>div:last-child{display:none!important}}
+</style>
 </head>
 <body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
 
@@ -67,7 +80,7 @@
                 </div>
                 <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold p-2"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="text-gray-600 mb-4 text-sm">Registrandoti a <span class="font-bold text-emeraldcustom">FoodWise</span> sblocchi strumenti esclusivi per azzerare lo spreco e risparmiare:</p>
+            <p class="text-gray-600 mb-4 text-sm">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi per azzerare lo spreco e risparmiare:</p>
             <ul class="space-y-3 mb-6 text-sm text-gray-700">
                 <li class="flex items-start gap-3 bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-1"></i>
@@ -119,7 +132,7 @@
                     </div>
                 </div>
 
-                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">FoodWise</h1>
+                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">Fridgeloop</h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Anti-spreco alimentare con IA</p>
                 <p class="text-sm italic text-gray-700 px-4 font-medium bg-white/60 py-2.5 rounded-2xl shadow-sm border border-emeraldcustom/10">
                     “Dal tuo scontrino alla tavola: zero sprechi, massimo gusto.”
@@ -151,7 +164,7 @@
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
             <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-forest">
                 <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
-                <h3 id="auth-title" class="text-2xl font-bold text-forest mb-2">Accedi a FoodWise</h3>
+                <h3 id="auth-title" class="text-2xl font-bold text-forest mb-2">Accedi a Fridgeloop</h3>
                 <p id="auth-subtitle" class="text-xs text-gray-500 mb-6">Inserisci le tue credenziali per sincronizzare il tuo frigo e le ricette IA.</p>
                 
                 <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
@@ -210,7 +223,8 @@
             <!-- Sidebar Drawer Menu -->
             <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-30 hidden transition-opacity"></div>
             <aside id="sidebar-drawer" class="absolute top-0 left-0 bottom-0 w-72 bg-white z-40 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between">
-                <div>
+                <div class="sidebar-inner">
+                    <div class="sidebar-brand"><div class="brand-leaf"><i class="fa-solid fa-leaf"></i></div><div class="brand-name">Fridge<span>loop</span></div><small>Zero Sprechi.<br>Massimo Gusto.</small></div>
                     <!-- Sidebar Header -->
                     <div class="bg-forest text-white p-5 flex items-center justify-between">
                         <div class="flex items-center gap-3 cursor-pointer" onclick="switchSection('section-account'); toggleSidebar();">
@@ -226,26 +240,26 @@
                     <!-- Sidebar Navigation Links -->
                     <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-220px)]">
                         <button onclick="switchSection('section-dashboard-home'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
-                            <i class="fa-solid fa-house w-5 text-emeraldcustom"></i> Dashboard & Impatto
+                            <i class="fa-solid fa-house w-5 text-emeraldcustom"></i> Dashboard
                         </button>
                         <button onclick="switchSection('section-scansiona'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
-                            <i class="fa-solid fa-camera-retro w-5 text-emeraldcustom"></i> Scansiona (Scontrino / Barcode)
+                            <i class="fa-solid fa-camera-retro w-5 text-emeraldcustom"></i> Scansiona
                         </button>
                         <button onclick="switchSection('section-catalogo'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
-                            <i class="fa-solid fa-boxes-stacked w-5 text-emeraldcustom"></i> Catalogo (Frigo, Freezer, Dispensa)
+                            <i class="fa-solid fa-boxes-stacked w-5 text-emeraldcustom"></i> Catalogo
                         </button>
                         <button onclick="switchSection('section-ricette'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm relative">
-                            <i class="fa-solid fa-wand-magic-sparkles w-5 text-orangeaccent"></i> Ricette IA
+                            <i class="fa-solid fa-wand-magic-sparkles w-5 text-orangeaccent"></i> Ricette AI
                             <span id="sidebar-ricette-badge" class="ml-auto bg-orangeaccent text-white text-[10px] px-2 py-0.5 rounded-full font-bold">IA</span>
                         </button>
                         <button onclick="switchSection('section-vicino'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
-                            <i class="fa-solid fa-map-location-dot w-5 text-emeraldcustom"></i> Condividi col Vicino
+                            <i class="fa-solid fa-map-location-dot w-5 text-emeraldcustom"></i> Condivisione
                         </button>
                         <button onclick="switchSection('section-spesa'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
-                            <i class="fa-solid fa-basket-shopping w-5 text-emeraldcustom"></i> Lista Spesa Condivisa
+                            <i class="fa-solid fa-basket-shopping w-5 text-emeraldcustom"></i> Lista della Spesa
                         </button>
                         <button onclick="switchSection('section-account'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm border-t border-gray-100 mt-2">
-                            <i class="fa-solid fa-user-gear w-5 text-emeraldcustom"></i> Il Mio Account & Password
+                            <i class="fa-solid fa-user-gear w-5 text-emeraldcustom"></i> Impostazioni
                         </button>
                     </nav>
                 </div>
@@ -263,99 +277,57 @@
             <div class="flex-1 overflow-y-auto pb-16">
 
                 <!-- 1. DASHBOARD HOME -->
-                <div id="section-dashboard-home" class="p-4 space-y-4 max-w-md mx-auto">
-                    <!-- Greeting & Philosophy -->
-                    <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-5 rounded-3xl shadow-lg relative overflow-hidden">
-                        <div class="absolute -right-4 -bottom-4 opacity-10 text-9xl"><i class="fa-solid fa-leaf"></i></div>
-                        <div class="relative z-10">
-                            <span id="greeting-user" class="text-xs uppercase tracking-widest text-orangeaccent font-bold block mb-1">Bentornato, Sveva!</span>
-                            <h2 class="text-lg font-bold mb-3">“Il segreto della felicità non è fare ciò che si vuole, ma volere ciò che si fa.”</h2>
-                            <p class="text-xs text-white/80 italic">Gestisci il tuo cibo con consapevolezza e riduci lo spreco domestico.</p>
+                <div id="section-dashboard-home" class="dashboard-home p-6 space-y-6">
+                    <div class="dash-welcome-row">
+                        <div>
+                            <p class="dash-eyebrow">LA TUA CUCINA, SOTTO CONTROLLO</p><span id="greeting-user" class="sr-only">Bentornato!</span>
+                            <h1 class="dash-title">Ciao <span id="dashboard-first-name">Giorgio</span>! <span class="wave">👋</span></h1>
+                            <p class="dash-subtitle">Ecco il riepilogo della tua cucina intelligente.</p>
+                        </div>
+                        <div class="dash-home-actions">
+                            <button class="home-pill" onclick="showToast('Casa selezionata')"><i class="fa-solid fa-house"></i> Casa Dolce Casa <i class="fa-solid fa-chevron-down"></i></button>
+                            <button class="round-action" onclick="showToast('Non hai nuove notifiche')" aria-label="Notifiche"><i class="fa-regular fa-bell"></i><b>2</b></button>
+                            <button class="round-action user-action" onclick="switchSection('section-account')" aria-label="Account"><i class="fa-regular fa-user"></i></button>
                         </div>
                     </div>
 
-                    <!-- Impact Card: Il tuo impatto in primo piano -->
-                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-bold text-forest text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-orangeaccent"></i> Il tuo impatto in primo piano
-                            </h3>
-                            <span class="text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2.5 py-1 rounded-full uppercase">Eco-Badge Attivo</span>
-                        </div>
-                        <div class="grid grid-cols-3 gap-3 text-center">
-                            <div class="bg-lightgreen/70 p-3 rounded-2xl border border-emeraldcustom/20">
-                                <i class="fa-solid fa-utensils text-emeraldcustom text-xl mb-1"></i>
-                                <span id="stat-cibo" class="block font-extrabold text-forest text-lg">12.4 kg</span>
-                                <span class="text-[10px] text-gray-500 font-medium">Cibo Salvato</span>
-                            </div>
-                            <div class="bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
-                                <i class="fa-solid fa-piggy-bank text-orangeaccent text-xl mb-1"></i>
-                                <span id="stat-soldi" class="block font-extrabold text-orangeaccent text-lg">€ 48.50</span>
-                                <span class="text-[10px] text-gray-500 font-medium">Soldi Risparmiati</span>
-                            </div>
-                            <div class="bg-blue-50 p-3 rounded-2xl border border-blue-200">
-                                <i class="fa-solid fa-cloud text-blue-500 text-xl mb-1"></i>
-                                <span id="stat-co2" class="block font-extrabold text-blue-700 text-lg">31.2 kg</span>
-                                <span class="text-[10px] text-gray-500 font-medium">CO₂ Evitata</span>
-                            </div>
-                        </div>
+                    <div class="dash-stats-grid">
+                        <button class="dash-stat" onclick="switchCatalogTab('frigo'); switchSection('section-catalogo')"><span class="stat-icon fridge-icon"><i class="fa-solid fa-temperature-low"></i></span><span class="stat-copy"><strong id="home-count-frigo">5</strong><small>Prodotti in frigo</small></span><i class="fa-solid fa-chevron-right stat-arrow"></i></button>
+                        <button class="dash-stat" onclick="switchCatalogTab('freezer'); switchSection('section-catalogo')"><span class="stat-icon freezer-icon"><i class="fa-regular fa-snowflake"></i></span><span class="stat-copy"><strong id="home-count-freezer">2</strong><small>Prodotti nel freezer</small></span><i class="fa-solid fa-chevron-right stat-arrow"></i></button>
+                        <button class="dash-stat" onclick="switchCatalogTab('dispensa'); switchSection('section-catalogo')"><span class="stat-icon pantry-icon"><i class="fa-solid fa-jar"></i></span><span class="stat-copy"><strong id="home-count-dispensa">3</strong><small>Prodotti in dispensa</small></span><i class="fa-solid fa-chevron-right stat-arrow"></i></button>
+                        <div class="dash-stat waste-stat"><span class="stat-icon waste-icon"><i class="fa-solid fa-leaf"></i></span><span class="stat-copy"><strong>-32%</strong><small>Sprechi alimentari</small></span><i class="fa-solid fa-chart-column stat-arrow"></i></div>
                     </div>
 
-                    <!-- Quick Access Cards Grid -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <div onclick="switchSection('section-scansiona')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
-                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
-                                <i class="fa-solid fa-camera-retro"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-forest text-sm">Scansiona</h4>
-                                <p class="text-[11px] text-gray-500">Scontrino o Codice a barre con IA</p>
-                            </div>
-                        </div>
-                        <div onclick="switchSection('section-catalogo')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
-                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
-                                <i class="fa-solid fa-boxes-stacked"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-forest text-sm">Catalogo</h4>
-                                <p class="text-[11px] text-gray-500">Frigo, Freezer & Dispensa</p>
-                            </div>
-                        </div>
-                        <div onclick="switchSection('section-ricette')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
-                            <div class="w-10 h-10 rounded-2xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold mb-3 group-hover:bg-orangeaccent group-hover:text-white transition">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-forest text-sm">Ricette IA</h4>
-                                <p class="text-[11px] text-gray-500">Svuota-frigo intelligente</p>
-                            </div>
-                        </div>
-                        <div onclick="switchSection('section-vicino')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
-                            <div class="w-10 h-10 rounded-2xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold mb-3 group-hover:bg-emeraldcustom group-hover:text-white transition">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-forest text-sm">Vicino</h4>
-                                <p class="text-[11px] text-gray-500">Condividi cibo di quartiere</p>
-                            </div>
-                        </div>
+                    <div class="storage-grid">
+                        <article class="storage-card fridge-card">
+                            <div class="storage-hero"><div class="storage-title"><i class="fa-solid fa-temperature-low"></i><h2>Frigo</h2></div><button onclick="switchCatalogTab('frigo'); switchSection('section-catalogo')">Vedi tutti <i class="fa-solid fa-arrow-right"></i></button></div>
+                            <div class="storage-photo fridge-photo" role="img" aria-label="Verdure fresche"></div>
+                            <div class="storage-items" id="home-items-frigo"><div class="storage-item"><span class="food-thumb">🍅</span><span><b>Pomodori</b><small class="expiry-soon">Scade tra 2 giorni</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🥬</span><span><b>Spinaci</b><small class="expiry-soon">Scade tra 3 giorni</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🥛</span><span><b>Latte fresco</b><small>Da consumare presto</small></span><i class="fa-solid fa-chevron-right"></i></div></div>
+                            <div class="storage-footer"><span><i class="fa-solid fa-temperature-half"></i> 4 °C</span><b><i class="fa-solid fa-circle-check"></i> Tutto sotto controllo</b></div>
+                        </article>
+                        <article class="storage-card freezer-card">
+                            <div class="storage-hero"><div class="storage-title"><i class="fa-regular fa-snowflake"></i><h2>Freezer</h2></div><button onclick="switchCatalogTab('freezer'); switchSection('section-catalogo')">Vedi tutti <i class="fa-solid fa-arrow-right"></i></button></div>
+                            <div class="storage-photo freezer-photo" role="img" aria-label="Frutti di bosco surgelati"></div>
+                            <div class="storage-items" id="home-items-freezer"><div class="storage-item"><span class="food-thumb">🥦</span><span><b>Verdure miste</b><small>Scade tra 3 mesi</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🍕</span><span><b>Pizza</b><small>Scade tra 6 mesi</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🫐</span><span><b>Frutti di bosco</b><small>Scade tra 8 mesi</small></span><i class="fa-solid fa-chevron-right"></i></div></div>
+                            <div class="storage-footer"><span><i class="fa-regular fa-snowflake"></i> -18 °C</span><b><i class="fa-solid fa-circle-check"></i> Tutto sotto controllo</b></div>
+                        </article>
+                        <article class="storage-card pantry-card">
+                            <div class="storage-hero"><div class="storage-title"><i class="fa-solid fa-jar"></i><h2>Dispensa</h2></div><button onclick="switchCatalogTab('dispensa'); switchSection('section-catalogo')">Vedi tutti <i class="fa-solid fa-arrow-right"></i></button></div>
+                            <div class="storage-photo pantry-photo" role="img" aria-label="Pasta e ingredienti in dispensa"></div>
+                            <div class="storage-items" id="home-items-dispensa"><div class="storage-item"><span class="food-thumb">🍝</span><span><b>Pasta</b><small>Scade tra 1 anno</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🍚</span><span><b>Riso</b><small>Scade tra 1 anno</small></span><i class="fa-solid fa-chevron-right"></i></div><div class="storage-item"><span class="food-thumb">🌾</span><span><b>Farina</b><small>Scade tra 1 anno</small></span><i class="fa-solid fa-chevron-right"></i></div></div>
+                            <div class="storage-footer"><span><i class="fa-solid fa-box"></i> Scorte</span><b><i class="fa-solid fa-circle-check"></i> Tutto in ordine</b></div>
+                        </article>
                     </div>
 
-                    <!-- GDO Partner Banner -->
-                    <div class="bg-gradient-to-r from-orangeaccent/10 to-orangeaccent/20 border border-orangeaccent/30 p-4 rounded-3xl flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-orangeaccent text-white flex items-center justify-center font-bold shrink-0">
-                                <i class="fa-solid fa-store"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-xs font-bold text-forest">Sconti GDO in Scadenza</h5>
-                                <p class="text-[11px] text-gray-600">Supermercati vicini: -30% su latticini e verdure fresche.</p>
-                            </div>
-                        </div>
-                        <button onclick="showToast('Coupon GDO applicato! Controlla la lista spesa.')" class="bg-orangeaccent text-white text-xs font-bold px-3 py-2 rounded-xl shadow hover:bg-orange-600 transition shrink-0">Scopri</button>
+                    <div class="feature-grid">
+                        <button class="feature-tile recipes-tile" onclick="switchSection('section-ricette')"><span class="feature-symbol"><i class="fa-solid fa-hat-chef"></i></span><span><b>Ricette AI</b><small>Trasforma gli ingredienti in deliziose ricette</small></span><span class="feature-art">🍝</span><i class="fa-solid fa-arrow-right feature-arrow"></i></button>
+                        <button class="feature-tile shopping-tile" onclick="switchSection('section-spesa')"><span class="feature-symbol"><i class="fa-solid fa-cart-shopping"></i></span><span><b>Lista della Spesa</b><small>Organizza la tua spesa intelligente</small></span><span class="feature-art">🛒</span><i class="fa-solid fa-arrow-right feature-arrow"></i></button>
+                        <button class="feature-tile sharing-tile" onclick="switchSection('section-vicino')"><span class="feature-symbol"><i class="fa-solid fa-people-group"></i></span><span><b>Condivisione</b><small>Condividi con la famiglia o gli amici</small></span><span class="feature-art">👨‍👩‍👧</span><i class="fa-solid fa-arrow-right feature-arrow"></i></button>
+                        <button class="feature-tile impact-tile" onclick="document.getElementById('impact-detail').scrollIntoView({behavior:'smooth'})"><span class="feature-symbol"><i class="fa-solid fa-earth-europe"></i></span><span><b>Impatto Ambientale</b><small>Scopri il tuo impatto sull'ambiente</small></span><span class="feature-art">🌍</span><i class="fa-solid fa-arrow-right feature-arrow"></i></button>
                     </div>
+                    <div id="impact-detail" class="planet-banner"><span class="planet-leaf"><i class="fa-solid fa-leaf"></i></span><div><b>Insieme per un pianeta più verde</b><small>Con Fridgeloop riduci gli sprechi e fai la differenza!</small></div><button onclick="showToast('Ogni piccolo gesto conta!')">Scopri di più <i class="fa-solid fa-arrow-right"></i></button></div>
+                    <div class="impact-mini-grid"><div><b id="stat-cibo">12.4 kg</b><small>Cibo salvato</small></div><div><b id="stat-soldi">€ 48.50</b><small>Soldi risparmiati</small></div><div><b id="stat-co2">31.2 kg</b><small>CO₂ evitata</small></div></div>
                 </div>
-
 
                 <!-- 2. SCANSIONA SECTION -->
                 <div id="section-scansiona" class="p-4 space-y-4 max-w-md mx-auto hidden">
@@ -460,7 +432,7 @@
                                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-forest text-base">Ricette IA Svuota-Frigo</h3>
+                                <h3 class="font-bold text-forest text-base">Ricette AI Svuota-Frigo</h3>
                                 <p class="text-xs text-gray-500">L'IA analizza gli ingredienti in scadenza per te</p>
                             </div>
                         </div>
@@ -488,7 +460,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="font-bold text-forest text-base flex items-center gap-2">
-                                    <i class="fa-solid fa-map-location-dot text-emeraldcustom"></i> Condividi col Vicino
+                                    <i class="fa-solid fa-map-location-dot text-emeraldcustom"></i> Condivisione
                                 </h3>
                                 <p class="text-xs text-gray-500">Solidarietà di quartiere anti-spreco</p>
                             </div>
@@ -578,7 +550,7 @@
                             <div id="account-page-avatar" class="w-14 h-14 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-xl shadow-lg">SO</div>
                             <div>
                                 <h3 id="account-page-name" class="font-bold text-forest text-base">Sveva Oliva</h3>
-                                <p id="account-page-email" class="text-xs text-gray-500">sveva.oliva@foodwise.it</p>
+                                <p id="account-page-email" class="text-xs text-gray-500">sveva.oliva@fridgeloop.it</p>
                                 <span id="account-page-badge" class="inline-block mt-1 text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2 py-0.5 rounded-full">Pro Account</span>
                             </div>
                         </div>
@@ -701,7 +673,7 @@
         // --- Application State ---
         let currentUser = {
             name: "Sveva Oliva",
-            email: "sveva.oliva@foodwise.it",
+            email: "sveva.oliva@fridgeloop.it",
             isRegistered: true,
             plan: "Pro Account"
         };
@@ -785,12 +757,12 @@
             const btn = document.getElementById('auth-submit-btn');
 
             if (mode === 'register') {
-                title.textContent = "Registrati a FoodWise";
+                title.textContent = "Registrati a Fridgeloop";
                 sub.textContent = "Sblocca ricette IA, sconti GDO e sincronizzazione familiare.";
                 nameField.classList.remove('hidden');
                 btn.textContent = "Registrati Ora & Ottieni Agevolazioni";
             } else {
-                title.textContent = "Accedi a FoodWise";
+                title.textContent = "Accedi a Fridgeloop";
                 sub.textContent = "Bentornato! Accedi per visualizzare il tuo catalogo.";
                 nameField.classList.add('hidden');
                 btn.textContent = "Accedi";
@@ -811,7 +783,7 @@
                 currentUser.isRegistered = true;
                 currentUser.plan = "Pro Account";
             } else {
-                currentUser.name = email.split('@')[0] || "Utente FoodWise";
+                currentUser.name = email.split('@')[0] || "Utente Fridgeloop";
                 currentUser.isRegistered = true;
                 currentUser.plan = "Pro Account";
             }
@@ -848,6 +820,7 @@
             document.getElementById('account-page-name').textContent = currentUser.name;
             document.getElementById('account-page-email').textContent = currentUser.email;
             document.getElementById('greeting-user').textContent = `Bentornato, ${currentUser.name.split(' ')[0]}!`;
+            const dashName = document.getElementById('dashboard-first-name'); if (dashName) dashName.textContent = currentUser.name.split(' ')[0];
             
             // Initials avatar
             const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || "FW";
@@ -871,6 +844,22 @@
             renderNeighborsAnnunci();
         }
 
+        function renderHomeSummary() {
+            ['frigo','freezer','dispensa'].forEach(key => {
+                const count = document.getElementById('home-count-' + key);
+                if (count) count.textContent = (catalogData[key] || []).length;
+                const target = document.getElementById('home-items-' + key);
+                if (!target) return;
+                const icons = {frigo:['🥬','🍅','🥛','🧀'],freezer:['🫐','🥦','🍕','🍦'],dispensa:['🍝','🍚','🌾','🫙']};
+                const rows = (catalogData[key] || []).slice(0,3);
+                target.innerHTML = rows.length ? rows.map((item,i) => {
+                    const left = Number(item.daysLeft);
+                    const expiry = left <= 0 ? 'Scaduto' : left <= 7 ? `Scade tra ${left} giorni` : left <= 30 ? `Scade tra ${left} giorni` : 'Scade più avanti';
+                    return `<div class="storage-item"><span class="food-thumb">${icons[key][i % icons[key].length]}</span><span><b>${item.name}</b><small class="${left <= 7 ? 'expiry-soon' : ''}">${expiry}</small></span><i class="fa-solid fa-chevron-right"></i></div>`;
+                }).join('') : '<div class="storage-empty">Nessun prodotto inserito</div>';
+            });
+        }
+
         function switchSection(sectionId) {
             const sections = [
                 'section-dashboard-home',
@@ -882,6 +871,7 @@
                 'section-account'
             ];
 
+            if (sectionId === 'section-dashboard-home') renderHomeSummary();
             sections.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -1110,7 +1100,7 @@
                     <p class="text-[11px] text-gray-600">Unisci ricotta e spinaci saltati, farcisci e inforna per un piatto eccezionale zero sprechi.</p>
                 </div>
             `;
-            showToast("Ricette IA generate con successo!");
+            showToast("Ricette AI generate con successo!");
         }
 
         // --- Neighbor Annunci Functions ---
