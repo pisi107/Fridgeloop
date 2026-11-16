@@ -53,7 +53,7 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- INFO MODAL (Agevolazioni Registrazione) -->
+    <!-- INFO MODAL -->
     <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
             <div class="flex justify-between items-center mb-3">
@@ -90,7 +90,6 @@
             </div>
             
             <div class="flex flex-col items-center text-center my-auto py-6">
-                <!-- Logo Fridgeloop -->
                 <div class="w-28 h-28 bg-gradient-to-br from-forest to-emeraldcustom rounded-3xl shadow-xl flex items-center justify-center relative mb-6 border-2 border-orangeaccent/30">
                     <i class="fa-solid fa-leaf text-white text-5xl absolute -top-2 -left-2 transform -rotate-45"></i>
                     <i class="fa-solid fa-utensils text-white text-4xl relative z-10"></i>
@@ -205,57 +204,49 @@
                 </div>
             </aside>
 
-            <!-- SCROLLABLE CONTENT (HOME DASHBOARD - CENTRATA) -->
-            <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20 text-center sm:text-left">
-                <div class="flex flex-col items-center sm:items-start">
-                    <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2 justify-center sm:justify-start">
+            <!-- SCROLLABLE CONTENT (HOME DASHBOARD - STATISTICHE PERFETTAMENTE CENTRATE) -->
+            <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20 text-left">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2">
                         Ciao Giorgio! <span>👋</span>
                     </h2>
                     <p class="text-xs text-gray-500 font-medium">Ecco il riepilogo della tua cucina intelligente.</p>
                 </div>
 
-                <!-- STATS GRID -->
+                <!-- STATS GRID CENTRATA NEI PROPRI QUADRATINI -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-lightgreen transition text-center sm:text-left">
-                        <div class="w-10 h-10 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm shrink-0">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-lightgreen transition">
+                        <div class="w-9 h-9 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-box-archive"></i>
                         </div>
-                        <div>
-                            <span class="block text-base font-extrabold text-forest">12</span>
-                            <span class="text-[10px] text-gray-500 leading-tight block">Prodotti in frigo</span>
-                        </div>
+                        <span class="block text-base font-extrabold text-forest">12</span>
+                        <span class="text-[10px] text-gray-500 leading-tight">Prodotti in frigo</span>
                     </div>
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('freezer');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-blue-50 transition text-center sm:text-left">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('freezer');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition">
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-snowflake"></i>
                         </div>
-                        <div>
-                            <span class="block text-base font-extrabold text-forest">8</span>
-                            <span class="text-[10px] text-gray-500 leading-tight block">Nel freezer</span>
-                        </div>
+                        <span class="block text-base font-extrabold text-forest">8</span>
+                        <span class="text-[10px] text-gray-500 leading-tight">Nel freezer</span>
                     </div>
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('dispensa');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-orangeaccent/10 transition text-center sm:text-left">
-                        <div class="w-10 h-10 rounded-xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold text-sm shrink-0">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('dispensa');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-orangeaccent/10 transition">
+                        <div class="w-9 h-9 rounded-xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-jar"></i>
                         </div>
-                        <div>
-                            <span class="block text-base font-extrabold text-forest">15</span>
-                            <span class="text-[10px] text-gray-500 leading-tight block">In dispensa</span>
-                        </div>
+                        <span class="block text-base font-extrabold text-forest">15</span>
+                        <span class="text-[10px] text-gray-500 leading-tight">In dispensa</span>
                     </div>
-                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-                        <div class="w-10 h-10 rounded-xl bg-green-100 text-emeraldcustom flex items-center justify-center font-bold text-sm shrink-0">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center">
+                        <div class="w-9 h-9 rounded-xl bg-green-100 text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-leaf"></i>
                         </div>
-                        <div>
-                            <span class="block text-base font-extrabold text-emeraldcustom">-32%</span>
-                            <span class="text-[10px] text-gray-500 leading-tight block">Sprechi ridotti</span>
-                        </div>
+                        <span class="block text-base font-extrabold text-emeraldcustom">-32%</span>
+                        <span class="text-[10px] text-gray-500 leading-tight">Sprechi ridotti</span>
                     </div>
                 </div>
 
                 <!-- FRIGO CARD -->
-                <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden text-left">
+                <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden">
                     <div class="bg-gradient-to-r from-forest to-emeraldcustom p-4 text-white flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-snowflake text-lg text-emerald-300"></i>
@@ -284,7 +275,7 @@
                 </div>
 
                 <!-- QUICK GRID -->
-                <div class="grid grid-cols-2 gap-3 text-left">
+                <div class="grid grid-cols-2 gap-3">
                     <div onclick="switchSection('section-ricette')" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
                         <div class="w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center font-bold mb-3 shadow">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -306,7 +297,7 @@
                 </div>
 
                 <!-- GREEN BANNER -->
-                <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-4 rounded-3xl shadow-md flex items-center justify-between text-left">
+                <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-4 rounded-3xl shadow-md flex items-center justify-between">
                     <div>
                         <span class="text-[10px] font-bold text-orangeaccent uppercase tracking-wider block mb-0.5">Pianeta Verde</span>
                         <h5 class="text-xs font-bold">Insieme per un mondo senza sprechi</h5>
@@ -318,7 +309,7 @@
                 </div>
             </div>
 
-            <!-- CATALOGO SECTION (Con Pulsante Aggiungi) -->
+            <!-- CATALOGO SECTION -->
             <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
@@ -340,7 +331,7 @@
                 <div id="catalog-products-container" class="space-y-2.5"></div>
             </div>
 
-            <!-- RICETTE IA SECTION (Visibile solo registrati + Risultato diretto con ingredienti e preparazione) -->
+            <!-- RICETTE IA SECTION -->
             <div id="section-ricette" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Ricette IA</h3>
@@ -399,7 +390,7 @@
                 <div id="spesa-items-container" class="space-y-2"></div>
             </div>
 
-            <!-- VICINO SECTION (Con Mappa Interattiva Quartiere) -->
+            <!-- VICINO SECTION (Con Mappa e Selezione Catalogo per Offrire Cibo) -->
             <div id="section-vicino" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Condividi il Cibo</h3>
@@ -408,8 +399,8 @@
                 
                 <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
                     <h4 class="font-bold text-forest text-xs">Mappa dei vicini vicino a te</h4>
-                    <!-- Mappa Simulata dei Vicini -->
-                    <div class="w-full h-48 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
+                    <!-- Mappa Simulata -->
+                    <div class="w-full h-40 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
                         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:16px_16px]"></div>
                         <div class="absolute top-6 left-8 bg-white px-3 py-1.5 rounded-full shadow border border-emeraldcustom flex items-center gap-2 animate-bounce">
                             <span class="w-2.5 h-2.5 bg-orangeaccent rounded-full"></span>
@@ -421,11 +412,14 @@
                         </div>
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orangeaccent rounded-full border-2 border-white shadow-lg animate-ping"></div>
                     </div>
-                    <button onclick="showToast('Annuncio di condivisione pubblicato!')" class="w-full bg-forest text-white font-bold py-2.5 rounded-xl text-xs">Offri cibo in eccesso</button>
+                    
+                    <button onclick="openShareModal()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-hand-holding-heart"></i> Offri cibo in eccesso dal catalogo
+                    </button>
                 </div>
             </div>
 
-            <!-- ACCOUNT SECTION (Con Cambio Password) -->
+            <!-- ACCOUNT SECTION -->
             <div id="section-account" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Profilo & Impostazioni</h3>
@@ -439,7 +433,6 @@
                             <p id="profile-email-text" class="text-xs text-gray-500">giorgio@cucina.it</p>
                         </div>
                     </div>
-                    <!-- Modulo Cambio Password -->
                     <form onsubmit="handlePasswordChange(event)" class="space-y-2.5 pt-1">
                         <h4 class="font-bold text-forest text-xs uppercase tracking-wider">Cambia Password</h4>
                         <div>
@@ -516,6 +509,19 @@
         </div>
     </div>
 
+    <!-- MODAL: SEleziona dal catalogo cosa pubblicare per il vicino -->
+    <div id="modal-share-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Offri Cibo in Eccesso</h3>
+            <p class="text-xs text-gray-500 mb-4">Seleziona cosa vuoi condividere dal tuo catalogo:</p>
+            <div id="share-catalog-list" class="space-y-2 max-h-48 overflow-y-auto mb-4 text-left">
+                <!-- Popolato via JS -->
+            </div>
+            <button onclick="confirmShareProduct()" class="w-full bg-orangeaccent text-white font-semibold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Pubblica Annuncio ai Vicini</button>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
         let currentUser = { name: "Giorgio", email: "giorgio@cucina.it", isRegistered: true };
@@ -533,6 +539,7 @@
         };
         let currentCatalogTab = 'frigo';
         let spesaData = [{ id: 1, name: "Latte Fresco", checked: false }, { id: 2, name: "Uova", checked: true }];
+        let selectedProductToShare = null;
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
@@ -600,7 +607,6 @@
             document.getElementById('page-welcome').classList.add('hidden');
             document.getElementById('page-dashboard').classList.remove('hidden');
             
-            // Gestione visibilità ricette per ospiti vs registrati
             const lockBox = document.getElementById('recipe-guest-lock');
             const userContent = document.getElementById('recipe-user-content');
             if(currentUser.isRegistered) {
@@ -687,6 +693,37 @@
             renderCatalog();
             showToast(`"${name}" aggiunto al catalogo!`);
             e.target.reset();
+        }
+
+        function openShareModal() {
+            const listContainer = document.getElementById('share-catalog-list');
+            listContainer.innerHTML = '';
+            let allItems = [...catalogData.frigo, ...catalogData.freezer, ...catalogData.dispensa];
+            if(allItems.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">Il catalogo è vuoto.</p>`;
+            } else {
+                allItems.forEach((item, idx) => {
+                    listContainer.innerHTML += `
+                        <label class="flex items-center gap-2.5 p-2 rounded-xl bg-gray-50 border border-gray-200 cursor-pointer text-xs">
+                            <input type="radio" name="share-product" value="${item.name}" ${idx === 0 ? 'checked' : ''} class="accent-orangeaccent">
+                            <span class="font-medium text-forest">${item.name} (Scad: ${item.date})</span>
+                        </label>
+                    `;
+                });
+            }
+            document.getElementById('modal-share-product').classList.remove('hidden');
+        }
+        function closeShareModal() {
+            document.getElementById('modal-share-product').classList.add('hidden');
+        }
+        function confirmShareProduct() {
+            const selected = document.querySelector('input[name="share-product"]:checked');
+            if(selected) {
+                showToast(`Annuncio pubblicato per "${selected.value}"!`);
+                closeShareModal();
+            } else {
+                showToast("Seleziona un prodotto da condividere.", "warning");
+            }
         }
 
         function generateAndShowRecipe() {
