@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fridgeloop - Zero Sprechi, Massimo Gusto</title>
+    <title>FoodWise - Zero Sprechi, Massimo Gusto</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter & Google Fonts -->
@@ -53,14 +53,14 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- PRESENTATION MODAL (APERTO DAL PULSANTE "SCOPRI") -->
+    <!-- PRESENTATION MODAL -->
     <div id="presentation-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom flex flex-col max-h-[90vh]">
             <button onclick="closePresentationModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             
             <div class="text-center pb-3 border-b border-gray-100 mb-4">
                 <span class="text-[10px] font-bold text-orangeaccent uppercase tracking-widest block mb-1">Presentazione Ufficiale</span>
-                <h3 class="text-xl font-extrabold text-forest">Cos'è Fridgeloop? 🌱</h3>
+                <h3 class="text-xl font-extrabold text-forest">Cos'è FoodWise? 🌱</h3>
             </div>
 
             <!-- SLIDES CONTAINER -->
@@ -72,7 +72,7 @@
                     </div>
                     <h4 class="font-bold text-forest text-sm text-center">Perché è nata questa app?</h4>
                     <p class="leading-relaxed text-center text-gray-600">
-                        Ogni anno tonnellate di cibo ancora perfettamente commestibile finiscono nella spazzatura a causa di scadenze dimenticate o cattiva organizzazione domestica. <strong>Fridgeloop</strong> nasce per invertire questa rotta.
+                        Ogni anno tonnellate di cibo ancora perfettamente commestibile finiscono nella spazzatura a causa di scadenze dimenticate o cattiva organizzazione domestica. <strong>FoodWise</strong> nasce per invertire questa rotta.
                     </p>
                 </div>
                 <!-- Slide 2 -->
@@ -82,7 +82,7 @@
                     </div>
                     <h4 class="font-bold text-forest text-sm text-center">La tua Casa Intelligente</h4>
                     <p class="leading-relaxed text-center text-gray-600">
-                        Fridgeloop organizza virtualmente il tuo <strong>Frigo</strong>, il tuo <strong>Freezer</strong> e la tua <strong>Dispesa</strong>. Saprai sempre cosa consumare per primo grazie agli indicatori di freschezza a colori.
+                        FoodWise organizza virtualmente il tuo <strong>Frigo</strong>, il tuo <strong>Freezer</strong> e la tua <strong>Dispesa</strong>. Saprai sempre cosa consumare per primo grazie agli indicatori di freschezza a colori.
                     </p>
                 </div>
                 <!-- Slide 3 -->
@@ -144,7 +144,7 @@
                     <i class="fa-solid fa-leaf text-white text-5xl absolute -top-2 -left-2 transform -rotate-45"></i>
                     <i class="fa-solid fa-utensils text-white text-4xl relative z-10"></i>
                 </div>
-                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-1">Fridge<span class="text-emeraldcustom">loop</span></h1>
+                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-1">Food<span class="text-emeraldcustom">Wise</span></h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Zero Sprechi, Massimo Gusto</p>
                 <p class="text-xs italic text-gray-600 px-4 py-2.5 bg-white/80 rounded-2xl shadow-sm border border-emeraldcustom/10">
                     “La tua cucina intelligente e condivisa.”
@@ -168,7 +168,7 @@
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
             <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-forest">
                 <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
-                <h3 id="auth-title" class="text-xl font-bold text-forest mb-1">Accedi a Fridgeloop</h3>
+                <h3 id="auth-title" class="text-xl font-bold text-forest mb-1">Accedi a FoodWise</h3>
                 <p id="auth-subtitle" class="text-xs text-gray-500 mb-4">Inserisci i dati richiesti.</p>
                 <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3">
                     <div id="name-field-container" class="hidden">
@@ -176,8 +176,8 @@
                         <input type="text" id="auth-name" placeholder="es. Martina" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
                     </div>
                     <div id="code-field-container" class="hidden">
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Codice Casa (es. FRIDGE-8492)</label>
-                        <input type="text" id="auth-house-code" placeholder="FRIDGE-XXXX" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs uppercase font-mono tracking-wider focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Codice Casa (es. FOOD-8492)</label>
+                        <input type="text" id="auth-house-code" placeholder="FOOD-XXXX" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs uppercase font-mono tracking-wider focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
                     </div>
                     <div id="email-field-container">
                         <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
@@ -226,7 +226,7 @@
                             <div class="w-9 h-9 bg-emeraldcustom rounded-xl flex items-center justify-center font-bold">
                                 <i class="fa-solid fa-leaf text-white"></i>
                             </div>
-                            <span class="font-extrabold text-lg tracking-wide">Fridge<span class="text-orangeaccent">loop</span></span>
+                            <span class="font-extrabold text-lg tracking-wide">Food<span class="text-orangeaccent">Wise</span></span>
                         </div>
                         <button onclick="toggleSidebar()" class="text-white/70 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                     </div>
@@ -356,12 +356,12 @@
                     </div>
                 </div>
 
-                <!-- GREEN BANNER CON PULSANTE "SCOPRI" COLLEGATO ALLA PRESENTAZIONE -->
+                <!-- GREEN BANNER CON PULSANTE "SCOPRI" -->
                 <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-4 rounded-3xl shadow-md flex items-center justify-between">
                     <div>
                         <span class="text-[10px] font-bold text-orangeaccent uppercase tracking-wider block mb-0.5">Pianeta Verde</span>
                         <h5 class="text-xs font-bold">Insieme per un mondo senza sprechi</h5>
-                        <p class="text-[10px] text-white/80">Con Fridgeloop fai la differenza ogni giorno.</p>
+                        <p class="text-[10px] text-white/80">Con FoodWise fai la differenza ogni giorno.</p>
                     </div>
                     <button onclick="openPresentationModal()" class="bg-orangeaccent hover:bg-orange-600 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition shrink-0">
                         Scopri
@@ -388,7 +388,7 @@
                         </button>
                     </div>
                     <div class="bg-black/20 p-3 rounded-2xl flex items-center justify-between border border-white/10">
-                        <span id="house-code-display" class="font-mono text-xl font-extrabold tracking-widest text-emerald-300">FRIDGE-7492</span>
+                        <span id="house-code-display" class="font-mono text-xl font-extrabold tracking-widest text-emerald-300">FOOD-7492</span>
                         <button onclick="copyHouseCode()" class="bg-orangeaccent hover:bg-orange-600 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition flex items-center gap-1.5">
                             <i class="fa-solid fa-copy"></i> Copia
                         </button>
@@ -620,7 +620,7 @@
                 </div>
             </div>
 
-            <!-- SPESA SECTION (Spesa Condivisa Famiglia) -->
+            <!-- SPESA SECTION -->
             <div id="section-spesa" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
@@ -768,7 +768,7 @@
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false, houseCode: "FRIDGE-7492" };
+        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false, houseCode: "FOOD-7492" };
         let catalogData = {
             frigo: [
                 { id: 1, name: "Pomodori Freschi", date: "2026-06-15", status: "red", icon: "fa-seedling" },
@@ -803,7 +803,6 @@
             showToast("Notifiche: 2 prodotti in scadenza nel frigo!");
         }
 
-        // Funzioni per la Presentazione Pianeta Verde
         function openPresentationModal() {
             document.getElementById('presentation-modal').classList.remove('hidden');
         }
@@ -853,7 +852,7 @@
                 currentUser.houseCode = codeInput.toUpperCase();
                 showToast(`Accesso effettuato alla casa ${currentUser.houseCode}!`);
             } else {
-                currentUser.houseCode = "FRIDGE-" + Math.floor(1000 + Math.random() * 9000);
+                currentUser.houseCode = "FOOD-" + Math.floor(1000 + Math.random() * 9000);
                 showToast(`Nuova casa creata! Codice: ${currentUser.houseCode}`);
             }
             
@@ -918,7 +917,7 @@
         }
 
         function generateNewHouseCode() {
-            currentUser.houseCode = "FRIDGE-" + Math.floor(1000 + Math.random() * 9000);
+            currentUser.houseCode = "FOOD-" + Math.floor(1000 + Math.random() * 9000);
             document.getElementById('house-code-display').textContent = currentUser.houseCode;
             showToast("Nuovo codice casa generato con successo!");
         }
