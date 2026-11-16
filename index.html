@@ -53,8 +53,33 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- APP CONTAINER (Mobile Frame with Modern UI) -->
-    <div id="app-container" class="w-full max-w-md h-full sm:h-[90vh] sm:rounded-3xl flex flex-col bg-[#F4F9F4] shadow-2xl relative overflow-hidden border border-emeraldcustom/20">
+    <!-- INFO MODAL (Agevolazioni Registrazione) -->
+    <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center gap-2 text-orangeaccent">
+                    <i class="fa-solid fa-circle-info text-xl"></i>
+                    <h3 class="text-lg font-bold text-forest">Agevolazioni Registrazione</h3>
+                </div>
+                <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-gray-600 mb-4">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi:</p>
+            <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
+                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-0.5"></i>
+                    <div><strong class="text-forest block">Ricette IA complete</strong> Preparazioni dettagliate con ingredienti e passaggi.</div>
+                </li>
+                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-map-location-dot text-orangeaccent mt-0.5"></i>
+                    <div><strong class="text-forest block">Mappa Vicini</strong> Condividi il cibo in eccesso nel tuo quartiere.</div>
+                </li>
+            </ul>
+            <button onclick="closeInfoModal()" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Ho capito, fantastico!</button>
+        </div>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="app-container" class="w-full max-w-md h-full sm:h-[95vh] sm:rounded-3xl flex flex-col bg-[#F4F9F4] shadow-2xl relative overflow-hidden border border-emeraldcustom/20">
 
         <!-- ================= WELCOME / AUTH SCREEN ================= -->
         <div id="page-welcome" class="flex flex-col justify-between h-full p-6 overflow-y-auto bg-gradient-to-b from-[#E8F5E9] to-[#F4F9F4]">
@@ -126,7 +151,6 @@
                     <div class="bg-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold text-forest cursor-pointer">
                         <i class="fa-solid fa-house text-emeraldcustom text-[11px]"></i>
                         <span>Casa Dolce Casa</span>
-                        <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
@@ -170,7 +194,7 @@
                             <i class="fa-solid fa-handshake-angle w-4 text-emeraldcustom"></i> Condividi il Cibo
                         </button>
                         <button onclick="switchSection('section-account'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition border-t border-white/10 mt-2 pt-3">
-                            <i class="fa-solid fa-gear w-4 text-gray-300"></i> Impostazioni
+                            <i class="fa-solid fa-gear w-4 text-gray-300"></i> Impostazioni & Profilo
                         </button>
                     </nav>
                 </div>
@@ -181,10 +205,10 @@
                 </div>
             </aside>
 
-            <!-- SCROLLABLE CONTENT (HOME DASHBOARD) -->
-            <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-                <div>
-                    <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2">
+            <!-- SCROLLABLE CONTENT (HOME DASHBOARD - CENTRATA) -->
+            <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20 text-center sm:text-left">
+                <div class="flex flex-col items-center sm:items-start">
+                    <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2 justify-center sm:justify-start">
                         Ciao Giorgio! <span>👋</span>
                     </h2>
                     <p class="text-xs text-gray-500 font-medium">Ecco il riepilogo della tua cucina intelligente.</p>
@@ -192,7 +216,7 @@
 
                 <!-- STATS GRID -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex items-center gap-3 cursor-pointer hover:bg-lightgreen transition">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-lightgreen transition text-center sm:text-left">
                         <div class="w-10 h-10 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm shrink-0">
                             <i class="fa-solid fa-box-archive"></i>
                         </div>
@@ -201,7 +225,7 @@
                             <span class="text-[10px] text-gray-500 leading-tight block">Prodotti in frigo</span>
                         </div>
                     </div>
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('freezer');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex items-center gap-3 cursor-pointer hover:bg-blue-50 transition">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('freezer');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-blue-50 transition text-center sm:text-left">
                         <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
                             <i class="fa-solid fa-snowflake"></i>
                         </div>
@@ -210,7 +234,7 @@
                             <span class="text-[10px] text-gray-500 leading-tight block">Nel freezer</span>
                         </div>
                     </div>
-                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('dispensa');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex items-center gap-3 cursor-pointer hover:bg-orangeaccent/10 transition">
+                    <div onclick="switchSection('section-catalogo'); switchCatalogTab('dispensa');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 cursor-pointer hover:bg-orangeaccent/10 transition text-center sm:text-left">
                         <div class="w-10 h-10 rounded-xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold text-sm shrink-0">
                             <i class="fa-solid fa-jar"></i>
                         </div>
@@ -219,7 +243,7 @@
                             <span class="text-[10px] text-gray-500 leading-tight block">In dispensa</span>
                         </div>
                     </div>
-                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex items-center gap-3">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
                         <div class="w-10 h-10 rounded-xl bg-green-100 text-emeraldcustom flex items-center justify-center font-bold text-sm shrink-0">
                             <i class="fa-solid fa-leaf"></i>
                         </div>
@@ -231,7 +255,7 @@
                 </div>
 
                 <!-- FRIGO CARD -->
-                <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden">
+                <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden text-left">
                     <div class="bg-gradient-to-r from-forest to-emeraldcustom p-4 text-white flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-snowflake text-lg text-emerald-300"></i>
@@ -256,22 +280,11 @@
                             </div>
                             <span class="text-[10px] text-orangeaccent font-semibold">Scade tra 3 giorni</span>
                         </div>
-                        <div class="flex items-center justify-between p-2 rounded-xl bg-gray-50 border border-gray-100 text-xs">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                                <span class="font-bold text-forest">Insalata</span>
-                            </div>
-                            <span class="text-[10px] text-gray-500 font-semibold">Scade tra 5 giorni</span>
-                        </div>
-                        <div class="pt-1 flex items-center justify-between text-[11px] text-gray-500 px-1">
-                            <span><i class="fa-solid fa-temperature-low text-blue-500 mr-1"></i> 4 °C</span>
-                            <span class="text-emeraldcustom font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Tutto in ordine!</span>
-                        </div>
                     </div>
                 </div>
 
                 <!-- QUICK GRID -->
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3 text-left">
                     <div onclick="switchSection('section-ricette')" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
                         <div class="w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center font-bold mb-3 shadow">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -293,7 +306,7 @@
                 </div>
 
                 <!-- GREEN BANNER -->
-                <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-4 rounded-3xl shadow-md flex items-center justify-between">
+                <div class="bg-gradient-to-r from-forest to-emeraldcustom text-white p-4 rounded-3xl shadow-md flex items-center justify-between text-left">
                     <div>
                         <span class="text-[10px] font-bold text-orangeaccent uppercase tracking-wider block mb-0.5">Pianeta Verde</span>
                         <h5 class="text-xs font-bold">Insieme per un mondo senza sprechi</h5>
@@ -305,11 +318,19 @@
                 </div>
             </div>
 
-            <!-- CATALOGO SECTION -->
-            <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20">
+            <!-- CATALOGO SECTION (Con Pulsante Aggiungi) -->
+            <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-forest text-lg">Il Tuo Catalogo</h3>
-                    <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Torna alla Home</button>
+                    <div>
+                        <h3 class="font-bold text-forest text-lg">Il Tuo Catalogo</h3>
+                        <p class="text-xs text-gray-500">Gestisci i prodotti in casa</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openAddProductModal()" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-bold text-xs px-3 py-2 rounded-xl shadow transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Aggiungi
+                        </button>
+                        <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-gray-200 text-gray-700 px-3 py-2 rounded-xl font-bold">Home</button>
+                    </div>
                 </div>
                 <div class="flex bg-gray-200 p-1 rounded-2xl">
                     <button onclick="switchCatalogTab('frigo')" id="cat-tab-frigo" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition">Frigo</button>
@@ -319,20 +340,54 @@
                 <div id="catalog-products-container" class="space-y-2.5"></div>
             </div>
 
-            <!-- RICETTE IA SECTION -->
-            <div id="section-ricette" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20">
+            <!-- RICETTE IA SECTION (Visibile solo registrati + Risultato diretto con ingredienti e preparazione) -->
+            <div id="section-ricette" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Ricette IA</h3>
-                    <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Torna alla Home</button>
+                    <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
-                <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
-                    <p class="text-xs text-gray-600">L'intelligenza artificiale ha analizzato gli ingredienti in scadenza nel tuo frigo (Pomodori e Mozzarella).</p>
-                    <button onclick="showToast('Ricetta generata: Caprese calda al forno!')" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-xs transition shadow">Genera Ricetta Svuota-Frigo</button>
+                
+                <div id="recipe-guest-lock" class="hidden bg-orangeaccent/10 border border-orangeaccent/30 p-5 rounded-3xl text-center space-y-3">
+                    <i class="fa-solid fa-lock text-orangeaccent text-3xl"></i>
+                    <h4 class="font-bold text-forest text-sm">Funzione riservata agli utenti registrati</h4>
+                    <p class="text-xs text-gray-600">Registrati o accedi per sbloccare le ricette IA intelligenti basate sugli ingredienti in scadenza.</p>
+                    <button onclick="showAuthModal('register')" class="bg-orangeaccent text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow">Registrati Ora</button>
+                </div>
+
+                <div id="recipe-user-content" class="space-y-3">
+                    <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
+                        <p class="text-xs text-gray-600">L'IA ha rilevato <strong>Pomodori e Mozzarella</strong> in scadenza nel tuo frigo.</p>
+                        <button onclick="generateAndShowRecipe()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Genera Ricetta Svuota-Frigo
+                        </button>
+                    </div>
+                    <div id="recipe-result-box" class="hidden bg-lightgreen p-4 rounded-3xl border border-emeraldcustom/30 space-y-3">
+                        <h4 class="font-extrabold text-forest text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-orangeaccent"></i> Caprese Calda al Forno
+                        </h4>
+                        <div>
+                            <strong class="text-xs text-forest block mb-1">Ingredienti necessari:</strong>
+                            <ul class="text-xs text-gray-700 list-disc list-inside space-y-1">
+                                <li>Pomodori freschi (200g)</li>
+                                <li>Mozzarella vaccina (150g)</li>
+                                <li>Olio extravergine d'oliva, sale e origano q.b.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong class="text-xs text-forest block mb-1">Preparazione passo-passo:</strong>
+                            <p class="text-xs text-gray-700 leading-relaxed">
+                                1. Taglia i pomodori e la mozzarella a fette dello stesso spessore.<br>
+                                2. Disponile alternate in una pirofila da forno oleata.<br>
+                                3. Condisci con un pizzico di sale, origano e un filo d'olio.<br>
+                                4. Inforna a 180°C in modalità grill per 8 minuti fino a quando la mozzarella sarà filante.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- SPESA SECTION -->
-            <div id="section-spesa" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20">
+            <div id="section-spesa" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Lista della Spesa</h3>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
@@ -344,32 +399,63 @@
                 <div id="spesa-items-container" class="space-y-2"></div>
             </div>
 
-            <!-- VICINO SECTION -->
-            <div id="section-vicino" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20">
+            <!-- VICINO SECTION (Con Mappa Interattiva Quartiere) -->
+            <div id="section-vicino" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Condividi il Cibo</h3>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
-                <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20">
-                    <p class="text-xs text-gray-600 mb-3">Condividi il cibo in eccesso con i vicini del tuo isolato.</p>
-                    <button onclick="showToast('Annuncio pubblicato con successo!')" class="w-full bg-forest text-white font-bold py-2.5 rounded-xl text-xs">Pubblica Annuncio</button>
+                
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
+                    <h4 class="font-bold text-forest text-xs">Mappa dei vicini vicino a te</h4>
+                    <!-- Mappa Simulata dei Vicini -->
+                    <div class="w-full h-48 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="absolute top-6 left-8 bg-white px-3 py-1.5 rounded-full shadow border border-emeraldcustom flex items-center gap-2 animate-bounce">
+                            <span class="w-2.5 h-2.5 bg-orangeaccent rounded-full"></span>
+                            <span class="text-[10px] font-bold text-forest">Marco (120m) - Mele Bio</span>
+                        </div>
+                        <div class="absolute bottom-8 right-10 bg-white px-3 py-1.5 rounded-full shadow border border-emeraldcustom flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 bg-emeraldcustom rounded-full"></span>
+                            <span class="text-[10px] font-bold text-forest">Chiara (350m) - Pane Fresco</span>
+                        </div>
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orangeaccent rounded-full border-2 border-white shadow-lg animate-ping"></div>
+                    </div>
+                    <button onclick="showToast('Annuncio di condivisione pubblicato!')" class="w-full bg-forest text-white font-bold py-2.5 rounded-xl text-xs">Offri cibo in eccesso</button>
                 </div>
             </div>
 
-            <!-- ACCOUNT SECTION -->
-            <div id="section-account" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20">
+            <!-- ACCOUNT SECTION (Con Cambio Password) -->
+            <div id="section-account" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Profilo & Impostazioni</h3>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-emeraldcustom/20 space-y-3">
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
                         <div class="w-12 h-12 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-lg">G</div>
                         <div>
-                            <h4 class="font-bold text-forest text-sm">Giorgio</h4>
-                            <p class="text-xs text-gray-500">giorgio@cucina.it</p>
+                            <h4 id="profile-name-text" class="font-bold text-forest text-sm">Giorgio</h4>
+                            <p id="profile-email-text" class="text-xs text-gray-500">giorgio@cucina.it</p>
                         </div>
                     </div>
+                    <!-- Modulo Cambio Password -->
+                    <form onsubmit="handlePasswordChange(event)" class="space-y-2.5 pt-1">
+                        <h4 class="font-bold text-forest text-xs uppercase tracking-wider">Cambia Password</h4>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-0.5">Password Attuale</label>
+                            <input type="password" required placeholder="••••••••" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-0.5">Nuova Password</label>
+                            <input type="password" id="new-pwd-1" required placeholder="••••••••" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-0.5">Conferma Nuova Password</label>
+                            <input type="password" id="new-pwd-2" required placeholder="••••••••" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        </div>
+                        <button type="submit" class="w-full bg-forest text-white font-semibold py-2.5 rounded-xl text-xs shadow hover:bg-forest/90 transition">Aggiorna Password</button>
+                    </form>
                 </div>
             </div>
 
@@ -392,9 +478,9 @@
                     <i class="fa-solid fa-basket-shopping text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Spesa</span>
                 </button>
-                <button onclick="switchSection('section-account')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
-                    <i class="fa-solid fa-user text-base"></i>
-                    <span class="text-[10px] font-medium mt-0.5">Profilo</span>
+                <button onclick="switchSection('section-vicino')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
+                    <i class="fa-solid fa-map-location-dot text-base"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Vicini</span>
                 </button>
             </nav>
 
@@ -402,21 +488,47 @@
 
     </div>
 
+    <!-- MODAL: AGGIUNGI PRODOTTO AL CATALOGO -->
+    <div id="modal-add-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
+            <button onclick="closeAddProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-forest mb-1">Aggiungi Prodotto</h3>
+            <p class="text-xs text-gray-500 mb-4">Inserisci i dettagli del prodotto.</p>
+            <form onsubmit="handleSaveNewProduct(event)" class="space-y-3 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Nome Prodotto</label>
+                    <input type="text" id="new-prod-name" required placeholder="es. Latte Fresco" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Destinazione</label>
+                    <select id="new-prod-dest" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                        <option value="frigo">Frigo</option>
+                        <option value="freezer">Freezer</option>
+                        <option value="dispensa">Dispensa</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Data Scadenza</label>
+                    <input type="date" id="new-prod-date" required class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
+                </div>
+                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow">Salva nel Catalogo</button>
+            </form>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
+        let currentUser = { name: "Giorgio", email: "giorgio@cucina.it", isRegistered: true };
         let catalogData = {
             frigo: [
                 { id: 1, name: "Pomodori", date: "2026-06-15", status: "red" },
-                { id: 2, name: "Mozzarella", date: "2026-06-16", status: "yellow" },
-                { id: 3, name: "Insalata", date: "2026-06-18", status: "green" }
+                { id: 2, name: "Mozzarella", date: "2026-06-16", status: "yellow" }
             ],
             freezer: [
-                { id: 4, name: "Misto di verdure", date: "2026-09-10", status: "green" },
-                { id: 5, name: "Pizza Margherita", date: "2026-12-01", status: "green" }
+                { id: 4, name: "Misto di verdure", date: "2026-09-10", status: "green" }
             ],
             dispensa: [
-                { id: 6, name: "Pasta", date: "2027-06-10", status: "green" },
-                { id: 7, name: "Riso", date: "2027-06-10", status: "green" }
+                { id: 6, name: "Pasta", date: "2027-06-10", status: "green" }
             ]
         };
         let currentCatalogTab = 'frigo';
@@ -435,7 +547,16 @@
             showToast("Notifiche: 2 prodotti in scadenza nel frigo!");
         }
 
+        function openInfoModal() {
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        let currentAuthMode = 'login';
         function showAuthModal(mode) {
+            currentAuthMode = mode;
             const modal = document.getElementById('auth-modal');
             const title = document.getElementById('auth-title');
             const nameField = document.getElementById('name-field-container');
@@ -452,11 +573,19 @@
         
         function handleAuthSubmit(e) {
             e.preventDefault();
+            const emailInput = document.getElementById('auth-email').value;
+            const nameInput = document.getElementById('auth-name').value;
+            currentUser.isRegistered = true;
+            currentUser.name = (currentAuthMode === 'register' && nameInput) ? nameInput : "Giorgio";
+            currentUser.email = emailInput || "giorgio@cucina.it";
+            
             closeAuthModal();
             enterDashboard();
-            showToast("Benvenuto in Fridgeloop!");
+            showToast(`Benvenuto, ${currentUser.name}!`);
         }
         function continueWithoutAccess() {
+            currentUser.isRegistered = false;
+            currentUser.name = "Ospite";
             enterDashboard();
             showToast("Accesso come ospite effettuato.", "warning");
         }
@@ -470,6 +599,18 @@
         function enterDashboard() {
             document.getElementById('page-welcome').classList.add('hidden');
             document.getElementById('page-dashboard').classList.remove('hidden');
+            
+            // Gestione visibilità ricette per ospiti vs registrati
+            const lockBox = document.getElementById('recipe-guest-lock');
+            const userContent = document.getElementById('recipe-user-content');
+            if(currentUser.isRegistered) {
+                lockBox.classList.add('hidden');
+                userContent.classList.remove('hidden');
+            } else {
+                lockBox.classList.remove('hidden');
+                userContent.classList.add('hidden');
+            }
+
             switchSection('section-dashboard-home');
             renderCatalog();
             renderSpesaList();
@@ -484,6 +625,8 @@
                     else el.classList.add('hidden');
                 }
             });
+            const container = document.querySelector('#page-dashboard > div.flex-1');
+            if(container) container.scrollTop = 0;
         }
 
         function toggleSidebar() {
@@ -509,7 +652,12 @@
             const container = document.getElementById('catalog-products-container');
             if(!container) return;
             container.innerHTML = '';
-            catalogData[currentCatalogTab].forEach(item => {
+            const items = catalogData[currentCatalogTab];
+            if(items.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Nessun prodotto in questa sezione.</p>`;
+                return;
+            }
+            items.forEach(item => {
                 let color = item.status === 'red' ? 'bg-red-500' : (item.status === 'yellow' ? 'bg-yellow-500' : 'bg-green-500');
                 container.innerHTML += `
                     <div class="bg-white p-3 rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm text-xs">
@@ -521,6 +669,29 @@
                     </div>
                 `;
             });
+        }
+
+        function openAddProductModal() {
+            document.getElementById('modal-add-product').classList.remove('hidden');
+        }
+        function closeAddProductModal() {
+            document.getElementById('modal-add-product').classList.add('hidden');
+        }
+        function handleSaveNewProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-prod-name').value;
+            const dest = document.getElementById('new-prod-dest').value;
+            const date = document.getElementById('new-prod-date').value;
+            catalogData[dest].push({ id: Date.now(), name, date, status: 'green' });
+            closeAddProductModal();
+            renderCatalog();
+            showToast(`"${name}" aggiunto al catalogo!`);
+            e.target.reset();
+        }
+
+        function generateAndShowRecipe() {
+            document.getElementById('recipe-result-box').classList.remove('hidden');
+            showToast("Ricetta IA generata con successo!");
         }
 
         function renderSpesaList() {
@@ -551,6 +722,18 @@
             const item = spesaData.find(i => i.id === id);
             if(item) item.checked = !item.checked;
             renderSpesaList();
+        }
+
+        function handlePasswordChange(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('new-pwd-1').value;
+            const p2 = document.getElementById('new-pwd-2').value;
+            if(p1 !== p2) {
+                showToast("Le password non coincidono!", "warning");
+                return;
+            }
+            showToast("Password aggiornata con successo!");
+            e.target.reset();
         }
     </script>
 </body>
