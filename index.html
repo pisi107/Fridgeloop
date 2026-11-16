@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
@@ -55,10 +51,8 @@
     </style>
 </head>
 <body class="h-full flex flex-col justify-between selection:bg-orangeaccent selection:text-white">
-
     <!-- Notification Toast / Message Box (Custom modal replacement for alert) -->
     <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
     <!-- Info Modal for Registration Benefits -->
     <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform transition-all border-t-4 border-orangeaccent">
@@ -96,10 +90,8 @@
             <button onclick="closeInfoModal()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-orangeaccent/20">Ho capito, fantastico!</button>
         </div>
     </div>
-
     <!-- MAIN APP CONTAINER -->
     <div id="app-container" class="w-full max-w-md mx-auto h-full flex flex-col bg-[#E8F5E9] shadow-2xl relative overflow-hidden">
-
         <!-- ================= PAGE 1: WELCOME / AUTH ================= -->
         <div id="page-welcome" class="flex flex-col justify-between h-full p-6 overflow-y-auto">
             <!-- Top Bar with Info Button -->
@@ -108,26 +100,16 @@
                     <i class="fa-solid fa-circle-info text-orangeaccent text-xl"></i>
                 </button>
             </div>
-
-            <!-- Central Branding -->
+            <!-- Central Branding with FoodWise Logo[cite: 1] -->
             <div class="flex flex-col items-center text-center my-auto py-4">
-                <!-- Logo: Replicating icon of stylized fridge interior, leaf, loop arrows, check/fork -->
-                <div class="w-28 h-28 bg-gradient-to-br from-forest to-emeraldcustom rounded-3xl shadow-xl flex items-center justify-center relative mb-6 border-2 border-orangeaccent/40 transform hover:rotate-2 transition">
-                    <i class="fa-solid fa-冷蔵庫 text-white text-2xl absolute opacity-20"></i>
-                    <div class="relative flex items-center justify-center">
-                        <i class="fa-solid fa-leaf text-white text-4xl absolute -top-1 -left-2 transform -rotate-45"></i>
-                        <i class="fa-solid fa-arrows-spin text-orangeaccent text-6xl opacity-90 animate-spin" style="animation-duration: 12s;"></i>
-                        <i class="fa-solid fa-utensils text-white text-3xl absolute"></i>
-                    </div>
+                <div class="w-full max-w-[220px] mb-6 transform hover:scale-105 transition duration-300">
+                    <img src="https://pisi107.github.io/Fridgeloop/logo.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%23064E3B\'/><text x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'32\' font-family=\'sans-serif\'>FoodWise Logo</text></svg>'" alt="FoodWise Logo" class="w-full h-auto drop-shadow-md">
                 </div>
-
-                <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-2">FoodWise</h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Anti-spreco alimentare con IA</p>
                 <p class="text-sm italic text-gray-700 px-4 font-medium bg-white/60 py-2.5 rounded-2xl shadow-sm border border-emeraldcustom/10">
                     “Dal tuo scontrino alla tavola: zero sprechi, massimo gusto.”
                 </p>
             </div>
-
             <!-- Action Buttons -->
             <div class="space-y-3 pb-4">
                 <button onclick="showAuthModal('login')" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-forest/20 transition flex items-center justify-center gap-2">
@@ -140,15 +122,12 @@
                     Continua senza accesso <span class="text-xs text-orangeaccent block font-normal">(Perderai le agevolazioni IA e GDO)</span>
                 </button>
             </div>
-
             <!-- Footer Creators -->
             <div class="text-center pt-2 pb-1 border-t border-emeraldcustom/20">
                 <p class="text-[11px] text-gray-600 font-medium">Creato da:</p>
                 <p class="text-[11px] font-bold text-forest">Baggi Filippo • Carpano Costanza • Oliva Sveva • Riggio Luca</p>
             </div>
         </div>
-
-
         <!-- ================= AUTH MODAL (LOGIN/REGISTER) ================= -->
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
             <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-forest">
@@ -173,11 +152,8 @@
                 </form>
             </div>
         </div>
-
-
         <!-- ================= PAGE 2: DASHBOARD & MAIN SECTIONS ================= -->
         <div id="page-dashboard" class="flex flex-col h-full hidden bg-gray-50 relative">
-
             <!-- Top Header Navigation -->
             <header class="bg-forest text-white px-4 py-3 flex items-center justify-between shadow-md relative z-20">
                 <div class="flex items-center gap-3">
@@ -197,18 +173,15 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Brand Title -->
                 <div class="flex items-center gap-2">
                     <span class="font-extrabold tracking-wider text-lg text-white">Food<span class="text-orangeaccent">Wise</span></span>
                 </div>
-
                 <!-- Fixed Home Button - points directly to dashboard-home -->
                 <button onclick="switchSection('section-dashboard-home')" class="w-10 h-10 rounded-xl bg-orangeaccent hover:bg-orange-600 text-white flex items-center justify-center transition shadow-lg shadow-orangeaccent/30" title="Torna alla Dashboard">
                     <i class="fa-solid fa-house"></i>
                 </button>
             </header>
-
             <!-- Sidebar Drawer Menu -->
             <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-30 hidden transition-opacity"></div>
             <aside id="sidebar-drawer" class="absolute top-0 left-0 bottom-0 w-72 bg-white z-40 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between">
@@ -224,7 +197,6 @@
                         </div>
                         <button onclick="toggleSidebar()" class="text-white/70 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
                     </div>
-
                     <!-- Sidebar Navigation Links -->
                     <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-220px)]">
                         <button onclick="switchSection('section-dashboard-home'); toggleSidebar();" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-gray-700 hover:bg-lightgreen hover:text-emeraldcustom font-medium transition text-sm">
@@ -251,7 +223,6 @@
                         </button>
                     </nav>
                 </div>
-
                 <!-- Sidebar Footer Logout / Switch -->
                 <div class="p-4 border-t border-gray-100 bg-gray-50">
                     <button onclick="logoutToWelcome()" class="w-full flex items-center justify-center gap-2 text-red-600 hover:bg-red-50 font-semibold py-2.5 rounded-xl transition text-sm border border-red-200">
@@ -259,11 +230,8 @@
                     </button>
                 </div>
             </aside>
-
-
             <!-- MAIN CONTENT AREA SWITCHER -->
             <div class="flex-1 overflow-y-auto pb-16">
-
                 <!-- 1. DASHBOARD HOME -->
                 <div id="section-dashboard-home" class="p-4 space-y-4 max-w-md mx-auto">
                     <!-- Greeting & Philosophy -->
@@ -275,7 +243,6 @@
                             <p class="text-xs text-white/80 italic">Gestisci il tuo cibo con consapevolezza e riduci lo spreco domestico.</p>
                         </div>
                     </div>
-
                     <!-- Impact Card: Il tuo impatto in primo piano -->
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
                         <div class="flex items-center justify-between mb-4">
@@ -302,7 +269,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Quick Access Cards Grid -->
                     <div class="grid grid-cols-2 gap-3">
                         <div onclick="switchSection('section-scansiona')" class="bg-white hover:bg-lightgreen p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 cursor-pointer transition flex flex-col justify-between group">
@@ -342,7 +308,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- GDO Partner Banner -->
                     <div class="bg-gradient-to-r from-orangeaccent/10 to-orangeaccent/20 border border-orangeaccent/30 p-4 rounded-3xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -357,8 +322,6 @@
                         <button onclick="showToast('Coupon GDO applicato! Controlla la lista spesa.')" class="bg-orangeaccent text-white text-xs font-bold px-3 py-2 rounded-xl shadow hover:bg-orange-600 transition shrink-0">Scopri</button>
                     </div>
                 </div>
-
-
                 <!-- 2. SCANSIONA SECTION -->
                 <div id="section-scansiona" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
@@ -366,7 +329,6 @@
                             <i class="fa-solid fa-camera-retro text-emeraldcustom"></i> Scansione Intelligente IA
                         </h3>
                         <p class="text-xs text-gray-500 mb-4">Inquadra lo scontrino del supermercato o il codice a barre di un prodotto per aggiungerlo automaticamente al catalogo.</p>
-
                         <!-- Action Toggle Buttons -->
                         <div class="grid grid-cols-2 gap-2 mb-6">
                             <button onclick="switchScanTab('scontrino')" id="btn-tab-scontrino" class="py-3 px-4 rounded-2xl font-bold text-xs bg-emeraldcustom text-white shadow-md transition flex items-center justify-center gap-2">
@@ -376,7 +338,6 @@
                                 <i class="fa-solid fa-barcode"></i> Codice a Barre
                             </button>
                         </div>
-
                         <!-- Scan Scontrino View -->
                         <div id="scan-view-scontrino" class="space-y-4">
                             <div class="border-2 border-dashed border-emeraldcustom/40 bg-lightgreen/50 rounded-3xl p-6 text-center relative overflow-hidden">
@@ -389,7 +350,6 @@
                                     <i class="fa-solid fa-wand-magic-sparkles"></i> Scansiona e Estrai con IA
                                 </button>
                             </div>
-
                             <!-- Scan Result List (Hidden initially) -->
                             <div id="receipt-result-box" class="hidden bg-lightgreen p-4 rounded-2xl border border-emeraldcustom/30 space-y-3">
                                 <div class="flex items-center justify-between">
@@ -406,7 +366,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <!-- Scan Barcode View -->
                         <div id="scan-view-barcode" class="space-y-4 hidden">
                             <div class="border-2 border-dashed border-orangeaccent/40 bg-orangeaccent/5 rounded-3xl p-6 text-center">
@@ -422,8 +381,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!-- 3. CATALOGO SECTION -->
                 <div id="section-catalogo" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
@@ -438,22 +395,18 @@
                                 <i class="fa-solid fa-plus"></i> Aggiungi
                             </button>
                         </div>
-
                         <!-- Sub-tabs for Frigo, Freezer, Dispensa -->
                         <div class="flex bg-gray-100 p-1 rounded-2xl mb-4">
                             <button onclick="switchCatalogTab('frigo')" id="cat-tab-frigo" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition">Frigo</button>
                             <button onclick="switchCatalogTab('freezer')" id="cat-tab-freezer" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition">Freezer</button>
                             <button onclick="switchCatalogTab('dispensa')" id="cat-tab-dispensa" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition">Dispensa</button>
                         </div>
-
                         <!-- Products List Container -->
                         <div id="catalog-products-container" class="space-y-3">
                             <!-- Dynamically populated -->
                         </div>
                     </div>
                 </div>
-
-
                 <!-- 4. RICETTE SECTION -->
                 <div id="section-ricette" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20">
@@ -466,7 +419,6 @@
                                 <p class="text-xs text-gray-500">L'IA analizza gli ingredienti in scadenza per te</p>
                             </div>
                         </div>
-
                         <!-- Check registration status -->
                         <div id="recipe-ai-content" class="space-y-4">
                             <div class="bg-lightgreen p-4 rounded-2xl border border-emeraldcustom/30 text-center space-y-3">
@@ -475,15 +427,12 @@
                                     <i class="fa-solid fa-bolt">Genera 3 Ricette Rapide (15 min)</i>
                                 </button>
                             </div>
-
                             <div id="generated-recipes-list" class="space-y-3 hidden">
                                 <!-- Populated via JS -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-
                 <!-- 5. VICINO SECTION -->
                 <div id="section-vicino" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
@@ -498,7 +447,6 @@
                                 <i class="fa-solid fa-plus"></i> Offri Cibo
                             </button>
                         </div>
-
                         <!-- Simulated Map view -->
                         <div class="w-full h-40 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
                             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -513,7 +461,6 @@
                             </div>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-orangeaccent rounded-full border-2 border-white shadow-lg animate-ping"></div>
                         </div>
-
                         <!-- Neighbor Annunci List -->
                         <div class="space-y-3">
                             <h4 class="font-bold text-forest text-xs">Annunci disponibili nel tuo isolato:</h4>
@@ -523,8 +470,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!-- 6. LISTA SPESA SECTION -->
                 <div id="section-spesa" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
@@ -536,7 +481,6 @@
                                 <p class="text-xs text-gray-500">Sincronizzata con i membri familiari</p>
                             </div>
                         </div>
-
                         <!-- Quick add form with inline search/input and button -->
                         <form onsubmit="handleQuickAddSpesa(event)" class="flex gap-2">
                             <div class="relative flex-1">
@@ -547,7 +491,6 @@
                                 <i class="fa-solid fa-plus"></i> Aggiungi
                             </button>
                         </form>
-
                         <!-- Family Members Tag (Only for registered users) -->
                         <div id="family-members-container" class="flex items-center justify-between bg-lightgreen p-3 rounded-xl border border-emeraldcustom/20">
                             <div class="flex items-center gap-2">
@@ -564,15 +507,12 @@
                                 </button>
                             </div>
                         </div>
-
                         <!-- Spesa Items List -->
                         <div id="spesa-items-container" class="space-y-2">
                             <!-- Populated via JS -->
                         </div>
                     </div>
                 </div>
-
-
                 <!-- 7. ACCOUNT & PASSWORD SECTION -->
                 <div id="section-account" class="p-4 space-y-4 max-w-md mx-auto hidden">
                     <div class="bg-white p-5 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-4">
@@ -584,7 +524,6 @@
                                 <span id="account-page-badge" class="inline-block mt-1 text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2 py-0.5 rounded-full">Pro Account</span>
                             </div>
                         </div>
-
                         <!-- Change Password Form -->
                         <form onsubmit="handlePasswordChange(event)" class="space-y-3 pt-2">
                             <h4 class="font-bold text-forest text-xs uppercase tracking-wider mb-2">Sicurezza & Password</h4>
@@ -604,13 +543,9 @@
                         </form>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <!-- MODAL: ADD PRODUCT TO CATALOG -->
     <div id="modal-add-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
@@ -639,7 +574,6 @@
             </form>
         </div>
     </div>
-
     <!-- MODAL: EDIT PRODUCT DATE -->
     <div id="modal-edit-date" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
@@ -658,7 +592,6 @@
             </form>
         </div>
     </div>
-
     <!-- MODAL: ADD NEIGHBOR ANNOUNCEMENT -->
     <div id="modal-add-annuncio" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
@@ -679,7 +612,6 @@
             </form>
         </div>
     </div>
-
     <!-- MODAL: ADD SPESA ITEM -->
     <div id="modal-add-spesa" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
@@ -696,8 +628,6 @@
             </form>
         </div>
     </div>
-
-
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
         // --- Application State ---
@@ -707,7 +637,6 @@
             isRegistered: true,
             plan: "Pro Account"
         };
-
         // Catalogo Data
         let catalogData = {
             frigo: [
@@ -727,16 +656,13 @@
                 { id: 10, name: "Olio Extra Vergine d'Oliva", date: "2027-01-30", daysLeft: 230, weight: "750ml", status: "green" }
             ]
         };
-
         let currentCatalogTab = 'frigo';
-
         // Neighbors Annunci
         let annunciData = [
             { id: 1, user: "Marco Rossi", item: "Mele Bio del frutteto (1.5 kg)", expiry: "Scade tra 2 giorni", distance: "120m", type: "green" },
             { id: 2, user: "Chiara Bianchi", item: "Pane casereccio integrale", expiry: "Fresco di oggi", distance: "350m", type: "green" },
             { id: 3, user: "Luca Verdi", item: "Mozzarella di Bufala", expiry: "Scade domani", distance: "500m", type: "orange" }
         ];
-
         // Spesa Items
         let spesaData = [
             { id: 1, name: "Latte Fresco", checked: false },
@@ -744,17 +670,13 @@
             { id: 3, name: "Olio Extra Vergine", checked: false },
             { id: 4, name: "Mele Golden", checked: false }
         ];
-
         // Family members list
         let familyMembers = [
             { initials: "BF", name: "Baggi Filippo" },
             { initials: "CC", name: "Carpano Costanza" }
         ];
-
         // Scanned temporary items
         let scannedTempItems = [];
-
-
         // --- UI Toast Notification ---
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
@@ -767,8 +689,6 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
-
-
         // --- Modal Control Functions ---
         function openInfoModal() {
             document.getElementById('info-modal').classList.remove('hidden');
@@ -776,7 +696,6 @@
         function closeInfoModal() {
             document.getElementById('info-modal').classList.add('hidden');
         }
-
         let currentAuthMode = 'login';
         function showAuthModal(mode) {
             currentAuthMode = mode;
@@ -785,7 +704,6 @@
             const sub = document.getElementById('auth-subtitle');
             const nameField = document.getElementById('name-field-container');
             const btn = document.getElementById('auth-submit-btn');
-
             if (mode === 'register') {
                 title.textContent = "Registrati a FoodWise";
                 sub.textContent = "Sblocca ricette IA, sconti GDO e sincronizzazione familiare.";
@@ -802,7 +720,6 @@
         function closeAuthModal() {
             document.getElementById('auth-modal').classList.add('hidden');
         }
-
         function handleAuthSubmit(e) {
             e.preventDefault();
             const email = document.getElementById('auth-email').value;
@@ -817,12 +734,10 @@
                 currentUser.isRegistered = true;
                 currentUser.plan = "Pro Account";
             }
-
             closeAuthModal();
             enterDashboard();
             showToast(`Benvenuto, ${currentUser.name}! Accesso effettuato.`);
         }
-
         function continueWithoutAccess() {
             currentUser.name = "Ospite Anonimo";
             currentUser.isRegistered = false;
@@ -830,14 +745,12 @@
             enterDashboard();
             showToast("Accesso come ospite. Alcune funzioni IA sono limitate.", "warning");
         }
-
         function logoutToWelcome() {
             document.getElementById('page-dashboard').classList.add('hidden');
             document.getElementById('page-welcome').classList.remove('hidden');
             toggleSidebar();
             showToast("Logout effettuato con successo.");
         }
-
         // --- Navigation & Dashboard Switcher ---
         function enterDashboard() {
             document.getElementById('page-welcome').classList.add('hidden');
@@ -856,7 +769,6 @@
             document.getElementById('user-avatar-initials').textContent = initials;
             document.getElementById('sidebar-avatar').textContent = initials;
             document.getElementById('account-page-avatar').textContent = initials;
-
             // Restrict family members for unregistered users
             const famContainer = document.getElementById('family-members-container');
             if (famContainer) {
@@ -866,13 +778,11 @@
                     famContainer.style.display = 'none';
                 }
             }
-
             switchSection('section-dashboard-home');
             renderCatalog();
             renderSpesaList();
             renderNeighborsAnnunci();
         }
-
         function switchSection(sectionId) {
             const sections = [
                 'section-dashboard-home',
@@ -883,7 +793,6 @@
                 'section-spesa',
                 'section-account'
             ];
-
             sections.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -894,12 +803,10 @@
                     }
                 }
             });
-
             // Scroll top on container
             const container = document.querySelector('#page-dashboard > div.flex-1');
             if (container) container.scrollTop = 0;
         }
-
         function toggleSidebar() {
             const drawer = document.getElementById('sidebar-drawer');
             const overlay = document.getElementById('sidebar-overlay');
@@ -908,13 +815,11 @@
                 overlay.classList.toggle('hidden');
             }
         }
-
         function switchScanTab(tab) {
             const btnS = document.getElementById('btn-tab-scontrino');
             const btnB = document.getElementById('btn-tab-barcode');
             const viewS = document.getElementById('scan-view-scontrino');
             const viewB = document.getElementById('scan-view-barcode');
-
             if (tab === 'scontrino') {
                 btnS.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-emeraldcustom text-white shadow-md transition flex items-center justify-center gap-2";
                 btnB.className = "py-3 px-4 rounded-2xl font-bold text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center justify-center gap-2";
@@ -927,7 +832,6 @@
                 viewS.classList.add('hidden');
             }
         }
-
         function simulateReceiptScan() {
             scannedTempItems = [
                 { name: "Latte Fresco Parzialmente Scremato", date: "2026-06-18", weight: "1 L" },
@@ -948,11 +852,9 @@
                     </div>
                 `;
             });
-
             document.getElementById('receipt-result-box').classList.remove('hidden');
             showToast("Scontrino scansionato con successo dall'IA!");
         }
-
         function simulateBarcodeScan() {
             catalogData.frigo.push({
                 id: Date.now(),
@@ -966,7 +868,6 @@
             switchCatalogTab('frigo');
             switchSection('section-catalogo');
         }
-
         function saveScannedItems() {
             scannedTempItems.forEach(item => {
                 catalogData.frigo.push({
@@ -983,40 +884,32 @@
             switchCatalogTab('frigo');
             switchSection('section-catalogo');
         }
-
         // --- Catalog Functions ---
         function switchCatalogTab(tab) {
             currentCatalogTab = tab;
             const btnF = document.getElementById('cat-tab-frigo');
             const btnFr = document.getElementById('cat-tab-freezer');
             const btnD = document.getElementById('cat-tab-dispensa');
-
             btnF.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
             btnFr.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
             btnD.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 hover:text-forest transition";
-
             if (tab === 'frigo') btnF.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
             if (tab === 'freezer') btnFr.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
             if (tab === 'dispensa') btnD.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
-
             renderCatalog();
         }
-
         function renderCatalog() {
             const container = document.getElementById('catalog-products-container');
             const items = catalogData[currentCatalogTab];
             container.innerHTML = '';
-
             if (items.length === 0) {
                 container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Nessun prodotto in questa sezione.</p>`;
                 return;
             }
-
             items.forEach(item => {
                 let badgeColor = 'bg-green-500';
                 if (item.status === 'yellow') badgeColor = 'bg-yellow-500';
                 if (item.status === 'red') badgeColor = 'bg-red-500 animate-pulse';
-
                 container.innerHTML += `
                     <div class="bg-white p-3.5 rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm">
                         <div class="flex items-center gap-3">
@@ -1042,7 +935,6 @@
                 `;
             });
         }
-
         function updateCatalogItemDate(id, dest, newDate) {
             const items = catalogData[dest];
             const item = items.find(i => i.id === id);
@@ -1052,27 +944,22 @@
                 renderCatalog();
             }
         }
-
         function deleteCatalogItem(id, dest) {
             catalogData[dest] = catalogData[dest].filter(i => i.id !== id);
             showToast("Prodotto eliminato dal catalogo.");
             renderCatalog();
         }
-
         function openAddProductModal() {
             document.getElementById('modal-add-product').classList.remove('hidden');
         }
-
         function closeAddProductModal() {
             document.getElementById('modal-add-product').classList.add('hidden');
         }
-
         function handleSaveNewProduct(e) {
             e.preventDefault();
             const name = document.getElementById('new-prod-name').value;
             const dest = document.getElementById('new-prod-dest').value;
             const date = document.getElementById('new-prod-date').value;
-
             catalogData[dest].push({
                 id: Date.now(),
                 name: name,
@@ -1081,13 +968,11 @@
                 weight: "Standard",
                 status: "green"
             });
-
             closeAddProductModal();
             renderCatalog();
             showToast(`"${name}" aggiunto al ${dest} con successo!`);
             e.target.reset();
         }
-
         // --- Recipe AI Functions ---
         function generateAirRecipes() {
             if (!currentUser.isRegistered) {
@@ -1114,13 +999,11 @@
             `;
             showToast("Ricette IA generate con successo!");
         }
-
         // --- Neighbor Annunci Functions ---
         function renderNeighborsAnnunci() {
             const container = document.getElementById('neighbors-annunci-list');
             if (!container) return;
             container.innerHTML = '';
-
             annunciData.forEach(ann => {
                 container.innerHTML += `
                     <div class="bg-gray-50 p-3 rounded-2xl border border-gray-200 flex items-center justify-between text-xs">
@@ -1136,7 +1019,6 @@
                 `;
             });
         }
-
         function openAddAnnuncioModal() {
             document.getElementById('modal-add-annuncio').classList.remove('hidden');
         }
@@ -1147,7 +1029,6 @@
             e.preventDefault();
             const title = document.getElementById('ann-title').value;
             const scad = document.getElementById('ann-scadenza').value;
-
             annunciData.unshift({
                 id: Date.now(),
                 user: currentUser.name,
@@ -1156,24 +1037,20 @@
                 distance: "Vicino a te (0m)",
                 type: "green"
             });
-
             closeAddAnnuncioModal();
             renderNeighborsAnnunci();
             showToast("Annuncio pubblicato nella community!");
             e.target.reset();
         }
-
         // --- Spesa List Functions ---
         function renderSpesaList() {
             const container = document.getElementById('spesa-items-container');
             if (!container) return;
             container.innerHTML = '';
-
             if (spesaData.length === 0) {
                 container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">La lista della spesa è vuota.</p>`;
                 return;
             }
-
             spesaData.forEach(item => {
                 container.innerHTML += `
                     <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs">
@@ -1186,24 +1063,20 @@
                 `;
             });
         }
-
         function handleQuickAddSpesa(e) {
             e.preventDefault();
             const input = document.getElementById('spesa-quick-input');
             const val = input.value.trim();
             if (!val) return;
-
             spesaData.push({
                 id: Date.now(),
                 name: val,
                 checked: false
             });
-
             input.value = '';
             renderSpesaList();
             showToast(`"${val}" aggiunto alla lista spesa!`);
         }
-
         function toggleSpesaItem(id) {
             const item = spesaData.find(i => i.id === id);
             if (item) {
@@ -1211,13 +1084,11 @@
                 renderSpesaList();
             }
         }
-
         function deleteSpesaItem(id) {
             spesaData = spesaData.filter(i => i.id !== id);
             renderSpesaList();
             showToast("Prodotto rimosso dalla spesa.");
         }
-
         function addFamilyMemberPrompt() {
             if (!currentUser.isRegistered) {
                 showToast("Funzione riservata agli utenti registrati!", "warning");
@@ -1230,22 +1101,18 @@
                 showToast(`Familiare "${name}" aggiunto con successo!`);
             }
         }
-
         // --- Account Password Change ---
         function handlePasswordChange(e) {
             e.preventDefault();
             const p1 = document.getElementById('new-pwd-1').value;
             const p2 = document.getElementById('new-pwd-2').value;
-
             if (p1 !== p2) {
                 showToast("Le password non coincidono!", "warning");
                 return;
             }
-
             showToast("Password aggiornata con successo!");
             e.target.reset();
         }
-
         // Initialize on load
         window.onload = function() {
             renderCatalog();
