@@ -157,8 +157,8 @@
                         <i class="fa-solid fa-bell"></i>
                         <span class="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center border-2 border-white">2</span>
                     </button>
-                    <div onclick="switchSection('section-account')" class="w-9 h-9 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-xs shadow cursor-pointer">
-                        G
+                    <div onclick="switchSection('section-account')" id="user-avatar-initial" class="w-9 h-9 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-xs shadow cursor-pointer">
+                        O
                     </div>
                 </div>
             </header>
@@ -181,7 +181,7 @@
                             <i class="fa-solid fa-house w-4 text-emeraldcustom"></i> Dashboard
                         </button>
                         <button onclick="switchSection('section-scansione'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
-                            <i class="fa-solid fa-camera w-4 text-orangeaccent"></i> Scansione (Scontrino/Barcode)
+                            <i class="fa-solid fa-camera w-4 text-orangeaccent"></i> Scansione
                         </button>
                         <button onclick="switchSection('section-catalogo'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo
@@ -210,8 +210,8 @@
             <!-- SCROLLABLE CONTENT (HOME DASHBOARD) -->
             <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20 text-left">
                 <div>
-                    <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2">
-                        Ciao Giorgio! <span>👋</span>
+                    <h2 id="greeting-title" class="text-2xl font-extrabold text-forest flex items-center gap-2">
+                        Ciao Ospite! <span>👋</span>
                     </h2>
                     <p class="text-xs text-gray-500 font-medium">Ecco il riepilogo della tua cucina intelligente.</p>
                 </div>
@@ -312,7 +312,7 @@
                 </div>
             </div>
 
-            <!-- ================= SEZIONE SCANSIONE (Scontrino e Barcode) ================= -->
+            <!-- ================= SEZIONE SCANSIONE ================= -->
             <div id="section-scansione" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
@@ -350,13 +350,18 @@
                     </div>
                 </div>
 
-                <!-- Vista Codice a Barre -->
+                <!-- Vista Codice a Barre (Con Apertura Fotocamera Nativa) -->
                 <div id="scan-content-barcode" class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3 hidden">
                     <div class="border-2 border-dashed border-orangeaccent/40 bg-orangeaccent/5 rounded-2xl p-5 text-center">
                         <i class="fa-solid fa-barcode text-orangeaccent text-3xl mb-2"></i>
                         <h4 class="font-bold text-forest text-xs mb-1">Scanner Codice a Barre</h4>
-                        <p class="text-[11px] text-gray-500 mb-3">Inquadra il codice a barre sul retro del prodotto.</p>
-                        <button onclick="simulateBarcodeScan()" class="bg-orangeaccent text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow hover:bg-orange-600 transition">Scansiona Barcode</button>
+                        <p class="text-[11px] text-gray-500 mb-3">Inquadra il codice a barre sul retro della confezione.</p>
+                        
+                        <!-- Input nativo che apre la fotocamera del telefono -->
+                        <label class="inline-block bg-orangeaccent text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow hover:bg-orange-600 transition cursor-pointer">
+                            <i class="fa-solid fa-camera mr-1"></i> Apri Fotocamera Barcode
+                            <input type="file" accept="image/*" capture="environment" onchange="handleBarcodeCameraCapture(event)" class="hidden">
+                        </label>
                     </div>
                 </div>
             </div>
@@ -478,10 +483,10 @@
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-emeraldcustom/20 space-y-3">
                     <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
-                        <div class="w-12 h-12 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-lg">G</div>
+                        <div id="profile-avatar-initial" class="w-12 h-12 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-lg">O</div>
                         <div>
-                            <h4 id="profile-name-text" class="font-bold text-forest text-sm">Giorgio</h4>
-                            <p id="profile-email-text" class="text-xs text-gray-500">giorgio@cucina.it</p>
+                            <h4 id="profile-name-text" class="font-bold text-forest text-sm">Ospite</h4>
+                            <p id="profile-email-text" class="text-xs text-gray-500">Non registrato</p>
                         </div>
                     </div>
                     <form onsubmit="handlePasswordChange(event)" class="space-y-2.5 pt-1">
@@ -513,7 +518,6 @@
                     <i class="fa-solid fa-boxes-stacked text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Catalogo</span>
                 </button>
-                <!-- Tasto Centrale Dedicato alla Scansione -->
                 <button onclick="switchSection('section-scansione')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
                     <div class="w-10 h-10 bg-orangeaccent text-white rounded-full flex items-center justify-center -mt-4 shadow-md">
                         <i class="fa-solid fa-camera text-sm"></i>
@@ -575,7 +579,7 @@
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        let currentUser = { name: "Giorgio", email: "giorgio@cucina.it", isRegistered: true };
+        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false };
         let catalogData = {
             frigo: [
                 { id: 1, name: "Pomodori", date: "2026-06-15", status: "red" },
@@ -628,21 +632,27 @@
             e.preventDefault();
             const emailInput = document.getElementById('auth-email').value;
             const nameInput = document.getElementById('auth-name').value;
+            
             currentUser.isRegistered = true;
-            currentUser.name = (currentAuthMode === 'register' && nameInput) ? nameInput : "Giorgio";
+            currentUser.name = (currentAuthMode === 'register' && nameInput) ? nameInput : (emailInput.split('@')[0] || "Giorgio");
             currentUser.email = emailInput || "giorgio@cucina.it";
             
             closeAuthModal();
             enterDashboard();
             showToast(`Benvenuto, ${currentUser.name}!`);
         }
+
         function continueWithoutAccess() {
             currentUser.isRegistered = false;
             currentUser.name = "Ospite";
+            currentUser.email = "Non registrato";
             enterDashboard();
             showToast("Accesso come ospite effettuato.", "warning");
         }
+
         function logoutToWelcome() {
+            currentUser.isRegistered = false;
+            currentUser.name = "Ospite";
             document.getElementById('page-dashboard').classList.add('hidden');
             document.getElementById('page-welcome').classList.remove('hidden');
             toggleSidebar();
@@ -653,6 +663,14 @@
             document.getElementById('page-welcome').classList.add('hidden');
             document.getElementById('page-dashboard').classList.remove('hidden');
             
+            // Aggiorna nome in alto e nel profilo
+            document.getElementById('greeting-title').innerHTML = `Ciao ${currentUser.name}! <span>👋</span>`;
+            document.getElementById('profile-name-text').textContent = currentUser.name;
+            document.getElementById('profile-email-text').textContent = currentUser.email;
+            const initial = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('user-avatar-initial').textContent = initial;
+            document.getElementById('profile-avatar-initial').textContent = initial;
+
             const lockBox = document.getElementById('recipe-guest-lock');
             const userContent = document.getElementById('recipe-user-content');
             if(currentUser.isRegistered) {
@@ -719,11 +737,13 @@
             switchSection('section-catalogo');
         }
 
-        function simulateBarcodeScan() {
-            catalogData.frigo.push({ id: Date.now(), name: "Yogurt Greco", date: "2026-06-28", status: "green" });
-            renderCatalog();
-            showToast("Codice a barre scansionato! Yogurt aggiunto al Frigo.");
-            switchSection('section-catalogo');
+        function handleBarcodeCameraCapture(e) {
+            if(e.target.files && e.target.files.length > 0) {
+                catalogData.frigo.push({ id: Date.now(), name: "Prodotto Barcode Scansionato", date: "2026-07-01", status: "green" });
+                renderCatalog();
+                showToast("Codice a barre acquisito con fotocamera! Aggiunto al Frigo.");
+                switchSection('section-catalogo');
+            }
         }
 
         function switchCatalogTab(tab) {
