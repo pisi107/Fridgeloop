@@ -180,6 +180,9 @@
                         <button onclick="switchSection('section-dashboard-home'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-house w-4 text-emeraldcustom"></i> Dashboard
                         </button>
+                        <button onclick="switchSection('section-scansione'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
+                            <i class="fa-solid fa-camera w-4 text-orangeaccent"></i> Scansione (Scontrino/Barcode)
+                        </button>
                         <button onclick="switchSection('section-catalogo'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo
                         </button>
@@ -204,7 +207,7 @@
                 </div>
             </aside>
 
-            <!-- SCROLLABLE CONTENT (HOME DASHBOARD - STATISTICHE PERFETTAMENTE CENTRATE) -->
+            <!-- SCROLLABLE CONTENT (HOME DASHBOARD) -->
             <div id="section-dashboard-home" class="flex-1 overflow-y-auto p-4 space-y-4 pb-20 text-left">
                 <div>
                     <h2 class="text-2xl font-extrabold text-forest flex items-center gap-2">
@@ -213,7 +216,7 @@
                     <p class="text-xs text-gray-500 font-medium">Ecco il riepilogo della tua cucina intelligente.</p>
                 </div>
 
-                <!-- STATS GRID CENTRATA NEI PROPRI QUADRATINI -->
+                <!-- STATS GRID CENTRATA -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     <div onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-lightgreen transition">
                         <div class="w-9 h-9 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
@@ -276,13 +279,13 @@
 
                 <!-- QUICK GRID -->
                 <div class="grid grid-cols-2 gap-3">
-                    <div onclick="switchSection('section-ricette')" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
-                        <div class="w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center font-bold mb-3 shadow">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <div onclick="switchSection('section-scansione')" class="bg-gradient-to-br from-emeraldcustom/10 to-emeraldcustom/20 p-4 rounded-3xl border border-emeraldcustom/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-emeraldcustom text-white flex items-center justify-center font-bold mb-3 shadow">
+                            <i class="fa-solid fa-camera"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-forest text-xs mb-0.5">Ricette IA</h4>
-                            <p class="text-[10px] text-gray-600">Svuota frigo intelligente</p>
+                            <h4 class="font-bold text-forest text-xs mb-0.5">Scansione</h4>
+                            <p class="text-[10px] text-gray-600">Scontrino e Barcode</p>
                         </div>
                     </div>
                     <div onclick="switchSection('section-spesa')" class="bg-gradient-to-br from-lightgreen to-emeraldcustom/10 p-4 rounded-3xl border border-emeraldcustom/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
@@ -306,6 +309,55 @@
                     <button onclick="showToast('Eco-badge aggiornato con successo!')" class="bg-orangeaccent hover:bg-orange-600 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition shrink-0">
                         Scopri
                     </button>
+                </div>
+            </div>
+
+            <!-- ================= SEZIONE SCANSIONE (Scontrino e Barcode) ================= -->
+            <div id="section-scansione" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-forest text-lg">Scansione Prodotti</h3>
+                        <p class="text-xs text-gray-500">Aggiungi articoli automaticamente</p>
+                    </div>
+                    <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
+                </div>
+
+                <!-- Tabs Scontrino / Barcode -->
+                <div class="flex bg-gray-200 p-1 rounded-2xl">
+                    <button onclick="switchScanTab('scontrino')" id="scan-tab-scontrino" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition">Inquadra Scontrino</button>
+                    <button onclick="switchScanTab('barcode')" id="scan-tab-barcode" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition">Codice a Barre</button>
+                </div>
+
+                <!-- Vista Scontrino -->
+                <div id="scan-content-scontrino" class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
+                    <div class="border-2 border-dashed border-emeraldcustom/40 bg-lightgreen/50 rounded-2xl p-5 text-center">
+                        <i class="fa-solid fa-receipt text-emeraldcustom text-3xl mb-2"></i>
+                        <h4 class="font-bold text-forest text-xs mb-1">Simulatore Fotocamera Scontrino</h4>
+                        <p class="text-[11px] text-gray-500 mb-3">Inquadra lo scontrino del supermercato per estrarre i prodotti con l'IA.</p>
+                        <button onclick="simulateReceiptScan()" class="bg-emeraldcustom text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow hover:bg-emerald-700 transition">Scansiona Scontrino</button>
+                    </div>
+                    <div id="receipt-scanned-items" class="hidden space-y-2 pt-2">
+                        <h5 class="font-bold text-forest text-xs">Prodotti estratti pronti da salvare:</h5>
+                        <div class="bg-gray-50 p-2.5 rounded-xl border border-gray-200 text-xs flex justify-between items-center">
+                            <span>Latte Fresco (Scad: 2026-06-25)</span>
+                            <span class="text-emeraldcustom font-bold">Frigo</span>
+                        </div>
+                        <div class="bg-gray-50 p-2.5 rounded-xl border border-gray-200 text-xs flex justify-between items-center">
+                            <span>Pasta Integrale (Scad: 2027-04-10)</span>
+                            <span class="text-orangeaccent font-bold">Dispensa</span>
+                        </div>
+                        <button onclick="saveScannedReceiptItems()" class="w-full bg-forest text-white font-bold py-2.5 rounded-xl text-xs shadow">Salva nel Catalogo</button>
+                    </div>
+                </div>
+
+                <!-- Vista Codice a Barre -->
+                <div id="scan-content-barcode" class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3 hidden">
+                    <div class="border-2 border-dashed border-orangeaccent/40 bg-orangeaccent/5 rounded-2xl p-5 text-center">
+                        <i class="fa-solid fa-barcode text-orangeaccent text-3xl mb-2"></i>
+                        <h4 class="font-bold text-forest text-xs mb-1">Scanner Codice a Barre</h4>
+                        <p class="text-[11px] text-gray-500 mb-3">Inquadra il codice a barre sul retro del prodotto.</p>
+                        <button onclick="simulateBarcodeScan()" class="bg-orangeaccent text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow hover:bg-orange-600 transition">Scansiona Barcode</button>
+                    </div>
                 </div>
             </div>
 
@@ -390,7 +442,7 @@
                 <div id="spesa-items-container" class="space-y-2"></div>
             </div>
 
-            <!-- VICINO SECTION (Con Mappa e Selezione Catalogo per Offrire Cibo) -->
+            <!-- VICINO SECTION -->
             <div id="section-vicino" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-forest text-lg">Condividi il Cibo</h3>
@@ -399,7 +451,6 @@
                 
                 <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
                     <h4 class="font-bold text-forest text-xs">Mappa dei vicini vicino a te</h4>
-                    <!-- Mappa Simulata -->
                     <div class="w-full h-40 bg-lightgreen rounded-2xl border border-emeraldcustom/30 relative overflow-hidden flex items-center justify-center shadow-inner">
                         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:16px_16px]"></div>
                         <div class="absolute top-6 left-8 bg-white px-3 py-1.5 rounded-full shadow border border-emeraldcustom flex items-center gap-2 animate-bounce">
@@ -462,18 +513,20 @@
                     <i class="fa-solid fa-boxes-stacked text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Catalogo</span>
                 </button>
-                <button onclick="switchSection('section-ricette')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
+                <!-- Tasto Centrale Dedicato alla Scansione -->
+                <button onclick="switchSection('section-scansione')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
                     <div class="w-10 h-10 bg-orangeaccent text-white rounded-full flex items-center justify-center -mt-4 shadow-md">
-                        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                        <i class="fa-solid fa-camera text-sm"></i>
                     </div>
+                    <span class="text-[10px] font-medium mt-0.5">Scansione</span>
+                </button>
+                <button onclick="switchSection('section-ricette')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
+                    <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Ricette</span>
                 </button>
                 <button onclick="switchSection('section-spesa')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
                     <i class="fa-solid fa-basket-shopping text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Spesa</span>
-                </button>
-                <button onclick="switchSection('section-vicino')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
-                    <i class="fa-solid fa-map-location-dot text-base"></i>
-                    <span class="text-[10px] font-medium mt-0.5">Vicini</span>
                 </button>
             </nav>
 
@@ -509,15 +562,13 @@
         </div>
     </div>
 
-    <!-- MODAL: SEleziona dal catalogo cosa pubblicare per il vicino -->
+    <!-- MODAL: CONDIVISIONE CIBO VICINI -->
     <div id="modal-share-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
             <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h3 class="text-xl font-bold text-forest mb-1">Offri Cibo in Eccesso</h3>
             <p class="text-xs text-gray-500 mb-4">Seleziona cosa vuoi condividere dal tuo catalogo:</p>
-            <div id="share-catalog-list" class="space-y-2 max-h-48 overflow-y-auto mb-4 text-left">
-                <!-- Popolato via JS -->
-            </div>
+            <div id="share-catalog-list" class="space-y-2 max-h-48 overflow-y-auto mb-4 text-left"></div>
             <button onclick="confirmShareProduct()" class="w-full bg-orangeaccent text-white font-semibold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Pubblica Annuncio ai Vicini</button>
         </div>
     </div>
@@ -539,7 +590,6 @@
         };
         let currentCatalogTab = 'frigo';
         let spesaData = [{ id: 1, name: "Latte Fresco", checked: false }, { id: 2, name: "Uova", checked: true }];
-        let selectedProductToShare = null;
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
@@ -554,12 +604,8 @@
             showToast("Notifiche: 2 prodotti in scadenza nel frigo!");
         }
 
-        function openInfoModal() {
-            document.getElementById('info-modal').classList.remove('hidden');
-        }
-        function closeInfoModal() {
-            document.getElementById('info-modal').classList.add('hidden');
-        }
+        function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); }
+        function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
 
         let currentAuthMode = 'login';
         function showAuthModal(mode) {
@@ -623,7 +669,7 @@
         }
 
         function switchSection(sectionId) {
-            const sections = ['section-dashboard-home', 'section-catalogo', 'section-ricette', 'section-spesa', 'section-vicino', 'section-account'];
+            const sections = ['section-dashboard-home', 'section-scansione', 'section-catalogo', 'section-ricette', 'section-spesa', 'section-vicino', 'section-account'];
             sections.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -640,6 +686,44 @@
             const overlay = document.getElementById('sidebar-overlay');
             drawer.classList.toggle('-translate-x-full');
             overlay.classList.toggle('hidden');
+        }
+
+        function switchScanTab(tab) {
+            const btnS = document.getElementById('scan-tab-scontrino');
+            const btnB = document.getElementById('scan-tab-barcode');
+            const contS = document.getElementById('scan-content-scontrino');
+            const contB = document.getElementById('scan-content-barcode');
+            if(tab === 'scontrino') {
+                btnS.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
+                btnB.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition";
+                contS.classList.remove('hidden');
+                contB.classList.add('hidden');
+            } else {
+                btnB.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
+                btnS.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition";
+                contB.classList.remove('hidden');
+                contS.classList.add('hidden');
+            }
+        }
+
+        function simulateReceiptScan() {
+            document.getElementById('receipt-scanned-items').classList.remove('hidden');
+            showToast("Scontrino letto con successo dall'IA!");
+        }
+
+        function saveScannedReceiptItems() {
+            catalogData.frigo.push({ id: Date.now(), name: "Latte Fresco", date: "2026-06-25", status: "green" });
+            catalogData.dispensa.push({ id: Date.now()+1, name: "Pasta Integrale", date: "2027-04-10", status: "green" });
+            renderCatalog();
+            showToast("Prodotti dello scontrino salvati nel catalogo!");
+            switchSection('section-catalogo');
+        }
+
+        function simulateBarcodeScan() {
+            catalogData.frigo.push({ id: Date.now(), name: "Yogurt Greco", date: "2026-06-28", status: "green" });
+            renderCatalog();
+            showToast("Codice a barre scansionato! Yogurt aggiunto al Frigo.");
+            switchSection('section-catalogo');
         }
 
         function switchCatalogTab(tab) {
@@ -677,12 +761,8 @@
             });
         }
 
-        function openAddProductModal() {
-            document.getElementById('modal-add-product').classList.remove('hidden');
-        }
-        function closeAddProductModal() {
-            document.getElementById('modal-add-product').classList.add('hidden');
-        }
+        function openAddProductModal() { document.getElementById('modal-add-product').classList.remove('hidden'); }
+        function closeAddProductModal() { document.getElementById('modal-add-product').classList.add('hidden'); }
         function handleSaveNewProduct(e) {
             e.preventDefault();
             const name = document.getElementById('new-prod-name').value;
@@ -713,9 +793,7 @@
             }
             document.getElementById('modal-share-product').classList.remove('hidden');
         }
-        function closeShareModal() {
-            document.getElementById('modal-share-product').classList.add('hidden');
-        }
+        function closeShareModal() { document.getElementById('modal-share-product').classList.add('hidden'); }
         function confirmShareProduct() {
             const selected = document.querySelector('input[name="share-product"]:checked');
             if(selected) {
