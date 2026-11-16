@@ -53,7 +53,7 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- INFO MODAL -->
+    <!-- INFO MODAL (Aggiornato con Scansione Scontrino e Barcode) -->
     <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
             <div class="flex justify-between items-center mb-3">
@@ -65,6 +65,10 @@
             </div>
             <p class="text-xs text-gray-600 mb-4">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi:</p>
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
+                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-camera text-emeraldcustom mt-0.5"></i>
+                    <div><strong class="text-forest block">Scansione Scontrino & Barcode</strong> Inquadra lo scontrino o i codici a barre per aggiungere i prodotti automaticamente.</div>
+                </li>
                 <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-0.5"></i>
                     <div><strong class="text-forest block">Ricette IA complete</strong> Preparazioni dettagliate con ingredienti e passaggi.</div>
@@ -663,7 +667,6 @@
             document.getElementById('page-welcome').classList.add('hidden');
             document.getElementById('page-dashboard').classList.remove('hidden');
             
-            // Aggiorna nome in alto e nel profilo
             document.getElementById('greeting-title').innerHTML = `Ciao ${currentUser.name}! <span>👋</span>`;
             document.getElementById('profile-name-text').textContent = currentUser.name;
             document.getElementById('profile-email-text').textContent = currentUser.email;
