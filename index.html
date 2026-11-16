@@ -71,24 +71,67 @@
         </div>
     </div>
 
-    <!-- PRESENTATION MODAL -->
+    <!-- PRESENTATION MODAL AMPLIATO (PULSANTE SCOPRI) -->
     <div id="presentation-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom flex flex-col max-h-[90vh] text-left">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom flex flex-col max-h-[90vh] text-left">
             <button onclick="closePresentationModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             
             <div class="text-center pb-3 border-b border-gray-100 mb-4">
                 <span class="text-[10px] font-bold text-orangeaccent uppercase tracking-widest block mb-1">Presentazione Ufficiale</span>
-                <h3 class="text-xl font-extrabold text-forest">Cos'è FoodWise? 🌱</h3>
+                <h3 class="text-xl font-extrabold text-forest">Benvenuto in FoodWise 🌱</h3>
             </div>
 
-            <div id="slides-container" class="overflow-y-auto space-y-4 flex-1 text-xs text-gray-700 pr-1">
-                <div class="slide-item space-y-2">
-                    <div class="w-12 h-12 bg-lightgreen text-emeraldcustom rounded-2xl flex items-center justify-center text-xl mx-auto shadow-sm">
-                        <i class="fa-solid fa-earth-americas"></i>
+            <!-- SLIDES CONTAINER AMPLIATO -->
+            <div id="slides-container" class="overflow-y-auto space-y-5 flex-1 text-xs text-gray-700 pr-1">
+                <!-- Slide 1 -->
+                <div class="slide-item space-y-2 bg-lightgreen p-3.5 rounded-2xl border border-emeraldcustom/20">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emeraldcustom text-white rounded-xl flex items-center justify-center text-lg shrink-0 shadow">
+                            <i class="fa-solid fa-earth-americas"></i>
+                        </div>
+                        <h4 class="font-bold text-forest text-sm">La Missione: Zero Sprechi</h4>
                     </div>
-                    <h4 class="font-bold text-forest text-sm text-center">Perché è nata questa app?</h4>
-                    <p class="leading-relaxed text-center text-gray-600">
-                        Ogni anno tonnellate di cibo finiscono nella spazzatura a causa di scadenze dimenticate. <strong>FoodWise</strong> nasce per invertire questa rotta e azzerare gli sprechi domestici.
+                    <p class="leading-relaxed text-gray-600 pl-1">
+                        Ogni anno tonnellate di cibo perfettamente commestibile finiscono nella spazzatura a causa di scadenze dimenticate o cattiva pianificazione della spesa. FoodWise nasce per digitalizzare la tua cucina, aiutandoti a risparmiare denaro e a proteggere il pianeta.
+                    </p>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide-item space-y-2 bg-orangeaccent/10 p-3.5 rounded-2xl border border-orangeaccent/20">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-orangeaccent text-white rounded-xl flex items-center justify-center text-lg shrink-0 shadow">
+                            <i class="fa-solid fa-house-chimney-user"></i>
+                        </div>
+                        <h4 class="font-bold text-forest text-sm">Cucina Sincronizzata in Famiglia</h4>
+                    </div>
+                    <p class="leading-relaxed text-gray-600 pl-1">
+                        Grazie al codice casa univoco, tutti i membri della famiglia possono accedere allo stesso inventario. Se qualcuno compra il latte o spunta la lista della spesa, l'aggiornamento è istantaneo su tutti i dispositivi.
+                    </p>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide-item space-y-2 bg-blue-50 p-3.5 rounded-2xl border border-blue-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center text-lg shrink-0 shadow">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h4 class="font-bold text-forest text-sm">Ricette IA e Scansione Scontrini</h4>
+                    </div>
+                    <p class="leading-relaxed text-gray-600 pl-1">
+                        Non sai cosa cucinare con quello che è rimasto in frigo? L'Intelligenza Artificiale analizza le scadenze e crea ricette svuota-frigo su misura. In più, puoi scansionare scontrini e codici a barre per aggiungere prodotti in un attimo.
+                    </p>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide-item space-y-2 bg-green-50 p-3.5 rounded-2xl border border-green-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-600 text-white rounded-xl flex items-center justify-center text-lg shrink-0 shadow">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h4 class="font-bold text-forest text-sm">Impatto Ambientale Reale</h4>
+                    </div>
+                    <p class="leading-relaxed text-gray-600 pl-1">
+                        Monitora in tempo reale quanti chili di CO2 e quanti litri d'acqua virtuale hai salvato grazie a una gestione consapevole della tua dispensa. Ogni piccolo gesto conta!
                     </p>
                 </div>
             </div>
@@ -113,15 +156,15 @@
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
                 <li class="flex items-start gap-2.5 bg-lightgreen p-3 rounded-2xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-users text-emeraldcustom text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">1. Sincronizzazione Familiare</strong> Condividi il frigo e la lista della spesa in tempo reale con tutti i membri della famiglia.</div>
+                    <div><strong class="text-forest block mb-0.5">1. Sincronizzazione Familiare</strong> Condividi il frigo e la lista della spesa in tempo reale.</div>
                 </li>
                 <li class="flex items-start gap-2.5 bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">2. Ricette IA Svuota-Frigo</strong> Genera ricette intelligenti e personalizzate basate esattamente sui prodotti in scadenza nel tuo frigo.</div>
+                    <div><strong class="text-forest block mb-0.5">2. Ricette IA Svuota-Frigo</strong> Genera ricette intelligenti basate sui prodotti in scadenza.</div>
                 </li>
                 <li class="flex items-start gap-2.5 bg-blue-50 p-3 rounded-2xl border border-blue-200">
                     <i class="fa-solid fa-seedling text-blue-600 text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">3. Scansione & Statistiche Ecologiche</strong> Scansiona scontrini e barcode con l'IA e monitora in tempo reale il risparmio di CO2 e acqua.</div>
+                    <div><strong class="text-forest block mb-0.5">3. Scansione & Statistiche</strong> Scansiona scontrini e monitora il risparmio di CO2.</div>
                 </li>
             </ul>
             <button onclick="closeInfoModal(); showAuthModal('register');" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Registrati Subito</button>
@@ -1222,11 +1265,6 @@
             } else {
                 showToast("Seleziona un prodotto da condividere.", "warning");
             }
-        }
-
-        function generateAndShowRecipe() {
-            document.getElementById('recipe-result-box').classList.remove('hidden');
-            showToast("Ricetta IA generata con successo!");
         }
 
         function renderSpesaList() {
