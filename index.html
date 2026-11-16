@@ -59,26 +59,22 @@
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2 text-orangeaccent">
                     <i class="fa-solid fa-circle-info text-xl"></i>
-                    <h3 class="text-lg font-bold text-forest">Agevolazioni Registrazione</h3>
+                    <h3 class="text-lg font-bold text-forest">Codici Invito Casa</h3>
                 </div>
                 <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-gray-600 mb-4">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi:</p>
+            <p class="text-xs text-gray-600 mb-4">Come funziona l'accesso con codice familiare:</p>
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
                 <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-users text-emeraldcustom mt-0.5"></i>
-                    <div><strong class="text-forest block">Sezione Famiglia & Spesa Condivisa</strong> Gestisci i componenti della casa e sincronizza la lista della spesa in tempo reale.</div>
+                    <i class="fa-solid fa-key text-emeraldcustom mt-0.5"></i>
+                    <div><strong class="text-forest block">Genera Codice</strong> Il capofamiglia crea un codice univoco dalla sezione Famiglia.</div>
                 </li>
                 <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-camera text-emeraldcustom mt-0.5"></i>
-                    <div><strong class="text-forest block">Scansione Scontrino & Barcode</strong> Inquadra lo scontrino o i codici a barre per aggiungere i prodotti.</div>
-                </li>
-                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-0.5"></i>
-                    <div><strong class="text-forest block">Ricette IA complete</strong> Preparazioni dettagliate con ingredienti e passaggi.</div>
+                    <i class="fa-solid fa-right-to-bracket text-orangeaccent mt-0.5"></i>
+                    <div><strong class="text-forest block">Entra con Codice</strong> I familiari inseriscono il codice per sincronizzarsi istantaneamente sulla stessa cucina.</div>
                 </li>
             </ul>
-            <button onclick="closeInfoModal()" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Ho capito, fantastico!</button>
+            <button onclick="closeInfoModal()" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Ho capito!</button>
         </div>
     </div>
 
@@ -101,16 +97,17 @@
                 <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-1">Fridge<span class="text-emeraldcustom">loop</span></h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Zero Sprechi, Massimo Gusto</p>
                 <p class="text-xs italic text-gray-600 px-4 py-2.5 bg-white/80 rounded-2xl shadow-sm border border-emeraldcustom/10">
-                    “Un piccolo gesto, un grande impatto.”
+                    “La tua cucina intelligente e condivisa.”
                 </p>
             </div>
 
+            <!-- I DUE PULSANTI RICHIESTI PER LA GESTIONE CODICE FAMIGLIA -->
             <div class="space-y-3 pb-4">
-                <button onclick="showAuthModal('login')" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-forest/20 transition flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-right-to-bracket"></i> Accedi
+                <button onclick="showAuthModal('register')" class="w-full bg-forest hover:bg-forest/90 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-forest/20 transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-house-chimney-user"></i> Genera Codice Casa (Crea Account)
                 </button>
-                <button onclick="showAuthModal('register')" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-orangeaccent/20 transition flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-user-plus"></i> Registrati
+                <button onclick="showAuthModal('code-login')" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-orangeaccent/20 transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-key"></i> Entra con Codice Famiglia
                 </button>
                 <button onclick="continueWithoutAccess()" class="w-full bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 rounded-2xl border border-gray-200 transition text-xs">
                     Continua come Ospite
@@ -118,26 +115,30 @@
             </div>
         </div>
 
-        <!-- ================= AUTH MODAL ================= -->
+        <!-- ================= AUTH MODAL (REGISTRAZIONE O ENTRA CON CODICE) ================= -->
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
             <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-forest">
                 <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
                 <h3 id="auth-title" class="text-xl font-bold text-forest mb-1">Accedi a Fridgeloop</h3>
-                <p id="auth-subtitle" class="text-xs text-gray-500 mb-4">Inserisci le credenziali per la tua cucina intelligente.</p>
+                <p id="auth-subtitle" class="text-xs text-gray-500 mb-4">Inserisci i dati richiesti.</p>
                 <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3">
                     <div id="name-field-container" class="hidden">
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Nome e Cognome</label>
-                        <input type="text" id="auth-name" placeholder="es. Giorgio" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Il tuo Nome</label>
+                        <input type="text" id="auth-name" placeholder="es. Martina" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
                     </div>
-                    <div>
+                    <div id="code-field-container" class="hidden">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Codice Casa (es. FRIDGE-8492)</label>
+                        <input type="text" id="auth-house-code" placeholder="FRIDGE-XXXX" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs uppercase font-mono tracking-wider focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                    </div>
+                    <div id="email-field-container">
                         <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
-                        <input type="email" id="auth-email" required placeholder="giorgio@cucina.it" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        <input type="email" id="auth-email" placeholder="giorgio@cucina.it" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-700 mb-1">Password</label>
                         <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
                     </div>
-                    <button type="submit" id="auth-submit-btn" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow-md">Accedi</button>
+                    <button type="submit" id="auth-submit-btn" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow-md">Conferma</button>
                 </form>
             </div>
         </div>
@@ -153,7 +154,7 @@
                     </button>
                     <div class="bg-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold text-forest cursor-pointer">
                         <i class="fa-solid fa-house text-emeraldcustom text-[11px]"></i>
-                        <span>Casa Dolce Casa</span>
+                        <span id="header-house-label">Casa di Giorgio</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
@@ -185,7 +186,7 @@
                             <i class="fa-solid fa-house w-4 text-emeraldcustom"></i> Dashboard
                         </button>
                         <button onclick="checkAndOpenFamily(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
-                            <i class="fa-solid fa-users w-4 text-orangeaccent"></i> Famiglia
+                            <i class="fa-solid fa-users w-4 text-orangeaccent"></i> Famiglia & Codice
                         </button>
                         <button onclick="switchSection('section-scansione'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-camera w-4 text-emeraldcustom"></i> Scansione
@@ -291,8 +292,8 @@
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-forest text-xs mb-0.5">Famiglia</h4>
-                            <p class="text-[10px] text-gray-600">Spesa condivisa</p>
+                            <h4 class="font-bold text-forest text-xs mb-0.5">Famiglia & Codice</h4>
+                            <p class="text-[10px] text-gray-600">Invita con codice</p>
                         </div>
                     </div>
                     <div onclick="switchSection('section-spesa')" class="bg-gradient-to-br from-lightgreen to-emeraldcustom/10 p-4 rounded-3xl border border-emeraldcustom/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
@@ -301,7 +302,7 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-forest text-xs mb-0.5">Lista Spesa</h4>
-                            <p class="text-[10px] text-gray-600">Condivisa in famiglia</p>
+                            <p class="text-[10px] text-gray-600">Condivisa in tempo reale</p>
                         </div>
                     </div>
                 </div>
@@ -319,17 +320,34 @@
                 </div>
             </div>
 
-            <!-- ================= SEZIONE FAMIGLIA (Accessibile solo se registrati) ================= -->
+            <!-- ================= SEZIONE FAMIGLIA & GENERAZIONE CODICE ================= -->
             <div id="section-famiglia" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="font-bold text-forest text-lg">Gestione Famiglia</h3>
-                        <p class="text-xs text-gray-500">Aggiungi i componenti della casa</p>
+                        <h3 class="font-bold text-forest text-lg">Codice Casa & Famiglia</h3>
+                        <p class="text-xs text-gray-500">Condividi l'accesso con i tuoi cari</p>
                     </div>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
 
-                <!-- Form per aggiungere un familiare -->
+                <!-- CARD CODICE CASA -->
+                <div class="bg-gradient-to-r from-forest to-emeraldcustom p-4 rounded-3xl text-white shadow-md space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-orangeaccent uppercase tracking-wider">Codice Invito Casa</span>
+                        <button onclick="generateNewHouseCode()" class="bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold px-2.5 py-1 rounded-xl transition">
+                            <i class="fa-solid fa-rotate mr-1"></i> Rigenera
+                        </button>
+                    </div>
+                    <div class="bg-black/20 p-3 rounded-2xl flex items-center justify-between border border-white/10">
+                        <span id="house-code-display" class="font-mono text-xl font-extrabold tracking-widest text-emerald-300">FRIDGE-7492</span>
+                        <button onclick="copyHouseCode()" class="bg-orangeaccent hover:bg-orange-600 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> Copia
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-white/80">Fai inserire questo codice ai tuoi familiari quando cliccano su <strong>"Entra con Codice"</strong>.</p>
+                </div>
+
+                <!-- Form per aggiungere un familiare manualmente -->
                 <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
                     <h4 class="font-bold text-forest text-xs flex items-center gap-2">
                         <i class="fa-solid fa-user-plus text-orangeaccent"></i> Aggiungi un Familiare
@@ -350,21 +368,12 @@
                 <!-- Lista dei componenti della famiglia -->
                 <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
                     <h4 class="font-bold text-forest text-xs flex items-center justify-between">
-                        <span>Componenti Registrati</span>
+                        <span>Componenti Collegati</span>
                         <span id="family-count-badge" class="bg-lightgreen text-emeraldcustom px-2 py-0.5 rounded-full text-[10px] font-bold">1 Membro</span>
                     </h4>
                     <div id="family-members-container" class="space-y-2">
                         <!-- Popolato via JS -->
                     </div>
-                </div>
-
-                <!-- Banner Spesa Condivisa Rapida -->
-                <div class="bg-gradient-to-r from-orangeaccent/10 to-orangeaccent/20 border border-orangeaccent/30 p-4 rounded-3xl flex items-center justify-between">
-                    <div>
-                        <h5 class="font-bold text-forest text-xs">Spesa Condivisa Attiva</h5>
-                        <p class="text-[10px] text-gray-600">Tutta la famiglia può aggiungere articoli in tempo reale.</p>
-                    </div>
-                    <button onclick="switchSection('section-spesa')" class="bg-orangeaccent text-white text-xs font-bold px-3 py-2 rounded-xl shadow">Vai alla Spesa</button>
                 </div>
             </div>
 
@@ -710,7 +719,7 @@
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false };
+        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false, houseCode: "FRIDGE-7492" };
         let catalogData = {
             frigo: [
                 { id: 1, name: "Pomodori Freschi", date: "2026-06-15", status: "red", icon: "fa-seedling" },
@@ -748,18 +757,28 @@
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); }
         function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
 
-        let currentAuthMode = 'login';
+        let currentAuthMode = 'register';
         function showAuthModal(mode) {
             currentAuthMode = mode;
             const modal = document.getElementById('auth-modal');
             const title = document.getElementById('auth-title');
             const nameField = document.getElementById('name-field-container');
+            const codeField = document.getElementById('code-field-container');
+            const emailField = document.getElementById('email-field-container');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
             if (mode === 'register') {
-                title.textContent = "Registrati a Fridgeloop";
+                title.textContent = "Genera Codice Casa";
                 nameField.classList.remove('hidden');
-            } else {
-                title.textContent = "Accedi a Fridgeloop";
-                nameField.classList.add('hidden');
+                codeField.classList.add('hidden');
+                emailField.classList.remove('hidden');
+                submitBtn.textContent = "Crea Casa e Genera Codice";
+            } else if (mode === 'code-login') {
+                title.textContent = "Entra con Codice Famiglia";
+                nameField.classList.remove('hidden');
+                codeField.classList.remove('hidden');
+                emailField.classList.add('hidden');
+                submitBtn.textContent = "Entra nella Casa";
             }
             modal.classList.remove('hidden');
         }
@@ -767,21 +786,28 @@
         
         function handleAuthSubmit(e) {
             e.preventDefault();
-            const emailInput = document.getElementById('auth-email').value;
             const nameInput = document.getElementById('auth-name').value;
+            const codeInput = document.getElementById('auth-house-code').value;
             
             currentUser.isRegistered = true;
-            currentUser.name = (currentAuthMode === 'register' && nameInput) ? nameInput : (emailInput.split('@')[0] || "Giorgio");
-            currentUser.email = emailInput || "giorgio@cucina.it";
+            currentUser.name = nameInput || "Membro";
+
+            if (currentAuthMode === 'code-login' && codeInput) {
+                currentUser.houseCode = codeInput.toUpperCase();
+                showToast(`Accesso effettuato alla casa ${currentUser.houseCode}!`);
+            } else {
+                currentUser.houseCode = "FRIDGE-" + Math.floor(1000 + Math.random() * 9000);
+                showToast(`Nuova casa creata! Codice: ${currentUser.houseCode}`);
+            }
             
-            // Aggiorna primo membro famiglia se è il creatore
-            if(familyMembers.length > 0) {
+            if(familyMembers.length > 0 && currentAuthMode === 'register') {
                 familyMembers[0].name = currentUser.name;
+            } else if(currentAuthMode === 'code-login') {
+                familyMembers.push({ id: Date.now(), name: currentUser.name, role: "Familiare (Invitato)" });
             }
 
             closeAuthModal();
             enterDashboard();
-            showToast(`Benvenuto, ${currentUser.name}!`);
         }
 
         function continueWithoutAccess() {
@@ -807,10 +833,15 @@
             
             document.getElementById('greeting-title').innerHTML = `Ciao ${currentUser.name}! <span>👋</span>`;
             document.getElementById('profile-name-text').textContent = currentUser.name;
-            document.getElementById('profile-email-text').textContent = currentUser.email;
+            document.getElementById('profile-email-text').textContent = currentUser.isRegistered ? `Codice Casa: ${currentUser.houseCode}` : "Non registrato";
+            document.getElementById('header-house-label').textContent = `Casa (${currentUser.houseCode})`;
+            
             const initial = currentUser.name.charAt(0).toUpperCase();
             document.getElementById('user-avatar-initial').textContent = initial;
             document.getElementById('profile-avatar-initial').textContent = initial;
+
+            const houseCodeDisplay = document.getElementById('house-code-display');
+            if(houseCodeDisplay) houseCodeDisplay.textContent = currentUser.houseCode;
 
             const lockBox = document.getElementById('recipe-guest-lock');
             const userContent = document.getElementById('recipe-user-content');
@@ -818,7 +849,7 @@
                 lockBox.classList.add('hidden');
                 userContent.classList.remove('hidden');
             } else {
-                lockBox.classList.add('hidden'); // Sbloccato o gestito dentro la sezione famiglia
+                lockBox.classList.add('hidden');
                 userContent.classList.add('hidden');
             }
 
@@ -829,11 +860,21 @@
             renderSpesaList();
         }
 
-        // Controllo accesso sezione Famiglia
+        function generateNewHouseCode() {
+            currentUser.houseCode = "FRIDGE-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('house-code-display').textContent = currentUser.houseCode;
+            showToast("Nuovo codice casa generato con successo!");
+        }
+
+        function copyHouseCode() {
+            navigator.clipboard.writeText(currentUser.houseCode);
+            showToast(`Codice ${currentUser.houseCode} copiato negli appunti!`);
+        }
+
         function checkAndOpenFamily() {
             if(!currentUser.isRegistered) {
-                showToast("Devi registrarti per accedere alla sezione Famiglia!", "warning");
-                showAuthModal('register');
+                showToast("Devi generare o inserire un codice casa per accedere!", "warning");
+                showAuthModal('code-login');
             } else {
                 switchSection('section-famiglia');
                 renderFamilyMembers();
@@ -860,7 +901,6 @@
             overlay.classList.toggle('hidden');
         }
 
-        // Gestione Famiglia
         function handleAddFamilyMember(e) {
             e.preventDefault();
             const name = document.getElementById('family-member-name').value;
@@ -891,7 +931,7 @@
                                 <span class="text-[10px] text-gray-500">${member.role}</span>
                             </div>
                         </div>
-                        <span class="text-[10px] bg-lightgreen text-emeraldcustom px-2 py-1 rounded-lg font-bold">Attivo</span>
+                        <span class="text-[10px] bg-lightgreen text-emeraldcustom px-2 py-1 rounded-lg font-bold">Sincronizzato</span>
                     </div>
                 `;
             });
