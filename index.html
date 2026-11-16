@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodWise - Zero Sprechi, Massimo Gusto</title>
+    <title>FoodWise - Zero Sprechi, Massimo Gusto (Demo Pro Attiva)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter & Google Fonts -->
@@ -72,14 +72,14 @@
         </div>
     </div>
 
-    <!-- MODAL ABBONAMENTO PREMIUM -->
+    <!-- MODAL ABBONAMENTO PREMIUM (INFO DEMO) -->
     <div id="premium-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-goldcustom flex flex-col max-h-[90vh] text-left">
             <button onclick="closePremiumModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             
             <div class="text-center pb-3 border-b border-gray-100 mb-4">
-                <span class="text-[10px] font-bold text-goldcustom uppercase tracking-widest block mb-1"><i class="fa-solid fa-crown mr-1"></i> FoodWise Premium</span>
-                <h3 class="text-xl font-extrabold text-forest">Sblocca il massimo della cucina intelligente</h3>
+                <span class="text-[10px] font-bold text-goldcustom uppercase tracking-widest block mb-1"><i class="fa-solid fa-crown mr-1"></i> FoodWise PRO (Modalità Demo)</span>
+                <h3 class="text-xl font-extrabold text-forest">Abbonamento attivo di prova</h3>
             </div>
 
             <div class="overflow-y-auto space-y-3 flex-1 text-xs text-gray-700 pr-1 mb-4">
@@ -89,7 +89,7 @@
                         <span>1. Pianificatore Pasti Settimanale</span>
                     </div>
                     <p class="text-[11px] text-gray-600 leading-relaxed">
-                        L'IA organizza colazioni, pranzi e cene per 7 giorni usando rigorosamente gli alimenti già presenti in casa per azzerare gli sprechi.
+                        L'IA organizza colazioni, pranzi e cene per 7 giorni usando rigorosamente gli alimenti già presenti in casa.
                     </p>
                 </div>
 
@@ -99,14 +99,12 @@
                         <span>2. Calcolo Nutrizionale Avanzato</span>
                     </div>
                     <p class="text-[11px] text-gray-600 leading-relaxed">
-                        Calorie, proteine, carboidrati e grassi dettagliati per ogni ricetta. Ideale per seguire una dieta equilibrata e su misura.
+                        Calorie, proteine, carboidrati e grassi dettagliati per ogni ricetta e per l'intero menu giornaliero.
                     </p>
                 </div>
             </div>
 
-            <button onclick="activatePremium()" class="w-full bg-gradient-to-r from-amber-500 to-goldcustom hover:from-amber-600 hover:to-amber-700 text-white font-bold py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-crown"></i> Attiva Premium a soli 3,99€ / mese
-            </button>
+            <button onclick="closePremiumModal()" class="w-full bg-goldcustom hover:bg-amber-600 text-white font-bold py-3 rounded-2xl text-xs shadow-md transition">Chiudi (Demo Pro in Funzione)</button>
         </div>
     </div>
 
@@ -150,10 +148,10 @@
                         <div class="w-10 h-10 bg-goldcustom text-white rounded-xl flex items-center justify-center text-lg shrink-0 shadow">
                             <i class="fa-solid fa-crown"></i>
                         </div>
-                        <h4 class="font-bold text-forest text-sm">Funzioni Premium Avanzate</h4>
+                        <h4 class="font-bold text-forest text-sm">Modalità PRO Demo Attiva</h4>
                     </div>
                     <p class="leading-relaxed text-gray-600 pl-1">
-                        Con il piano Premium puoi sbloccare il pianificatore pasti settimanale intelligente e il calcolo nutrizionale completo (calorie, proteine, carboidrati).
+                        Questa versione include il piano Pro sbloccato per testare immediatamente il pianificatore settimanale e i valori nutrizionali.
                     </p>
                 </div>
             </div>
@@ -170,23 +168,19 @@
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2 text-orangeaccent">
                     <i class="fa-solid fa-circle-info text-xl"></i>
-                    <h3 class="text-lg font-bold text-forest">Vantaggi dell'Iscrizione</h3>
+                    <h3 class="text-lg font-bold text-forest">Vantaggi della Modalità Demo Pro</h3>
                 </div>
                 <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-gray-600 mb-4">Registrando la tua casa su FoodWise sblocchi funzioni esclusive:</p>
+            <p class="text-xs text-gray-600 mb-4">In questa versione di test hai accesso a tutte le funzioni avanzate:</p>
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
                 <li class="flex items-start gap-2.5 bg-lightgreen p-3 rounded-2xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-users text-emeraldcustom text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">1. Sincronizzazione Familiare</strong> Condividi il frigo e la lista della spesa in tempo reale.</div>
-                </li>
-                <li class="flex items-start gap-2.5 bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
-                    <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">2. Ricette IA Svuota-Frigo</strong> Genera ricette basate sui prodotti in scadenza.</div>
+                    <div><strong class="text-forest block mb-0.5">1. Sincronizzazione Familiare</strong> Gestisci il frigo e la spesa con i tuoi cari.</div>
                 </li>
                 <li class="flex items-start gap-2.5 bg-amber-50 p-3 rounded-2xl border border-amber-200">
                     <i class="fa-solid fa-crown text-goldcustom text-sm mt-0.5"></i>
-                    <div><strong class="text-forest block mb-0.5">3. Accesso Premium</strong> Sblocca il piano pasti settimanale e i valori nutrizionali.</div>
+                    <div><strong class="text-forest block mb-0.5">2. Pro Già Attivo</strong> Test immediato di menu settimanale e macro.</div>
                 </li>
             </ul>
             <button onclick="closeInfoModal(); showAuthModal('register');" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Registrati Subito</button>
@@ -198,7 +192,8 @@
 
         <!-- ================= WELCOME / AUTH SCREEN ================= -->
         <div id="page-welcome" class="flex flex-col justify-between h-full p-6 overflow-y-auto bg-gradient-to-b from-[#E8F5E9] to-[#F4F9F4]">
-            <div class="flex justify-end pt-2">
+            <div class="flex justify-between pt-2 items-center">
+                <span class="bg-amber-100 text-goldcustom font-extrabold text-[10px] px-2.5 py-1 rounded-full border border-amber-300">DEMO PRO ATTIVA</span>
                 <button onclick="openInfoModal()" class="w-10 h-10 rounded-full bg-white text-forest flex items-center justify-center shadow border border-emeraldcustom/20 transition hover:scale-105" title="Info Vantaggi">
                     <i class="fa-solid fa-circle-info text-orangeaccent text-xl"></i>
                 </button>
@@ -212,7 +207,7 @@
                 <h1 class="text-3xl font-extrabold text-forest tracking-tight mb-1">Food<span class="text-emeraldcustom">Wise</span></h1>
                 <p class="text-xs uppercase tracking-widest text-orangeaccent font-bold mb-4">Zero Sprechi, Massimo Gusto</p>
                 <p class="text-xs italic text-gray-600 px-4 py-2.5 bg-white/80 rounded-2xl shadow-sm border border-emeraldcustom/10">
-                    “La tua cucina intelligente e condivisa.”
+                    “La tua cucina intelligente con Pro abilitato.”
                 </p>
             </div>
 
@@ -273,7 +268,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <button onclick="openPremiumModal()" class="bg-gradient-to-r from-amber-500 to-goldcustom text-white text-[10px] font-extrabold px-2.5 py-1.5 rounded-xl shadow transition hover:scale-105 flex items-center gap-1">
-                        <i class="fa-solid fa-crown"></i> <span id="header-premium-badge">PRO</span>
+                        <i class="fa-solid fa-crown"></i> <span id="header-premium-badge">PRO ATTIVO</span>
                     </button>
                     <div onclick="switchSection('section-account')" id="user-avatar-initial" class="w-9 h-9 rounded-full bg-orangeaccent text-white font-bold flex items-center justify-center text-xs shadow cursor-pointer">
                         O
@@ -311,7 +306,7 @@
                             <i class="fa-solid fa-wand-magic-sparkles w-4 text-orangeaccent"></i> Ricette IA
                         </button>
                         <button onclick="checkAndOpenPremiumSection(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-amber-500/20 text-amber-300 font-bold hover:bg-amber-500/30 transition border border-amber-500/30">
-                            <i class="fa-solid fa-crown w-4 text-goldcustom"></i> Piano & Nutrizione Pro
+                            <i class="fa-solid fa-crown w-4 text-goldcustom"></i> Piano & Nutrizione Pro (Demo)
                         </button>
                         <button onclick="switchSection('section-spesa'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-basket-shopping w-4 text-emeraldcustom"></i> Lista della Spesa
@@ -372,16 +367,16 @@
                     </div>
                 </div>
 
-                <!-- BANNER PROMO PREMIUM NELLA HOME -->
-                <div onclick="openPremiumModal()" class="bg-gradient-to-r from-amber-500 to-goldcustom text-white p-4 rounded-3xl shadow-md cursor-pointer hover:scale-[1.01] transition flex items-center justify-between">
+                <!-- BANNER PROMO PRO NELLA HOME -->
+                <div onclick="checkAndOpenPremiumSection()" class="bg-gradient-to-r from-amber-500 to-goldcustom text-white p-4 rounded-3xl shadow-md cursor-pointer hover:scale-[1.01] transition flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center text-lg shrink-0">
                             <i class="fa-solid fa-crown text-white"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider block text-white/80">Esclusivo Pro</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider block text-white/80">Demo Pro Attiva</span>
                             <h5 class="text-xs font-bold">Pianificatore Pasti & Nutrizione</h5>
-                            <p class="text-[10px] text-white/90">Scopri come bilanciare la dieta con gli alimenti in casa.</p>
+                            <p class="text-[10px] text-white/90">Clicca per visualizzare il menu e i macronutrienti.</p>
                         </div>
                     </div>
                     <i class="fa-solid fa-chevron-right text-white/80 text-xs mr-1"></i>
@@ -451,28 +446,20 @@
                 </div>
             </div>
 
-            <!-- ================= SEZIONE PREMIUM & NUTRIZIONE ================= -->
+            <!-- ================= SEZIONE PREMIUM & NUTRIZIONE (SEMPRE SBLOCCATA IN DEMO) ================= -->
             <div id="section-premium" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="font-bold text-forest text-lg flex items-center gap-1.5">
-                            <i class="fa-solid fa-crown text-goldcustom"></i> Piano & Nutrizione Pro
+                            <i class="fa-solid fa-crown text-goldcustom"></i> Piano & Nutrizione Pro (Demo)
                         </h3>
                         <p class="text-xs text-gray-500">Pianificatore settimanale e bilanciamento calorico</p>
                     </div>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
 
-                <!-- CONTENUTO BLOCCATO SE NON PREMIUM -->
-                <div id="premium-locked-box" class="hidden bg-amber-50 border border-amber-200 p-6 rounded-3xl text-center space-y-3">
-                    <i class="fa-solid fa-lock text-goldcustom text-3xl"></i>
-                    <h4 class="font-bold text-forest text-sm">Funzione riservata agli abbonati Premium</h4>
-                    <p class="text-xs text-gray-600">Attiva FoodWise Pro per generare il menu settimanale con gli alimenti in casa e monitorare i valori nutrizionali.</p>
-                    <button onclick="openPremiumModal()" class="bg-gradient-to-r from-amber-500 to-goldcustom text-white font-bold text-xs px-4 py-3 rounded-xl shadow">Attiva Subito Pro</button>
-                </div>
-
-                <!-- CONTENUTO SBLOCCATO PREMIUM -->
-                <div id="premium-unlocked-content" class="space-y-4 hidden">
+                <!-- CONTENUTO SBLOCCATO IN MODALITÀ DEMO -->
+                <div id="premium-unlocked-content" class="space-y-4">
                     <div class="bg-white p-4 rounded-3xl shadow-sm border border-goldcustom/30 space-y-3">
                         <div class="flex items-center justify-between">
                             <h4 class="font-bold text-forest text-xs flex items-center gap-2">
@@ -489,6 +476,10 @@
                             <div class="bg-gray-50 p-2.5 rounded-xl border border-gray-100 flex justify-between items-center">
                                 <div><strong class="text-forest block">Lunedì • Cena</strong> Vellutata di Verdure Bio</div>
                                 <span class="text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2 py-1 rounded-lg">310 kcal</span>
+                            </div>
+                            <div class="bg-gray-50 p-2.5 rounded-xl border border-gray-100 flex justify-between items-center">
+                                <div><strong class="text-forest block">Martedì • Pranzo</strong> Pasta Integrale Svuota-Frigo</div>
+                                <span class="text-[10px] bg-lightgreen text-emeraldcustom font-bold px-2 py-1 rounded-lg">480 kcal</span>
                             </div>
                         </div>
                     </div>
@@ -888,7 +879,8 @@
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false, houseCode: "FOOD-7492", isPremium: false };
+        // MODALITÀ DEMO: isPremium è impostato a true di default
+        let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false, houseCode: "FOOD-7492", isPremium: true };
         let catalogData = {
             frigo: [
                 { id: 1, name: "Pomodori Freschi", date: "2026-06-15", status: "red", icon: "fa-seedling" },
@@ -929,39 +921,16 @@
             showToast("Notifiche: 2 prodotti in scadenza nel frigo!");
         }
 
-        // Gestione Premium Modale
+        // Gestione Premium Modale (In Demo mostra lo stato attivo)
         function openPremiumModal() {
             document.getElementById('premium-modal').classList.remove('hidden');
         }
         function closePremiumModal() {
             document.getElementById('premium-modal').classList.add('hidden');
         }
-        function activatePremium() {
-            currentUser.isPremium = true;
-            closePremiumModal();
-            updatePremiumUI();
-            showToast("Congratulazioni! Piano FoodWise PRO attivato.");
-            switchSection('section-premium');
-        }
-
-        function updatePremiumUI() {
-            const badge = document.getElementById('header-premium-badge');
-            const lockedBox = document.getElementById('premium-locked-box');
-            const unlockedContent = document.getElementById('premium-unlocked-content');
-            if(currentUser.isPremium) {
-                if(badge) badge.textContent = "PRO ATTIVO";
-                if(lockedBox) lockedBox.classList.add('hidden');
-                if(unlockedContent) unlockedContent.classList.remove('hidden');
-            } else {
-                if(badge) badge.textContent = "PRO";
-                if(lockedBox) lockedBox.classList.remove('hidden');
-                if(unlockedContent) unlockedContent.classList.add('hidden');
-            }
-        }
 
         function checkAndOpenPremiumSection() {
             switchSection('section-premium');
-            updatePremiumUI();
         }
 
         // CONTROLLI DI ACCESSO PER UTENTI NON REGISTRATI (OSPITI)
@@ -1084,7 +1053,7 @@
             currentUser.name = "Ospite";
             currentUser.email = "Non registrato";
             enterDashboard();
-            showToast("Accesso come ospite effettuato.", "warning");
+            showToast("Accesso come ospite effettuato (PRO Demo attiva).", "warning");
         }
 
         function logoutToWelcome() {
@@ -1114,7 +1083,6 @@
 
             switchSection('section-dashboard-home');
             updateEcoDisplay();
-            updatePremiumUI();
             renderCatalogHomeBadges();
             renderFamilyMembers();
             renderSpesaList();
