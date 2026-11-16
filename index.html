@@ -53,7 +53,7 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- INFO MODAL (Aggiornato con Scansione Scontrino e Barcode) -->
+    <!-- INFO MODAL -->
     <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
             <div class="flex justify-between items-center mb-3">
@@ -188,7 +188,7 @@
                             <i class="fa-solid fa-camera w-4 text-orangeaccent"></i> Scansione
                         </button>
                         <button onclick="switchSection('section-catalogo'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
-                            <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo
+                            <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo Casa
                         </button>
                         <button onclick="switchSection('section-ricette'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-wand-magic-sparkles w-4 text-orangeaccent"></i> Ricette IA
@@ -226,21 +226,21 @@
                         <div class="w-9 h-9 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-box-archive"></i>
                         </div>
-                        <span class="block text-base font-extrabold text-forest">12</span>
+                        <span class="block text-base font-extrabold text-forest" id="stat-frigo-count">2</span>
                         <span class="text-[10px] text-gray-500 leading-tight">Prodotti in frigo</span>
                     </div>
                     <div onclick="switchSection('section-catalogo'); switchCatalogTab('freezer');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 transition">
                         <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-snowflake"></i>
                         </div>
-                        <span class="block text-base font-extrabold text-forest">8</span>
+                        <span class="block text-base font-extrabold text-forest" id="stat-freezer-count">1</span>
                         <span class="text-[10px] text-gray-500 leading-tight">Nel freezer</span>
                     </div>
                     <div onclick="switchSection('section-catalogo'); switchCatalogTab('dispensa');" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-orangeaccent/10 transition">
                         <div class="w-9 h-9 rounded-xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-jar"></i>
                         </div>
-                        <span class="block text-base font-extrabold text-forest">15</span>
+                        <span class="block text-base font-extrabold text-forest" id="stat-dispensa-count">1</span>
                         <span class="text-[10px] text-gray-500 leading-tight">In dispensa</span>
                     </div>
                     <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center">
@@ -252,29 +252,29 @@
                     </div>
                 </div>
 
-                <!-- FRIGO CARD -->
+                <!-- FRIGO CARD IN EVIDENZA -->
                 <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden">
                     <div class="bg-gradient-to-r from-forest to-emeraldcustom p-4 text-white flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-snowflake text-lg text-emerald-300"></i>
-                            <h3 class="font-bold text-sm">Frigo</h3>
+                            <h3 class="font-bold text-sm">Frigo in Scadenza</h3>
                         </div>
                         <button onclick="switchSection('section-catalogo'); switchCatalogTab('frigo');" class="text-xs bg-white/25 hover:bg-white/30 px-3 py-1 rounded-xl font-semibold transition">
-                            Vedi tutti <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                            Vedi casa <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
                         </button>
                     </div>
                     <div class="p-3 space-y-2.5">
                         <div class="flex items-center justify-between p-2 rounded-xl bg-gray-50 border border-gray-100 text-xs">
                             <div class="flex items-center gap-2.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                                <span class="font-bold text-forest">Pomodori</span>
+                                <span class="font-bold text-forest">🍅 Pomodori Freschi</span>
                             </div>
                             <span class="text-[10px] text-orangeaccent font-semibold">Scade tra 2 giorni</span>
                         </div>
                         <div class="flex items-center justify-between p-2 rounded-xl bg-gray-50 border border-gray-100 text-xs">
                             <div class="flex items-center gap-2.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-                                <span class="font-bold text-forest">Mozzarella</span>
+                                <span class="font-bold text-forest">🧀 Mozzarella di Bufala</span>
                             </div>
                             <span class="text-[10px] text-orangeaccent font-semibold">Scade tra 3 giorni</span>
                         </div>
@@ -316,6 +316,60 @@
                 </div>
             </div>
 
+            <!-- ================= CATALOGO CASA STUPENDO ================= -->
+            <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-forest text-lg">La Tua Casa Intelligente</h3>
+                        <p class="text-xs text-gray-500">Esplora gli ambienti della tua cucina</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openAddProductModal()" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-bold text-xs px-3 py-2 rounded-xl shadow transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Aggiungi
+                        </button>
+                        <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-gray-200 text-gray-700 px-3 py-2 rounded-xl font-bold">Home</button>
+                    </div>
+                </div>
+
+                <!-- Selettore Ambienti -->
+                <div class="grid grid-cols-3 gap-2 bg-gray-200 p-1.5 rounded-2xl">
+                    <button onclick="switchCatalogTab('frigo')" id="cat-tab-frigo" class="py-2.5 px-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition flex flex-col items-center justify-center gap-1">
+                        <i class="fa-solid fa-box-archive text-emeraldcustom text-sm"></i>
+                        <span>Frigo</span>
+                    </button>
+                    <button onclick="switchCatalogTab('freezer')" id="cat-tab-freezer" class="py-2.5 px-2 text-xs font-bold rounded-xl text-gray-600 transition flex flex-col items-center justify-center gap-1">
+                        <i class="fa-solid fa-snowflake text-blue-500 text-sm"></i>
+                        <span>Freezer</span>
+                    </button>
+                    <button onclick="switchCatalogTab('dispensa')" id="cat-tab-dispensa" class="py-2.5 px-2 text-xs font-bold rounded-xl text-gray-600 transition flex flex-col items-center justify-center gap-1">
+                        <i class="fa-solid fa-jar text-orangeaccent text-sm"></i>
+                        <span>Dispensa</span>
+                    </button>
+                </div>
+
+                <!-- CONTENITORE AMBIENTE ATTIVO (STILE CASA) -->
+                <div id="catalog-environment-container" class="bg-white rounded-3xl p-4 shadow-sm border border-emeraldcustom/20 space-y-3 relative overflow-hidden">
+                    <!-- Sfondo decorativo e intestazione ambiente -->
+                    <div id="env-header-banner" class="p-3 rounded-2xl bg-gradient-to-r from-emeraldcustom/10 to-lightgreen border border-emeraldcustom/20 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div id="env-icon-bg" class="w-9 h-9 rounded-xl bg-emeraldcustom text-white flex items-center justify-center text-sm shadow">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                            <div>
+                                <h4 id="env-title" class="font-extrabold text-forest text-sm">Frigo Smart</h4>
+                                <p id="env-subtitle" class="text-[10px] text-gray-600">Temperatura ideale: 4°C • Umidità controllata</p>
+                            </div>
+                        </div>
+                        <span id="env-badge-count" class="bg-white text-emeraldcustom px-2.5 py-1 rounded-full text-xs font-bold shadow-sm border border-emeraldcustom/20">2 Articoli</span>
+                    </div>
+
+                    <!-- Ripiani dell'ambiente -->
+                    <div id="catalog-products-container" class="space-y-2.5 pt-1">
+                        <!-- Popolato dinamicamente -->
+                    </div>
+                </div>
+            </div>
+
             <!-- ================= SEZIONE SCANSIONE ================= -->
             <div id="section-scansione" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
@@ -354,42 +408,19 @@
                     </div>
                 </div>
 
-                <!-- Vista Codice a Barre (Con Apertura Fotocamera Nativa) -->
+                <!-- Vista Codice a Barre -->
                 <div id="scan-content-barcode" class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3 hidden">
                     <div class="border-2 border-dashed border-orangeaccent/40 bg-orangeaccent/5 rounded-2xl p-5 text-center">
                         <i class="fa-solid fa-barcode text-orangeaccent text-3xl mb-2"></i>
                         <h4 class="font-bold text-forest text-xs mb-1">Scanner Codice a Barre</h4>
                         <p class="text-[11px] text-gray-500 mb-3">Inquadra il codice a barre sul retro della confezione.</p>
                         
-                        <!-- Input nativo che apre la fotocamera del telefono -->
                         <label class="inline-block bg-orangeaccent text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow hover:bg-orange-600 transition cursor-pointer">
                             <i class="fa-solid fa-camera mr-1"></i> Apri Fotocamera Barcode
                             <input type="file" accept="image/*" capture="environment" onchange="handleBarcodeCameraCapture(event)" class="hidden">
                         </label>
                     </div>
                 </div>
-            </div>
-
-            <!-- CATALOGO SECTION -->
-            <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="font-bold text-forest text-lg">Il Tuo Catalogo</h3>
-                        <p class="text-xs text-gray-500">Gestisci i prodotti in casa</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="openAddProductModal()" class="bg-emeraldcustom hover:bg-emerald-700 text-white font-bold text-xs px-3 py-2 rounded-xl shadow transition flex items-center gap-1">
-                            <i class="fa-solid fa-plus"></i> Aggiungi
-                        </button>
-                        <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-gray-200 text-gray-700 px-3 py-2 rounded-xl font-bold">Home</button>
-                    </div>
-                </div>
-                <div class="flex bg-gray-200 p-1 rounded-2xl">
-                    <button onclick="switchCatalogTab('frigo')" id="cat-tab-frigo" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition">Frigo</button>
-                    <button onclick="switchCatalogTab('freezer')" id="cat-tab-freezer" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition">Freezer</button>
-                    <button onclick="switchCatalogTab('dispensa')" id="cat-tab-dispensa" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition">Dispensa</button>
-                </div>
-                <div id="catalog-products-container" class="space-y-2.5"></div>
             </div>
 
             <!-- RICETTE IA SECTION -->
@@ -546,18 +577,18 @@
     <div id="modal-add-product" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-emeraldcustom">
             <button onclick="closeAddProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="text-xl font-bold text-forest mb-1">Aggiungi Prodotto</h3>
-            <p class="text-xs text-gray-500 mb-4">Inserisci i dettagli del prodotto.</p>
+            <h3 class="text-xl font-bold text-forest mb-1">Aggiungi in Casa</h3>
+            <p class="text-xs text-gray-500 mb-4">Seleziona dove riporre il prodotto.</p>
             <form onsubmit="handleSaveNewProduct(event)" class="space-y-3 text-left">
                 <div>
                     <label class="block text-xs font-bold text-gray-700 mb-1">Nome Prodotto</label>
                     <input type="text" id="new-prod-name" required placeholder="es. Latte Fresco" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">Destinazione</label>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Destinazione in Casa</label>
                     <select id="new-prod-dest" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
-                        <option value="frigo">Frigo</option>
-                        <option value="freezer">Freezer</option>
+                        <option value="frigo">Frigo Smart</option>
+                        <option value="freezer">Freezer -18°C</option>
                         <option value="dispensa">Dispensa</option>
                     </select>
                 </div>
@@ -565,7 +596,7 @@
                     <label class="block text-xs font-bold text-gray-700 mb-1">Data Scadenza</label>
                     <input type="date" id="new-prod-date" required class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                 </div>
-                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow">Salva nel Catalogo</button>
+                <button type="submit" class="w-full bg-emeraldcustom hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-xs transition shadow">Riponi in Casa</button>
             </form>
         </div>
     </div>
@@ -575,7 +606,7 @@
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent">
             <button onclick="closeShareModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h3 class="text-xl font-bold text-forest mb-1">Offri Cibo in Eccesso</h3>
-            <p class="text-xs text-gray-500 mb-4">Seleziona cosa vuoi condividere dal tuo catalogo:</p>
+            <p class="text-xs text-gray-500 mb-4">Seleziona cosa vuoi condividere dalla tua casa:</p>
             <div id="share-catalog-list" class="space-y-2 max-h-48 overflow-y-auto mb-4 text-left"></div>
             <button onclick="confirmShareProduct()" class="w-full bg-orangeaccent text-white font-semibold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Pubblica Annuncio ai Vicini</button>
         </div>
@@ -586,14 +617,14 @@
         let currentUser = { name: "Ospite", email: "Non registrato", isRegistered: false };
         let catalogData = {
             frigo: [
-                { id: 1, name: "Pomodori", date: "2026-06-15", status: "red" },
-                { id: 2, name: "Mozzarella", date: "2026-06-16", status: "yellow" }
+                { id: 1, name: "Pomodori Freschi", date: "2026-06-15", status: "red", icon: "fa-seedling" },
+                { id: 2, name: "Mozzarella di Bufala", date: "2026-06-16", status: "yellow", icon: "fa-cheese" }
             ],
             freezer: [
-                { id: 4, name: "Misto di verdure", date: "2026-09-10", status: "green" }
+                { id: 4, name: "Misto di Verdure Bio", date: "2026-09-10", status: "green", icon: "fa-snowflake" }
             ],
             dispensa: [
-                { id: 6, name: "Pasta", date: "2027-06-10", status: "green" }
+                { id: 6, name: "Pasta Artigianale", date: "2027-06-10", status: "green", icon: "fa-jar" }
             ]
         };
         let currentCatalogTab = 'frigo';
@@ -685,6 +716,7 @@
             }
 
             switchSection('section-dashboard-home');
+            updateStatsCounts();
             renderCatalog();
             renderSpesaList();
         }
@@ -733,18 +765,20 @@
         }
 
         function saveScannedReceiptItems() {
-            catalogData.frigo.push({ id: Date.now(), name: "Latte Fresco", date: "2026-06-25", status: "green" });
-            catalogData.dispensa.push({ id: Date.now()+1, name: "Pasta Integrale", date: "2027-04-10", status: "green" });
+            catalogData.frigo.push({ id: Date.now(), name: "Latte Fresco", date: "2026-06-25", status: "green", icon: "fa-bottle-droplet" });
+            catalogData.dispensa.push({ id: Date.now()+1, name: "Pasta Integrale", date: "2027-04-10", status: "green", icon: "fa-jar" });
+            updateStatsCounts();
             renderCatalog();
-            showToast("Prodotti dello scontrino salvati nel catalogo!");
+            showToast("Prodotti salvati nella tua casa!");
             switchSection('section-catalogo');
         }
 
         function handleBarcodeCameraCapture(e) {
             if(e.target.files && e.target.files.length > 0) {
-                catalogData.frigo.push({ id: Date.now(), name: "Prodotto Barcode Scansionato", date: "2026-07-01", status: "green" });
+                catalogData.frigo.push({ id: Date.now(), name: "Yogurt Greco Bio", date: "2026-07-01", status: "green", icon: "fa-cube" });
+                updateStatsCounts();
                 renderCatalog();
-                showToast("Codice a barre acquisito con fotocamera! Aggiunto al Frigo.");
+                showToast("Prodotto scansionato e aggiunto al Frigo!");
                 switchSection('section-catalogo');
             }
         }
@@ -754,11 +788,47 @@
             ['frigo', 'freezer', 'dispensa'].forEach(t => {
                 const btn = document.getElementById(`cat-tab-${t}`);
                 if(btn) {
-                    if(t === tab) btn.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition";
-                    else btn.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-600 transition";
+                    if(t === tab) {
+                        btn.className = "py-2.5 px-2 text-xs font-bold rounded-xl bg-white text-forest shadow-sm transition flex flex-col items-center justify-center gap-1";
+                    } else {
+                        btn.className = "py-2.5 px-2 text-xs font-bold rounded-xl text-gray-600 transition flex flex-col items-center justify-center gap-1";
+                    }
                 }
             });
+
+            // Personalizza UI in base all'ambiente della casa
+            const titleEl = document.getElementById('env-title');
+            const subEl = document.getElementById('env-subtitle');
+            const iconBg = document.getElementById('env-icon-bg');
+            const badgeCount = document.getElementById('env-badge-count');
+            const count = catalogData[tab].length;
+
+            badgeCount.textContent = `${count} Articol${count === 1 ? 'o' : 'i'}`;
+
+            if(tab === 'frigo') {
+                titleEl.textContent = "Frigo Smart";
+                subEl.textContent = "Temperatura ideale: 4°C • Scomparto Freschezza";
+                iconBg.className = "w-9 h-9 rounded-xl bg-emeraldcustom text-white flex items-center justify-center text-sm shadow";
+                iconBg.innerHTML = `<i class="fa-solid fa-box-archive"></i>`;
+            } else if(tab === 'freezer') {
+                titleEl.textContent = "Freezer Casa";
+                subEl.textContent = "Congelamento rapido • -18°C costanti";
+                iconBg.className = "w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center text-sm shadow";
+                iconBg.innerHTML = `<i class="fa-solid fa-snowflake"></i>`;
+            } else {
+                titleEl.textContent = "Dispensa in Legno";
+                subEl.textContent = "Asciutta e ventilata • Conservazione ottimale";
+                iconBg.className = "w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center text-sm shadow";
+                iconBg.innerHTML = `<i class="fa-solid fa-jar"></i>`;
+            }
+
             renderCatalog();
+        }
+
+        function updateStatsCounts() {
+            document.getElementById('stat-frigo-count').textContent = catalogData.frigo.length;
+            document.getElementById('stat-freezer-count').textContent = catalogData.freezer.length;
+            document.getElementById('stat-dispensa-count').textContent = catalogData.dispensa.length;
         }
 
         function renderCatalog() {
@@ -766,35 +836,70 @@
             if(!container) return;
             container.innerHTML = '';
             const items = catalogData[currentCatalogTab];
+            
             if(items.length === 0) {
-                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Nessun prodotto in questa sezione.</p>`;
+                container.innerHTML = `
+                    <div class="text-center py-8 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                        <i class="fa-solid fa-basket-shopping text-gray-300 text-2xl mb-2"></i>
+                        <p class="text-xs text-gray-400 font-medium">Questo ambiente è vuoto.</p>
+                        <button onclick="openAddProductModal()" class="mt-2 text-xs text-emeraldcustom font-bold hover:underline">Aggiungi il primo prodotto</button>
+                    </div>`;
                 return;
             }
+
             items.forEach(item => {
-                let color = item.status === 'red' ? 'bg-red-500' : (item.status === 'yellow' ? 'bg-yellow-500' : 'bg-green-500');
+                let statusColor = item.status === 'red' ? 'bg-red-500' : (item.status === 'yellow' ? 'bg-yellow-500' : 'bg-green-500');
+                let statusText = item.status === 'red' ? 'Scadenza imminente' : (item.status === 'yellow' ? 'Consumare presto' : 'Fresco / Ottimo');
+                let iconClass = item.icon || 'fa-utensils';
+
                 container.innerHTML += `
-                    <div class="bg-white p-3 rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm text-xs">
+                    <div class="bg-gray-50 hover:bg-white p-3 rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm transition group">
                         <div class="flex items-center gap-3">
-                            <span class="w-3 h-3 rounded-full ${color}"></span>
-                            <span class="font-bold text-forest">${item.name}</span>
+                            <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center text-forest">
+                                <i class="fa-solid ${iconClass}"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-forest text-xs">${item.name}</h5>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <span class="w-2 h-2 rounded-full ${statusColor}"></span>
+                                    <span class="text-[10px] text-gray-500">Scad: ${item.date}</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="text-gray-500 text-[10px]">Scadenza: ${item.date}</span>
+                        <button onclick="deleteCatalogItem('${currentCatalogTab}', ${item.id})" class="w-8 h-8 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition text-xs" title="Elimina">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
                     </div>
                 `;
             });
         }
 
+        function deleteCatalogItem(tab, id) {
+            catalogData[tab] = catalogData[tab].filter(i => i.id !== id);
+            updateStatsCounts();
+            renderCatalog();
+            showToast("Prodotto rimosso dalla casa.");
+        }
+
         function openAddProductModal() { document.getElementById('modal-add-product').classList.remove('hidden'); }
         function closeAddProductModal() { document.getElementById('modal-add-product').classList.add('hidden'); }
+        
         function handleSaveNewProduct(e) {
             e.preventDefault();
             const name = document.getElementById('new-prod-name').value;
             const dest = document.getElementById('new-prod-dest').value;
             const date = document.getElementById('new-prod-date').value;
-            catalogData[dest].push({ id: Date.now(), name, date, status: 'green' });
+            
+            let icon = 'fa-utensils';
+            if(dest === 'frigo') icon = 'fa-box-archive';
+            if(dest === 'freezer') icon = 'fa-snowflake';
+            if(dest === 'dispensa') icon = 'fa-jar';
+
+            catalogData[dest].push({ id: Date.now(), name, date, status: 'green', icon });
             closeAddProductModal();
+            updateStatsCounts();
             renderCatalog();
-            showToast(`"${name}" aggiunto al catalogo!`);
+            showToast(`"${name}" riposto con successo!`);
             e.target.reset();
         }
 
@@ -803,7 +908,7 @@
             listContainer.innerHTML = '';
             let allItems = [...catalogData.frigo, ...catalogData.freezer, ...catalogData.dispensa];
             if(allItems.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">Il catalogo è vuoto.</p>`;
+                listContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">La casa è vuota.</p>`;
             } else {
                 allItems.forEach((item, idx) => {
                     listContainer.innerHTML += `
