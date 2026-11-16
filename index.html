@@ -66,16 +66,16 @@
             <p class="text-xs text-gray-600 mb-4">Registrandoti a <span class="font-bold text-emeraldcustom">Fridgeloop</span> sblocchi strumenti esclusivi:</p>
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
                 <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-users text-emeraldcustom mt-0.5"></i>
+                    <div><strong class="text-forest block">Sezione Famiglia & Spesa Condivisa</strong> Gestisci i componenti della casa e sincronizza la lista della spesa in tempo reale.</div>
+                </li>
+                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-camera text-emeraldcustom mt-0.5"></i>
-                    <div><strong class="text-forest block">Scansione Scontrino & Barcode</strong> Inquadra lo scontrino o i codici a barre per aggiungere i prodotti automaticamente.</div>
+                    <div><strong class="text-forest block">Scansione Scontrino & Barcode</strong> Inquadra lo scontrino o i codici a barre per aggiungere i prodotti.</div>
                 </li>
                 <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent mt-0.5"></i>
                     <div><strong class="text-forest block">Ricette IA complete</strong> Preparazioni dettagliate con ingredienti e passaggi.</div>
-                </li>
-                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-map-location-dot text-orangeaccent mt-0.5"></i>
-                    <div><strong class="text-forest block">Mappa Vicini</strong> Condividi il cibo in eccesso nel tuo quartiere.</div>
                 </li>
             </ul>
             <button onclick="closeInfoModal()" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Ho capito, fantastico!</button>
@@ -184,8 +184,11 @@
                         <button onclick="switchSection('section-dashboard-home'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-house w-4 text-emeraldcustom"></i> Dashboard
                         </button>
+                        <button onclick="checkAndOpenFamily(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
+                            <i class="fa-solid fa-users w-4 text-orangeaccent"></i> Famiglia
+                        </button>
                         <button onclick="switchSection('section-scansione'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
-                            <i class="fa-solid fa-camera w-4 text-orangeaccent"></i> Scansione
+                            <i class="fa-solid fa-camera w-4 text-emeraldcustom"></i> Scansione
                         </button>
                         <button onclick="openCatalogHome(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo Casa
@@ -241,7 +244,7 @@
                             <i class="fa-solid fa-jar"></i>
                         </div>
                         <span class="block text-base font-extrabold text-forest" id="stat-dispensa-count">1</span>
-                        <span class="text-[10px] text-gray-500 leading-tight">In dispensa</span>
+                        <span class="text-[10px] text-gray-500 leading-tight">In dispesa</span>
                     </div>
                     <div class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center">
                         <div class="w-9 h-9 rounded-xl bg-green-100 text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
@@ -283,13 +286,13 @@
 
                 <!-- QUICK GRID -->
                 <div class="grid grid-cols-2 gap-3">
-                    <div onclick="switchSection('section-scansione')" class="bg-gradient-to-br from-emeraldcustom/10 to-emeraldcustom/20 p-4 rounded-3xl border border-emeraldcustom/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
-                        <div class="w-9 h-9 rounded-xl bg-emeraldcustom text-white flex items-center justify-center font-bold mb-3 shadow">
-                            <i class="fa-solid fa-camera"></i>
+                    <div onclick="checkAndOpenFamily()" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center font-bold mb-3 shadow">
+                            <i class="fa-solid fa-users"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-forest text-xs mb-0.5">Scansione</h4>
-                            <p class="text-[10px] text-gray-600">Scontrino e Barcode</p>
+                            <h4 class="font-bold text-forest text-xs mb-0.5">Famiglia</h4>
+                            <p class="text-[10px] text-gray-600">Spesa condivisa</p>
                         </div>
                     </div>
                     <div onclick="switchSection('section-spesa')" class="bg-gradient-to-br from-lightgreen to-emeraldcustom/10 p-4 rounded-3xl border border-emeraldcustom/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
@@ -316,7 +319,56 @@
                 </div>
             </div>
 
-            <!-- ================= CATALOGO CASA (CON 3 PULSANTI GRANDI) ================= -->
+            <!-- ================= SEZIONE FAMIGLIA (Accessibile solo se registrati) ================= -->
+            <div id="section-famiglia" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-forest text-lg">Gestione Famiglia</h3>
+                        <p class="text-xs text-gray-500">Aggiungi i componenti della casa</p>
+                    </div>
+                    <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
+                </div>
+
+                <!-- Form per aggiungere un familiare -->
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
+                    <h4 class="font-bold text-forest text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus text-orangeaccent"></i> Aggiungi un Familiare
+                    </h4>
+                    <form onsubmit="handleAddFamilyMember(event)" class="space-y-2.5">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-0.5">Nome e Cognome</label>
+                            <input type="text" id="family-member-name" required placeholder="es. Martina Rossi" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-0.5">Ruolo / Relazione</label>
+                            <input type="text" id="family-member-role" required placeholder="es. Coniuge / Figlio / Coinquilino" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-emeraldcustom focus:outline-none">
+                        </div>
+                        <button type="submit" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-semibold py-2.5 rounded-xl text-xs transition shadow">Aggiungi alla Famiglia</button>
+                    </form>
+                </div>
+
+                <!-- Lista dei componenti della famiglia -->
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
+                    <h4 class="font-bold text-forest text-xs flex items-center justify-between">
+                        <span>Componenti Registrati</span>
+                        <span id="family-count-badge" class="bg-lightgreen text-emeraldcustom px-2 py-0.5 rounded-full text-[10px] font-bold">1 Membro</span>
+                    </h4>
+                    <div id="family-members-container" class="space-y-2">
+                        <!-- Popolato via JS -->
+                    </div>
+                </div>
+
+                <!-- Banner Spesa Condivisa Rapida -->
+                <div class="bg-gradient-to-r from-orangeaccent/10 to-orangeaccent/20 border border-orangeaccent/30 p-4 rounded-3xl flex items-center justify-between">
+                    <div>
+                        <h5 class="font-bold text-forest text-xs">Spesa Condivisa Attiva</h5>
+                        <p class="text-[10px] text-gray-600">Tutta la famiglia può aggiungere articoli in tempo reale.</p>
+                    </div>
+                    <button onclick="switchSection('section-spesa')" class="bg-orangeaccent text-white text-xs font-bold px-3 py-2 rounded-xl shadow">Vai alla Spesa</button>
+                </div>
+            </div>
+
+            <!-- ================= CATALOGO CASA ================= -->
             <div id="section-catalogo" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
@@ -362,14 +414,14 @@
                         </div>
                     </div>
 
-                    <!-- Dispensa Button -->
+                    <!-- Dispesa Button -->
                     <div onclick="openCatalogTab('dispensa')" class="bg-white p-4 rounded-3xl shadow-sm border border-orange-100 hover:border-orange-400 hover:shadow-md transition cursor-pointer flex items-center justify-between group">
                         <div class="flex items-center gap-3.5">
                             <div class="w-12 h-12 rounded-2xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center text-lg shadow-sm group-hover:scale-105 transition">
                                 <i class="fa-solid fa-jar"></i>
                             </div>
                             <div>
-                                <h4 class="font-extrabold text-forest text-sm">Dispensa in Legno</h4>
+                                <h4 class="font-extrabold text-forest text-sm">Dispesa</h4>
                                 <p class="text-[11px] text-gray-500">Asciutta e ventilata • Scorte secche</p>
                             </div>
                         </div>
@@ -380,7 +432,7 @@
                     </div>
                 </div>
 
-                <!-- VISTA DETTAGLIO PRODOTTI DELL'AMBIENTE SELEZIONATO (Nascosta all'inizio) -->
+                <!-- VISTA DETTAGLIO PRODOTTI DELL'AMBIENTE SELEZIONATO -->
                 <div id="catalog-detail-view" class="space-y-3 hidden">
                     <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
                         <button onclick="openCatalogHome()" class="text-xs bg-gray-100 hover:bg-gray-200 text-forest font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5">
@@ -443,7 +495,7 @@
                         </div>
                         <div class="bg-gray-50 p-2.5 rounded-xl border border-gray-200 text-xs flex justify-between items-center">
                             <span>Pasta Integrale (Scad: 2027-04-10)</span>
-                            <span class="text-orangeaccent font-bold">Dispensa</span>
+                            <span class="text-orangeaccent font-bold">Dispesa</span>
                         </div>
                         <button onclick="saveScannedReceiptItems()" class="w-full bg-forest text-white font-bold py-2.5 rounded-xl text-xs shadow">Salva nel Catalogo</button>
                     </div>
@@ -510,10 +562,13 @@
                 </div>
             </div>
 
-            <!-- SPESA SECTION -->
+            <!-- SPESA SECTION (Spesa Condivisa Famiglia) -->
             <div id="section-spesa" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-forest text-lg">Lista della Spesa</h3>
+                    <div>
+                        <h3 class="font-bold text-forest text-lg">Lista della Spesa</h3>
+                        <p class="text-xs text-gray-500">Condivisa in tempo reale con la famiglia</p>
+                    </div>
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
                 <form onsubmit="handleQuickAddSpesa(event)" class="flex gap-2">
@@ -630,7 +685,7 @@
                     <select id="new-prod-dest" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-emeraldcustom">
                         <option value="frigo">Frigo Smart</option>
                         <option value="freezer">Freezer -18°C</option>
-                        <option value="dispensa">Dispensa</option>
+                        <option value="dispensa">Dispesa</option>
                     </select>
                 </div>
                 <div>
@@ -668,8 +723,14 @@
                 { id: 6, name: "Pasta Artigianale", date: "2027-06-10", status: "green", icon: "fa-jar" }
             ]
         };
+        let familyMembers = [
+            { id: 1, name: "Giorgio Rossi", role: "Capofamiglia" }
+        ];
         let currentCatalogTab = 'frigo';
-        let spesaData = [{ id: 1, name: "Latte Fresco", checked: false }, { id: 2, name: "Uova", checked: true }];
+        let spesaData = [
+            { id: 1, name: "Latte Fresco", addedBy: "Giorgio", checked: false }, 
+            { id: 2, name: "Uova Bio", addedBy: "Giorgio", checked: true }
+        ];
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
@@ -713,6 +774,11 @@
             currentUser.name = (currentAuthMode === 'register' && nameInput) ? nameInput : (emailInput.split('@')[0] || "Giorgio");
             currentUser.email = emailInput || "giorgio@cucina.it";
             
+            // Aggiorna primo membro famiglia se è il creatore
+            if(familyMembers.length > 0) {
+                familyMembers[0].name = currentUser.name;
+            }
+
             closeAuthModal();
             enterDashboard();
             showToast(`Benvenuto, ${currentUser.name}!`);
@@ -752,17 +818,30 @@
                 lockBox.classList.add('hidden');
                 userContent.classList.remove('hidden');
             } else {
-                lockBox.classList.remove('hidden');
+                lockBox.classList.add('hidden'); // Sbloccato o gestito dentro la sezione famiglia
                 userContent.classList.add('hidden');
             }
 
             switchSection('section-dashboard-home');
             updateStatsCounts();
             renderCatalogHomeBadges();
+            renderFamilyMembers();
+            renderSpesaList();
+        }
+
+        // Controllo accesso sezione Famiglia
+        function checkAndOpenFamily() {
+            if(!currentUser.isRegistered) {
+                showToast("Devi registrarti per accedere alla sezione Famiglia!", "warning");
+                showAuthModal('register');
+            } else {
+                switchSection('section-famiglia');
+                renderFamilyMembers();
+            }
         }
 
         function switchSection(sectionId) {
-            const sections = ['section-dashboard-home', 'section-scansione', 'section-catalogo', 'section-ricette', 'section-spesa', 'section-vicino', 'section-account'];
+            const sections = ['section-dashboard-home', 'section-famiglia', 'section-scansione', 'section-catalogo', 'section-ricette', 'section-spesa', 'section-vicino', 'section-account'];
             sections.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -779,6 +858,43 @@
             const overlay = document.getElementById('sidebar-overlay');
             drawer.classList.toggle('-translate-x-full');
             overlay.classList.toggle('hidden');
+        }
+
+        // Gestione Famiglia
+        function handleAddFamilyMember(e) {
+            e.preventDefault();
+            const name = document.getElementById('family-member-name').value;
+            const role = document.getElementById('family-member-role').value;
+            
+            familyMembers.push({ id: Date.now(), name, role });
+            renderFamilyMembers();
+            showToast(`"${name}" aggiunto alla famiglia!`);
+            e.target.reset();
+        }
+
+        function renderFamilyMembers() {
+            const container = document.getElementById('family-members-container');
+            const badge = document.getElementById('family-count-badge');
+            if(!container) return;
+            container.innerHTML = '';
+            badge.textContent = `${familyMembers.length} Membr${familyMembers.length === 1 ? 'o' : 'i'}`;
+
+            familyMembers.forEach(member => {
+                container.innerHTML += `
+                    <div class="flex items-center justify-between bg-gray-50 p-2.5 rounded-xl border border-gray-200 text-xs">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-forest text-white font-bold flex items-center justify-center text-xs">
+                                ${member.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <span class="font-bold text-forest block">${member.name}</span>
+                                <span class="text-[10px] text-gray-500">${member.role}</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-lightgreen text-emeraldcustom px-2 py-1 rounded-lg font-bold">Attivo</span>
+                    </div>
+                `;
+            });
         }
 
         function switchScanTab(tab) {
@@ -823,7 +939,6 @@
             }
         }
 
-        // Funzioni per gestire la visualizzazione del Catalogo a pulsanti
         function openCatalogHome() {
             switchSection('section-catalogo');
             document.getElementById('catalog-home-view').classList.remove('hidden');
@@ -856,7 +971,7 @@
                 iconBg.className = "w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center text-sm shadow";
                 iconBg.innerHTML = `<i class="fa-solid fa-snowflake"></i>`;
             } else {
-                titleEl.textContent = "Dispensa in Legno";
+                titleEl.textContent = "Dispesa";
                 subEl.textContent = "Asciutta e ventilata • Conservazione ottimale";
                 iconBg.className = "w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center text-sm shadow";
                 iconBg.innerHTML = `<i class="fa-solid fa-jar"></i>`;
@@ -948,7 +1063,6 @@
             closeAddProductModal();
             updateStatsCounts();
             
-            // Se eravamo già nella visualizzazione dettagliata di quell'ambiente, aggiorna la lista
             if(!document.getElementById('catalog-detail-view').classList.contains('hidden') && currentCatalogTab === dest) {
                 renderCatalogProducts();
             }
@@ -991,15 +1105,22 @@
             showToast("Ricetta IA generata con successo!");
         }
 
+        // Spesa Condivisa
         function renderSpesaList() {
             const container = document.getElementById('spesa-items-container');
             if(!container) return;
             container.innerHTML = '';
             spesaData.forEach(item => {
                 container.innerHTML += `
-                    <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-gray-200 text-xs">
-                        <span class="${item.checked ? 'line-through text-gray-400' : 'text-forest font-medium'}">${item.name}</span>
-                        <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleSpesa(${item.id})" class="accent-emeraldcustom">
+                    <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-gray-200 text-xs shadow-sm">
+                        <div class="flex items-center gap-2.5">
+                            <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleSpesa(${item.id})" class="accent-emeraldcustom w-4 h-4 cursor-pointer">
+                            <div>
+                                <span class="${item.checked ? 'line-through text-gray-400' : 'text-forest font-bold'}">${item.name}</span>
+                                <span class="text-[9px] text-gray-400 block">Aggiunto da: ${item.addedBy}</span>
+                            </div>
+                        </div>
+                        <button onclick="deleteSpesaItem(${item.id})" class="text-gray-400 hover:text-red-500 transition p-1"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 `;
             });
@@ -1009,16 +1130,22 @@
             e.preventDefault();
             const input = document.getElementById('spesa-quick-input');
             if(!input.value.trim()) return;
-            spesaData.push({ id: Date.now(), name: input.value, checked: false });
+            spesaData.push({ id: Date.now(), name: input.value, addedBy: currentUser.name, checked: false });
             input.value = '';
             renderSpesaList();
-            showToast("Aggiunto alla spesa!");
+            showToast("Prodotto aggiunto alla spesa familiare!");
         }
 
         function toggleSpesa(id) {
             const item = spesaData.find(i => i.id === id);
             if(item) item.checked = !item.checked;
             renderSpesaList();
+        }
+
+        function deleteSpesaItem(id) {
+            spesaData = spesaData.filter(i => i.id !== id);
+            renderSpesaList();
+            showToast("Articolo rimosso dalla spesa.");
         }
 
         function handlePasswordChange(e) {
