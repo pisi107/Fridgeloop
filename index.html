@@ -65,7 +65,7 @@
                 Spiegazione del dato ambientale in tempo reale.
             </p>
             <div class="bg-lightgreen p-3 rounded-2xl border border-emeraldcustom/20 text-xs text-forest mb-4">
-                <strong>Perché è importante?</strong> Ridurre gli sprechi alimentari domestici è uno dei modi più efficaci per combattere il cambiamento climatico e preservare le risorse naturali.
+                <strong>Perché è importante?</strong> Ridurre gli sprechi alimentari domestici è uno dei modi più efficaci per combattere il cambiamento climatico.
             </div>
             <button onclick="closeDataInfoModal()" class="w-full bg-emeraldcustom text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-emerald-700 transition">Ho capito</button>
         </div>
@@ -88,16 +88,7 @@
                     </div>
                     <h4 class="font-bold text-forest text-sm text-center">Perché è nata questa app?</h4>
                     <p class="leading-relaxed text-center text-gray-600">
-                        Ogni anno tonnellate di cibo ancora perfettamente commestibile finiscono nella spazzatura a causa di scadenze dimenticate. <strong>FoodWise</strong> nasce per invertire questa rotta e azzerare gli sprechi domestici.
-                    </p>
-                </div>
-                <div class="slide-item space-y-2 pt-2 border-t border-gray-100">
-                    <div class="w-12 h-12 bg-orangeaccent/10 text-orangeaccent rounded-2xl flex items-center justify-center text-xl mx-auto shadow-sm">
-                        <i class="fa-solid fa-house-chimney-user"></i>
-                    </div>
-                    <h4 class="font-bold text-forest text-sm text-center">La tua Casa Intelligente</h4>
-                    <p class="leading-relaxed text-center text-gray-600">
-                        FoodWise organizza il tuo <strong>Frigo</strong>, il <strong>Freezer</strong> e la <strong>Dispensa</strong> monitorando le scadenze e calcolando l'impatto ecologico salvato in tempo reale.
+                        Ogni anno tonnellate di cibo finiscono nella spazzatura a causa di scadenze dimenticate. <strong>FoodWise</strong> nasce per invertire questa rotta e azzerare gli sprechi domestici.
                     </p>
                 </div>
             </div>
@@ -108,28 +99,32 @@
         </div>
     </div>
 
-    <!-- INFO MODAL -->
+    <!-- INFO MODAL: VANTAGGI DELL'ISCRIZIONE -->
     <div id="info-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border-t-4 border-orangeaccent text-left">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2 text-orangeaccent">
                     <i class="fa-solid fa-circle-info text-xl"></i>
-                    <h3 class="text-lg font-bold text-forest">Codici Invito Casa</h3>
+                    <h3 class="text-lg font-bold text-forest">Vantaggi dell'Iscrizione</h3>
                 </div>
                 <button onclick="closeInfoModal()" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-gray-600 mb-4">Come funziona l'accesso con codice familiare:</p>
+            <p class="text-xs text-gray-600 mb-4">Registrando la tua casa su FoodWise sblocchi funzioni esclusive:</p>
             <ul class="space-y-2.5 text-xs text-gray-700 mb-5">
-                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-key text-emeraldcustom mt-0.5"></i>
-                    <div><strong class="text-forest block">Genera Codice</strong> Il capofamiglia crea un codice univoco dalla sezione Famiglia.</div>
+                <li class="flex items-start gap-2.5 bg-lightgreen p-3 rounded-2xl border border-emeraldcustom/20">
+                    <i class="fa-solid fa-users text-emeraldcustom text-sm mt-0.5"></i>
+                    <div><strong class="text-forest block mb-0.5">1. Sincronizzazione Familiare</strong> Condividi il frigo e la lista della spesa in tempo reale con tutti i membri della famiglia.</div>
                 </li>
-                <li class="flex items-start gap-2 bg-lightgreen p-2.5 rounded-xl border border-emeraldcustom/20">
-                    <i class="fa-solid fa-right-to-bracket text-orangeaccent mt-0.5"></i>
-                    <div><strong class="text-forest block">Entra con Codice</strong> I familiari inseriscono il codice per sincronizzarsi istantaneamente sulla stessa cucina.</div>
+                <li class="flex items-start gap-2.5 bg-orangeaccent/10 p-3 rounded-2xl border border-orangeaccent/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-orangeaccent text-sm mt-0.5"></i>
+                    <div><strong class="text-forest block mb-0.5">2. Ricette IA Svuota-Frigo</strong> Genera ricette intelligenti e personalizzate basate esattamente sui prodotti in scadenza nel tuo frigo.</div>
+                </li>
+                <li class="flex items-start gap-2.5 bg-blue-50 p-3 rounded-2xl border border-blue-200">
+                    <i class="fa-solid fa-seedling text-blue-600 text-sm mt-0.5"></i>
+                    <div><strong class="text-forest block mb-0.5">3. Scansione & Statistiche Ecologiche</strong> Scansiona scontrini e barcode con l'IA e monitora in tempo reale il risparmio di CO2 e acqua.</div>
                 </li>
             </ul>
-            <button onclick="closeInfoModal()" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Ho capito!</button>
+            <button onclick="closeInfoModal(); showAuthModal('register');" class="w-full bg-orangeaccent text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-orange-600 transition">Registrati Subito</button>
         </div>
     </div>
 
@@ -139,7 +134,7 @@
         <!-- ================= WELCOME / AUTH SCREEN ================= -->
         <div id="page-welcome" class="flex flex-col justify-between h-full p-6 overflow-y-auto bg-gradient-to-b from-[#E8F5E9] to-[#F4F9F4]">
             <div class="flex justify-end pt-2">
-                <button onclick="openInfoModal()" class="w-10 h-10 rounded-full bg-white text-forest flex items-center justify-center shadow border border-emeraldcustom/20 transition hover:scale-105" title="Info">
+                <button onclick="openInfoModal()" class="w-10 h-10 rounded-full bg-white text-forest flex items-center justify-center shadow border border-emeraldcustom/20 transition hover:scale-105" title="Info Vantaggi">
                     <i class="fa-solid fa-circle-info text-orangeaccent text-xl"></i>
                 </button>
             </div>
@@ -242,13 +237,13 @@
                         <button onclick="checkAndOpenFamily(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-users w-4 text-orangeaccent"></i> Famiglia & Codice
                         </button>
-                        <button onclick="switchSection('section-scansione'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
+                        <button onclick="checkAndOpenScansione(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-camera w-4 text-emeraldcustom"></i> Scansione
                         </button>
                         <button onclick="openCatalogHome(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-boxes-stacked w-4 text-emeraldcustom"></i> Catalogo Casa
                         </button>
-                        <button onclick="switchSection('section-ricette'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
+                        <button onclick="checkAndOpenRicette(); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
                             <i class="fa-solid fa-wand-magic-sparkles w-4 text-orangeaccent"></i> Ricette IA
                         </button>
                         <button onclick="switchSection('section-spesa'); toggleSidebar();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition">
@@ -278,9 +273,8 @@
                     <p class="text-xs text-gray-500 font-medium">Ecco il riepilogo dell'impatto ecologico della tua cucina.</p>
                 </div>
 
-                <!-- STATS GRID: DATI CO2 E RISPARMIO AMBIENTALE (CLICCABILI PER SPIEGAZIONE) -->
+                <!-- STATS GRID: DATI CO2 E RISPARMIO AMBIENTALE -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    <!-- CO2 Risparmiata -->
                     <div onclick="openDataInfo('co2')" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-lightgreen hover:scale-[1.02] transition">
                         <div class="w-9 h-9 rounded-xl bg-lightgreen text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-cloud"></i>
@@ -288,7 +282,6 @@
                         <span class="block text-base font-extrabold text-forest" id="stat-co2">14.2 kg</span>
                         <span class="text-[10px] text-gray-500 leading-tight">CO2 Evitata <i class="fa-solid fa-circle-question text-[9px] text-emeraldcustom ml-0.5"></i></span>
                     </div>
-                    <!-- Acqua Salvata -->
                     <div onclick="openDataInfo('acqua')" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50 hover:scale-[1.02] transition">
                         <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-droplet"></i>
@@ -296,7 +289,6 @@
                         <span class="block text-base font-extrabold text-forest" id="stat-acqua">340 L</span>
                         <span class="text-[10px] text-gray-500 leading-tight">Acqua Salvata <i class="fa-solid fa-circle-question text-[9px] text-blue-500 ml-0.5"></i></span>
                     </div>
-                    <!-- Cibo Salvato -->
                     <div onclick="openDataInfo('cibo')" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-orangeaccent/10 hover:scale-[1.02] transition">
                         <div class="w-9 h-9 rounded-xl bg-orangeaccent/10 text-orangeaccent flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-basket-shopping"></i>
@@ -304,7 +296,6 @@
                         <span class="block text-base font-extrabold text-forest" id="stat-cibo">5.8 kg</span>
                         <span class="text-[10px] text-gray-500 leading-tight">Cibo Salvato <i class="fa-solid fa-circle-question text-[9px] text-orangeaccent ml-0.5"></i></span>
                     </div>
-                    <!-- Sprechi ridotti % -->
                     <div onclick="openDataInfo('sprechi')" class="bg-white p-3 rounded-2xl shadow-sm border border-emeraldcustom/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 hover:scale-[1.02] transition">
                         <div class="w-9 h-9 rounded-xl bg-green-100 text-emeraldcustom flex items-center justify-center font-bold text-sm mb-1.5">
                             <i class="fa-solid fa-leaf"></i>
@@ -314,7 +305,7 @@
                     </div>
                 </div>
 
-                <!-- FRIGO CARD IN EVIDENZA (PRODOTTI IN SCADENZA) -->
+                <!-- FRIGO CARD IN EVIDENZA -->
                 <div class="bg-white rounded-3xl shadow-sm border border-emeraldcustom/20 overflow-hidden">
                     <div class="bg-gradient-to-r from-forest to-emeraldcustom p-4 text-white flex items-center justify-between">
                         <div class="flex items-center gap-2">
@@ -345,7 +336,7 @@
 
                 <!-- QUICK GRID -->
                 <div class="grid grid-cols-2 gap-3">
-                    <div onclick="switchSection('section-scansione')" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
+                    <div onclick="checkAndOpenScansione()" class="bg-gradient-to-br from-orangeaccent/10 to-orangeaccent/20 p-4 rounded-3xl border border-orangeaccent/30 cursor-pointer hover:shadow-md transition flex flex-col justify-between">
                         <div class="w-9 h-9 rounded-xl bg-orangeaccent text-white flex items-center justify-center font-bold mb-3 shadow">
                             <i class="fa-solid fa-camera"></i>
                         </div>
@@ -378,7 +369,7 @@
                 </div>
             </div>
 
-            <!-- ================= SEZIONE FAMIGLIA & GENERAZIONE CODICE ================= -->
+            <!-- ================= SEZIONE FAMIGLIA ================= -->
             <div id="section-famiglia" class="flex-1 overflow-y-auto p-4 space-y-4 hidden pb-20 text-left">
                 <div class="flex items-center justify-between">
                     <div>
@@ -573,14 +564,7 @@
                     <button onclick="switchSection('section-dashboard-home')" class="text-xs bg-emeraldcustom text-white px-3 py-1.5 rounded-xl font-bold">Home</button>
                 </div>
                 
-                <div id="recipe-guest-lock" class="hidden bg-orangeaccent/10 border border-orangeaccent/30 p-5 rounded-3xl text-center space-y-3">
-                    <i class="fa-solid fa-lock text-orangeaccent text-3xl"></i>
-                    <h4 class="font-bold text-forest text-sm">Funzione riservata agli utenti registrati</h4>
-                    <p class="text-xs text-gray-600">Registrati o accedi per sbloccare le ricette IA intelligenti.</p>
-                    <button onclick="showAuthModal('register')" class="bg-orangeaccent text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow">Registrati Ora</button>
-                </div>
-
-                <div id="recipe-user-content" class="space-y-3">
+                <div class="space-y-3">
                     <div class="bg-white p-4 rounded-3xl shadow-sm border border-emeraldcustom/20 space-y-3">
                         <p class="text-xs text-gray-600">L'IA ha rilevato <strong>Pomodori e Mozzarella</strong> in scadenza nel tuo frigo.</p>
                         <button onclick="generateAndShowRecipe()" class="w-full bg-orangeaccent hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
@@ -697,13 +681,13 @@
                     <i class="fa-solid fa-boxes-stacked text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Catalogo</span>
                 </button>
-                <button onclick="switchSection('section-scansione')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
+                <button onclick="checkAndOpenScansione()" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
                     <div class="w-10 h-10 bg-orangeaccent text-white rounded-full flex items-center justify-center -mt-4 shadow-md">
                         <i class="fa-solid fa-camera text-sm"></i>
                     </div>
                     <span class="text-[10px] font-medium mt-0.5">Scansione</span>
                 </button>
-                <button onclick="switchSection('section-ricette')" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
+                <button onclick="checkAndOpenRicette()" class="flex flex-col items-center text-gray-400 hover:text-emeraldcustom transition">
                     <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
                     <span class="text-[10px] font-medium mt-0.5">Ricette</span>
                 </button>
@@ -780,11 +764,10 @@
             { id: 2, name: "Uova Bio", addedBy: "Giorgio", checked: true }
         ];
 
-        // Metriche ambientali dinamiche (in tempo reale basate sul cibo salvato)
         let ecoMetrics = {
-            co2: 14.2,   // kg
-            acqua: 340,  // litri
-            cibo: 5.8    // kg
+            co2: 14.2,
+            acqua: 340,
+            cibo: 5.8
         };
 
         function showToast(message, type = 'success') {
@@ -800,6 +783,35 @@
             showToast("Notifiche: 2 prodotti in scadenza nel frigo!");
         }
 
+        // CONTROLLI DI ACCESSO PER UTENTI NON REGISTRATI (OSPITI)
+        function checkAndOpenRicette() {
+            if (!currentUser.isRegistered) {
+                showToast("Prima di accedere alle Ricette IA devi registrarti!", "warning");
+                showAuthModal('register');
+            } else {
+                switchSection('section-ricette');
+            }
+        }
+
+        function checkAndOpenScansione() {
+            if (!currentUser.isRegistered) {
+                showToast("Prima di usare la Scansione devi registrarti!", "warning");
+                showAuthModal('register');
+            } else {
+                switchSection('section-scansione');
+            }
+        }
+
+        function checkAndOpenFamily() {
+            if (!currentUser.isRegistered) {
+                showToast("Prima di accedere alla Famiglia devi registrarti!", "warning");
+                showAuthModal('code-login');
+            } else {
+                switchSection('section-famiglia');
+                renderFamilyMembers();
+            }
+        }
+
         // Spiegazione Dati Ambientali al click
         function openDataInfo(type) {
             const modal = document.getElementById('data-info-modal');
@@ -810,33 +822,26 @@
             if(type === 'co2') {
                 title.textContent = "CO2 Evitata (kg)";
                 icon.className = "fa-solid fa-cloud text-xl text-emeraldcustom";
-                text.textContent = "Rappresenta la stima delle emissioni di gas serra evitate grazie al consumo tempestivo e alla condivisione del cibo prima che scadesse. Viene calcolata in base all'impronta di carbonio media della filiera agroalimentare.";
+                text.textContent = "Rappresenta la stima delle emissioni di gas serra evitate grazie al consumo tempestivo e alla condivisione del cibo prima che scadesse.";
             } else if(type === 'acqua') {
                 title.textContent = "Acqua Salvata (Litri)";
                 icon.className = "fa-solid fa-droplet text-xl text-blue-500";
-                text.textContent = "Quantità di acqua virtuale risparmiata. La produzione di cibo richiede enormi quantità d'acqua; buttare un alimento significa sprecare anche l'acqua impiegata per produrlo, trasformarlo e trasportarlo.";
+                text.textContent = "Quantità di acqua virtuale risparmiata evitando lo spreco degli alimenti.";
             } else if(type === 'cibo') {
                 title.textContent = "Cibo Salvato (kg)";
                 icon.className = "fa-solid fa-basket-shopping text-xl text-orangeaccent";
-                text.textContent = "Il peso complessivo in chili degli alimenti che la tua famiglia ha gestito correttamente con FoodWise, evitando che finissero nella spazzatura.";
+                text.textContent = "Il peso complessivo in chili degli alimenti gestiti correttamente.";
             } else if(type === 'sprechi') {
                 title.textContent = "Indice Sprechi Ridotti (-32%)";
                 icon.className = "fa-solid fa-leaf text-xl text-emeraldcustom";
-                text.textContent = "Indice di efficienza ecologica della tua cucina calcolato confrontando i prodotti consumati in tempo rispetto alla media nazionale dei rifiuti domestici.";
+                text.textContent = "Indice di efficienza ecologica della tua cucina.";
             }
-
             modal.classList.remove('hidden');
         }
-        function closeDataInfoModal() {
-            document.getElementById('data-info-modal').classList.add('hidden');
-        }
+        function closeDataInfoModal() { document.getElementById('data-info-modal').classList.add('hidden'); }
 
-        function openPresentationModal() {
-            document.getElementById('presentation-modal').classList.remove('hidden');
-        }
-        function closePresentationModal() {
-            document.getElementById('presentation-modal').classList.add('hidden');
-        }
+        function openPresentationModal() { document.getElementById('presentation-modal').classList.remove('hidden'); }
+        function closePresentationModal() { document.getElementById('presentation-modal').classList.add('hidden'); }
 
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); }
         function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
@@ -927,16 +932,6 @@
             const houseCodeDisplay = document.getElementById('house-code-display');
             if(houseCodeDisplay) houseCodeDisplay.textContent = currentUser.houseCode;
 
-            const lockBox = document.getElementById('recipe-guest-lock');
-            const userContent = document.getElementById('recipe-user-content');
-            if(currentUser.isRegistered) {
-                lockBox.classList.add('hidden');
-                userContent.classList.remove('hidden');
-            } else {
-                lockBox.classList.add('hidden');
-                userContent.classList.add('hidden');
-            }
-
             switchSection('section-dashboard-home');
             updateEcoDisplay();
             renderCatalogHomeBadges();
@@ -953,16 +948,6 @@
         function copyHouseCode() {
             navigator.clipboard.writeText(currentUser.houseCode);
             showToast(`Codice ${currentUser.houseCode} copiato negli appunti!`);
-        }
-
-        function checkAndOpenFamily() {
-            if(!currentUser.isRegistered) {
-                showToast("Devi generare o inserire un codice casa per accedere!", "warning");
-                showAuthModal('code-login');
-            } else {
-                switchSection('section-famiglia');
-                renderFamilyMembers();
-            }
         }
 
         function switchSection(sectionId) {
@@ -1048,7 +1033,6 @@
             catalogData.frigo.push({ id: Date.now(), name: "Latte Fresco", date: "2026-06-25", status: "green", icon: "fa-bottle-droplet" });
             catalogData.dispensa.push({ id: Date.now()+1, name: "Pasta Integrale", date: "2027-04-10", status: "green", icon: "fa-jar" });
             
-            // Aggiorna metriche ecologiche in tempo reale (ogni salvataggio incrementa il risparmio)
             ecoMetrics.co2 += 1.5;
             ecoMetrics.acqua += 45;
             ecoMetrics.cibo += 0.8;
@@ -1115,7 +1099,6 @@
             renderCatalogProducts();
         }
 
-        // AGGIORNAMENTO DINAMICO DATI CO2 IN TEMPO REALE
         function updateEcoDisplay() {
             document.getElementById('stat-co2').textContent = ecoMetrics.co2.toFixed(1) + ' kg';
             document.getElementById('stat-acqua').textContent = Math.round(ecoMetrics.acqua) + ' L';
@@ -1246,7 +1229,6 @@
             showToast("Ricetta IA generata con successo!");
         }
 
-        // Spesa Condivisa
         function renderSpesaList() {
             const container = document.getElementById('spesa-items-container');
             if(!container) return;
